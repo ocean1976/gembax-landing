@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — GembaX</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #FAF9F6; --bg-secondary: #FFFFFF; --bg-card: #F4F2EE;
+    --text-primary: #1B2A4A; --text-secondary: #4A5568; --text-muted: #8fa093;
+    --accent: #2D5016; --accent-dark: #1e3f0f;
+    --border: rgba(0,0,0,0.08); --border-accent: rgba(45,80,22,0.25);
+    --font-body: 'Instrument Sans', sans-serif; --font-mono: 'Space Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body); background-color: var(--bg-primary);
+    background-image: linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
+    background-size: 28px 28px; color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+  nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 3rem; background: rgba(250,249,246,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .logo { text-decoration: none; display: flex; align-items: baseline; gap: 0.6rem; }
+  .logo-main { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
+  .logo-x { color: var(--accent); }
+  .logo-sub { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
+  .nav-back { font-size: 0.85rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+  .legal-container { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .legal-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .legal-header h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.6rem; }
+  .legal-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.04em; }
+  .legal-section { margin-bottom: 2.5rem; }
+  .legal-section h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+  .legal-section h3 { font-size: 0.95rem; font-weight: 600; margin: 1.2rem 0 0.5rem; }
+  .legal-section p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.75; margin-bottom: 0.8rem; }
+  .legal-section ul { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.75; margin: 0.5rem 0 1rem 1.5rem; }
+  .legal-section li { margin-bottom: 0.3rem; }
+  .legal-section a { color: var(--accent); text-decoration: underline; }
+  .legal-section strong { color: var(--text-primary); }
+  footer { border-top: 1px solid var(--border); padding: 2rem 3rem; background: var(--bg-secondary); }
+  .footer-inner { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand { font-size: 0.85rem; color: var(--text-muted); }
+  .footer-brand strong { color: var(--text-primary); font-weight: 700; }
+  .footer-brand strong span { color: var(--accent); }
+  .footer-links { display: flex; gap: 1.2rem; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.2rem; } .logo-sub { display: none; }
+    .legal-container { padding: 2.5rem 1.2rem 4rem; }
+    footer { padding: 1.5rem 1.2rem; }
+    .footer-inner { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><span class="logo-main">Gemba<span class="logo-x">X</span></span><span class="logo-sub">X-Ray of Operational Waste</span></a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+<div class="legal-container">
+  <div class="legal-header">
+    <h1>Privacy Policy</h1>
+    <div class="legal-meta">Last updated: April 2, 2026</div>
+  </div>
+  <div class="legal-section">
+    <h2>1. Who We Are</h2>
+    <p>GembaX is an AI-powered operational diagnosis platform operated by Moresight Consulting. This policy explains how we handle your data when you use gembax.ai and our services.</p>
+  </div>
+  <div class="legal-section">
+    <h2>2. What We Collect</h2>
+    <h3>Information you provide</h3>
+    <ul>
+      <li>Name, email address, company name — for account and communication</li>
+      <li>Business operational data (via intake form) — for generating your analysis</li>
+      <li>Payment information — processed by Stripe; we never store card details</li>
+    </ul>
+    <h3>Automatically collected</h3>
+    <ul>
+      <li>IP address, browser type, device information — for security and analytics</li>
+      <li>Pages visited, session duration — for service improvement</li>
+      <li>Cookies — for session management and preferences</li>
+    </ul>
+  </div>
+  <div class="legal-section">
+    <h2>3. How We Use Your Data</h2>
+    <ul>
+      <li>Delivering your operational diagnosis and reports</li>
+      <li>Processing payments</li>
+      <li>Communicating about your service (updates, reports, support)</li>
+      <li>Improving our platform and methodologies</li>
+      <li>Meeting legal obligations</li>
+    </ul>
+    <p><strong>We do not sell, rent, or trade your personal or business data to third parties.</strong></p>
+  </div>
+  <div class="legal-section">
+    <h2>4. Who We Share With</h2>
+    <ul>
+      <li><strong>Stripe:</strong> For secure payment processing.</li>
+      <li><strong>Moresight Consulting:</strong> For Transformation-tier clients who opt into enterprise services.</li>
+      <li><strong>AI service providers:</strong> Anonymized data may be processed to generate your analysis. No personally identifiable information is shared.</li>
+      <li><strong>Legal authorities:</strong> Only if required by law.</li>
+    </ul>
+  </div>
+  <div class="legal-section">
+    <h2>5. Data Security</h2>
+    <p>We use encrypted connections (HTTPS/TLS), secure payment processing via Stripe, and access controls to protect your data. No system is 100% secure, but we apply industry-standard practices.</p>
+  </div>
+  <div class="legal-section">
+    <h2>6. Data Retention</h2>
+    <ul>
+      <li>Account data: While active + 12 months after last activity</li>
+      <li>Reports: 24 months after delivery</li>
+      <li>Payment records: As required by tax law</li>
+    </ul>
+    <p>You may request deletion at any time.</p>
+  </div>
+  <div class="legal-section">
+    <h2>7. Your Rights</h2>
+    <p>Depending on your jurisdiction, you may access, correct, delete, restrict, or port your data, or withdraw consent. Contact <a href="mailto:murat@gembax.ai">murat@gembax.ai</a> and we will respond within 30 days.</p>
+  </div>
+  <div class="legal-section">
+    <h2>8. Cookies</h2>
+    <p>We use essential cookies for functionality and may use analytics cookies. You can control cookies through your browser settings.</p>
+  </div>
+  <div class="legal-section">
+    <h2>9. Children</h2>
+    <p>Our Service is for businesses and not directed at individuals under 18.</p>
+  </div>
+  <div class="legal-section">
+    <h2>10. Changes</h2>
+    <p>We may update this policy. The date at the top reflects the latest revision.</p>
+  </div>
+  <div class="legal-section">
+    <h2>11. Contact</h2>
+    <p><strong>GembaX</strong> — A product of Moresight Consulting<br>
+    Email: <a href="mailto:murat@gembax.ai">murat@gembax.ai</a> · Web: <a href="https://gembax.ai">gembax.ai</a></p>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — X-Ray of operational waste</div>
+    <div class="footer-links">
+      <a href="/pricing">Pricing</a>
+      <a href="/terms-and-conditions">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/refund">Refund</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
