@@ -571,7 +571,7 @@
   .footer-brand { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
   .footer-brand strong { color: var(--text-primary); font-weight: 700; }
   .footer-brand strong span { color: var(--accent); }
-  .footer-links { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; }
+  .footer-links { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
   .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
   .footer-links a:hover { color: var(--accent); }
   .footer-email { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); }
@@ -1050,7 +1050,13 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand"><strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni</div>
-    <div class="footer-links"><a href="#">İletişim</a><a href="/cdn-cgi/l/email-protection#e8859d9a899ca88f8d858a8990c68981" class="footer-email"><span class="__cf_email__" data-cfemail="503d252231241037353d3231287e3139">[email&#160;protected]</span></a></div>
+    <div class="footer-links">
+      <a href="/pricing" class="footer-link-legal">Fiyatlar</a>
+      <a href="/terms-and-conditions" class="footer-link-legal">Şartlar</a>
+      <a href="/privacy" class="footer-link-legal">Gizlilik</a>
+      <a href="/refund" class="footer-link-legal">İade</a>
+      <a href="mailto:murat@gembax.ai" class="footer-email">murat@gembax.ai</a>
+    </div>
   </div>
 </footer>
 
@@ -1184,7 +1190,7 @@
       ctaBtn: "Analizi Başlat →",
       // FOOTER
       footerBrand: '<strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni',
-      footerContact: "İletişim"
+      footerPricing: "Fiyatlar", footerTerms: "Şartlar", footerPrivacy: "Gizlilik", footerRefund: "İade"
     },
     EN: {
       logoSub: "X-Ray of Operational Waste",
@@ -1277,7 +1283,7 @@
       ctaP: "Fill out a short form, then we'll run the analysis with custom questions and data tailored to you.",
       ctaBtn: "Start Analysis →",
       footerBrand: '<strong>Gemba<span>X</span></strong> — X-Ray of operational waste',
-      footerContact: "Contact"
+      footerPricing: "Pricing", footerTerms: "Terms", footerPrivacy: "Privacy", footerRefund: "Refund"
     },
     DE: {
       logoSub: "Röntgen der operativen Verschwendung",
@@ -1360,7 +1366,7 @@
       ctaP: "Füllen Sie ein kurzes Formular aus, dann führen wir die Analyse mit maßgeschneiderten Fragen und Daten durch.",
       ctaBtn: "Analyse starten →",
       footerBrand: '<strong>Gemba<span>X</span></strong> — Röntgen der operativen Verschwendung',
-      footerContact: "Kontakt"
+      footerPricing: "Preise", footerTerms: "AGB", footerPrivacy: "Datenschutz", footerRefund: "Rückerstattung"
     },
     ES: {
       logoSub: "Radiografía del Desperdicio Operativo",
@@ -1443,7 +1449,7 @@
       ctaP: "Complete un breve formulario, luego realizamos el análisis con preguntas y datos personalizados para usted.",
       ctaBtn: "Iniciar Análisis →",
       footerBrand: '<strong>Gemba<span>X</span></strong> — Radiografía del desperdicio operativo',
-      footerContact: "Contacto"
+      footerPricing: "Precios", footerTerms: "Términos", footerPrivacy: "Privacidad", footerRefund: "Reembolso"
     },
     FR: {
       logoSub: "Radiographie du Gaspillage Opérationnel",
@@ -1526,7 +1532,7 @@
       ctaP: "Remplissez un court formulaire, puis nous réalisons l'analyse avec des questions et données personnalisées.",
       ctaBtn: "Lancer l'Analyse →",
       footerBrand: '<strong>Gemba<span>X</span></strong> — Radiographie du gaspillage opérationnel',
-      footerContact: "Contact"
+      footerPricing: "Tarifs", footerTerms: "CGV", footerPrivacy: "Confidentialité", footerRefund: "Remboursement"
     },
     PT: {
       logoSub: "Radiografia do Desperdício Operacional",
@@ -1609,7 +1615,7 @@
       ctaP: "Preencha um breve formulário, depois realizamos a análise com perguntas e dados personalizados para você.",
       ctaBtn: "Iniciar Análise →",
       footerBrand: '<strong>Gemba<span>X</span></strong> — Radiografia do desperdício operacional',
-      footerContact: "Contato"
+      footerPricing: "Preços", footerTerms: "Termos", footerPrivacy: "Privacidade", footerRefund: "Reembolso"
     }
   };
 
@@ -1818,8 +1824,11 @@
     // FOOTER
     const fb = document.querySelector('.footer-brand');
     if (fb) fb.innerHTML = t.footerBrand;
-    const fl = document.querySelectorAll('.footer-links a');
-    if (fl[0]) fl[0].textContent = t.footerContact;
+    const fl = document.querySelectorAll('.footer-link-legal');
+    if (fl[0]) fl[0].textContent = t.footerPricing;
+    if (fl[1]) fl[1].textContent = t.footerTerms;
+    if (fl[2]) fl[2].textContent = t.footerPrivacy;
+    if (fl[3]) fl[3].textContent = t.footerRefund;
 
     // Update page title
     const titles = { TR: "GembaX — Operasyonel İsrafın Röntgeni", EN: "GembaX — X-Ray of Operational Waste", DE: "GembaX — Röntgen der operativen Verschwendung", ES: "GembaX — Radiografía del Desperdicio Operativo", FR: "GembaX — Radiographie du Gaspillage Opérationnel", PT: "GembaX — Radiografia do Desperdício Operacional" };
