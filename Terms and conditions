@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — GembaX</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #FAF9F6; --bg-secondary: #FFFFFF; --bg-card: #F4F2EE;
+    --text-primary: #1B2A4A; --text-secondary: #4A5568; --text-muted: #8fa093;
+    --accent: #2D5016; --accent-dark: #1e3f0f; --accent-light: #3d6b22;
+    --border: rgba(0,0,0,0.08); --border-accent: rgba(45,80,22,0.25);
+    --font-body: 'Instrument Sans', sans-serif; --font-mono: 'Space Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body); background-color: var(--bg-primary);
+    background-image: linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
+    background-size: 28px 28px; color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+  nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 3rem; background: rgba(250,249,246,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .logo { text-decoration: none; display: flex; align-items: baseline; gap: 0.6rem; }
+  .logo-main { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
+  .logo-x { color: var(--accent); }
+  .logo-sub { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
+  .nav-back { font-size: 0.85rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+  .legal-container { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .legal-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .legal-header h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.6rem; }
+  .legal-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.04em; }
+  .legal-section { margin-bottom: 2.5rem; }
+  .legal-section h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+  .legal-section p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.75; margin-bottom: 0.8rem; }
+  .legal-section ul { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.75; margin: 0.5rem 0 1rem 1.5rem; }
+  .legal-section li { margin-bottom: 0.3rem; }
+  .legal-section a { color: var(--accent); text-decoration: underline; }
+  .legal-section strong { color: var(--text-primary); }
+  footer { border-top: 1px solid var(--border); padding: 2rem 3rem; background: var(--bg-secondary); }
+  .footer-inner { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand { font-size: 0.85rem; color: var(--text-muted); }
+  .footer-brand strong { color: var(--text-primary); font-weight: 700; }
+  .footer-brand strong span { color: var(--accent); }
+  .footer-links { display: flex; gap: 1.2rem; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.2rem; } .logo-sub { display: none; }
+    .legal-container { padding: 2.5rem 1.2rem 4rem; }
+    footer { padding: 1.5rem 1.2rem; }
+    .footer-inner { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><span class="logo-main">Gemba<span class="logo-x">X</span></span><span class="logo-sub">X-Ray of Operational Waste</span></a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+<div class="legal-container">
+  <div class="legal-header">
+    <h1>Terms of Service</h1>
+    <div class="legal-meta">Last updated: April 2, 2026</div>
+  </div>
+  <div class="legal-section">
+    <h2>1. Introduction</h2>
+    <p>These Terms of Service ("Terms") govern your use of the GembaX platform and website at gembax.ai (the "Service"), operated by Moresight Consulting ("we," "us," "our").</p>
+    <p>By using the Service, you agree to these Terms. If you do not agree, please do not use the Service.</p>
+  </div>
+  <div class="legal-section">
+    <h2>2. Service Description</h2>
+    <p>GembaX is an AI-powered operational diagnosis platform that identifies and quantifies hidden waste in business operations using the TIM WOODS + Theory of Constraints framework. All waste is reported in dollar terms.</p>
+  </div>
+  <div class="legal-section">
+    <h2>3. Service Tiers & Pricing</h2>
+    <p>We offer three service tiers:</p>
+    <ul>
+      <li><strong>Scan ($550):</strong> Focused operational scan — top 3 waste categories identified and quantified in dollars, with industry benchmarks.</li>
+      <li><strong>Diagnosis ($1,000):</strong> Full Hidden Cost Report — all 7+1 waste categories, bottleneck detection, Pareto analysis, 90-day action plan with ROI projections.</li>
+      <li><strong>Transformation (Custom pricing):</strong> Enterprise implementation delivered by Moresight Consulting — process redesign, change management, and ongoing support.</li>
+    </ul>
+    <p>Prices are in US Dollars (USD) and are one-time payments unless otherwise stated. We reserve the right to adjust pricing; changes will not affect confirmed orders.</p>
+  </div>
+  <div class="legal-section">
+    <h2>4. Payments</h2>
+    <p>Payments are processed securely through Stripe. We do not store your credit card details. By making a purchase, you represent that you are authorized to use the payment method provided.</p>
+  </div>
+  <div class="legal-section">
+    <h2>5. Refunds</h2>
+    <p>We offer a 14-day satisfaction guarantee on Scan and Diagnosis reports. Full details are in our <a href="/refund">Refund Policy</a>.</p>
+  </div>
+  <div class="legal-section">
+    <h2>6. Your Obligations</h2>
+    <p>You agree to provide accurate and complete information during the intake process. You must be at least 18 years old and authorized to act on behalf of the business being analyzed.</p>
+  </div>
+  <div class="legal-section">
+    <h2>7. Intellectual Property</h2>
+    <p>All GembaX content, methodologies, frameworks, branding, and software are the intellectual property of Moresight Consulting. Reports are licensed for your internal business use only and may not be resold or publicly distributed.</p>
+  </div>
+  <div class="legal-section">
+    <h2>8. Privacy</h2>
+    <p>We collect and process data as described in our <a href="/privacy">Privacy Policy</a>. We do not sell your data.</p>
+  </div>
+  <div class="legal-section">
+    <h2>9. Disclaimer</h2>
+    <p>The Service is provided "as is." Reports are advisory and do not constitute professional financial, legal, or management consulting advice. We do not guarantee specific cost savings or business outcomes.</p>
+  </div>
+  <div class="legal-section">
+    <h2>10. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by law, our total liability shall not exceed the amount you paid for the specific service giving rise to the claim. We are not liable for indirect, incidental, or consequential damages.</p>
+  </div>
+  <div class="legal-section">
+    <h2>11. Governing Law</h2>
+    <p>These Terms are governed by the laws of the Republic of Turkey. Disputes shall be resolved in the courts of Istanbul, Turkey.</p>
+  </div>
+  <div class="legal-section">
+    <h2>12. Contact</h2>
+    <p><strong>GembaX</strong> — A product of Moresight Consulting<br>
+    Email: <a href="mailto:murat@gembax.ai">murat@gembax.ai</a> · Web: <a href="https://gembax.ai">gembax.ai</a></p>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — X-Ray of operational waste</div>
+    <div class="footer-links">
+      <a href="/pricing">Pricing</a>
+      <a href="/terms-and-conditions">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/refund">Refund</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
