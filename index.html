@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GembaX — Operasyonel İsrafın Röntgeni</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-primary: #FAF9F6;
@@ -21,7 +21,7 @@
     --border: rgba(0,0,0,0.08);
     --border-accent: rgba(45, 80, 22, 0.25);
     --dot-color: rgba(45, 80, 22, 0.18);
-    --font-body: 'DM Sans', sans-serif;
+    --font-body: 'Instrument Sans', sans-serif;
     --font-mono: 'Space Mono', monospace;
   }
 
@@ -39,15 +39,86 @@
   }
   ::selection { background: var(--accent); color: #fff; }
 
+  /* Scroll progress bar */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    height: 3px; background: transparent;
+  }
+  .scroll-progress-bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(45,80,22,0.4);
+  }
+
+  /* Section blueprint divider */
+  .blueprint-divider {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0; margin: 0 auto; max-width: 1200px;
+  }
+  .blueprint-divider::before,
+  .blueprint-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: repeating-linear-gradient(90deg,
+      var(--accent) 0px, var(--accent) 8px, transparent 8px, transparent 14px
+    );
+    opacity: 0.18;
+  }
+  .blueprint-divider-mark {
+    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent);
+    opacity: 0.25; flex-shrink: 0; margin: 0 0.8rem;
+    border: 1px solid rgba(45,80,22,0.15); border-radius: 50%;
+  }
+
+  /* Card ref label */
+  .card-ref {
+    position: absolute; top: 0.8rem; right: 0.8rem;
+    font-family: var(--font-mono); font-size: 0.58rem;
+    color: var(--text-muted); opacity: 0.5;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* Doc metadata strip */
+  .doc-metadata {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1.5rem; padding: 0.7rem 2rem;
+    font-family: var(--font-mono); font-size: 0.6rem;
+    color: var(--text-muted); letter-spacing: 0.1em;
+    text-transform: uppercase; opacity: 0.45;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-metadata span { white-space: nowrap; }
+  .doc-metadata .meta-sep { opacity: 0.3; }
+
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 1.25rem 3rem;
+    padding: 1.25rem 3rem; padding-bottom: 1.8rem;
     display: flex; justify-content: space-between; align-items: center;
     backdrop-filter: blur(20px);
-    background: rgba(250,249,246,0.88);
-    border-bottom: 1px solid var(--border);
+    background: rgba(240,238,232,0.92);
+    border-bottom: none;
     transition: all 0.3s ease;
+  }
+  nav::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 14px;
+    background:
+      /* Kısa tick */
+      repeating-linear-gradient(90deg,
+        var(--accent) 0px, var(--accent) 0.5px, transparent 0.5px, transparent 10px
+      ),
+      /* Uzun tick */
+      repeating-linear-gradient(90deg,
+        var(--accent) 0px, var(--accent) 1px, transparent 1px, transparent 50px
+      );
+    background-size: 10px 5px, 50px 13px;
+    background-position: 0 bottom, 0 bottom;
+    background-repeat: repeat-x;
+    opacity: 0.20;
+    pointer-events: none;
   }
   .logo { display: flex; flex-direction: column; font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; color: var(--text-primary); text-decoration: none; line-height: 1; }
   .logo-main { display: inline; }
@@ -133,14 +204,14 @@
   }
   .hero-motto em { color: var(--accent); font-style: italic; font-weight: 500; }
   .hero-motto strong { font-weight: 700; color: var(--text-primary); }
-  .hero-sub { font-size: 0.95rem; color: var(--text-secondary); max-width: 520px; line-height: 1.65; margin-bottom: 1rem; animation: fadeUp 0.8s 0.2s ease both; }
+  .hero-sub { font-size: 1.05rem; color: var(--text-secondary); max-width: 520px; line-height: 1.65; margin-bottom: 1rem; animation: fadeUp 0.8s 0.2s ease both; }
   .hero-bullets {
     list-style: none; max-width: 520px; margin-bottom: 2rem;
     animation: fadeUp 0.8s 0.25s ease both;
   }
   .hero-bullets li {
     position: relative; padding-left: 1.4rem;
-    font-size: 0.92rem; color: var(--text-secondary);
+    font-size: 1.02rem; color: var(--text-secondary);
     line-height: 1.6; margin-bottom: 0.4rem;
   }
   .hero-bullets li::before {
@@ -211,7 +282,7 @@
   .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
   .stat-number { font-family: var(--font-mono); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
   .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; font-weight: 500; }
-  .stat-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
+  .stat-desc { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; }
 
   /* ── VERSION B: CINEMATIC X-RAY BREAK ── */
   .xray-break {
@@ -289,7 +360,7 @@
   .section-label { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 400; font-style: italic; }
   .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
   .section-title em { font-style: italic; font-weight: 300; color: var(--accent); }
-  .section-desc { color: var(--text-secondary); font-size: 1.05rem; max-width: 620px; line-height: 1.7; margin-bottom: 3rem; }
+  .section-desc { color: var(--text-secondary); font-size: 1.15rem; max-width: 620px; line-height: 1.7; margin-bottom: 3rem; }
 
   /* GEMBA */
   .gemba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
@@ -308,16 +379,16 @@
   .eq-result-value { font-size: 1.6rem; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
   .eq-output-box { margin-top: 1.5rem; padding: 1.2rem; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border); }
   .eq-output-box .eq-box-label { margin-bottom: 0.5rem; }
-  .eq-output-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+  .eq-output-text { font-size: 0.98rem; color: var(--text-secondary); line-height: 1.6; }
   .eq-output-text strong { color: var(--accent); font-weight: 700; font-family: var(--font-mono); }
 
   /* PROCESS */
   .process-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .process-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.03); }
+  .process-card { position: relative; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.03); }
   .process-card:hover { border-color: var(--border-accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
   .process-num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1rem; font-weight: 700; }
   .process-card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
-  .process-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; }
+  .process-card p { color: var(--text-secondary); font-size: 1rem; line-height: 1.65; }
   .process-output { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); font-weight: 500; }
 
   /* WASTE */
@@ -326,9 +397,9 @@
   .waste-cell { background: var(--bg-secondary); padding: 1.8rem; transition: all 0.3s; }
   .waste-cell:hover { background: var(--bg-card); }
   .waste-icon-svg { width: 32px; height: 32px; margin-bottom: 0.75rem; display: block; color: var(--accent); }
-  .waste-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.35rem; }
+  .waste-name { font-weight: 600; font-size: 1.05rem; margin-bottom: 0.35rem; }
   .waste-eng { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-  .waste-example { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
+  .waste-example { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; }
   .waste-cost { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); font-weight: 700; margin-top: 0.6rem; letter-spacing: 0.02em; }
 
   /* SECTORS */
@@ -337,7 +408,7 @@
   .sector-card:hover { border-color: var(--border-accent); transform: translateY(-2px); }
   .sector-icon-svg { width: 28px; height: 28px; margin-bottom: 0.9rem; display: block; color: var(--accent); }
   .sector-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .sector-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+  .sector-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
 
   /* DIFF — Professional Comparison */
   .diff-table {
@@ -353,21 +424,23 @@
   }
   .diff-header-cell {
     padding: 1.5rem 1.8rem 1.2rem;
-    font-family: var(--font-mono); font-size: 0.68rem;
+    font-family: var(--font-mono); font-size: 0.78rem;
     text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700;
   }
   .diff-header-cell:first-child { background: transparent; color: transparent; }
   .diff-header-cell.old-col {
     background: var(--bg-card); color: var(--text-muted);
     text-align: center; border-left: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
   }
   .diff-header-cell.new-col {
-    background: #2C2A25; color: #fff;
+    background: rgba(240,238,232,0.95); color: var(--accent-dark);
     text-align: center; position: relative;
+    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
   }
   .diff-header-cell.new-col::before {
-    content: '✦'; display: block; font-size: 0.55rem; letter-spacing: 0;
-    margin-bottom: 0.25rem; opacity: 0.4;
+    content: '✦'; font-size: 0.55rem; letter-spacing: 0;
+    opacity: 0.5;
   }
   .diff-row {
     display: grid; grid-template-columns: 1.2fr 1fr 1fr;
@@ -423,10 +496,64 @@
   .diff-bottom-bar {
     display: flex; align-items: center; justify-content: center;
     gap: 0.6rem; padding: 1.2rem 1.8rem;
-    background: #2C2A25; color: rgba(255,255,255,0.85);
+    background: rgba(240,238,232,0.95); color: var(--accent-dark);
     font-size: 0.85rem; font-weight: 500;
   }
   .diff-bottom-bar svg { width: 16px; height: 16px; opacity: 0.7; }
+
+  /* PRICING */
+  .pricing-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .pricing-card {
+    background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2.2rem 1.8rem;
+    display: flex; flex-direction: column; position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+  .pricing-card.featured { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 8px 30px rgba(45,80,22,0.1); }
+  .pricing-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff;
+    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.25rem 0.9rem; border-radius: 20px; white-space: nowrap;
+  }
+  .pricing-tier {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    color: var(--text-muted); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .pricing-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .pricing-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.2rem; min-height: 2.8rem; }
+  .pricing-price { margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
+  .pricing-amount { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em; }
+  .pricing-amount .currency { font-size: 1.3rem; font-weight: 600; vertical-align: super; }
+  .pricing-period { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .pricing-features { list-style: none; flex: 1; margin-bottom: 1.8rem; }
+  .pricing-features li {
+    font-size: 0.85rem; color: var(--text-secondary);
+    padding: 0.4rem 0 0.4rem 1.4rem; position: relative; line-height: 1.5;
+  }
+  .pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 700; font-size: 0.8rem; }
+  .pricing-btn {
+    display: block; text-align: center; padding: 0.85rem 1.5rem;
+    border-radius: 8px; font-family: var(--font-body);
+    font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: all 0.2s;
+  }
+  .pricing-btn.primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+  .pricing-btn.primary:hover { background: var(--accent-dark); box-shadow: 0 4px 15px rgba(45,80,22,0.25); }
+  .pricing-btn.secondary { background: transparent; color: var(--accent); border: 1px solid var(--border-accent); }
+  .pricing-btn.secondary:hover { background: var(--accent-glow); }
+  .pricing-guarantee {
+    text-align: center; margin-top: 2rem;
+    font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;
+  }
+  .pricing-guarantee strong { color: var(--text-secondary); }
+  .pricing-guarantee a { color: var(--accent); text-decoration: underline; }
 
   /* CTA */
   .cta-section { text-align: center; padding: 8rem 3rem; max-width: none; margin: 0; position: relative; background: var(--bg-card); color: var(--text-primary); border-top: 1px solid var(--border); }
@@ -455,7 +582,7 @@
 
   /* ── TABLET ── */
   @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
+    nav { padding: 1rem 1.5rem; padding-bottom: 1.5rem; }
     .hamburger { display: flex; }
     .nav-links {
       display: none; position: absolute; top: 100%; left: 0; right: 0;
@@ -505,6 +632,11 @@
       padding-top: 0.4rem; padding-bottom: 0.4rem;
     }
 
+    /* Pricing tablet */
+    .pricing-section { padding: 4rem 2rem; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .pricing-card.featured { order: -1; }
+
     /* Footer tablet */
     .footer-inner { flex-direction: column; gap: 1.2rem; text-align: center; }
     .footer-links { align-items: center; }
@@ -512,25 +644,25 @@
 
   /* ── MOBILE ── */
   @media (max-width: 600px) {
-    nav { padding: 0.8rem 1rem; }
+    nav { padding: 0.8rem 1rem; padding-bottom: 1.3rem; }
     .logo { font-size: 1.5rem; }
     .logo-sub { font-size: 0.5rem; }
     .hero { padding: 5.5rem 1rem 2rem; gap: 1.5rem; }
     .hero h1 { font-size: 1.45rem; }
     .hero-badge { font-size: 0.7rem; padding: 0.3rem 0.8rem; }
-    .hero-motto { font-size: 0.95rem; }
-    .hero-sub { font-size: 0.85rem; }
-    .hero-bullets li { font-size: 0.85rem; }
+    .hero-motto { font-size: 1.05rem; }
+    .hero-sub { font-size: 0.95rem; }
+    .hero-bullets li { font-size: 0.95rem; }
     .btn-primary { padding: 0.75rem 1.5rem; font-size: 0.88rem; width: 100%; justify-content: center; }
     .btn-secondary { padding: 0.75rem 1.5rem; font-size: 0.88rem; width: 100%; justify-content: center; }
     section, .waste-section { padding: 3rem 1rem; }
     .cta-section { padding: 3.5rem 1rem; }
     .section-label { font-size: 0.95rem; }
     .section-title { font-size: 1.5rem; margin-bottom: 1rem; }
-    .section-desc { font-size: 0.92rem; margin-bottom: 2rem; }
+    .section-desc { font-size: 1.02rem; margin-bottom: 2rem; }
     .stats-strip { padding: 2.5rem 1rem; }
     .stat-number { font-size: 2.2rem; }
-    .stat-desc { font-size: 0.88rem; }
+    .stat-desc { font-size: 0.98rem; }
 
     /* Gemba equation mobile */
     .gemba-visual { padding: 1.5rem; }
@@ -577,6 +709,13 @@
     .diff-cell .diff-highlight { font-size: 0.78rem; }
     .diff-bottom-bar { font-size: 0.78rem; padding: 1rem; }
 
+    /* Pricing mobile */
+    .pricing-section { padding: 3rem 1rem; }
+    .pricing-grid { gap: 1.2rem; }
+    .pricing-card { padding: 1.8rem 1.4rem; }
+    .pricing-name { font-size: 1.1rem; }
+    .pricing-amount { font-size: 1.9rem; }
+
     /* CTA mobile */
     .cta-section h2 { font-size: 1.5rem; }
     .cta-section p { font-size: 0.92rem; }
@@ -587,11 +726,13 @@
     .footer-brand { font-size: 0.82rem; }
     .footer-links a { font-size: 0.78rem; }
     .footer-email { font-size: 0.72rem; }
+    .doc-metadata { flex-wrap: wrap; gap: 0.5rem 1rem; font-size: 0.5rem; padding: 0.6rem 1rem; }
   }
 </style>
 </head>
 <body>
 
+<div class="scroll-progress"><div class="scroll-progress-bar" id="scrollBar"></div></div>
 <nav>
   <a href="#" class="logo"><span class="logo-main">Gemba<span class="logo-x">X</span></span><span class="logo-sub">Operasyonel İsrafın Röntgeni</span></a>
   <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menü">
@@ -670,6 +811,7 @@
 
 <!-- ★ VERSION B: CINEMATIC X-RAY BREAK ★ -->
 
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
 <!-- GEMBA -->
 <section id="gemba">
@@ -708,17 +850,21 @@
   </div>
 </section>
 
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+
 <!-- PROCESS -->
 <section id="process">
   <div class="section-label">Nasıl Çalışır</div>
   <h2 class="section-title">Üç adımda <em>teşhisten aksiyona</em></h2>
   <p class="section-desc">Sorunu bul, maliyetini hesapla, çözüm yolunu göster.</p>
   <div class="process-cards">
-    <div class="process-card fade-in"><div class="process-num">01 — TEŞHİS</div><h3>Paranız nerede yanıyor?</h3><p>İşletmenizi 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.</p><div class="process-output">→ Hidden Cost Report</div></div>
-    <div class="process-card fade-in"><div class="process-num">02 — ÖNCELİK</div><h3>Önce nereye dokunmalı?</h3><p>Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz.</p><div class="process-output">→ Öncelik + Darboğaz Haritası</div></div>
-    <div class="process-card fade-in"><div class="process-num">03 — AKSİYON</div><h3>Ne kadar kurtarabiliriz?</h3><p>90 günlük öncelikli aksiyon planı: 0-30 gün hızlı kazanımlar, 30-60 gün orta vadeli, 60-90 gün yapısal.</p><div class="process-output">→ 90 Günlük Yol Haritası + ROI</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-001</span><div class="process-num">01 — TEŞHİS</div><h3>Paranız nerede yanıyor?</h3><p>İşletmenizi 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.</p><div class="process-output">→ Hidden Cost Report</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-002</span><div class="process-num">02 — ÖNCELİK</div><h3>Önce nereye dokunmalı?</h3><p>Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz.</p><div class="process-output">→ Öncelik + Darboğaz Haritası</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-003</span><div class="process-num">03 — AKSİYON</div><h3>Ne kadar kurtarabiliriz?</h3><p>90 günlük öncelikli aksiyon planı: 0-30 gün hızlı kazanımlar, 30-60 gün orta vadeli, 60-90 gün yapısal.</p><div class="process-output">→ 90 Günlük Yol Haritası + ROI</div></div>
   </div>
 </section>
+
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
 <!-- 7+1 WASTE (abbreviated for brevity — same grid) -->
 <div class="waste-section" id="waste">
@@ -737,6 +883,8 @@
   </div>
 </div>
 
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+
 <!-- SECTORS -->
 <section id="sectors">
   <div class="section-label">Kapsam</div>
@@ -751,6 +899,8 @@
     <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><h3>Satış Operasyonları</h3><p>Uzun satış döngüsü, düşük dönüşüm oranı, satış sürecindeki kayıp.</p></div>
   </div>
 </section>
+
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
 <!-- DIFF -->
 <section>
@@ -808,12 +958,93 @@
 </section>
 
 <!-- CTA -->
+
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-label">Fiyatlar</div>
+  <h2 class="section-title">İhtiyacınıza göre <em>derinliği seçin</em></h2>
+  <p class="section-desc">Her planda israf dolar cinsinden raporlanır — belirsiz yüzdeler değil.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card fade-in">
+      <div class="pricing-tier">Tier 01</div>
+      <div class="pricing-name">Scan</div>
+      <div class="pricing-desc" data-i18n="priceDesc1">En kritik 3 israf kategorisine odaklanan hızlı tarama.</div>
+      <div class="pricing-price">
+        <div class="pricing-amount"><span class="currency">$</span>550</div>
+        <div class="pricing-period" data-i18n="pricePeriod">Tek seferlik ödeme</div>
+      </div>
+      <ul class="pricing-features">
+        <li data-i18n="pf1a">7+1 israf kategorisi taraması</li>
+        <li data-i18n="pf1b">En kritik 3 israf $ cinsinden</li>
+        <li data-i18n="pf1c">Sektör benchmark karşılaştırması</li>
+        <li data-i18n="pf1d">Öncelik aksiyon özeti</li>
+        <li data-i18n="pf1e">5 iş günü içinde teslim</li>
+      </ul>
+      <a href="mailto:murat@gembax.ai?subject=GembaX%20Scan" class="pricing-btn secondary" data-i18n="priceBtn1">Başlayın →</a>
+    </div>
+    <div class="pricing-card featured fade-in">
+      <div class="pricing-badge" data-i18n="priceBadge">En Popüler</div>
+      <div class="pricing-tier">Tier 02</div>
+      <div class="pricing-name">Diagnosis</div>
+      <div class="pricing-desc" data-i18n="priceDesc2">Tam Hidden Cost Report — darboğaz analizi ve 90 günlük aksiyon planı.</div>
+      <div class="pricing-price">
+        <div class="pricing-amount"><span class="currency">$</span>1,000</div>
+        <div class="pricing-period" data-i18n="pricePeriod">Tek seferlik ödeme</div>
+      </div>
+      <ul class="pricing-features">
+        <li data-i18n="pf2a">Scan'deki her şey, artı:</li>
+        <li data-i18n="pf2b">7+1 israf kategorisi — tam $ kırılım</li>
+        <li data-i18n="pf2c">Darboğaz tespiti (Kısıtlar Teorisi)</li>
+        <li data-i18n="pf2d">Pareto analizi — en yüksek etki alanları</li>
+        <li data-i18n="pf2e">90 günlük öncelikli aksiyon planı</li>
+        <li data-i18n="pf2f">Her öneri için ROI projeksiyonu</li>
+        <li data-i18n="pf2g">Yönetici özeti + detaylı rapor</li>
+      </ul>
+      <a href="mailto:murat@gembax.ai?subject=GembaX%20Diagnosis" class="pricing-btn primary" data-i18n="priceBtn2">Tam Raporu Al →</a>
+    </div>
+    <div class="pricing-card fade-in">
+      <div class="pricing-tier">Tier 03</div>
+      <div class="pricing-name">Transformation</div>
+      <div class="pricing-desc" data-i18n="priceDesc3">Moresight.io ile birlikte yürütülen kurumsal dönüşüm programı.</div>
+      <div class="pricing-price">
+        <div class="pricing-amount pricing-custom" data-i18n="priceCustom">Özel Fiyat</div>
+        <div class="pricing-period" data-i18n="priceCustomPeriod">İhtiyaca göre belirlenir</div>
+      </div>
+      <ul class="pricing-features">
+        <li data-i18n="pf3a">Diagnosis'deki her şey, artı:</li>
+        <li data-i18n="pf3b">Yerinde veya uzaktan uygulama desteği</li>
+        <li data-i18n="pf3c">Süreç yeniden tasarımı & değişim yönetimi</li>
+        <li data-i18n="pf3d">KPI dashboard kurulumu & takibi</li>
+        <li data-i18n="pf3e">Üç aylık periyodik gözden geçirme</li>
+        <li data-i18n="pf3f">Moresight danışmanlık ekibi tarafından</li>
+      </ul>
+      <a href="mailto:murat@gembax.ai?subject=GembaX%20Transformation" class="pricing-btn secondary" data-i18n="priceBtn3">İletişime Geçin →</a>
+    </div>
+  </div>
+  <div class="pricing-guarantee">
+    <strong data-i18n="priceGuaranteeTitle">14 Gün Memnuniyet Garantisi</strong> — <span data-i18n="priceGuaranteeText">Rapor beklentinizi karşılamazsa, teslimden itibaren 14 gün içinde tam iade.</span> <a href="/refund" data-i18n="priceGuaranteeLink">İade Politikası</a>
+  </div>
+</section>
+
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+
+<!-- CTA -->
 <div class="cta-section" id="cta">
   <div class="section-label">Başlayın</div>
   <h2>Operasyonlarınızın <em>röntgenini</em> çekelim</h2>
   <p class="cta-small">Gözle görülmeyen israfı buluyor, her birinin size yılda kaç dolara mal olduğunu hesaplıyoruz. Sektör fark etmez — değer akışı olan her yerde israf vardır.</p>
   <p>Kısa bir form doldurun, sonra size özel hazırlanmış soru setleri ve verilerle analizi yapalım.</p>
   <a href="#" class="btn-primary">Analizi Başlat →</a>
+</div>
+
+<div class="doc-metadata">
+  <span>DOC: GEMBAX.AI</span><span class="meta-sep">•</span>
+  <span>REV: 2.4</span><span class="meta-sep">•</span>
+  <span>CLASSIFICATION: PUBLIC</span><span class="meta-sep">•</span>
+  <span>PROTOCOL: TIM WOODS + TOC</span><span class="meta-sep">•</span>
+  <span>LAST AUDIT: 2025</span>
 </div>
 
 <footer>
@@ -835,8 +1066,13 @@
   window.addEventListener('scroll', () => {
     const isMobile = window.innerWidth <= 900;
     if (!isMobile) {
-      document.querySelector('nav').style.padding = window.scrollY > 50 ? '0.8rem 3rem' : '1.25rem 3rem';
+      document.querySelector('nav').style.padding = window.scrollY > 50 ? '0.8rem 3rem 1.4rem' : '1.25rem 3rem 1.8rem';
     }
+    // Scroll progress bar
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('scrollBar').style.width = scrollPercent + '%';
   });
   // Close language dropdown on outside click
   document.addEventListener('click', (e) => {
@@ -922,6 +1158,24 @@
       d5L: "Çıktı & Takip", d5O: "Rapor teslim — proje biter", d5N: '<span class="diff-highlight">90 günlük</span> aksiyon planı + ROI hesabı',
       d6L: "Kalite Güvencesi", d6O: "Kişiye bağımlı, değişken kalite", d6N: 'Uzman + AI hibrit — <span class="diff-highlight">tutarlı kalite</span>',
       diffBottom: "Aynı içgörü — daha hızlı ve ucuz",
+      // PRICING
+      priceLabel: "Fiyatlar",
+      priceTitle: 'İhtiyacınıza göre <em>derinliği seçin</em>',
+      priceSubtitle: "Her planda israf dolar cinsinden raporlanır — belirsiz yüzdeler değil.",
+      priceDesc1: "En kritik 3 israf kategorisine odaklanan hızlı tarama.",
+      priceDesc2: "Tam Hidden Cost Report — darboğaz analizi ve 90 günlük aksiyon planı.",
+      priceDesc3: "Moresight.io ile birlikte yürütülen kurumsal dönüşüm programı.",
+      pricePeriod: "Tek seferlik ödeme",
+      priceCustom: "Özel Fiyat",
+      priceCustomPeriod: "İhtiyaca göre belirlenir",
+      priceBadge: "En Popüler",
+      pf1a: "7+1 israf kategorisi taraması", pf1b: "En kritik 3 israf $ cinsinden", pf1c: "Sektör benchmark karşılaştırması", pf1d: "Öncelik aksiyon özeti", pf1e: "5 iş günü içinde teslim",
+      pf2a: "Scan'deki her şey, artı:", pf2b: "7+1 israf kategorisi — tam $ kırılım", pf2c: "Darboğaz tespiti (Kısıtlar Teorisi)", pf2d: "Pareto analizi — en yüksek etki alanları", pf2e: "90 günlük öncelikli aksiyon planı", pf2f: "Her öneri için ROI projeksiyonu", pf2g: "Yönetici özeti + detaylı rapor",
+      pf3a: "Diagnosis'deki her şey, artı:", pf3b: "Yerinde veya uzaktan uygulama desteği", pf3c: "Süreç yeniden tasarımı & değişim yönetimi", pf3d: "KPI dashboard kurulumu & takibi", pf3e: "Üç aylık periyodik gözden geçirme", pf3f: "Moresight danışmanlık ekibi tarafından",
+      priceBtn1: "Başlayın →", priceBtn2: "Tam Raporu Al →", priceBtn3: "İletişime Geçin →",
+      priceGuaranteeTitle: "14 Gün Memnuniyet Garantisi",
+      priceGuaranteeText: "Rapor beklentinizi karşılamazsa, teslimden itibaren 14 gün içinde tam iade.",
+      priceGuaranteeLink: "İade Politikası",
       // CTA
       ctaLabel: "Başlayın",
       ctaH2: 'Operasyonlarınızın <em>röntgenini</em> çekelim',
@@ -999,6 +1253,24 @@
       d5L: "Output & Follow-up", d5O: "Report delivered — project ends", d5N: '<span class="diff-highlight">90-day</span> action plan + ROI calculation',
       d6L: "Quality Assurance", d6O: "Person-dependent, variable quality", d6N: 'Expert + AI hybrid — <span class="diff-highlight">consistent quality</span>',
       diffBottom: "Same insight — faster and more affordable",
+      // PRICING
+      priceLabel: "Pricing",
+      priceTitle: 'Pick the depth <em>your business needs</em>',
+      priceSubtitle: "Every plan delivers waste quantified in dollars — not vague percentages.",
+      priceDesc1: "Focused scan across your top 3 waste categories.",
+      priceDesc2: "Full Hidden Cost Report with bottleneck analysis and 90-day action plan.",
+      priceDesc3: "Enterprise implementation with hands-on consulting via Moresight.io.",
+      pricePeriod: "One-time payment",
+      priceCustom: "Custom",
+      priceCustomPeriod: "Scoped to your needs",
+      priceBadge: "Most Popular",
+      pf1a: "7+1 waste category screening", pf1b: "Top 3 waste areas in $ terms", pf1c: "Industry benchmark comparison", pf1d: "Priority action summary", pf1e: "Delivered within 5 business days",
+      pf2a: "Everything in Scan, plus:", pf2b: "All 7+1 waste categories — full $ breakdown", pf2c: "Bottleneck detection (Theory of Constraints)", pf2d: "Pareto analysis — biggest impact areas", pf2e: "90-day prioritized action plan", pf2f: "ROI projection for each recommendation", pf2g: "Executive summary + detailed report",
+      pf3a: "Everything in Diagnosis, plus:", pf3b: "On-site or remote implementation support", pf3c: "Process redesign & change management", pf3d: "KPI dashboard setup & tracking", pf3e: "Quarterly review cycles", pf3f: "Delivered by Moresight Consulting team",
+      priceBtn1: "Get Started →", priceBtn2: "Get Full Report →", priceBtn3: "Contact Us →",
+      priceGuaranteeTitle: "14-Day Satisfaction Guarantee",
+      priceGuaranteeText: "If the report doesn't meet your expectations, full refund within 14 days of delivery.",
+      priceGuaranteeLink: "Refund Policy",
       ctaLabel: "Get Started",
       ctaH2: 'Let us <em>X-ray</em> your operations',
       ctaSmall: "We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.",
@@ -1074,6 +1346,14 @@
       d5L: "Ergebnis & Nachverfolgung", d5O: "Bericht geliefert — Projekt beendet", d5N: '<span class="diff-highlight">90-Tage</span>-Aktionsplan + ROI-Berechnung',
       d6L: "Qualitätssicherung", d6O: "Personenabhängig, variable Qualität", d6N: 'Experte + KI-Hybrid — <span class="diff-highlight">gleichbleibende Qualität</span>',
       diffBottom: "Gleiche Erkenntnis — schneller und günstiger",
+      priceLabel: "Preise", priceTitle: 'Wählen Sie die <em>passende Tiefe</em>', priceSubtitle: "Jeder Plan liefert Verschwendung in Dollar — keine vagen Prozentsätze.",
+      priceDesc1: "Fokussierter Scan Ihrer Top-3-Verschwendungskategorien.", priceDesc2: "Vollständiger Hidden Cost Report mit Engpassanalyse und 90-Tage-Aktionsplan.", priceDesc3: "Enterprise-Implementierung mit Beratung durch Moresight.io.",
+      pricePeriod: "Einmalige Zahlung", priceCustom: "Individuell", priceCustomPeriod: "Nach Bedarf", priceBadge: "Am beliebtesten",
+      pf1a: "7+1 Verschwendungskategorien-Screening", pf1b: "Top 3 Verschwendungen in $ beziffert", pf1c: "Branchen-Benchmark-Vergleich", pf1d: "Prioritäten-Aktionsübersicht", pf1e: "Lieferung innerhalb von 5 Werktagen",
+      pf2a: "Alles aus Scan, plus:", pf2b: "Alle 7+1 Kategorien — volle $-Aufschlüsselung", pf2c: "Engpasserkennung (Theory of Constraints)", pf2d: "Pareto-Analyse — größte Wirkungsbereiche", pf2e: "90-Tage priorisierter Aktionsplan", pf2f: "ROI-Projektion für jede Empfehlung", pf2g: "Executive Summary + Detailbericht",
+      pf3a: "Alles aus Diagnosis, plus:", pf3b: "Vor-Ort- oder Remote-Implementierung", pf3c: "Prozess-Redesign & Change Management", pf3d: "KPI-Dashboard-Einrichtung & Tracking", pf3e: "Vierteljährliche Review-Zyklen", pf3f: "Durch das Moresight-Beratungsteam",
+      priceBtn1: "Loslegen →", priceBtn2: "Vollständigen Bericht erhalten →", priceBtn3: "Kontakt aufnehmen →",
+      priceGuaranteeTitle: "14-Tage-Zufriedenheitsgarantie", priceGuaranteeText: "Wenn der Bericht Ihre Erwartungen nicht erfüllt, volle Rückerstattung innerhalb von 14 Tagen.", priceGuaranteeLink: "Rückerstattungsrichtlinie",
       ctaLabel: "Loslegen",
       ctaH2: 'Lassen Sie uns Ihre Abläufe <em>röntgen</em>',
       ctaSmall: "Wir finden die unsichtbare Verschwendung und berechnen, was sie Sie jährlich kostet. Die Branche ist egal — überall wo es einen Wertstrom gibt, gibt es Verschwendung.",
@@ -1149,6 +1429,14 @@
       d5L: "Entrega y Seguimiento", d5O: "Informe entregado — proyecto termina", d5N: 'Plan de acción de <span class="diff-highlight">90 días</span> + cálculo de ROI',
       d6L: "Garantía de Calidad", d6O: "Dependiente de la persona, calidad variable", d6N: 'Híbrido experto + IA — <span class="diff-highlight">calidad consistente</span>',
       diffBottom: "Misma visión — más rápido y económico",
+      priceLabel: "Precios", priceTitle: 'Elija la <em>profundidad adecuada</em>', priceSubtitle: "Cada plan entrega desperdicios cuantificados en dólares — no porcentajes vagos.",
+      priceDesc1: "Escaneo enfocado en sus 3 categorías principales de desperdicio.", priceDesc2: "Informe completo de Costes Ocultos con análisis de cuellos de botella y plan de acción de 90 días.", priceDesc3: "Implementación empresarial con consultoría de Moresight.io.",
+      pricePeriod: "Pago único", priceCustom: "Personalizado", priceCustomPeriod: "Según sus necesidades", priceBadge: "Más Popular",
+      pf1a: "Screening de 7+1 categorías de desperdicio", pf1b: "Top 3 desperdicios cuantificados en $", pf1c: "Comparación con benchmarks del sector", pf1d: "Resumen de acciones prioritarias", pf1e: "Entrega en 5 días hábiles",
+      pf2a: "Todo en Scan, más:", pf2b: "Las 7+1 categorías — desglose completo en $", pf2c: "Detección de cuellos de botella (Teoría de Restricciones)", pf2d: "Análisis Pareto — áreas de mayor impacto", pf2e: "Plan de acción priorizado de 90 días", pf2f: "Proyección de ROI por recomendación", pf2g: "Resumen ejecutivo + informe detallado",
+      pf3a: "Todo en Diagnosis, más:", pf3b: "Soporte de implementación presencial o remoto", pf3c: "Rediseño de procesos & gestión del cambio", pf3d: "Configuración y seguimiento de KPIs", pf3e: "Ciclos de revisión trimestrales", pf3f: "Por el equipo de consultoría Moresight",
+      priceBtn1: "Empezar →", priceBtn2: "Obtener Informe Completo →", priceBtn3: "Contáctenos →",
+      priceGuaranteeTitle: "Garantía de Satisfacción de 14 Días", priceGuaranteeText: "Si el informe no cumple sus expectativas, reembolso completo en 14 días.", priceGuaranteeLink: "Política de Reembolso",
       ctaLabel: "Empezar",
       ctaH2: 'Hagamos una <em>radiografía</em> de sus operaciones',
       ctaSmall: "Encontramos el desperdicio que no se ve y calculamos cuánto le cuesta cada año. El sector no importa — donde hay flujo de valor, hay desperdicio.",
@@ -1224,6 +1512,14 @@
       d5L: "Livrable & Suivi", d5O: "Rapport livré — projet terminé", d5N: 'Plan d\'action <span class="diff-highlight">90 jours</span> + calcul du ROI',
       d6L: "Assurance Qualité", d6O: "Dépendant de la personne, qualité variable", d6N: 'Hybride expert + IA — <span class="diff-highlight">qualité constante</span>',
       diffBottom: "Même insight — plus rapide et plus abordable",
+      priceLabel: "Tarifs", priceTitle: 'Choisissez la <em>profondeur adaptée</em>', priceSubtitle: "Chaque formule quantifie les gaspillages en dollars — pas de pourcentages vagues.",
+      priceDesc1: "Scan ciblé sur vos 3 principales catégories de gaspillage.", priceDesc2: "Rapport complet Hidden Cost avec analyse des goulots et plan d'action 90 jours.", priceDesc3: "Implémentation entreprise avec accompagnement Moresight.io.",
+      pricePeriod: "Paiement unique", priceCustom: "Sur mesure", priceCustomPeriod: "Selon vos besoins", priceBadge: "Le plus populaire",
+      pf1a: "Screening des 7+1 catégories de gaspillage", pf1b: "Top 3 gaspillages chiffrés en $", pf1c: "Comparaison aux benchmarks sectoriels", pf1d: "Synthèse des actions prioritaires", pf1e: "Livraison sous 5 jours ouvrés",
+      pf2a: "Tout le Scan, plus :", pf2b: "Les 7+1 catégories — ventilation complète en $", pf2c: "Détection des goulots (Théorie des Contraintes)", pf2d: "Analyse Pareto — zones à plus fort impact", pf2e: "Plan d'action priorisé sur 90 jours", pf2f: "Projection ROI par recommandation", pf2g: "Synthèse exécutive + rapport détaillé",
+      pf3a: "Tout le Diagnosis, plus :", pf3b: "Support d'implémentation sur site ou à distance", pf3c: "Refonte des processus & conduite du changement", pf3d: "Mise en place et suivi des KPIs", pf3e: "Cycles de revue trimestriels", pf3f: "Par l'équipe Moresight Consulting",
+      priceBtn1: "Commencer →", priceBtn2: "Obtenir le Rapport Complet →", priceBtn3: "Nous Contacter →",
+      priceGuaranteeTitle: "Garantie Satisfaction 14 Jours", priceGuaranteeText: "Si le rapport ne répond pas à vos attentes, remboursement intégral sous 14 jours.", priceGuaranteeLink: "Politique de Remboursement",
       ctaLabel: "Commencer",
       ctaH2: 'Faisons la <em>radiographie</em> de vos opérations',
       ctaSmall: "Nous trouvons le gaspillage invisible et calculons combien il vous coûte chaque année. Le secteur importe peu — partout où il y a un flux de valeur, il y a du gaspillage.",
@@ -1299,6 +1595,14 @@
       d5L: "Entrega e Acompanhamento", d5O: "Relatório entregue — projeto termina", d5N: 'Plano de ação de <span class="diff-highlight">90 dias</span> + cálculo de ROI',
       d6L: "Garantia de Qualidade", d6O: "Dependente da pessoa, qualidade variável", d6N: 'Híbrido especialista + IA — <span class="diff-highlight">qualidade consistente</span>',
       diffBottom: "Mesmo insight — mais rápido e mais acessível",
+      priceLabel: "Preços", priceTitle: 'Escolha a <em>profundidade certa</em>', priceSubtitle: "Cada plano quantifica desperdícios em dólares — não percentuais vagos.",
+      priceDesc1: "Scan focado nas suas 3 principais categorias de desperdício.", priceDesc2: "Relatório completo Hidden Cost com análise de gargalos e plano de ação de 90 dias.", priceDesc3: "Implementação empresarial com consultoria da Moresight.io.",
+      pricePeriod: "Pagamento único", priceCustom: "Personalizado", priceCustomPeriod: "Conforme sua necessidade", priceBadge: "Mais Popular",
+      pf1a: "Triagem das 7+1 categorias de desperdício", pf1b: "Top 3 desperdícios quantificados em $", pf1c: "Comparação com benchmarks do setor", pf1d: "Resumo de ações prioritárias", pf1e: "Entrega em 5 dias úteis",
+      pf2a: "Tudo do Scan, mais:", pf2b: "Todas as 7+1 categorias — detalhamento completo em $", pf2c: "Detecção de gargalos (Teoria das Restrições)", pf2d: "Análise Pareto — áreas de maior impacto", pf2e: "Plano de ação priorizado de 90 dias", pf2f: "Projeção de ROI por recomendação", pf2g: "Resumo executivo + relatório detalhado",
+      pf3a: "Tudo do Diagnosis, mais:", pf3b: "Suporte de implementação presencial ou remoto", pf3c: "Redesenho de processos & gestão de mudanças", pf3d: "Configuração e acompanhamento de KPIs", pf3e: "Ciclos de revisão trimestrais", pf3f: "Pela equipe de consultoria Moresight",
+      priceBtn1: "Começar →", priceBtn2: "Obter Relatório Completo →", priceBtn3: "Fale Conosco →",
+      priceGuaranteeTitle: "Garantia de Satisfação de 14 Dias", priceGuaranteeText: "Se o relatório não atender suas expectativas, reembolso total em 14 dias.", priceGuaranteeLink: "Política de Reembolso",
       ctaLabel: "Começar",
       ctaH2: 'Vamos fazer a <em>radiografia</em> das suas operações',
       ctaSmall: "Encontramos o desperdício que você não vê e calculamos quanto cada um custa por ano. O setor não importa — onde há fluxo de valor, há desperdício.",
@@ -1449,6 +1753,56 @@
       }
     }
 
+    // PRICING
+    const pricing = $('#pricing');
+    if (pricing) {
+      pricing.querySelector('.section-label').textContent = t.priceLabel;
+      pricing.querySelector('.section-title').innerHTML = t.priceTitle;
+      pricing.querySelector('.section-desc').textContent = t.priceSubtitle;
+      // Cards
+      const cards = pricing.querySelectorAll('.pricing-card');
+      if (cards[0]) {
+        cards[0].querySelector('.pricing-desc').textContent = t.priceDesc1;
+        cards[0].querySelectorAll('.pricing-period').forEach(el => el.textContent = t.pricePeriod);
+        const f1 = cards[0].querySelectorAll('.pricing-features li');
+        if(f1[0]) f1[0].textContent = t.pf1a; if(f1[1]) f1[1].textContent = t.pf1b;
+        if(f1[2]) f1[2].textContent = t.pf1c; if(f1[3]) f1[3].textContent = t.pf1d;
+        if(f1[4]) f1[4].textContent = t.pf1e;
+        cards[0].querySelector('.pricing-btn').textContent = t.priceBtn1;
+      }
+      if (cards[1]) {
+        const badge = cards[1].querySelector('.pricing-badge');
+        if (badge) badge.textContent = t.priceBadge;
+        cards[1].querySelector('.pricing-desc').textContent = t.priceDesc2;
+        cards[1].querySelectorAll('.pricing-period').forEach(el => el.textContent = t.pricePeriod);
+        const f2 = cards[1].querySelectorAll('.pricing-features li');
+        if(f2[0]) f2[0].textContent = t.pf2a; if(f2[1]) f2[1].textContent = t.pf2b;
+        if(f2[2]) f2[2].textContent = t.pf2c; if(f2[3]) f2[3].textContent = t.pf2d;
+        if(f2[4]) f2[4].textContent = t.pf2e; if(f2[5]) f2[5].textContent = t.pf2f;
+        if(f2[6]) f2[6].textContent = t.pf2g;
+        cards[1].querySelector('.pricing-btn').textContent = t.priceBtn2;
+      }
+      if (cards[2]) {
+        cards[2].querySelector('.pricing-desc').textContent = t.priceDesc3;
+        const customAmt = cards[2].querySelector('.pricing-custom');
+        if (customAmt) customAmt.textContent = t.priceCustom;
+        const customPeriod = cards[2].querySelector('.pricing-period');
+        if (customPeriod) customPeriod.textContent = t.priceCustomPeriod;
+        const f3 = cards[2].querySelectorAll('.pricing-features li');
+        if(f3[0]) f3[0].textContent = t.pf3a; if(f3[1]) f3[1].textContent = t.pf3b;
+        if(f3[2]) f3[2].textContent = t.pf3c; if(f3[3]) f3[3].textContent = t.pf3d;
+        if(f3[4]) f3[4].textContent = t.pf3e; if(f3[5]) f3[5].textContent = t.pf3f;
+        cards[2].querySelector('.pricing-btn').textContent = t.priceBtn3;
+      }
+      // Guarantee
+      const gTitle = pricing.querySelector('[data-i18n="priceGuaranteeTitle"]');
+      if (gTitle) gTitle.textContent = t.priceGuaranteeTitle;
+      const gText = pricing.querySelector('[data-i18n="priceGuaranteeText"]');
+      if (gText) gText.textContent = t.priceGuaranteeText;
+      const gLink = pricing.querySelector('[data-i18n="priceGuaranteeLink"]');
+      if (gLink) gLink.textContent = t.priceGuaranteeLink;
+    }
+
     // CTA
     const cta = $('#cta');
     if (cta) {
@@ -1501,6 +1855,14 @@
       });
     }
   } catch(e) {}
+
+  // Scroll progress bar
+  window.addEventListener('scroll', function() {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    document.getElementById('scrollBar').style.width = progress + '%';
+  });
 </script>
 </body>
 </html>
