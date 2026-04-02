@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refund Policy — GembaX</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #FAF9F6; --bg-secondary: #FFFFFF; --bg-card: #F4F2EE;
+    --text-primary: #1B2A4A; --text-secondary: #4A5568; --text-muted: #8fa093;
+    --accent: #2D5016; --accent-dark: #1e3f0f;
+    --border: rgba(0,0,0,0.08); --border-accent: rgba(45,80,22,0.25);
+    --font-body: 'Instrument Sans', sans-serif; --font-mono: 'Space Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body); background-color: var(--bg-primary);
+    background-image: linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
+    background-size: 28px 28px; color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+  nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 3rem; background: rgba(250,249,246,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .logo { text-decoration: none; display: flex; align-items: baseline; gap: 0.6rem; }
+  .logo-main { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
+  .logo-x { color: var(--accent); }
+  .logo-sub { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
+  .nav-back { font-size: 0.85rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+  .legal-container { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .legal-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .legal-header h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.6rem; }
+  .legal-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.04em; }
+  .legal-section { margin-bottom: 2.5rem; }
+  .legal-section h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+  .legal-section h3 { font-size: 0.95rem; font-weight: 600; margin: 1.2rem 0 0.5rem; }
+  .legal-section p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.75; margin-bottom: 0.8rem; }
+  .legal-section ul { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.75; margin: 0.5rem 0 1rem 1.5rem; }
+  .legal-section li { margin-bottom: 0.3rem; }
+  .legal-section a { color: var(--accent); text-decoration: underline; }
+  .legal-section strong { color: var(--text-primary); }
+  .highlight-box {
+    background: var(--bg-card); border: 1px solid var(--border-accent);
+    border-left: 3px solid var(--accent); border-radius: 6px;
+    padding: 1.2rem 1.5rem; margin: 1.5rem 0;
+  }
+  .highlight-box p { margin-bottom: 0.4rem; }
+  .highlight-box p:last-child { margin-bottom: 0; }
+  .steps-row { display: flex; gap: 1rem; margin: 1.5rem 0; flex-wrap: wrap; }
+  .step-card {
+    flex: 1; min-width: 180px; background: var(--bg-secondary);
+    border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem;
+  }
+  .step-num { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+  .step-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .step-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0; }
+  footer { border-top: 1px solid var(--border); padding: 2rem 3rem; background: var(--bg-secondary); }
+  .footer-inner { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand { font-size: 0.85rem; color: var(--text-muted); }
+  .footer-brand strong { color: var(--text-primary); font-weight: 700; }
+  .footer-brand strong span { color: var(--accent); }
+  .footer-links { display: flex; gap: 1.2rem; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.2rem; } .logo-sub { display: none; }
+    .legal-container { padding: 2.5rem 1.2rem 4rem; }
+    .steps-row { flex-direction: column; }
+    footer { padding: 1.5rem 1.2rem; }
+    .footer-inner { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><span class="logo-main">Gemba<span class="logo-x">X</span></span><span class="logo-sub">X-Ray of Operational Waste</span></a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+<div class="legal-container">
+  <div class="legal-header">
+    <h1>Refund Policy</h1>
+    <div class="legal-meta">Last updated: April 2, 2026</div>
+  </div>
+
+  <div class="legal-section">
+    <h2>Our Guarantee</h2>
+    <div class="highlight-box">
+      <p><strong>14-Day Satisfaction Guarantee</strong></p>
+      <p>If your report doesn't deliver the value you expected, request a full refund within 14 days of delivery. No complicated process.</p>
+    </div>
+  </div>
+
+  <div class="legal-section">
+    <h2>By Service Tier</h2>
+    <h3>Scan — $550</h3>
+    <p>Full refund within 14 days of report delivery if you completed the intake in good faith and reviewed the report.</p>
+    <h3>Diagnosis — $1,000</h3>
+    <p>Full refund within 14 days of report delivery under the same conditions.</p>
+    <h3>Transformation — Custom</h3>
+    <p>Governed by the individual service agreement between you and Moresight Consulting.</p>
+  </div>
+
+  <div class="legal-section">
+    <h2>How to Request</h2>
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h4>Email us</h4>
+        <p>Send to <a href="mailto:murat@gembax.ai">murat@gembax.ai</a> with subject "Refund Request."</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h4>Brief review</h4>
+        <p>We may ask for feedback to improve our service.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h4>Refund processed</h4>
+        <p>Approved within 5–10 business days to your original payment method.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="legal-section">
+    <h2>Exceptions</h2>
+    <ul>
+      <li>Request made more than 14 days after report delivery</li>
+      <li>Intake completed with clearly inaccurate or fabricated data</li>
+      <li>Report already used for third-party claims or litigation</li>
+    </ul>
+  </div>
+
+  <div class="legal-section">
+    <h2>Chargebacks</h2>
+    <p>Please contact us directly before initiating a chargeback. We're committed to resolving issues quickly and fairly.</p>
+  </div>
+
+  <div class="legal-section">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:murat@gembax.ai">murat@gembax.ai</a> — Response within 24 hours on business days.</p>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — X-Ray of operational waste</div>
+    <div class="footer-links">
+      <a href="/pricing">Pricing</a>
+      <a href="/terms-and-conditions">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/refund">Refund</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
