@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — GembaX</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #FAF9F6;
+    --bg-secondary: #FFFFFF;
+    --bg-card: #F4F2EE;
+    --text-primary: #1B2A4A;
+    --text-secondary: #4A5568;
+    --text-muted: #8fa093;
+    --accent: #2D5016;
+    --accent-dark: #1e3f0f;
+    --accent-light: #3d6b22;
+    --accent-glow: rgba(45, 80, 22, 0.08);
+    --accent-glow-strong: rgba(45, 80, 22, 0.15);
+    --border: rgba(0,0,0,0.08);
+    --border-accent: rgba(45, 80, 22, 0.25);
+    --font-body: 'Instrument Sans', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background-color: var(--bg-primary);
+    background-image:
+      linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--text-primary); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(250,249,246,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { text-decoration: none; display: flex; align-items: baseline; gap: 0.6rem; }
+  .logo-main { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
+  .logo-x { color: var(--accent); }
+  .logo-sub { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
+  .nav-back {
+    font-size: 0.85rem; color: var(--text-secondary); text-decoration: none;
+    display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  /* HERO */
+  .pricing-hero {
+    text-align: center;
+    padding: 5rem 2rem 3rem;
+    max-width: 700px; margin: 0 auto;
+  }
+  .pricing-hero h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.15; margin-bottom: 1rem;
+  }
+  .pricing-hero h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .pricing-hero p {
+    color: var(--text-secondary); font-size: 1.1rem;
+    line-height: 1.7; max-width: 540px; margin: 0 auto;
+  }
+
+  /* CARDS */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1080px; margin: 0 auto;
+    padding: 0 2rem 5rem;
+  }
+  .pricing-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  }
+  .pricing-card.featured {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 8px 30px rgba(45,80,22,0.1);
+  }
+  .pricing-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff;
+    font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.3rem 1rem; border-radius: 20px;
+    white-space: nowrap;
+  }
+  .pricing-tier {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    color: var(--text-muted); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 0.6rem;
+  }
+  .pricing-name {
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 0.4rem;
+  }
+  .pricing-desc {
+    font-size: 0.88rem; color: var(--text-secondary);
+    line-height: 1.6; margin-bottom: 1.5rem;
+    min-height: 3.2rem;
+  }
+  .pricing-price {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .pricing-amount {
+    font-size: 2.4rem; font-weight: 700;
+    color: var(--text-primary); letter-spacing: -0.03em;
+  }
+  .pricing-amount .currency { font-size: 1.4rem; font-weight: 600; vertical-align: super; }
+  .pricing-period {
+    font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;
+  }
+
+  .pricing-features {
+    list-style: none; flex: 1; margin-bottom: 2rem;
+  }
+  .pricing-features li {
+    font-size: 0.88rem; color: var(--text-secondary);
+    padding: 0.45rem 0; padding-left: 1.5rem;
+    position: relative; line-height: 1.5;
+  }
+  .pricing-features li::before {
+    content: '✓'; position: absolute; left: 0;
+    color: var(--accent); font-weight: 700; font-size: 0.85rem;
+  }
+
+  .pricing-btn {
+    display: block; text-align: center;
+    padding: 0.9rem 1.5rem;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.92rem; font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .pricing-btn.primary {
+    background: var(--accent); color: #fff;
+    border: 1px solid var(--accent);
+  }
+  .pricing-btn.primary:hover {
+    background: var(--accent-dark);
+    box-shadow: 0 4px 15px rgba(45,80,22,0.25);
+  }
+  .pricing-btn.secondary {
+    background: transparent; color: var(--accent);
+    border: 1px solid var(--border-accent);
+  }
+  .pricing-btn.secondary:hover {
+    background: var(--accent-glow);
+  }
+
+  /* GUARANTEE */
+  .guarantee-bar {
+    max-width: 700px; margin: 0 auto 4rem;
+    text-align: center; padding: 0 2rem;
+  }
+  .guarantee-bar p {
+    font-size: 0.88rem; color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .guarantee-bar strong { color: var(--text-secondary); }
+
+  /* FAQ */
+  .faq-section {
+    max-width: 700px; margin: 0 auto;
+    padding: 0 2rem 5rem;
+  }
+  .faq-section h2 {
+    font-size: 1.6rem; font-weight: 700;
+    text-align: center; margin-bottom: 2rem;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 1.2rem 0;
+  }
+  .faq-q {
+    font-size: 0.95rem; font-weight: 600;
+    color: var(--text-primary); cursor: pointer;
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 1rem;
+  }
+  .faq-q::after {
+    content: '+'; font-family: var(--font-mono);
+    font-size: 1.1rem; color: var(--accent);
+    flex-shrink: 0; transition: transform 0.2s;
+  }
+  .faq-item.open .faq-q::after { content: '−'; }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-a {
+    max-height: 200px;
+    padding-top: 0.8rem;
+  }
+  .faq-a p {
+    font-size: 0.88rem; color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem; background: var(--bg-secondary);
+  }
+  .footer-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand { font-size: 0.85rem; color: var(--text-muted); }
+  .footer-brand strong { color: var(--text-primary); font-weight: 700; }
+  .footer-brand strong span { color: var(--accent); }
+  .footer-links { display: flex; gap: 1.2rem; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+    .pricing-card.featured { order: -1; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.2rem; }
+    .logo-sub { display: none; }
+    .pricing-hero { padding: 3rem 1.2rem 2rem; }
+    .pricing-grid { padding: 0 1.2rem 3rem; }
+    footer { padding: 1.5rem 1.2rem; }
+    .footer-inner { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-main">Gemba<span class="logo-x">X</span></span>
+    <span class="logo-sub">X-Ray of Operational Waste</span>
+  </a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="pricing-hero">
+  <h1>Find your hidden costs. <em>Pick your depth.</em></h1>
+  <p>Every plan delivers waste quantified in dollars — not vague percentages. Choose the level of analysis your business needs.</p>
+</div>
+
+<div class="pricing-grid">
+
+  <!-- TIER 1: SCAN -->
+  <div class="pricing-card">
+    <div class="pricing-tier">Tier 01</div>
+    <div class="pricing-name">Scan</div>
+    <div class="pricing-desc">Focused operational scan across your top 3 waste categories.</div>
+    <div class="pricing-price">
+      <div class="pricing-amount"><span class="currency">$</span>550</div>
+      <div class="pricing-period">One-time payment</div>
+    </div>
+    <ul class="pricing-features">
+      <li>7+1 waste category screening</li>
+      <li>Top 3 waste areas identified in $ terms</li>
+      <li>Industry benchmark comparison</li>
+      <li>Priority action summary</li>
+      <li>Delivered within 5 business days</li>
+    </ul>
+    <a href="mailto:murat@gembax.ai?subject=GembaX%20Scan%20—%20$550" class="pricing-btn secondary">Get Started →</a>
+  </div>
+
+  <!-- TIER 2: DIAGNOSIS (Featured) -->
+  <div class="pricing-card featured">
+    <div class="pricing-badge">Most Popular</div>
+    <div class="pricing-tier">Tier 02</div>
+    <div class="pricing-name">Diagnosis</div>
+    <div class="pricing-desc">Full Hidden Cost Report with bottleneck analysis and 90-day action plan.</div>
+    <div class="pricing-price">
+      <div class="pricing-amount"><span class="currency">$</span>1,000</div>
+      <div class="pricing-period">One-time payment</div>
+    </div>
+    <ul class="pricing-features">
+      <li>Everything in Scan, plus:</li>
+      <li>All 7+1 waste categories — full $ breakdown</li>
+      <li>Bottleneck detection (Theory of Constraints)</li>
+      <li>Pareto analysis — biggest impact areas</li>
+      <li>90-day prioritized action plan</li>
+      <li>ROI projection for each recommendation</li>
+      <li>Executive summary + detailed report</li>
+    </ul>
+    <a href="mailto:murat@gembax.ai?subject=GembaX%20Diagnosis%20—%20$1000" class="pricing-btn primary">Get Full Report →</a>
+  </div>
+
+  <!-- TIER 3: TRANSFORMATION -->
+  <div class="pricing-card">
+    <div class="pricing-tier">Tier 03</div>
+    <div class="pricing-name">Transformation</div>
+    <div class="pricing-desc">Enterprise implementation with hands-on consulting via Moresight.io.</div>
+    <div class="pricing-price">
+      <div class="pricing-amount" style="font-size: 1.8rem;">Custom</div>
+      <div class="pricing-period">Scoped to your needs</div>
+    </div>
+    <ul class="pricing-features">
+      <li>Everything in Diagnosis, plus:</li>
+      <li>On-site or remote implementation support</li>
+      <li>Process redesign & change management</li>
+      <li>KPI dashboard setup & tracking</li>
+      <li>Quarterly review cycles</li>
+      <li>Delivered by Moresight Consulting team</li>
+    </ul>
+    <a href="mailto:murat@gembax.ai?subject=GembaX%20Transformation%20—%20Custom" class="pricing-btn secondary">Contact Us →</a>
+  </div>
+
+</div>
+
+<div class="guarantee-bar">
+  <p><strong>14-Day Satisfaction Guarantee</strong> — If the report doesn't deliver the value you expected, we'll refund your payment in full. No questions asked. See our <a href="/refund" style="color: var(--accent);">Refund Policy</a> for details.</p>
+</div>
+
+<div class="faq-section">
+  <h2>Common Questions</h2>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What data do I need to provide?</div>
+    <div class="faq-a"><p>You'll fill out a guided intake form with questions about your operations — revenue, headcount, key processes, and pain points. No financial statements or sensitive data required. The more detail you share, the sharper the analysis.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How long does it take?</div>
+    <div class="faq-a"><p>Scan reports are delivered within 5 business days. Full Diagnosis reports within 7–10 business days after intake completion. Transformation timelines are scoped per engagement.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What industries do you cover?</div>
+    <div class="faq-a"><p>Manufacturing, services, retail, logistics, technology/SaaS, and sales operations. Anywhere there's a value stream, there's waste to find.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is my data safe?</div>
+    <div class="faq-a"><p>Yes. We use encrypted connections, don't share your business data with third parties, and you can request deletion at any time. See our <a href="/privacy" style="color: var(--accent);">Privacy Policy</a>.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What's the difference between Scan and Diagnosis?</div>
+    <div class="faq-a"><p>Scan gives you the top 3 waste areas with dollar estimates. Diagnosis goes deeper — all 7+1 categories, bottleneck detection, Pareto analysis, and a full 90-day action plan with ROI projections.</p></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — X-Ray of operational waste</div>
+    <div class="footer-links">
+      <a href="/terms-and-conditions">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/refund">Refund</a>
+      <a href="mailto:murat@gembax.ai">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
