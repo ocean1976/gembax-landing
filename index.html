@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GembaX — Operasyonel İsrafın Röntgeni</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-primary: #FAF9F6;
@@ -23,6 +23,7 @@
     --dot-color: rgba(45, 80, 22, 0.18);
     --font-body: 'Instrument Sans', sans-serif;
     --font-mono: 'Space Mono', monospace;
+    --font-editorial: 'Playfair Display', Georgia, serif;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -382,6 +383,35 @@
   .eq-output-text { font-size: 0.98rem; color: var(--text-secondary); line-height: 1.6; }
   .eq-output-text strong { color: var(--accent); font-weight: 700; font-family: var(--font-mono); }
 
+  /* MAGAZINE LAYOUT — Philosophy sections */
+  .magazine-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 2rem; }
+  .magazine-col p { font-size: 1.02rem; line-height: 1.78; color: var(--text-secondary); margin-bottom: 1.2rem; text-align: justify; hyphens: auto; }
+  .drop-cap::first-letter { font-family: var(--font-editorial); float: left; font-size: 4.2rem; line-height: 0.8; padding-right: 0.6rem; padding-top: 0.35rem; color: var(--accent); font-weight: 700; }
+  .col-subhead { font-family: var(--font-editorial); font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin: 2rem 0 0.8rem; line-height: 1.3; }
+  .col-subhead:first-child { margin-top: 0; }
+  .timwoods-ref { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.04em; font-weight: 700; }
+  .pull-quote { border-left: 3px solid var(--accent); padding: 1.2rem 0 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .pull-quote p { font-family: var(--font-editorial); font-size: 1.2rem; font-style: italic; line-height: 1.5; color: var(--text-primary); text-align: left; margin-bottom: 0; }
+  .pull-quote cite { display: block; margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.65rem; font-style: normal; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .sidebar-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
+  .sidebar-box-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.7rem; font-weight: 700; }
+  .sidebar-box p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); text-align: left; margin-bottom: 0.5rem; }
+  .sidebar-box p:last-child { margin-bottom: 0; }
+  .sidebar-box strong { color: var(--text-primary); }
+  .objection-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 0 0 2.5rem; position: relative; }
+  .objection-block::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); border-radius: 12px 0 0 12px; }
+  .objection-q { font-family: var(--font-editorial); font-size: 1.12rem; font-style: italic; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.5; }
+  .objection-a p { font-size: 0.95rem; line-height: 1.75; color: var(--text-secondary); margin-bottom: 0.8rem; }
+  .objection-a p:last-child { margin-bottom: 0; }
+  .objection-a strong { color: var(--text-primary); }
+  .question-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+  .question-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; transition: all 0.3s ease; }
+  .question-card:hover { border-color: var(--border-accent); box-shadow: 0 8px 32px rgba(45,80,22,0.06); transform: translateY(-2px); }
+  .question-card-sector { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; font-weight: 700; }
+  .question-card-q { font-family: var(--font-editorial); font-size: 0.98rem; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 0.7rem; }
+  .question-card-why { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; padding-top: 0.6rem; border-top: 1px solid var(--border); }
+  .question-card-why strong { color: var(--accent-dark); }
+
   /* PROCESS */
   .process-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .process-card { position: relative; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.03); }
@@ -571,7 +601,7 @@
   .footer-brand { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
   .footer-brand strong { color: var(--text-primary); font-weight: 700; }
   .footer-brand strong span { color: var(--accent); }
-  .footer-links { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+  .footer-links { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; }
   .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
   .footer-links a:hover { color: var(--accent); }
   .footer-email { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); }
@@ -606,6 +636,8 @@
     .stats-inner { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
     .gemba-grid { grid-template-columns: 1fr; }
     .gemba-text { padding-right: 0; }
+    .magazine-columns { grid-template-columns: 1fr; gap: 0; }
+    .question-showcase { grid-template-columns: 1fr; gap: 1rem; }
     .process-cards { grid-template-columns: 1fr; }
     .waste-grid { grid-template-columns: repeat(2, 1fr); }
     .sector-strip { grid-template-columns: 1fr; }
@@ -739,11 +771,9 @@
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links">
-    <a href="#gemba">Gemba Nedir</a>
-    <a href="#process">Nasıl Çalışır</a>
-    <a href="#waste">7+1 İsraf</a>
-    <a href="#sectors">Sektörler</a>
-    <a href="#pricing">Fiyatlar</a>
+    <a href="/gemba-nedir.html" class="nav-link-gemba">Gemba Nedir</a>
+    <a href="/metodoloji.html" class="nav-link-metod">Metodoloji</a>
+    <a href="/pricing.html" class="nav-link-price">Fiyatlar</a>
     <a class="nav-benchmark" href="benchmark.html">Benchmark Testlerini İncele</a>
     <div class="lang-dropdown" id="langDropdown">
       <div class="lang-toggle" id="langToggle" onclick="document.getElementById('langDropdown').classList.toggle('open')">
@@ -772,7 +802,7 @@
     </h1>
     <p class="hero-motto">Değer üretmeyen her şey israftır. GembaX ile işletmenizin kalbinde gizliden gizliye kemiren israfı görünür kılıyoruz:</p>
     <ul class="hero-bullets">
-      <li>Öncelikle işletmeniz için neyin gerçekten değer yarattığını belirliyoruz</li>
+      <li>Müşterinizin gözünden bakarak, operasyonunuzda neyin gerçekten değer yarattığını belirliyoruz</li>
       <li>AI-destekli operasyonel röntgen ile israfın kaynağına iniyoruz</li>
       <li>İsrafın size kaça mal olduğunu hesaplıyoruz</li>
       <li>Sorunların kök nedenleri ve 90 günlük aksiyon planı çıkarıyoruz</li>
@@ -813,37 +843,38 @@
 
 <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-<!-- GEMBA -->
+<!-- GEMBA — Kısa versiyon + link -->
 <section id="gemba">
   <div class="gemba-grid">
     <div class="gemba-text">
-      <div class="section-label">Felsefemiz</div>
-      <h2 class="section-title">Gemba: <em>Gerçek işin<br>yapıldığı yer</em></h2>
-      <p class="section-desc">"Gemba" Japonca'da işin fiilen gerçekleştiği yeri ifade eder — fabrika sahası, ofis, depo, satış noktası.</p>
-      <p class="section-desc" style="margin-top: -1.5rem;">
+      <div class="section-label" id="gemba-label">Felsefemiz</div>
+      <h2 class="section-title" id="gemba-title">Gemba: <em>Gerçek işin<br>yapıldığı yer</em></h2>
+      <p class="section-desc" id="gemba-desc1">"Gemba" Japonca'da işin fiilen gerçekleştiği yeri ifade eder — fabrika sahası, ofis, depo, satış noktası.</p>
+      <p class="section-desc" style="margin-top: -1.5rem;" id="gemba-desc2">
         <strong style="color: var(--text-primary);">GembaX</strong>, bu felsefeyi AI ile birleştiriyor. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = operasyonlarınızın röntgenini çekiyoruz.
       </p>
+      <a href="/gemba-nedir.html" style="display:inline-block; margin-top:1rem; font-family:var(--font-mono); font-size:0.82rem; color:var(--accent); font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:2px;" class="gemba-more-link" id="gemba-more-link">Lean felsefesi ve Gemba hakkında daha fazla →</a>
     </div>
     <div class="gemba-visual fade-in">
       <div class="gemba-equation">
         <div class="eq-row">
           <div class="eq-box">
-            <div class="eq-box-label">Gemba</div>
-            <div class="eq-box-value">Gerçek <span>iş yeri</span></div>
+            <div class="eq-box-label" id="eq-gemba-label">Gemba</div>
+            <div class="eq-box-value" id="eq-gemba-val">Gerçek <span>iş yeri</span></div>
           </div>
           <div class="eq-plus">+</div>
           <div class="eq-box">
-            <div class="eq-box-label">X-Ray</div>
-            <div class="eq-box-value">Derin <span>analiz</span></div>
+            <div class="eq-box-label" id="eq-xray-label">X-Ray</div>
+            <div class="eq-box-value" id="eq-xray-val">Derin <span>analiz</span></div>
           </div>
         </div>
         <div class="eq-result">
-          <div class="eq-result-label">Sonuç</div>
+          <div class="eq-result-label" id="eq-result-label">Sonuç</div>
           <div class="eq-result-value">Gemba<span style="color:var(--accent-dark)">X</span></div>
         </div>
         <div class="eq-output-box">
-          <div class="eq-box-label">Çıktı</div>
-          <div class="eq-output-text">"Yılda <strong>$247K</strong> görünmez israfınız var. <strong>%68'i</strong> tek bir darboğazdan kaynaklanıyor."</div>
+          <div class="eq-box-label" id="eq-output-label">Çıktı</div>
+          <div class="eq-output-text" id="eq-output-text">"Yılda <strong>$247K</strong> görünmez israfınız var. <strong>%68'i</strong> tek bir darboğazdan kaynaklanıyor."</div>
         </div>
       </div>
     </div>
@@ -858,8 +889,8 @@
   <h2 class="section-title">Üç adımda <em>teşhisten aksiyona</em></h2>
   <p class="section-desc">Sorunu bul, maliyetini hesapla, çözüm yolunu göster.</p>
   <div class="process-cards">
-    <div class="process-card fade-in"><span class="card-ref">REF-001</span><div class="process-num">01 — TEŞHİS</div><h3>Paranız nerede yanıyor?</h3><p>İşletmenizi 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.</p><div class="process-output">→ Hidden Cost Report</div></div>
-    <div class="process-card fade-in"><span class="card-ref">REF-002</span><div class="process-num">02 — ÖNCELİK</div><h3>Önce nereye dokunmalı?</h3><p>Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz.</p><div class="process-output">→ Öncelik + Darboğaz Haritası</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-001</span><div class="process-num">01 — TEŞHİS</div><h3>Paranız nerede yanıyor?</h3><p>Önce müşteriniz için neyin değerli olduğunu netleştiriyoruz. Sonra operasyonunuzu bu değer tanımına göre 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.</p><div class="process-output">→ Hidden Cost Report</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-002</span><div class="process-num">02 — ÖNCELİK</div><h3>Önce nereye dokunmalı?</h3><p>Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz. Kritik soru: Bu 3 israfın ortak bir kök nedeni var mı?</p><div class="process-output">→ Öncelik + Darboğaz Haritası</div></div>
     <div class="process-card fade-in"><span class="card-ref">REF-003</span><div class="process-num">03 — AKSİYON</div><h3>Ne kadar kurtarabiliriz?</h3><p>90 günlük öncelikli aksiyon planı: 0-30 gün hızlı kazanımlar, 30-60 gün orta vadeli, 60-90 gün yapısal.</p><div class="process-output">→ 90 Günlük Yol Haritası + ROI</div></div>
   </div>
 </section>
@@ -957,77 +988,6 @@
   </div>
 </section>
 
-<!-- CTA -->
-
-<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
-
-<!-- PRICING -->
-<section class="pricing-section" id="pricing">
-  <div class="section-label">Fiyatlar</div>
-  <h2 class="section-title">İhtiyacınıza göre <em>derinliği seçin</em></h2>
-  <p class="section-desc">Her planda israf dolar cinsinden raporlanır — belirsiz yüzdeler değil.</p>
-  <div class="pricing-grid">
-    <div class="pricing-card fade-in">
-      <div class="pricing-tier">Tier 01</div>
-      <div class="pricing-name">Scan</div>
-      <div class="pricing-desc" data-i18n="priceDesc1">En kritik 3 israf kategorisine odaklanan hızlı tarama.</div>
-      <div class="pricing-price">
-        <div class="pricing-amount"><span class="currency">$</span>550</div>
-        <div class="pricing-period" data-i18n="pricePeriod">Tek seferlik ödeme</div>
-      </div>
-      <ul class="pricing-features">
-        <li data-i18n="pf1a">7+1 israf kategorisi taraması</li>
-        <li data-i18n="pf1b">En kritik 3 israf $ cinsinden</li>
-        <li data-i18n="pf1c">Sektör benchmark karşılaştırması</li>
-        <li data-i18n="pf1d">Öncelik aksiyon özeti</li>
-        <li data-i18n="pf1e">5 iş günü içinde teslim</li>
-      </ul>
-      <a href="mailto:murat@gembax.ai?subject=GembaX%20Scan" class="pricing-btn secondary" data-i18n="priceBtn1">Başlayın →</a>
-    </div>
-    <div class="pricing-card featured fade-in">
-      <div class="pricing-badge" data-i18n="priceBadge">En Popüler</div>
-      <div class="pricing-tier">Tier 02</div>
-      <div class="pricing-name">Diagnosis</div>
-      <div class="pricing-desc" data-i18n="priceDesc2">Tam Hidden Cost Report — darboğaz analizi ve 90 günlük aksiyon planı.</div>
-      <div class="pricing-price">
-        <div class="pricing-amount"><span class="currency">$</span>1,000</div>
-        <div class="pricing-period" data-i18n="pricePeriod">Tek seferlik ödeme</div>
-      </div>
-      <ul class="pricing-features">
-        <li data-i18n="pf2a">Scan'deki her şey, artı:</li>
-        <li data-i18n="pf2b">7+1 israf kategorisi — tam $ kırılım</li>
-        <li data-i18n="pf2c">Darboğaz tespiti (Kısıtlar Teorisi)</li>
-        <li data-i18n="pf2d">Pareto analizi — en yüksek etki alanları</li>
-        <li data-i18n="pf2e">90 günlük öncelikli aksiyon planı</li>
-        <li data-i18n="pf2f">Her öneri için ROI projeksiyonu</li>
-        <li data-i18n="pf2g">Yönetici özeti + detaylı rapor</li>
-      </ul>
-      <a href="mailto:murat@gembax.ai?subject=GembaX%20Diagnosis" class="pricing-btn primary" data-i18n="priceBtn2">Tam Raporu Al →</a>
-    </div>
-    <div class="pricing-card fade-in">
-      <div class="pricing-tier">Tier 03</div>
-      <div class="pricing-name">Transformation</div>
-      <div class="pricing-desc" data-i18n="priceDesc3">Moresight.io ile birlikte yürütülen kurumsal dönüşüm programı.</div>
-      <div class="pricing-price">
-        <div class="pricing-amount pricing-custom" data-i18n="priceCustom">Özel Fiyat</div>
-        <div class="pricing-period" data-i18n="priceCustomPeriod">İhtiyaca göre belirlenir</div>
-      </div>
-      <ul class="pricing-features">
-        <li data-i18n="pf3a">Diagnosis'deki her şey, artı:</li>
-        <li data-i18n="pf3b">Yerinde veya uzaktan uygulama desteği</li>
-        <li data-i18n="pf3c">Süreç yeniden tasarımı & değişim yönetimi</li>
-        <li data-i18n="pf3d">KPI dashboard kurulumu & takibi</li>
-        <li data-i18n="pf3e">Üç aylık periyodik gözden geçirme</li>
-        <li data-i18n="pf3f">Moresight danışmanlık ekibi tarafından</li>
-      </ul>
-      <a href="mailto:murat@gembax.ai?subject=GembaX%20Transformation" class="pricing-btn secondary" data-i18n="priceBtn3">İletişime Geçin →</a>
-    </div>
-  </div>
-  <div class="pricing-guarantee">
-    <strong data-i18n="priceGuaranteeTitle">14 Gün Memnuniyet Garantisi</strong> — <span data-i18n="priceGuaranteeText">Rapor beklentinizi karşılamazsa, teslimden itibaren 14 gün içinde tam iade.</span> <a href="/refund" data-i18n="priceGuaranteeLink">İade Politikası</a>
-  </div>
-</section>
-
 <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
 <!-- CTA -->
@@ -1035,7 +995,7 @@
   <div class="section-label">Başlayın</div>
   <h2>Operasyonlarınızın <em>röntgenini</em> çekelim</h2>
   <p class="cta-small">Gözle görülmeyen israfı buluyor, her birinin size yılda kaç dolara mal olduğunu hesaplıyoruz. Sektör fark etmez — değer akışı olan her yerde israf vardır.</p>
-  <p>Kısa bir form doldurun, sonra size özel hazırlanmış soru setleri ve verilerle analizi yapalım.</p>
+  <p>Kısa bir sohbette işletmenizi tanıyalım, sonra size özel hazırlanmış sorular ve verilerle analizi yapalım.</p>
   <a href="#" class="btn-primary">Analizi Başlat →</a>
 </div>
 
@@ -1051,10 +1011,12 @@
   <div class="footer-inner">
     <div class="footer-brand"><strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni</div>
     <div class="footer-links">
-      <a href="/pricing" class="footer-link-legal">Fiyatlar</a>
-      <a href="/terms-and-conditions" class="footer-link-legal">Şartlar</a>
-      <a href="/privacy" class="footer-link-legal">Gizlilik</a>
-      <a href="/refund" class="footer-link-legal">İade</a>
+      <div style="display:flex; gap:1.2rem; margin-bottom:0.4rem;">
+        <a href="/pricing.html" class="footer-link-legal">Fiyatlar</a>
+        <a href="/terms-and-conditions.html" class="footer-link-legal">Şartlar</a>
+        <a href="/privacy.html" class="footer-link-legal">Gizlilik</a>
+        <a href="/refund.html" class="footer-link-legal">İade</a>
+      </div>
       <a href="mailto:murat@gembax.ai" class="footer-email">murat@gembax.ai</a>
     </div>
   </div>
@@ -1093,17 +1055,15 @@
       // NAV
       logoSub: "Operasyonel İsrafın Röntgeni",
       navGemba: "Gemba Nedir",
-      navProcess: "Nasıl Çalışır",
-      navWaste: "7+1 İsraf",
-      navSectors: "Sektörler",
-      navPricing: "Fiyatlar",
+      navMetod: "Metodoloji",
+      navPrice: "Fiyatlar",
       navBenchmark: "Benchmark Testlerini İncele",
       navCta: "Analizi Başlat",
       // HERO
       heroBadge: "Uzman Liderliğinde AI Analizi",
       heroH1: "İşletmenizdeki gizli maliyetleri buluyoruz.",
       heroMotto: 'Değer üretmeyen her şey israftır. GembaX ile işletmenizin kalbinde gizliden gizliye kemiren israfı görünür kılıyoruz:',
-      heroBullet1: "Öncelikle işletmeniz için neyin gerçekten değer yarattığını belirliyoruz",
+      heroBullet1: "Müşterinizin gözünden bakarak, operasyonunuzda neyin gerçekten değer yarattığını belirliyoruz",
       heroBullet2: "AI-destekli operasyonel röntgen ile israfın kaynağına iniyoruz",
       heroBullet3: "İsrafın size kaça mal olduğunu hesaplıyoruz",
       heroBullet4: "Sorunların kök nedenleri ve 90 günlük aksiyon planı çıkarıyoruz",
@@ -1127,8 +1087,8 @@
       processLabel: "Nasıl Çalışır",
       processTitle: 'Üç adımda <em>teşhisten aksiyona</em>',
       processDesc: "Sorunu bul, maliyetini hesapla, çözüm yolunu göster.",
-      proc1Num: "01 — TEŞHİS", proc1H: "Paranız nerede yanıyor?", proc1P: "İşletmenizi 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — ÖNCELİK", proc2H: "Önce nereye dokunmalı?", proc2P: "Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz.", proc2Out: "→ Öncelik + Darboğaz Haritası",
+      proc1Num: "01 — TEŞHİS", proc1H: "Paranız nerede yanıyor?", proc1P: "Önce müşteriniz için neyin değerli olduğunu netleştiriyoruz. Sonra operasyonunuzu bu değer tanımına göre 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.", proc1Out: "→ Hidden Cost Report",
+      proc2Num: "02 — ÖNCELİK", proc2H: "Önce nereye dokunmalı?", proc2P: "Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz. Kritik soru: Bu 3 israfın ortak bir kök nedeni var mı?", proc2Out: "→ Öncelik + Darboğaz Haritası",
       proc3Num: "03 — AKSİYON", proc3H: "Ne kadar kurtarabiliriz?", proc3P: "90 günlük öncelikli aksiyon planı: 0-30 gün hızlı kazanımlar, 30-60 gün orta vadeli, 60-90 gün yapısal.", proc3Out: "→ 90 Günlük Yol Haritası + ROI",
       // WASTE
       wasteLabel: "7+1 İsraf Analizi",
@@ -1186,25 +1146,78 @@
       ctaLabel: "Başlayın",
       ctaH2: 'Operasyonlarınızın <em>röntgenini</em> çekelim',
       ctaSmall: "Gözle görülmeyen israfı buluyor, her birinin size yılda kaç dolara mal olduğunu hesaplıyoruz. Sektör fark etmez — değer akışı olan her yerde israf vardır.",
-      ctaP: "Kısa bir form doldurun, sonra size özel hazırlanmış soru setleri ve verilerle analizi yapalım.",
+      ctaP: "Kısa bir sohbette işletmenizi tanıyalım, sonra size özel hazırlanmış sorular ve verilerle analizi yapalım.",
       ctaBtn: "Analizi Başlat →",
       // FOOTER
+      // EXPANDED GEMBA + DIJITAL GEMBA
+      gembaDescExt: 'Kısıtlı kaynakla hayatta kalmaya çalışan bir fabrikanın zorunluluğundan doğan, bugün dünyanın her sektöründe geçerli olan bir ilke.',
+      gembaSub1: 'Lean: Bir verimlilik tercihi değil, hayatta kalma zorunluluğu',
+      gembaP1: '1950\'lerin Japonya\'sı. Savaş sonrası bir ekonomi. Toyota, Ford\'un onda biri kadar kaynakla, onda biri kadar üretim hacmiyle ayakta kalmaya çalışıyor. Batı\'nın seri üretim modelini kopyalayacak ne sermayesi var ne pazarı. Bu kısıt, Toyota mühendislerini farklı düşünmeye zorladı: Daha fazla kaynak bulamıyorsak, elimizdeki kaynaktan değer üretmeyen her şeyi çıkarmalıyız.',
+      gembaP2: 'Burada "değer" kelimesinin çok kesin bir tanımı var: <strong>müşterinin parasını ödemeye razı olduğu her adım değerdir.</strong> Ürüne form veren, işlevi değiştiren, müşterinin istediği sonuca yaklaştıran her faaliyet. Bunun dışındaki her şey — taşıma, bekleme, kontrol, yeniden işleme, depolama — israftır. Toyota bu ayrımı sistematik olarak her sürecine uyguladı ve dünyanın en verimli üretim sistemini inşa etti.',
+      gembaP3: 'Bugün bu yaklaşım "Lean" olarak biliniyor. Ve sadece fabrikalarla sınırlı değil. Hastanelerde hasta bekleme süreleri, yazılım şirketlerinde geliştirme döngüleri, perakendede stok yönetimi, lojistikte rota planlaması — <strong>değer akışı olan her yerde</strong> Lean uygulanıyor.',
+      gembaSide1Label: 'Bu sizin hikayeniz de olabilir',
+      gembaSide1P: 'Toyota\'nın 1950\'lerdeki durumu, bugün birçok KOBİ\'nin durumuna benzer: <strong>kısıtlı kaynak, güçlü rekabet, büyüme baskısı.</strong> Daha fazla kaynak bulmak her zaman mümkün değil — ama mevcut kaynaklardan değer üretmeyen adımları çıkarmak her zaman mümkün.',
+      gembaSub2: 'Sadece israf değil: Üç düşman',
+      gembaP4: 'Lean disiplininde performansı düşüren üç unsur birlikte ele alınır. <strong>Muda</strong> — değer katmayan faaliyetler, yani israf. <strong>Mura</strong> — süreçlerdeki dengesizlik; bir gün aşırı yoğunluk, ertesi gün boşluk. <strong>Muri</strong> — insanların veya makinelerin kapasitelerinin üzerinde zorlanması. Bu üçü birbirini besler: dengesiz iş yükü aşırı zorlanma yaratır, aşırı zorlanan süreçler hata üretir, hatalar israf olarak geri döner. GembaX analizi bu üçünü birlikte değerlendirir.',
+      gembaSub3: 'Gemba: İşin gerçekte yapıldığı yer',
+      gembaP5: '"Gemba" (現場) Japonca\'da <strong>"gerçek yer"</strong> demek — işin fiilen yapıldığı yer. Fabrika sahası, depo, ofis masası, satış noktası, müşteri hizmetleri hattı. Toplantı odası değil. Excel tablosu değil. Yönetim katı değil. <em>İşin bizzat yapıldığı yer.</em>',
+      gembaPQ1: 'Taiichi Ohno\'nun Toyota\'da yerleştirdiği temel prensip: Gerçeği ikinci elden öğrenmeye çalışma — sürece git, bizzat gör.',
+      gembaPQ1Cite: 'Genchi Genbutsu (現地現物) — Toyota Üretim Sistemi',
+      gembaP6: 'Lean geleneğinin en güçlü uygulaması <strong>Gemba Yürüyüşü</strong>\'dür. Deneyimli bir yönetici veya danışman işin yapıldığı yere gider, süreçleri gözlemler ve dikkatle seçilmiş sorular sorar. Amaç, masa başı raporlarının gösteremeyeceği gerçeği bizzat görmektir — sürecin nerede tıkandığını, hangi adımın gerçekten değer ürettiğini, nerede zaman ve para yandığını.',
+      gembaP7: 'Bu sorular rastgele değildir. Womack\'ın <em>Gemba Walks</em> kitabında formüle ettiği çerçeve, her Gemba Yürüyüşü\'nü üç katmanlı bir sorgulama ile yapılandırır:',
+      gembaSide2Label: 'Womack\'ın üç katmanlı çerçevesi — Gemba Walks',
+      gembaSide2Pa: '<strong>Purpose — Amaç:</strong> Bu iş neden yapılıyor? Müşteri için yarattığı değer tam olarak ne? Amaç net değilse, sürecin doğru çalışıp çalışmadığını ölçmek de mümkün değil.',
+      gembaSide2Pb: '<strong>Process — Süreç:</strong> Amaca ulaşmak için süreç nasıl akıyor? Her adımda ne oluyor, nerede bekleniyor, nerede tekrar ediliyor, nerede değer kayboluyor?',
+      gembaSide2Pc: '<strong>People — İnsan:</strong> Bu süreci yürüten insanlar nasıl destekleniyor? Doğru araçları, bilgiyi ve yetkiyi alıyorlar mı — yoksa sisteme rağmen mi çalışıyorlar?',
+      gembaP8: 'Lean\'in israf sınıflandırması uluslararası standart olarak <span class="timwoods-ref">TIM WOODS</span> kısaltmasıyla bilinir: Transportation, Inventory, Motion, Waiting, Overproduction, Over-processing, Defects ve Skills. Her israf türü farklı bir soruyla tespit edilir, farklı bir formülle dolar cinsinden hesaplanır. GembaX\'in sorgulama motoru bu sekiz kategorinin her birini sistematik olarak tarar.',
+      dgLabel: 'Dijital Gemba Yürüyüşü',
+      dgTitle: 'Sahaya gitmeden, <em>saha gerçeğini</em> ortaya çıkarmak',
+      dgDesc: 'Deneyimli danışmanların sahada sorduğu sorular, AI ile sektörünüze özelleştiriliyor. Her soru bir israf hipotezini test eder.',
+      dgObjQ: '"Gemba\'nın özü sahaya gitmektir. Sahaya gitmeden Gemba yapılamaz."',
+      dgObjA1: 'Bu itiraz haklı — ve ciddiye alınmalı. Fiziksel Gemba Yürüyüşü\'nün gözlemle yakaladığı detaylar vardır ki hiçbir anket ya da rapor onların yerini tam olarak tutamaz. Bunu biliyoruz.',
+      dgObjA2: 'Ama Gemba\'nın ruhu "belirli bir yere fiziksel olarak gitmek" değil, <strong>"gerçeği, oluştuğu yerde görmek"</strong>tir. Gerçeği ortaya çıkaran şey ayak adımları değil, <strong>doğru sorulardır.</strong> Sipariş akışınızı adım adım sorgulayan, her adımda "burada ne oluyor, neden bekliyorsunuz, bu karar kim tarafından veriliyor" diyen sistematik bir sorgulama — doğru yapıldığında — saha gerçeğini açığa çıkarır.',
+      dgObjA3: 'Bu bir trade-off\'tur ve bunu açıkça söylüyoruz: GembaX, fiziksel gözlemin yerini almaz. Ama <strong>erişilebilir bütçeyle, günler içinde, hipotez-güdümlü bir operasyonel teşhis</strong> sunar. Geleneksel Gemba Yürüyüşü\'nün haftalar süren ve onbinlerce dolar maliyetli formatını, KOBİ\'lerin erişebileceği bir modele dönüştürür.',
+      dgSub1: 'Hedefli teşhis',
+      dgP1: 'GembaX, Gemba Yürüyüşü\'nün sorgulama disiplinini dijitale taşır. Womack\'ın <strong>Purpose → Process → People</strong> akışı, GembaX teşhisinin doğal sıralamasını yansıtır: önce işletmenizin amacını ve değer tanımını netleştiriyoruz, sonra süreçlerinizi <span class="timwoods-ref">TIM WOODS</span> çerçevesinde tarıyoruz, son olarak insanların bu süreçte nasıl konumlandığını anlıyoruz.',
+      dgP2: 'Her soru, <span class="timwoods-ref">TIM WOODS</span> israf çerçevesindeki belirli bir kategoriye bağlıdır ve arkasında test edilecek bir <strong>israf hipotezi</strong> taşır. Rastgele bilgi toplamıyoruz — hedefe yönelik teşhis yapıyoruz. Cevabınız hipotezi ya doğrular ya çürütür; her iki sonuç da analizi ilerletir.',
+      dgSide1Label: 'İsraf hipotezi nedir?',
+      dgSide1P: 'Bir danışman sahada "Bu sipariş kaç kez el değiştiriyor?" diye sorar. Sorunun arkasında bir hipotez vardır: <strong>"Burada gereksiz hareket veya taşıma israfı olabilir."</strong> GembaX\'te her soru, arkasındaki hipoteze bağlıdır. Doğrulanan hipotezler formüle sokulur, dolar cinsinden maliyet çıkar. Çürütülen hipotezler analiz kapsamından düşer — sonuç raporu sadece gerçek bulguları içerir.',
+      dgSub2: 'AI + Uzman kontrolü',
+      dgP3: 'GembaX\'te yapay zeka tek başına çalışmaz. AI verileri işler, kalıpları tespit eder, sektör benchmark\'larıyla karşılaştırır — haftalarca sürecek analizi saatlere sıkıştırır. Ama her bulguyu doğrulayan, her pattern\'ı cross-check eden, israfların ortak kök nedenini sentezleyen ve raporun güven seviyesini belirleyen insan uzmandır.',
+      dgP4: 'Bu model sizi iki uç noktanın riskinden korur. Sadece AI kullansanız, bağlamı kavramayan yüzeysel çıktılar alırsınız — AI bir rakamın arkasındaki hikayeyi bilemez. Sadece danışman kullansanız, haftalarca bekler ve yüksek maliyet ödersiniz. GembaX <strong>ikisini birleştirir</strong>: AI\'ın hızı ve kapasitesi ile uzmanın sektör bilgisi ve saha deneyimi.',
+      dgPQ1: '"Doğru soru, doğru veriye ulaştırır. Doğru veri, doğru teşhise. Doğru teşhis, doğru aksiyona."',
+      dgPQ1Cite: 'GembaX Teşhis Prensibi',
+      dgP5: 'Verdiğiniz cevaplar ve paylaştığınız veriler üzerinde AI analiz çalıştırır. Bulgular <span class="timwoods-ref">TIM WOODS</span> çerçevesine göre sınıflandırılır, sektörel benchmark\'larla karşılaştırılır, darboğaz noktaları tespit edilir. Her israfın dolar cinsinden maliyeti hesaplanır. Tüm sentez uzman gözünden geçtikten sonra size ulaşır.',
+      dgSub3: 'Saha gerçeğini açığa çıkaran sorulara örnekler',
+      dgSub3Desc: 'Her soru bir israf hipotezini test eder. Cevabınız hipotezi doğrular veya çürütür — her iki sonuç da analizi ilerletir.',
+      qc1Sector: 'Üretim',
+      qc1Q: '"Bir üretim hattında makine arızası olduğunda, ortalama ne kadar sürede müdahale ediliyor? Bu sürede diğer hatlar da duruyor mu?"',
+      qc1Why: '<strong>Hipotez:</strong> Bekleme israfı + darboğaz etkisi. Tek makinedeki arıza, zincirleme üretim kaybına neden olabilir.',
+      qc2Sector: 'Perakende',
+      qc2Q: '"Son 12 ayda stok fazlası nedeniyle indirime giren ürünlerin toplam cirosundaki payı ne? Hangi kategorilerden?"',
+      qc2Why: '<strong>Hipotez:</strong> Aşırı üretim/stok israfı. Yanlış talep tahmini, kasadan çıkan parayı markdown kaybına dönüştürür.',
+      qc3Sector: 'Hizmet / Ofis',
+      qc3Q: '"Bir müşteri teklifinin hazırlanması kaç onay aşamasından geçiyor? Teklif bu süreçte ortalama kaç gün bekliyor?"',
+      qc3Why: '<strong>Hipotez:</strong> Bekleme + aşırı işleme israfı. Gereksiz onay katmanları satış döngüsünü uzatır, müşteri kaçırır.',
+      qc4Sector: 'Lojistik',
+      qc4Q: '"Araçlarınız dönüş seferlerinde yük taşıyor mu? Boş dönüş oranınız nedir?"',
+      qc4Why: '<strong>Hipotez:</strong> Taşıma israfı. Boş seferler yakıt, zaman ve araç amortisman maliyetini ikiye katlar.',
+      gembaMore: "Lean felsefesi ve Gemba hakkında daha fazla →",
+      footerPricing: 'Fiyatlar', footerTerms: 'Şartlar', footerPrivacy: 'Gizlilik', footerRefund: 'İade',
       footerBrand: '<strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni',
-      footerPricing: "Fiyatlar", footerTerms: "Şartlar", footerPrivacy: "Gizlilik", footerRefund: "İade"
+      footerContact: "İletişim"
     },
     EN: {
       logoSub: "X-Ray of Operational Waste",
       navGemba: "What is Gemba",
-      navProcess: "How It Works",
-      navWaste: "7+1 Wastes",
-      navSectors: "Industries",
-      navPricing: "Pricing",
+      navMetod: "Methodology",
+      navPrice: "Pricing",
       navBenchmark: "Explore Benchmark Tests",
       navCta: "Start Analysis",
       heroBadge: "Expert-Led AI Analysis",
       heroH1: "We find the hidden costs in your business.",
       heroMotto: "Everything that doesn't create value is waste. With GembaX, we make the waste silently eating away at your operations visible:",
-      heroBullet1: "First, we identify what truly creates value for your business",
+      heroBullet1: "We start from your customer's perspective — identifying what truly creates value in your operations",
       heroBullet2: "AI-powered operational X-ray to find the root source of waste",
       heroBullet3: "We calculate how much each waste costs you",
       heroBullet4: "Root cause analysis and a 90-day action plan",
@@ -1225,8 +1238,8 @@
       processLabel: "How It Works",
       processTitle: 'Three steps from <em>diagnosis to action</em>',
       processDesc: "Find the problem, calculate the cost, show the solution.",
-      proc1Num: "01 — DIAGNOSIS", proc1H: "Where is your money burning?", proc1P: "We scan your business across 7+1 waste categories. Every waste is calculated in dollars.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — PRIORITIZE", proc2H: "Where to focus first?", proc2P: "Priority analysis identifies your top 3 highest-impact waste points. Bottleneck detection included.", proc2Out: "→ Priority + Bottleneck Map",
+      proc1Num: "01 — DIAGNOSIS", proc1H: "Where is your money burning?", proc1P: "First we clarify what your customers truly value. Then we scan your operations against that definition across 7+1 waste categories. Every waste is calculated in dollars.", proc1Out: "→ Hidden Cost Report",
+      proc2Num: "02 — PRIORITIZE", proc2H: "Where to focus first?", proc2P: "Priority analysis identifies your top 3 highest-impact waste points. Bottleneck detection included. The critical question: do these 3 wastes share a common root cause?", proc2Out: "→ Priority + Bottleneck Map",
       proc3Num: "03 — ACTION", proc3H: "How much can we save?", proc3P: "90-day prioritized action plan: 0-30 days quick wins, 30-60 days mid-term, 60-90 days structural.", proc3Out: "→ 90-Day Roadmap + ROI",
       wasteLabel: "7+1 Waste Analysis",
       wasteTitle: 'TIM WOODS: <em>The universal waste map</em>',
@@ -1280,24 +1293,77 @@
       ctaLabel: "Get Started",
       ctaH2: 'Let us <em>X-ray</em> your operations',
       ctaSmall: "We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.",
-      ctaP: "Fill out a short form, then we'll run the analysis with custom questions and data tailored to you.",
+      ctaP: "A short guided conversation to understand your business, then we run the analysis with custom questions and data tailored to you.",
       ctaBtn: "Start Analysis →",
+      // EXPANDED GEMBA + DIJITAL GEMBA
+      gembaDescExt: 'A principle born from a factory struggling to survive with limited resources — now applicable across every industry worldwide.',
+      gembaSub1: 'Lean: Not an efficiency choice, but a survival imperative',
+      gembaP1: '1950s Japan. A post-war economy. Toyota was trying to survive with a tenth of Ford\'s resources and a tenth of its production volume. It had neither the capital nor the market to copy the West\'s mass production model. This constraint forced Toyota\'s engineers to think differently: If we can\'t find more resources, we must remove everything that doesn\'t create value from the resources we have.',
+      gembaP2: 'Here, "value" has a very precise definition: <strong>every step the customer is willing to pay for is value.</strong> Every activity that shapes the product, changes its function, or moves it closer to what the customer wants. Everything else — transportation, waiting, inspection, rework, storage — is waste. Toyota applied this distinction systematically to every process and built the world\'s most efficient production system.',
+      gembaP3: 'Today this approach is known as "Lean." And it\'s not limited to factories. Hospital patient wait times, software development cycles, retail inventory management, logistics route planning — <strong>wherever there\'s a value stream</strong>, Lean applies.',
+      gembaSide1Label: 'This could be your story too',
+      gembaSide1P: 'Toyota\'s situation in the 1950s mirrors many SMEs today: <strong>limited resources, fierce competition, growth pressure.</strong> Finding more resources isn\'t always possible — but removing non-value-adding steps from existing resources always is.',
+      gembaSub2: 'Not just waste: Three enemies',
+      gembaP4: 'In Lean discipline, three factors that reduce performance are addressed together. <strong>Muda</strong> — non-value-adding activities, i.e. waste. <strong>Mura</strong> — unevenness in processes; extreme workload one day, idle the next. <strong>Muri</strong> — overburdening people or machines beyond capacity. These three feed each other: uneven workloads create strain, strained processes produce defects, defects come back as waste. GembaX analysis evaluates all three together.',
+      gembaSub3: 'Gemba: Where the real work happens',
+      gembaP5: '"Gemba" (現場) means <strong>"the real place"</strong> in Japanese — where work actually happens. The factory floor, the warehouse, the office desk, the point of sale, the customer service line. Not the meeting room. Not the spreadsheet. Not the executive floor. <em>Where the work is actually done.</em>',
+      gembaPQ1: 'The fundamental principle Taiichi Ohno established at Toyota: Don\'t try to learn the truth secondhand — go to the process, see it yourself.',
+      gembaPQ1Cite: 'Genchi Genbutsu (現地現物) — Toyota Production System',
+      gembaP6: 'The most powerful application of the Lean tradition is the <strong>Gemba Walk</strong>. An experienced manager or consultant goes to where the work is done, observes processes, and asks carefully chosen questions. The goal is to see the truth that desk reports can\'t show — where the process stalls, which steps truly create value, where time and money are burning.',
+      gembaP7: 'These questions are not random. The framework Womack formulated in his book <em>Gemba Walks</em> structures every Gemba Walk as a three-layered inquiry:',
+      gembaSide2Label: 'Womack\'s three-layer framework — Gemba Walks',
+      gembaSide2Pa: '<strong>Purpose:</strong> Why is this work being done? What exactly is the value it creates for the customer? If the purpose isn\'t clear, it\'s impossible to measure whether the process is working correctly.',
+      gembaSide2Pb: '<strong>Process:</strong> How does the process flow to achieve the purpose? What happens at each step, where are the waits, the repetitions, the value leaks?',
+      gembaSide2Pc: '<strong>People:</strong> How are the people running this process supported? Do they have the right tools, information, and authority — or are they working despite the system?',
+      gembaP8: 'Lean\'s waste classification is internationally known by the acronym <span class="timwoods-ref">TIM WOODS</span>: Transportation, Inventory, Motion, Waiting, Overproduction, Over-processing, Defects, and Skills. Each waste type is detected with a different question, calculated in dollars with a different formula. GembaX\'s diagnostic engine systematically scans each of these eight categories.',
+      dgLabel: 'Digital Gemba Walk',
+      dgTitle: 'Uncovering <em>shop-floor reality</em> without visiting the shop floor',
+      dgDesc: 'The questions experienced consultants ask on-site are customized to your industry with AI. Every question tests a waste hypothesis.',
+      dgObjQ: '"The essence of Gemba is going to the shop floor. You can\'t do Gemba without going there."',
+      dgObjA1: 'This objection is valid — and should be taken seriously. A physical Gemba Walk captures details through observation that no survey or report can fully replace. We know this.',
+      dgObjA2: 'But the spirit of Gemba isn\'t "physically going to a specific place" — it\'s <strong>"seeing the truth where it happens."</strong> What reveals the truth isn\'t footsteps, it\'s <strong>the right questions.</strong> A systematic inquiry that questions your order flow step by step, asking at each point "what happens here, why are you waiting, who makes this decision" — when done right — uncovers the shop-floor reality.',
+      dgObjA3: 'This is a trade-off and we say it openly: GembaX doesn\'t replace physical observation. But it delivers <strong>a hypothesis-driven operational diagnosis within days, at an accessible budget.</strong> It transforms the traditional Gemba Walk\'s weeks-long, tens-of-thousands-of-dollars format into a model SMEs can afford.',
+      dgSub1: 'Targeted diagnosis',
+      dgP1: 'GembaX brings the Gemba Walk\'s inquiry discipline into digital. Womack\'s <strong>Purpose → Process → People</strong> flow mirrors GembaX\'s natural diagnostic sequence: first we clarify your business\'s purpose and value definition, then we scan your processes through the <span class="timwoods-ref">TIM WOODS</span> framework, finally we understand how people are positioned in the process.',
+      dgP2: 'Every question is linked to a specific category in the <span class="timwoods-ref">TIM WOODS</span> waste framework and carries a <strong>waste hypothesis</strong> to test. We\'re not collecting random information — we\'re conducting targeted diagnosis. Your answer either confirms or refutes the hypothesis; both outcomes advance the analysis.',
+      dgSide1Label: 'What is a waste hypothesis?',
+      dgSide1P: 'A consultant on the floor asks "How many times does this order change hands?" Behind the question lies a hypothesis: <strong>"There may be unnecessary motion or transportation waste here."</strong> In GembaX, every question is tied to its underlying hypothesis. Confirmed hypotheses go into the formula, producing dollar-denominated costs. Refuted hypotheses drop from scope — the final report contains only real findings.',
+      dgSub2: 'AI + Expert oversight',
+      dgP3: 'At GembaX, AI doesn\'t work alone. AI processes data, detects patterns, and compares against industry benchmarks — compressing weeks of analysis into hours. But the human expert validates every finding, cross-checks every pattern, synthesizes root causes across waste categories, and determines the report\'s confidence level.',
+      dgP4: 'This model protects you from the risks of both extremes. AI alone gives you shallow outputs that miss context — AI can\'t know the story behind a number. Consultants alone mean weeks of waiting and high costs. GembaX <strong>combines both</strong>: AI\'s speed and capacity with the expert\'s industry knowledge and field experience.',
+      dgPQ1: '"The right question leads to the right data. The right data leads to the right diagnosis. The right diagnosis leads to the right action."',
+      dgPQ1Cite: 'GembaX Diagnostic Principle',
+      dgP5: 'AI runs analysis on your answers and shared data. Findings are classified according to the <span class="timwoods-ref">TIM WOODS</span> framework, compared against industry benchmarks, and bottleneck points are identified. The dollar cost of each waste is calculated. The entire synthesis passes through expert review before reaching you.',
+      dgSub3: 'Examples of questions that uncover shop-floor reality',
+      dgSub3Desc: 'Every question tests a waste hypothesis. Your answer either confirms or refutes it — both outcomes advance the analysis.',
+      qc1Sector: 'Manufacturing',
+      qc1Q: '"When a machine breaks down on a production line, how long does it take on average to respond? Do other lines also stop during this time?"',
+      qc1Why: '<strong>Hypothesis:</strong> Waiting waste + bottleneck effect. A single machine failure can cause cascading production losses.',
+      qc2Sector: 'Retail',
+      qc2Q: '"What share of total revenue came from products marked down due to excess stock in the last 12 months? Which categories?"',
+      qc2Why: '<strong>Hypothesis:</strong> Overproduction/inventory waste. Poor demand forecasting converts revenue into markdown losses.',
+      qc3Sector: 'Services / Office',
+      qc3Q: '"How many approval stages does a customer proposal go through? How many days on average does it wait in this process?"',
+      qc3Why: '<strong>Hypothesis:</strong> Waiting + over-processing waste. Unnecessary approval layers lengthen sales cycles, losing customers.',
+      qc4Sector: 'Logistics',
+      qc4Q: '"Do your vehicles carry cargo on return trips? What is your empty-return rate?"',
+      qc4Why: '<strong>Hypothesis:</strong> Transportation waste. Empty runs double fuel, time, and vehicle depreciation costs.',
+      gembaMore: "Learn more about Lean philosophy and Gemba →",
+      footerPricing: 'Pricing', footerTerms: 'Terms', footerPrivacy: 'Privacy', footerRefund: 'Refund',
       footerBrand: '<strong>Gemba<span>X</span></strong> — X-Ray of operational waste',
-      footerPricing: "Pricing", footerTerms: "Terms", footerPrivacy: "Privacy", footerRefund: "Refund"
+      footerContact: "Contact"
     },
     DE: {
       logoSub: "Röntgen der operativen Verschwendung",
       navGemba: "Was ist Gemba",
-      navProcess: "So funktioniert's",
-      navWaste: "7+1 Verschwendungen",
-      navSectors: "Branchen",
-      navPricing: "Preise",
+      navMetod: "Methodik",
+      navPrice: "Preise",
       navBenchmark: "Benchmark-Tests ansehen",
       navCta: "Analyse starten",
       heroBadge: "Expertengeführte KI-Analyse",
       heroH1: "Wir finden die versteckten Kosten in Ihrem Unternehmen.",
       heroMotto: "Alles, was keinen Wert schafft, ist Verschwendung. Mit GembaX machen wir die Verschwendung sichtbar, die leise an Ihren Abläufen nagt:",
-      heroBullet1: "Zuerst ermitteln wir, was für Ihr Unternehmen wirklich Wert schafft",
+      heroBullet1: "Wir beginnen aus der Perspektive Ihrer Kunden — und ermitteln, was in Ihren Abläufen wirklich Wert schafft",
       heroBullet2: "KI-gestütztes operatives Röntgen findet die Ursache der Verschwendung",
       heroBullet3: "Wir berechnen, was jede Verschwendung Sie kostet",
       heroBullet4: "Ursachenanalyse und ein 90-Tage-Aktionsplan",
@@ -1318,8 +1384,8 @@
       processLabel: "So funktioniert's",
       processTitle: 'In drei Schritten <em>von der Diagnose zur Aktion</em>',
       processDesc: "Problem finden, Kosten berechnen, Lösung aufzeigen.",
-      proc1Num: "01 — DIAGNOSE", proc1H: "Wo verbrennt Ihr Geld?", proc1P: "Wir scannen Ihr Unternehmen in 7+1 Verschwendungskategorien. Jede Verschwendung wird in Dollar berechnet.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — PRIORISIERUNG", proc2H: "Wo zuerst ansetzen?", proc2P: "Die Prioritätsanalyse identifiziert Ihre 3 wirkungsvollsten Verschwendungspunkte. Engpasserkennung inklusive.", proc2Out: "→ Prioritäten- & Engpasskarte",
+      proc1Num: "01 — DIAGNOSE", proc1H: "Wo verbrennt Ihr Geld?", proc1P: "Zuerst klären wir, was Ihre Kunden wirklich schätzen. Dann scannen wir Ihre Abläufe anhand dieser Wertdefinition in 7+1 Verschwendungskategorien. Jede Verschwendung wird in Dollar berechnet.", proc1Out: "→ Hidden Cost Report",
+      proc2Num: "02 — PRIORISIERUNG", proc2H: "Wo zuerst ansetzen?", proc2P: "Die Prioritätsanalyse identifiziert Ihre 3 wirkungsvollsten Verschwendungspunkte. Engpasserkennung inklusive. Die entscheidende Frage: Haben diese 3 Verschwendungen eine gemeinsame Ursache?", proc2Out: "→ Prioritäten- & Engpasskarte",
       proc3Num: "03 — AKTION", proc3H: "Wie viel können wir einsparen?", proc3P: "90-Tage-Aktionsplan: 0-30 Tage Quick Wins, 30-60 Tage mittelfristig, 60-90 Tage strukturell.", proc3Out: "→ 90-Tage-Roadmap + ROI",
       wasteLabel: "7+1 Verschwendungsanalyse",
       wasteTitle: 'TIM WOODS: <em>Die universelle Verschwendungskarte</em>',
@@ -1363,24 +1429,77 @@
       ctaLabel: "Loslegen",
       ctaH2: 'Lassen Sie uns Ihre Abläufe <em>röntgen</em>',
       ctaSmall: "Wir finden die unsichtbare Verschwendung und berechnen, was sie Sie jährlich kostet. Die Branche ist egal — überall wo es einen Wertstrom gibt, gibt es Verschwendung.",
-      ctaP: "Füllen Sie ein kurzes Formular aus, dann führen wir die Analyse mit maßgeschneiderten Fragen und Daten durch.",
+      ctaP: "Ein kurzes geführtes Gespräch, um Ihr Unternehmen zu verstehen, dann führen wir die Analyse mit maßgeschneiderten Fragen und Daten durch.",
       ctaBtn: "Analyse starten →",
+      // EXPANDED GEMBA + DIJITAL GEMBA
+      gembaDescExt: 'Ein Prinzip, geboren aus der Not einer Fabrik mit begrenzten Ressourcen — heute in jeder Branche weltweit gültig.',
+      gembaSub1: 'Lean: Keine Effizienzwahl, sondern Überlebensnotwendigkeit',
+      gembaP1: 'Japan in den 1950ern. Eine Nachkriegswirtschaft. Toyota versuchte mit einem Zehntel der Ressourcen und einem Zehntel des Produktionsvolumens von Ford zu überleben. Weder Kapital noch Markt reichten aus, um das westliche Massenproduktionsmodell zu kopieren. Diese Einschränkung zwang Toyotas Ingenieure anders zu denken: Wenn wir keine weiteren Ressourcen finden, müssen wir aus vorhandenen Ressourcen alles entfernen, was keinen Wert schafft.',
+      gembaP2: 'Hier hat „Wert" eine sehr präzise Definition: <strong>Jeder Schritt, für den der Kunde bereit ist zu bezahlen, ist Wert.</strong> Jede Aktivität, die das Produkt formt, seine Funktion verändert oder es dem gewünschten Ergebnis näher bringt. Alles andere — Transport, Warten, Prüfung, Nacharbeit, Lagerung — ist Verschwendung. Toyota wendete diese Unterscheidung systematisch auf jeden Prozess an und baute das effizienteste Produktionssystem der Welt.',
+      gembaP3: 'Heute ist dieser Ansatz als „Lean" bekannt. Und er beschränkt sich nicht auf Fabriken. Wartezeiten in Krankenhäusern, Entwicklungszyklen in Softwareunternehmen, Bestandsmanagement im Einzelhandel, Routenplanung in der Logistik — <strong>überall wo es einen Wertstrom gibt</strong>, wird Lean angewandt.',
+      gembaSide1Label: 'Das könnte auch Ihre Geschichte sein',
+      gembaSide1P: 'Toyotas Situation in den 1950ern ähnelt der vieler KMU heute: <strong>begrenzte Ressourcen, starker Wettbewerb, Wachstumsdruck.</strong> Mehr Ressourcen zu finden ist nicht immer möglich — aber nicht-wertschöpfende Schritte aus bestehenden Ressourcen zu entfernen, ist es immer.',
+      gembaSub2: 'Nicht nur Verschwendung: Drei Feinde',
+      gembaP4: 'In der Lean-Disziplin werden drei leistungsmindernde Faktoren gemeinsam adressiert. <strong>Muda</strong> — nicht-wertschöpfende Aktivitäten, also Verschwendung. <strong>Mura</strong> — Ungleichmäßigkeit in Prozessen; extreme Auslastung an einem Tag, Leerlauf am nächsten. <strong>Muri</strong> — Überlastung von Menschen oder Maschinen über ihre Kapazität hinaus. Diese drei verstärken sich gegenseitig: ungleichmäßige Arbeitslasten erzeugen Überlastung, überlastete Prozesse produzieren Fehler, Fehler kehren als Verschwendung zurück. Die GembaX-Analyse bewertet alle drei gemeinsam.',
+      gembaSub3: 'Gemba: Wo die echte Arbeit passiert',
+      gembaP5: '„Gemba" (現場) bedeutet auf Japanisch <strong>„der echte Ort"</strong> — wo die Arbeit tatsächlich stattfindet. Die Fabrikhalle, das Lager, der Schreibtisch, die Verkaufsstelle, die Kundendienstleitung. Nicht der Besprechungsraum. Nicht die Tabelle. Nicht die Chefetage. <em>Wo die Arbeit tatsächlich getan wird.</em>',
+      gembaPQ1: 'Das Grundprinzip, das Taiichi Ohno bei Toyota etablierte: Versuche nicht, die Wahrheit aus zweiter Hand zu erfahren — gehe zum Prozess, sieh selbst.',
+      gembaPQ1Cite: 'Genchi Genbutsu (現地現物) — Toyota-Produktionssystem',
+      gembaP6: 'Die stärkste Anwendung der Lean-Tradition ist der <strong>Gemba Walk</strong>. Ein erfahrener Manager oder Berater geht dorthin, wo die Arbeit getan wird, beobachtet Prozesse und stellt sorgfältig ausgewählte Fragen. Das Ziel ist, die Wahrheit zu sehen, die Schreibtischberichte nicht zeigen können — wo der Prozess stockt, welche Schritte wirklich Wert schaffen, wo Zeit und Geld verbrennen.',
+      gembaP7: 'Diese Fragen sind nicht zufällig. Das Rahmenwerk, das Womack in seinem Buch <em>Gemba Walks</em> formulierte, strukturiert jeden Gemba Walk als dreischichtige Untersuchung:',
+      gembaSide2Label: 'Womacks Drei-Ebenen-Rahmenwerk — Gemba Walks',
+      gembaSide2Pa: '<strong>Purpose — Zweck:</strong> Warum wird diese Arbeit gemacht? Welchen Wert schafft sie genau für den Kunden? Wenn der Zweck nicht klar ist, kann man auch nicht messen, ob der Prozess richtig funktioniert.',
+      gembaSide2Pb: '<strong>Process — Prozess:</strong> Wie fließt der Prozess, um den Zweck zu erreichen? Was passiert bei jedem Schritt, wo wird gewartet, wiederholt, wo geht Wert verloren?',
+      gembaSide2Pc: '<strong>People — Menschen:</strong> Wie werden die Menschen unterstützt, die diesen Prozess ausführen? Haben sie die richtigen Werkzeuge, Informationen und Befugnisse — oder arbeiten sie trotz des Systems?',
+      gembaP8: 'Leans Verschwendungsklassifikation ist international unter dem Akronym <span class="timwoods-ref">TIM WOODS</span> bekannt: Transportation, Inventory, Motion, Waiting, Overproduction, Over-processing, Defects und Skills. Jeder Verschwendungstyp wird mit einer anderen Frage erkannt, mit einer anderen Formel in Dollar berechnet. GembaX\' Diagnosemotor scannt systematisch jede dieser acht Kategorien.',
+      dgLabel: 'Digitaler Gemba Walk',
+      dgTitle: 'Shopfloor-Realität aufdecken, <em>ohne den Shopfloor</em> zu besuchen',
+      dgDesc: 'Die Fragen, die erfahrene Berater vor Ort stellen, werden mit KI auf Ihre Branche zugeschnitten. Jede Frage testet eine Verschwendungshypothese.',
+      dgObjQ: '„Das Wesen von Gemba ist es, zum Shopfloor zu gehen. Ohne Besuch kann man kein Gemba machen."',
+      dgObjA1: 'Dieser Einwand ist berechtigt — und sollte ernst genommen werden. Ein physischer Gemba Walk erfasst durch Beobachtung Details, die keine Umfrage oder kein Bericht vollständig ersetzen kann. Das wissen wir.',
+      dgObjA2: 'Aber der Geist von Gemba ist nicht „physisch an einen bestimmten Ort gehen" — sondern <strong>„die Wahrheit dort sehen, wo sie entsteht."</strong> Was die Wahrheit enthüllt, sind nicht Schritte, sondern <strong>die richtigen Fragen.</strong> Eine systematische Befragung, die Ihren Auftragsfluss Schritt für Schritt hinterfragt und bei jedem Punkt fragt „was passiert hier, warum warten Sie, wer trifft diese Entscheidung" — deckt, richtig durchgeführt, die Shopfloor-Realität auf.',
+      dgObjA3: 'Dies ist ein Trade-off und wir sagen es offen: GembaX ersetzt keine physische Beobachtung. Aber es liefert <strong>eine hypothesengetriebene operative Diagnose innerhalb von Tagen, mit bezahlbarem Budget.</strong> Es verwandelt das wochen- und zehntausende-Dollar-Format des traditionellen Gemba Walks in ein Modell, das sich KMU leisten können.',
+      dgSub1: 'Gezielte Diagnose',
+      dgP1: 'GembaX überträgt die Befragungsdisziplin des Gemba Walks ins Digitale. Womacks <strong>Purpose → Process → People</strong>-Ablauf spiegelt GembaX\' natürliche Diagnosesequenz wider: Zuerst klären wir Zweck und Wertdefinition Ihres Unternehmens, dann scannen wir Ihre Prozesse durch das <span class="timwoods-ref">TIM WOODS</span>-Framework, schließlich verstehen wir, wie die Menschen im Prozess positioniert sind.',
+      dgP2: 'Jede Frage ist mit einer bestimmten Kategorie im <span class="timwoods-ref">TIM WOODS</span>-Verschwendungsrahmen verknüpft und trägt eine zu testende <strong>Verschwendungshypothese</strong>. Wir sammeln keine zufälligen Informationen — wir führen gezielte Diagnose durch. Ihre Antwort bestätigt oder widerlegt die Hypothese; beide Ergebnisse treiben die Analyse voran.',
+      dgSide1Label: 'Was ist eine Verschwendungshypothese?',
+      dgSide1P: 'Ein Berater fragt vor Ort „Wie oft wechselt dieser Auftrag die Hände?" Hinter der Frage steckt eine Hypothese: <strong>„Hier könnte unnötige Bewegung oder Transportverschwendung vorliegen."</strong> Bei GembaX ist jede Frage an ihre zugrunde liegende Hypothese gebunden. Bestätigte Hypothesen fließen in die Formel ein und erzeugen Dollar-Kosten. Widerlegte Hypothesen fallen aus dem Umfang — der Abschlussbericht enthält nur echte Befunde.',
+      dgSub2: 'KI + Expertenkontrolle',
+      dgP3: 'Bei GembaX arbeitet KI nicht allein. KI verarbeitet Daten, erkennt Muster und vergleicht mit Branchen-Benchmarks — komprimiert Wochen der Analyse auf Stunden. Aber der menschliche Experte validiert jeden Befund, prüft jedes Muster gegen, synthetisiert Ursachen über Verschwendungskategorien hinweg und bestimmt die Konfidenz des Berichts.',
+      dgP4: 'Dieses Modell schützt Sie vor den Risiken beider Extreme. KI allein liefert oberflächliche Ergebnisse ohne Kontext — KI kennt die Geschichte hinter einer Zahl nicht. Nur Berater bedeuten wochenlanges Warten und hohe Kosten. GembaX <strong>kombiniert beides</strong>: KI-Geschwindigkeit und -Kapazität mit dem Branchenwissen und der Felderfahrung des Experten.',
+      dgPQ1: '„Die richtige Frage führt zu den richtigen Daten. Die richtigen Daten zur richtigen Diagnose. Die richtige Diagnose zur richtigen Aktion."',
+      dgPQ1Cite: 'GembaX Diagnoseprinzip',
+      dgP5: 'KI führt Analysen auf Ihren Antworten und geteilten Daten durch. Befunde werden nach dem <span class="timwoods-ref">TIM WOODS</span>-Framework klassifiziert, mit Branchen-Benchmarks verglichen und Engpässe identifiziert. Die Dollarkosten jeder Verschwendung werden berechnet. Die gesamte Synthese durchläuft die Expertenprüfung, bevor sie Sie erreicht.',
+      dgSub3: 'Beispiele für Fragen, die die Shopfloor-Realität aufdecken',
+      dgSub3Desc: 'Jede Frage testet eine Verschwendungshypothese. Ihre Antwort bestätigt oder widerlegt sie — beide Ergebnisse treiben die Analyse voran.',
+      qc1Sector: 'Fertigung',
+      qc1Q: '„Wenn eine Maschine auf einer Produktionslinie ausfällt, wie lange dauert die durchschnittliche Reaktionszeit? Stehen in dieser Zeit auch andere Linien still?"',
+      qc1Why: '<strong>Hypothese:</strong> Warteverschwendung + Engpasseffekt. Ein einzelner Maschinenausfall kann kaskadierende Produktionsverluste verursachen.',
+      qc2Sector: 'Einzelhandel',
+      qc2Q: '„Welcher Anteil am Gesamtumsatz entfiel in den letzten 12 Monaten auf Produkte, die wegen Überbestand herabgesetzt wurden? Welche Kategorien?"',
+      qc2Why: '<strong>Hypothese:</strong> Überproduktion/Bestandsverschwendung. Falsche Bedarfsprognosen verwandeln Umsatz in Abschriftenverluste.',
+      qc3Sector: 'Dienstleistung / Büro',
+      qc3Q: '„Durch wie viele Genehmigungsstufen geht ein Kundenangebot? Wie viele Tage wartet es durchschnittlich in diesem Prozess?"',
+      qc3Why: '<strong>Hypothese:</strong> Warte- + Überbearbeitungsverschwendung. Unnötige Genehmigungsstufen verlängern Verkaufszyklen, Kunden gehen verloren.',
+      qc4Sector: 'Logistik',
+      qc4Q: '„Transportieren Ihre Fahrzeuge auf der Rückfahrt Ladung? Wie hoch ist Ihre Leerfahrtenquote?"',
+      qc4Why: '<strong>Hypothese:</strong> Transportverschwendung. Leerfahrten verdoppeln Kraftstoff-, Zeit- und Fahrzeugabschreibungskosten.',
+      gembaMore: "Mehr über Lean-Philosophie und Gemba erfahren →",
+      footerPricing: 'Preise', footerTerms: 'AGB', footerPrivacy: 'Datenschutz', footerRefund: 'Rückerstattung',
       footerBrand: '<strong>Gemba<span>X</span></strong> — Röntgen der operativen Verschwendung',
-      footerPricing: "Preise", footerTerms: "AGB", footerPrivacy: "Datenschutz", footerRefund: "Rückerstattung"
+      footerContact: "Kontakt"
     },
     ES: {
       logoSub: "Radiografía del Desperdicio Operativo",
       navGemba: "Qué es Gemba",
-      navProcess: "Cómo Funciona",
-      navWaste: "7+1 Desperdicios",
-      navSectors: "Sectores",
-      navPricing: "Precios",
+      navMetod: "Metodología",
+      navPrice: "Precios",
       navBenchmark: "Ver Tests de Benchmark",
       navCta: "Iniciar Análisis",
       heroBadge: "Análisis IA Liderado por Expertos",
       heroH1: "Encontramos los costos ocultos en su empresa.",
       heroMotto: "Todo lo que no crea valor es desperdicio. Con GembaX, hacemos visible el desperdicio que silenciosamente corroe sus operaciones:",
-      heroBullet1: "Primero identificamos qué realmente crea valor para su empresa",
+      heroBullet1: "Partimos desde la perspectiva de su cliente — identificando qué realmente crea valor en sus operaciones",
       heroBullet2: "Radiografía operativa con IA para encontrar la raíz del desperdicio",
       heroBullet3: "Calculamos cuánto le cuesta cada desperdicio",
       heroBullet4: "Análisis de causa raíz y plan de acción de 90 días",
@@ -1401,8 +1520,8 @@
       processLabel: "Cómo Funciona",
       processTitle: 'Tres pasos del <em>diagnóstico a la acción</em>',
       processDesc: "Encontrar el problema, calcular el costo, mostrar la solución.",
-      proc1Num: "01 — DIAGNÓSTICO", proc1H: "¿Dónde se quema su dinero?", proc1P: "Escaneamos su empresa en 7+1 categorías de desperdicio. Cada desperdicio se calcula en dólares.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — PRIORIDAD", proc2H: "¿Dónde actuar primero?", proc2P: "El análisis de prioridad identifica sus 3 puntos de mayor impacto. Detección de cuello de botella incluida.", proc2Out: "→ Mapa de Prioridades + Cuello de Botella",
+      proc1Num: "01 — DIAGNÓSTICO", proc1H: "¿Dónde se quema su dinero?", proc1P: "Primero clarificamos qué valoran realmente sus clientes. Luego escaneamos sus operaciones según esa definición en 7+1 categorías de desperdicio. Cada desperdicio se calcula en dólares.", proc1Out: "→ Hidden Cost Report",
+      proc2Num: "02 — PRIORIDAD", proc2H: "¿Dónde actuar primero?", proc2P: "El análisis de prioridad identifica sus 3 puntos de mayor impacto. Detección de cuello de botella incluida. La pregunta crítica: ¿comparten estas 3 fuentes de desperdicio una causa raíz común?", proc2Out: "→ Mapa de Prioridades + Cuello de Botella",
       proc3Num: "03 — ACCIÓN", proc3H: "¿Cuánto podemos ahorrar?", proc3P: "Plan de acción priorizado de 90 días: 0-30 días victorias rápidas, 30-60 días medio plazo, 60-90 días estructural.", proc3Out: "→ Hoja de Ruta 90 Días + ROI",
       wasteLabel: "Análisis 7+1 Desperdicios",
       wasteTitle: 'TIM WOODS: <em>El mapa universal de desperdicios</em>',
@@ -1446,24 +1565,77 @@
       ctaLabel: "Empezar",
       ctaH2: 'Hagamos una <em>radiografía</em> de sus operaciones',
       ctaSmall: "Encontramos el desperdicio que no se ve y calculamos cuánto le cuesta cada año. El sector no importa — donde hay flujo de valor, hay desperdicio.",
-      ctaP: "Complete un breve formulario, luego realizamos el análisis con preguntas y datos personalizados para usted.",
+      ctaP: "Una breve conversación guiada para entender su empresa, luego realizamos el análisis con preguntas y datos personalizados para usted.",
       ctaBtn: "Iniciar Análisis →",
+      // EXPANDED GEMBA + DIJITAL GEMBA
+      gembaDescExt: 'Un principio nacido de una fábrica que luchaba por sobrevivir con recursos limitados — hoy aplicable en todos los sectores del mundo.',
+      gembaSub1: 'Lean: No una elección de eficiencia, sino una necesidad de supervivencia',
+      gembaP1: 'Japón en los años 50. Una economía de posguerra. Toyota intentaba sobrevivir con una décima parte de los recursos de Ford y una décima parte de su volumen de producción. No tenía ni el capital ni el mercado para copiar el modelo de producción en masa occidental. Esta restricción obligó a los ingenieros de Toyota a pensar diferente: Si no podemos encontrar más recursos, debemos eliminar todo lo que no crea valor de los recursos que tenemos.',
+      gembaP2: 'Aquí, "valor" tiene una definición muy precisa: <strong>cada paso por el que el cliente está dispuesto a pagar es valor.</strong> Toda actividad que da forma al producto, cambia su función o lo acerca al resultado deseado. Todo lo demás — transporte, espera, inspección, retrabajo, almacenamiento — es desperdicio. Toyota aplicó esta distinción sistemáticamente a cada proceso y construyó el sistema de producción más eficiente del mundo.',
+      gembaP3: 'Hoy este enfoque se conoce como "Lean." Y no se limita a las fábricas. Tiempos de espera en hospitales, ciclos de desarrollo de software, gestión de inventario en retail, planificación de rutas logísticas — <strong>donde hay flujo de valor</strong>, se aplica Lean.',
+      gembaSide1Label: 'Esta podría ser también su historia',
+      gembaSide1P: 'La situación de Toyota en los 50 refleja la de muchas PyMEs hoy: <strong>recursos limitados, competencia feroz, presión de crecimiento.</strong> Encontrar más recursos no siempre es posible — pero eliminar pasos que no agregan valor de los recursos existentes siempre lo es.',
+      gembaSub2: 'No solo desperdicio: Tres enemigos',
+      gembaP4: 'En la disciplina Lean, tres factores que reducen el rendimiento se abordan juntos. <strong>Muda</strong> — actividades que no agregan valor, es decir, desperdicio. <strong>Mura</strong> — irregularidad en los procesos; carga extrema un día, inactividad al siguiente. <strong>Muri</strong> — sobrecarga de personas o máquinas más allá de su capacidad. Estos tres se retroalimentan: cargas desiguales crean tensión, los procesos tensos producen defectos, los defectos regresan como desperdicio. El análisis GembaX evalúa los tres juntos.',
+      gembaSub3: 'Gemba: Donde ocurre el trabajo real',
+      gembaP5: '"Gemba" (現場) significa <strong>"el lugar real"</strong> en japonés — donde el trabajo realmente ocurre. La planta, el almacén, el escritorio, el punto de venta, la línea de servicio al cliente. No la sala de reuniones. No la hoja de cálculo. No el piso ejecutivo. <em>Donde el trabajo realmente se hace.</em>',
+      gembaPQ1: 'El principio fundamental que Taiichi Ohno estableció en Toyota: No intentes conocer la verdad de segunda mano — ve al proceso, observa tú mismo.',
+      gembaPQ1Cite: 'Genchi Genbutsu (現地現物) — Sistema de Producción Toyota',
+      gembaP6: 'La aplicación más poderosa de la tradición Lean es el <strong>Gemba Walk</strong>. Un gerente o consultor experimentado va al lugar donde se realiza el trabajo, observa los procesos y hace preguntas cuidadosamente seleccionadas. El objetivo es ver la verdad que los informes de escritorio no pueden mostrar — dónde se atasca el proceso, qué pasos realmente crean valor, dónde se queman tiempo y dinero.',
+      gembaP7: 'Estas preguntas no son aleatorias. El marco que Womack formuló en su libro <em>Gemba Walks</em> estructura cada Gemba Walk como una investigación de tres capas:',
+      gembaSide2Label: 'Marco de tres capas de Womack — Gemba Walks',
+      gembaSide2Pa: '<strong>Purpose — Propósito:</strong> ¿Por qué se hace este trabajo? ¿Cuál es exactamente el valor que crea para el cliente? Si el propósito no está claro, tampoco es posible medir si el proceso funciona correctamente.',
+      gembaSide2Pb: '<strong>Process — Proceso:</strong> ¿Cómo fluye el proceso para lograr el propósito? ¿Qué ocurre en cada paso, dónde se espera, dónde se repite, dónde se pierde valor?',
+      gembaSide2Pc: '<strong>People — Personas:</strong> ¿Cómo se apoya a las personas que ejecutan este proceso? ¿Tienen las herramientas, información y autoridad correctas — o trabajan a pesar del sistema?',
+      gembaP8: 'La clasificación de desperdicios de Lean se conoce internacionalmente por el acrónimo <span class="timwoods-ref">TIM WOODS</span>: Transportation, Inventory, Motion, Waiting, Overproduction, Over-processing, Defects y Skills. Cada tipo de desperdicio se detecta con una pregunta diferente, se calcula en dólares con una fórmula diferente. El motor de diagnóstico de GembaX escanea sistemáticamente cada una de estas ocho categorías.',
+      dgLabel: 'Gemba Walk Digital',
+      dgTitle: 'Descubrir la <em>realidad operativa</em> sin visitar la planta',
+      dgDesc: 'Las preguntas que consultores experimentados hacen en campo se personalizan para su industria con IA. Cada pregunta prueba una hipótesis de desperdicio.',
+      dgObjQ: '"La esencia de Gemba es ir al lugar. No se puede hacer Gemba sin ir."',
+      dgObjA1: 'Esta objeción es válida — y debe tomarse en serio. Un Gemba Walk físico captura detalles a través de la observación que ninguna encuesta o informe puede reemplazar completamente. Lo sabemos.',
+      dgObjA2: 'Pero el espíritu de Gemba no es "ir físicamente a un lugar específico" — es <strong>"ver la verdad donde ocurre."</strong> Lo que revela la verdad no son los pasos, son <strong>las preguntas correctas.</strong> Una investigación sistemática que cuestiona su flujo de pedidos paso a paso, preguntando en cada punto "qué pasa aquí, por qué espera, quién toma esta decisión" — ejecutada correctamente — descubre la realidad operativa.',
+      dgObjA3: 'Esto es un trade-off y lo decimos abiertamente: GembaX no reemplaza la observación física. Pero ofrece <strong>un diagnóstico operativo guiado por hipótesis en días, con presupuesto accesible.</strong> Transforma el formato de semanas y decenas de miles de dólares del Gemba Walk tradicional en un modelo que las PyMEs pueden costear.',
+      dgSub1: 'Diagnóstico dirigido',
+      dgP1: 'GembaX lleva la disciplina de interrogación del Gemba Walk al mundo digital. El flujo <strong>Purpose → Process → People</strong> de Womack refleja la secuencia natural de diagnóstico de GembaX: primero clarificamos el propósito y la definición de valor de su empresa, luego escaneamos sus procesos mediante el marco <span class="timwoods-ref">TIM WOODS</span>, finalmente entendemos cómo están posicionadas las personas en el proceso.',
+      dgP2: 'Cada pregunta está vinculada a una categoría específica del marco de desperdicios <span class="timwoods-ref">TIM WOODS</span> y lleva una <strong>hipótesis de desperdicio</strong> a probar. No recopilamos información aleatoria — realizamos diagnóstico dirigido. Su respuesta confirma o refuta la hipótesis; ambos resultados avanzan el análisis.',
+      dgSide1Label: '¿Qué es una hipótesis de desperdicio?',
+      dgSide1P: 'Un consultor en campo pregunta "¿Cuántas veces cambia de manos este pedido?" Detrás de la pregunta hay una hipótesis: <strong>"Puede haber movimiento o transporte innecesario aquí."</strong> En GembaX, cada pregunta está vinculada a su hipótesis subyacente. Las hipótesis confirmadas entran en la fórmula, produciendo costos en dólares. Las refutadas salen del alcance — el informe final contiene solo hallazgos reales.',
+      dgSub2: 'IA + Control experto',
+      dgP3: 'En GembaX, la IA no trabaja sola. La IA procesa datos, detecta patrones y compara con benchmarks del sector — comprime semanas de análisis en horas. Pero el experto humano valida cada hallazgo, verifica cada patrón, sintetiza causas raíz entre categorías de desperdicio y determina el nivel de confianza del informe.',
+      dgP4: 'Este modelo lo protege de los riesgos de ambos extremos. Solo IA le da resultados superficiales sin contexto — la IA no conoce la historia detrás de un número. Solo consultores significa semanas de espera y altos costos. GembaX <strong>combina ambos</strong>: la velocidad y capacidad de la IA con el conocimiento sectorial y la experiencia de campo del experto.',
+      dgPQ1: '"La pregunta correcta lleva a los datos correctos. Los datos correctos al diagnóstico correcto. El diagnóstico correcto a la acción correcta."',
+      dgPQ1Cite: 'Principio de Diagnóstico GembaX',
+      dgP5: 'La IA ejecuta análisis sobre sus respuestas y datos compartidos. Los hallazgos se clasifican según el marco <span class="timwoods-ref">TIM WOODS</span>, se comparan con benchmarks del sector y se identifican cuellos de botella. Se calcula el costo en dólares de cada desperdicio. Toda la síntesis pasa por revisión experta antes de llegar a usted.',
+      dgSub3: 'Ejemplos de preguntas que descubren la realidad operativa',
+      dgSub3Desc: 'Cada pregunta prueba una hipótesis de desperdicio. Su respuesta la confirma o refuta — ambos resultados avanzan el análisis.',
+      qc1Sector: 'Manufactura',
+      qc1Q: '"Cuando una máquina se avería en una línea de producción, ¿cuánto tiempo tarda en promedio la respuesta? ¿Se detienen también otras líneas durante ese tiempo?"',
+      qc1Why: '<strong>Hipótesis:</strong> Desperdicio de espera + efecto cuello de botella. Una falla de máquina puede causar pérdidas de producción en cascada.',
+      qc2Sector: 'Retail',
+      qc2Q: '"¿Qué porcentaje del ingreso total correspondió a productos rebajados por exceso de stock en los últimos 12 meses? ¿De qué categorías?"',
+      qc2Why: '<strong>Hipótesis:</strong> Sobreproducción/inventario. Una mala previsión de demanda convierte ingresos en pérdidas por descuento.',
+      qc3Sector: 'Servicios / Oficina',
+      qc3Q: '"¿Por cuántas etapas de aprobación pasa una propuesta comercial? ¿Cuántos días en promedio espera en este proceso?"',
+      qc3Why: '<strong>Hipótesis:</strong> Desperdicio de espera + sobre-procesamiento. Capas de aprobación innecesarias alargan ciclos de venta, perdiendo clientes.',
+      qc4Sector: 'Logística',
+      qc4Q: '"¿Sus vehículos transportan carga en los viajes de retorno? ¿Cuál es su tasa de retorno vacío?"',
+      qc4Why: '<strong>Hipótesis:</strong> Desperdicio de transporte. Los viajes vacíos duplican costos de combustible, tiempo y depreciación de vehículos.',
+      gembaMore: "Conozca más sobre la filosofía Lean y Gemba →",
+      footerPricing: 'Precios', footerTerms: 'Términos', footerPrivacy: 'Privacidad', footerRefund: 'Reembolso',
       footerBrand: '<strong>Gemba<span>X</span></strong> — Radiografía del desperdicio operativo',
-      footerPricing: "Precios", footerTerms: "Términos", footerPrivacy: "Privacidad", footerRefund: "Reembolso"
+      footerContact: "Contacto"
     },
     FR: {
       logoSub: "Radiographie du Gaspillage Opérationnel",
       navGemba: "Qu'est-ce que Gemba",
-      navProcess: "Comment ça marche",
-      navWaste: "7+1 Gaspillages",
-      navSectors: "Secteurs",
-      navPricing: "Tarifs",
+      navMetod: "Méthodologie",
+      navPrice: "Tarifs",
       navBenchmark: "Voir les Tests Benchmark",
       navCta: "Lancer l'Analyse",
       heroBadge: "Analyse IA Guidée par des Experts",
       heroH1: "Nous trouvons les coûts cachés dans votre entreprise.",
       heroMotto: "Tout ce qui ne crée pas de valeur est du gaspillage. Avec GembaX, nous rendons visible le gaspillage qui ronge silencieusement vos opérations :",
-      heroBullet1: "D'abord, nous identifions ce qui crée réellement de la valeur pour votre entreprise",
+      heroBullet1: "Nous partons du regard de vos clients — pour identifier ce qui crée réellement de la valeur dans vos opérations",
       heroBullet2: "Radiographie opérationnelle par IA pour trouver la source du gaspillage",
       heroBullet3: "Nous calculons combien chaque gaspillage vous coûte",
       heroBullet4: "Analyse des causes profondes et plan d'action sur 90 jours",
@@ -1484,8 +1656,8 @@
       processLabel: "Comment ça marche",
       processTitle: 'Trois étapes du <em>diagnostic à l\'action</em>',
       processDesc: "Trouver le problème, calculer le coût, montrer la solution.",
-      proc1Num: "01 — DIAGNOSTIC", proc1H: "Où brûle votre argent ?", proc1P: "Nous scannons votre entreprise selon 7+1 catégories de gaspillage. Chaque gaspillage est chiffré en dollars.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — PRIORITÉ", proc2H: "Par où commencer ?", proc2P: "L'analyse de priorité identifie vos 3 points de gaspillage à plus fort impact. Détection des goulots incluse.", proc2Out: "→ Carte Priorités + Goulots",
+      proc1Num: "01 — DIAGNOSTIC", proc1H: "Où brûle votre argent ?", proc1P: "D'abord nous clarifions ce que vos clients valorisent vraiment. Puis nous scannons vos opérations selon cette définition en 7+1 catégories de gaspillage. Chaque gaspillage est chiffré en dollars.", proc1Out: "→ Hidden Cost Report",
+      proc2Num: "02 — PRIORITÉ", proc2H: "Par où commencer ?", proc2P: "L'analyse de priorité identifie vos 3 points de gaspillage à plus fort impact. Détection des goulots incluse. La question clé : ces 3 gaspillages partagent-ils une cause racine commune ?", proc2Out: "→ Carte Priorités + Goulots",
       proc3Num: "03 — ACTION", proc3H: "Combien peut-on économiser ?", proc3P: "Plan d'action priorisé sur 90 jours : 0-30 jours gains rapides, 30-60 jours moyen terme, 60-90 jours structurel.", proc3Out: "→ Feuille de Route 90 Jours + ROI",
       wasteLabel: "Analyse 7+1 Gaspillages",
       wasteTitle: 'TIM WOODS : <em>La carte universelle des gaspillages</em>',
@@ -1529,24 +1701,77 @@
       ctaLabel: "Commencer",
       ctaH2: 'Faisons la <em>radiographie</em> de vos opérations',
       ctaSmall: "Nous trouvons le gaspillage invisible et calculons combien il vous coûte chaque année. Le secteur importe peu — partout où il y a un flux de valeur, il y a du gaspillage.",
-      ctaP: "Remplissez un court formulaire, puis nous réalisons l'analyse avec des questions et données personnalisées.",
+      ctaP: "Une courte conversation guidée pour comprendre votre entreprise, puis nous réalisons l'analyse avec des questions et données personnalisées.",
       ctaBtn: "Lancer l'Analyse →",
+      // EXPANDED GEMBA + DIJITAL GEMBA
+      gembaDescExt: 'Un principe né d\'une usine luttant pour survivre avec des ressources limitées — aujourd\'hui applicable dans tous les secteurs du monde.',
+      gembaSub1: 'Lean : Pas un choix d\'efficacité, mais une nécessité de survie',
+      gembaP1: 'Le Japon des années 1950. Une économie d\'après-guerre. Toyota tentait de survivre avec un dixième des ressources de Ford et un dixième de son volume de production. Elle n\'avait ni le capital ni le marché pour copier le modèle de production de masse occidental. Cette contrainte a forcé les ingénieurs de Toyota à penser différemment : Si nous ne pouvons pas trouver plus de ressources, nous devons retirer de nos ressources existantes tout ce qui ne crée pas de valeur.',
+      gembaP2: 'Ici, « valeur » a une définition très précise : <strong>chaque étape pour laquelle le client est prêt à payer est de la valeur.</strong> Toute activité qui façonne le produit, modifie sa fonction ou le rapproche du résultat souhaité. Tout le reste — transport, attente, inspection, retouche, stockage — est du gaspillage. Toyota a appliqué cette distinction systématiquement à chaque processus et a bâti le système de production le plus efficace au monde.',
+      gembaP3: 'Aujourd\'hui, cette approche est connue sous le nom de « Lean ». Et elle ne se limite pas aux usines. Temps d\'attente des patients dans les hôpitaux, cycles de développement logiciel, gestion des stocks en commerce de détail, planification des itinéraires en logistique — <strong>partout où il y a un flux de valeur</strong>, le Lean s\'applique.',
+      gembaSide1Label: 'Cela pourrait aussi être votre histoire',
+      gembaSide1P: 'La situation de Toyota dans les années 50 ressemble à celle de nombreuses PME aujourd\'hui : <strong>ressources limitées, concurrence féroce, pression de croissance.</strong> Trouver plus de ressources n\'est pas toujours possible — mais retirer les étapes non créatrices de valeur des ressources existantes l\'est toujours.',
+      gembaSub2: 'Pas seulement du gaspillage : Trois ennemis',
+      gembaP4: 'Dans la discipline Lean, trois facteurs réduisant la performance sont traités ensemble. <strong>Muda</strong> — activités sans valeur ajoutée, c\'est-à-dire le gaspillage. <strong>Mura</strong> — irrégularité des processus ; charge extrême un jour, inactivité le lendemain. <strong>Muri</strong> — surcharge des personnes ou machines au-delà de leur capacité. Ces trois s\'alimentent mutuellement : les charges inégales créent de la tension, les processus tendus produisent des défauts, les défauts reviennent comme gaspillage. L\'analyse GembaX évalue les trois ensemble.',
+      gembaSub3: 'Gemba : Là où le vrai travail se fait',
+      gembaP5: '« Gemba » (現場) signifie <strong>« le vrai lieu »</strong> en japonais — là où le travail se fait réellement. L\'atelier, l\'entrepôt, le bureau, le point de vente, le service client. Pas la salle de réunion. Pas le tableur. Pas l\'étage de la direction. <em>Là où le travail est réellement effectué.</em>',
+      gembaPQ1: 'Le principe fondamental établi par Taiichi Ohno chez Toyota : N\'essayez pas d\'apprendre la vérité de seconde main — allez au processus, voyez par vous-même.',
+      gembaPQ1Cite: 'Genchi Genbutsu (現地現物) — Système de Production Toyota',
+      gembaP6: 'L\'application la plus puissante de la tradition Lean est le <strong>Gemba Walk</strong>. Un manager ou consultant expérimenté se rend là où le travail est fait, observe les processus et pose des questions soigneusement choisies. L\'objectif est de voir la vérité que les rapports de bureau ne peuvent montrer — où le processus se bloque, quelles étapes créent vraiment de la valeur, où le temps et l\'argent brûlent.',
+      gembaP7: 'Ces questions ne sont pas aléatoires. Le cadre formulé par Womack dans son livre <em>Gemba Walks</em> structure chaque Gemba Walk comme une enquête à trois niveaux :',
+      gembaSide2Label: 'Cadre à trois niveaux de Womack — Gemba Walks',
+      gembaSide2Pa: '<strong>Purpose — Objectif :</strong> Pourquoi ce travail est-il fait ? Quelle est exactement la valeur qu\'il crée pour le client ? Si l\'objectif n\'est pas clair, il est impossible de mesurer si le processus fonctionne correctement.',
+      gembaSide2Pb: '<strong>Process — Processus :</strong> Comment le processus s\'écoule-t-il pour atteindre l\'objectif ? Que se passe-t-il à chaque étape, où attend-on, où répète-t-on, où perd-on de la valeur ?',
+      gembaSide2Pc: '<strong>People — Personnes :</strong> Comment les personnes qui exécutent ce processus sont-elles soutenues ? Ont-elles les bons outils, informations et pouvoirs — ou travaillent-elles malgré le système ?',
+      gembaP8: 'La classification des gaspillages du Lean est connue internationalement sous l\'acronyme <span class="timwoods-ref">TIM WOODS</span> : Transportation, Inventory, Motion, Waiting, Overproduction, Over-processing, Defects et Skills. Chaque type de gaspillage est détecté par une question différente, calculé en dollars par une formule différente. Le moteur de diagnostic de GembaX scanne systématiquement chacune de ces huit catégories.',
+      dgLabel: 'Gemba Walk Digital',
+      dgTitle: 'Révéler la <em>réalité du terrain</em> sans visiter le terrain',
+      dgDesc: 'Les questions que des consultants expérimentés posent sur le terrain sont personnalisées pour votre secteur grâce à l\'IA. Chaque question teste une hypothèse de gaspillage.',
+      dgObjQ: '« L\'essence du Gemba est d\'aller sur le terrain. On ne peut pas faire du Gemba sans y aller. »',
+      dgObjA1: 'Cette objection est valide — et doit être prise au sérieux. Un Gemba Walk physique capture par l\'observation des détails qu\'aucune enquête ou rapport ne peut totalement remplacer. Nous le savons.',
+      dgObjA2: 'Mais l\'esprit du Gemba n\'est pas « se rendre physiquement dans un lieu précis » — c\'est <strong>« voir la vérité là où elle se produit. »</strong> Ce qui révèle la vérité, ce ne sont pas les pas, ce sont <strong>les bonnes questions.</strong> Un questionnement systématique qui interroge votre flux de commandes étape par étape, demandant à chaque point « que se passe-t-il ici, pourquoi attendez-vous, qui prend cette décision » — correctement mené — révèle la réalité du terrain.',
+      dgObjA3: 'C\'est un compromis et nous le disons ouvertement : GembaX ne remplace pas l\'observation physique. Mais il offre <strong>un diagnostic opérationnel guidé par des hypothèses en quelques jours, avec un budget accessible.</strong> Il transforme le format de plusieurs semaines et dizaines de milliers de dollars du Gemba Walk traditionnel en un modèle que les PME peuvent se permettre.',
+      dgSub1: 'Diagnostic ciblé',
+      dgP1: 'GembaX transpose la discipline d\'interrogation du Gemba Walk dans le numérique. Le flux <strong>Purpose → Process → People</strong> de Womack reflète la séquence naturelle de diagnostic de GembaX : d\'abord nous clarifions l\'objectif et la définition de valeur de votre entreprise, puis nous scannons vos processus via le cadre <span class="timwoods-ref">TIM WOODS</span>, enfin nous comprenons comment les personnes sont positionnées dans le processus.',
+      dgP2: 'Chaque question est liée à une catégorie spécifique du cadre de gaspillage <span class="timwoods-ref">TIM WOODS</span> et porte une <strong>hypothèse de gaspillage</strong> à tester. Nous ne collectons pas d\'informations aléatoires — nous menons un diagnostic ciblé. Votre réponse confirme ou réfute l\'hypothèse ; les deux résultats font avancer l\'analyse.',
+      dgSide1Label: 'Qu\'est-ce qu\'une hypothèse de gaspillage ?',
+      dgSide1P: 'Un consultant sur le terrain demande « Combien de fois cette commande change-t-elle de mains ? » Derrière la question se cache une hypothèse : <strong>« Il pourrait y avoir ici du mouvement ou du transport inutile. »</strong> Chez GembaX, chaque question est liée à son hypothèse sous-jacente. Les hypothèses confirmées entrent dans la formule, produisant des coûts en dollars. Les réfutées sortent du périmètre — le rapport final ne contient que les résultats réels.',
+      dgSub2: 'IA + Contrôle expert',
+      dgP3: 'Chez GembaX, l\'IA ne travaille pas seule. L\'IA traite les données, détecte les schémas et compare aux benchmarks sectoriels — comprime des semaines d\'analyse en heures. Mais l\'expert humain valide chaque résultat, vérifie chaque schéma, synthétise les causes racines entre catégories de gaspillage et détermine le niveau de confiance du rapport.',
+      dgP4: 'Ce modèle vous protège des risques des deux extrêmes. L\'IA seule donne des résultats superficiels sans contexte — l\'IA ne connaît pas l\'histoire derrière un chiffre. Les consultants seuls signifient des semaines d\'attente et des coûts élevés. GembaX <strong>combine les deux</strong> : la vitesse et la capacité de l\'IA avec le savoir sectoriel et l\'expérience terrain de l\'expert.',
+      dgPQ1: '« La bonne question mène aux bonnes données. Les bonnes données au bon diagnostic. Le bon diagnostic à la bonne action. »',
+      dgPQ1Cite: 'Principe de Diagnostic GembaX',
+      dgP5: 'L\'IA exécute des analyses sur vos réponses et données partagées. Les résultats sont classés selon le cadre <span class="timwoods-ref">TIM WOODS</span>, comparés aux benchmarks sectoriels, et les goulots d\'étranglement sont identifiés. Le coût en dollars de chaque gaspillage est calculé. L\'ensemble de la synthèse passe par la revue d\'experts avant de vous parvenir.',
+      dgSub3: 'Exemples de questions qui révèlent la réalité du terrain',
+      dgSub3Desc: 'Chaque question teste une hypothèse de gaspillage. Votre réponse la confirme ou la réfute — les deux résultats font avancer l\'analyse.',
+      qc1Sector: 'Industrie',
+      qc1Q: '« Lorsqu\'une machine tombe en panne sur une ligne de production, quel est le temps de réponse moyen ? Les autres lignes s\'arrêtent-elles aussi pendant ce temps ? »',
+      qc1Why: '<strong>Hypothèse :</strong> Gaspillage d\'attente + effet goulot. Une panne de machine peut provoquer des pertes de production en cascade.',
+      qc2Sector: 'Commerce de détail',
+      qc2Q: '« Quelle part du chiffre d\'affaires total provenait de produits soldés pour cause de surstock ces 12 derniers mois ? Quelles catégories ? »',
+      qc2Why: '<strong>Hypothèse :</strong> Surproduction/stock. Une mauvaise prévision de la demande transforme le chiffre d\'affaires en pertes de démarque.',
+      qc3Sector: 'Services / Bureau',
+      qc3Q: '« Par combien d\'étapes d\'approbation passe une proposition client ? Combien de jours en moyenne attend-elle dans ce processus ? »',
+      qc3Why: '<strong>Hypothèse :</strong> Gaspillage d\'attente + sur-traitement. Des couches d\'approbation inutiles allongent les cycles de vente et font perdre des clients.',
+      qc4Sector: 'Logistique',
+      qc4Q: '« Vos véhicules transportent-ils du fret sur les trajets retour ? Quel est votre taux de retour à vide ? »',
+      qc4Why: '<strong>Hypothèse :</strong> Gaspillage de transport. Les trajets à vide doublent les coûts de carburant, de temps et d\'amortissement des véhicules.',
+      gembaMore: "En savoir plus sur la philosophie Lean et le Gemba →",
+      footerPricing: 'Tarifs', footerTerms: 'CGV', footerPrivacy: 'Confidentialité', footerRefund: 'Remboursement',
       footerBrand: '<strong>Gemba<span>X</span></strong> — Radiographie du gaspillage opérationnel',
-      footerPricing: "Tarifs", footerTerms: "CGV", footerPrivacy: "Confidentialité", footerRefund: "Remboursement"
+      footerContact: "Contact"
     },
     PT: {
       logoSub: "Radiografia do Desperdício Operacional",
       navGemba: "O que é Gemba",
-      navProcess: "Como Funciona",
-      navWaste: "7+1 Desperdícios",
-      navSectors: "Setores",
-      navPricing: "Preços",
+      navMetod: "Metodologia",
+      navPrice: "Preços",
       navBenchmark: "Ver Testes de Benchmark",
       navCta: "Iniciar Análise",
       heroBadge: "Análise IA Liderada por Especialistas",
       heroH1: "Encontramos os custos ocultos na sua empresa.",
       heroMotto: "Tudo o que não cria valor é desperdício. Com o GembaX, tornamos visível o desperdício que silenciosamente corrói suas operações:",
-      heroBullet1: "Primeiro, identificamos o que realmente cria valor para sua empresa",
+      heroBullet1: "Partimos da perspectiva do seu cliente — identificando o que realmente cria valor nas suas operações",
       heroBullet2: "Radiografia operacional com IA para encontrar a raiz do desperdício",
       heroBullet3: "Calculamos quanto cada desperdício custa para você",
       heroBullet4: "Análise de causa raiz e plano de ação de 90 dias",
@@ -1567,8 +1792,8 @@
       processLabel: "Como Funciona",
       processTitle: 'Três passos do <em>diagnóstico à ação</em>',
       processDesc: "Encontrar o problema, calcular o custo, mostrar a solução.",
-      proc1Num: "01 — DIAGNÓSTICO", proc1H: "Onde seu dinheiro está queimando?", proc1P: "Escaneamos sua empresa em 7+1 categorias de desperdício. Cada desperdício é calculado em dólares.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — PRIORIDADE", proc2H: "Onde agir primeiro?", proc2P: "A análise de prioridade identifica seus 3 pontos de maior impacto. Detecção de gargalo incluída.", proc2Out: "→ Mapa de Prioridades + Gargalo",
+      proc1Num: "01 — DIAGNÓSTICO", proc1H: "Onde seu dinheiro está queimando?", proc1P: "Primeiro esclarecemos o que seus clientes realmente valorizam. Depois escaneamos suas operações conforme essa definição em 7+1 categorias de desperdício. Cada desperdício é calculado em dólares.", proc1Out: "→ Hidden Cost Report",
+      proc2Num: "02 — PRIORIDADE", proc2H: "Onde agir primeiro?", proc2P: "A análise de prioridade identifica seus 3 pontos de maior impacto. Detecção de gargalo incluída. A pergunta crítica: esses 3 desperdícios compartilham uma causa-raiz comum?", proc2Out: "→ Mapa de Prioridades + Gargalo",
       proc3Num: "03 — AÇÃO", proc3H: "Quanto podemos economizar?", proc3P: "Plano de ação priorizado de 90 dias: 0-30 dias ganhos rápidos, 30-60 dias médio prazo, 60-90 dias estrutural.", proc3Out: "→ Roteiro 90 Dias + ROI",
       wasteLabel: "Análise 7+1 Desperdícios",
       wasteTitle: 'TIM WOODS: <em>O mapa universal de desperdícios</em>',
@@ -1612,10 +1837,65 @@
       ctaLabel: "Começar",
       ctaH2: 'Vamos fazer a <em>radiografia</em> das suas operações',
       ctaSmall: "Encontramos o desperdício que você não vê e calculamos quanto cada um custa por ano. O setor não importa — onde há fluxo de valor, há desperdício.",
-      ctaP: "Preencha um breve formulário, depois realizamos a análise com perguntas e dados personalizados para você.",
+      ctaP: "Uma breve conversa guiada para entender sua empresa, depois realizamos a análise com perguntas e dados personalizados para você.",
       ctaBtn: "Iniciar Análise →",
+      // EXPANDED GEMBA + DIJITAL GEMBA
+      gembaDescExt: 'Um princípio nascido de uma fábrica lutando para sobreviver com recursos limitados — hoje aplicável em todos os setores do mundo.',
+      gembaSub1: 'Lean: Não uma escolha de eficiência, mas uma necessidade de sobrevivência',
+      gembaP1: 'Japão dos anos 1950. Uma economia pós-guerra. A Toyota tentava sobreviver com um décimo dos recursos da Ford e um décimo do seu volume de produção. Não tinha nem capital nem mercado para copiar o modelo de produção em massa ocidental. Essa restrição forçou os engenheiros da Toyota a pensar diferente: Se não podemos encontrar mais recursos, devemos remover tudo que não cria valor dos recursos que temos.',
+      gembaP2: 'Aqui, "valor" tem uma definição muito precisa: <strong>cada passo pelo qual o cliente está disposto a pagar é valor.</strong> Toda atividade que dá forma ao produto, muda sua função ou o aproxima do resultado desejado. Todo o resto — transporte, espera, inspeção, retrabalho, armazenamento — é desperdício. A Toyota aplicou essa distinção sistematicamente a cada processo e construiu o sistema de produção mais eficiente do mundo.',
+      gembaP3: 'Hoje essa abordagem é conhecida como "Lean". E não se limita a fábricas. Tempos de espera em hospitais, ciclos de desenvolvimento de software, gestão de estoque no varejo, planejamento de rotas logísticas — <strong>onde há fluxo de valor</strong>, o Lean se aplica.',
+      gembaSide1Label: 'Esta também poderia ser a sua história',
+      gembaSide1P: 'A situação da Toyota nos anos 50 espelha a de muitas PMEs hoje: <strong>recursos limitados, concorrência acirrada, pressão de crescimento.</strong> Encontrar mais recursos nem sempre é possível — mas remover etapas que não agregam valor dos recursos existentes sempre é.',
+      gembaSub2: 'Não apenas desperdício: Três inimigos',
+      gembaP4: 'Na disciplina Lean, três fatores que reduzem o desempenho são abordados juntos. <strong>Muda</strong> — atividades que não agregam valor, ou seja, desperdício. <strong>Mura</strong> — irregularidade nos processos; carga extrema um dia, ociosidade no seguinte. <strong>Muri</strong> — sobrecarga de pessoas ou máquinas além da capacidade. Estes três se retroalimentam: cargas desiguais criam tensão, processos tensos produzem defeitos, defeitos retornam como desperdício. A análise GembaX avalia os três juntos.',
+      gembaSub3: 'Gemba: Onde o trabalho real acontece',
+      gembaP5: '"Gemba" (現場) significa <strong>"o lugar real"</strong> em japonês — onde o trabalho realmente acontece. O chão de fábrica, o armazém, a mesa do escritório, o ponto de venda, a linha de atendimento ao cliente. Não a sala de reunião. Não a planilha. Não o andar executivo. <em>Onde o trabalho realmente é feito.</em>',
+      gembaPQ1: 'O princípio fundamental que Taiichi Ohno estabeleceu na Toyota: Não tente aprender a verdade em segunda mão — vá ao processo, veja você mesmo.',
+      gembaPQ1Cite: 'Genchi Genbutsu (現地現物) — Sistema de Produção Toyota',
+      gembaP6: 'A aplicação mais poderosa da tradição Lean é o <strong>Gemba Walk</strong>. Um gerente ou consultor experiente vai até onde o trabalho é feito, observa processos e faz perguntas cuidadosamente selecionadas. O objetivo é ver a verdade que relatórios de escritório não mostram — onde o processo trava, quais etapas realmente criam valor, onde tempo e dinheiro queimam.',
+      gembaP7: 'Essas perguntas não são aleatórias. O framework que Womack formulou em seu livro <em>Gemba Walks</em> estrutura cada Gemba Walk como uma investigação em três camadas:',
+      gembaSide2Label: 'Framework de três camadas de Womack — Gemba Walks',
+      gembaSide2Pa: '<strong>Purpose — Propósito:</strong> Por que este trabalho está sendo feito? Qual exatamente é o valor que cria para o cliente? Se o propósito não está claro, é impossível medir se o processo funciona corretamente.',
+      gembaSide2Pb: '<strong>Process — Processo:</strong> Como o processo flui para atingir o propósito? O que acontece em cada etapa, onde se espera, onde se repete, onde se perde valor?',
+      gembaSide2Pc: '<strong>People — Pessoas:</strong> Como as pessoas que executam este processo são apoiadas? Têm as ferramentas, informações e autoridade corretas — ou trabalham apesar do sistema?',
+      gembaP8: 'A classificação de desperdícios do Lean é conhecida internacionalmente pelo acrônimo <span class="timwoods-ref">TIM WOODS</span>: Transportation, Inventory, Motion, Waiting, Overproduction, Over-processing, Defects e Skills. Cada tipo de desperdício é detectado com uma pergunta diferente, calculado em dólares com uma fórmula diferente. O motor de diagnóstico do GembaX escaneia sistematicamente cada uma dessas oito categorias.',
+      dgLabel: 'Gemba Walk Digital',
+      dgTitle: 'Revelar a <em>realidade operacional</em> sem visitar o chão de fábrica',
+      dgDesc: 'As perguntas que consultores experientes fazem em campo são personalizadas para seu setor com IA. Cada pergunta testa uma hipótese de desperdício.',
+      dgObjQ: '"A essência do Gemba é ir ao local. Não se pode fazer Gemba sem ir."',
+      dgObjA1: 'Essa objeção é válida — e deve ser levada a sério. Um Gemba Walk físico captura através da observação detalhes que nenhuma pesquisa ou relatório pode substituir completamente. Sabemos disso.',
+      dgObjA2: 'Mas o espírito do Gemba não é "ir fisicamente a um lugar específico" — é <strong>"ver a verdade onde ela acontece."</strong> O que revela a verdade não são os passos, são <strong>as perguntas certas.</strong> Uma investigação sistemática que questiona seu fluxo de pedidos passo a passo, perguntando em cada ponto "o que acontece aqui, por que você espera, quem toma essa decisão" — quando feita corretamente — revela a realidade operacional.',
+      dgObjA3: 'Isso é um trade-off e dizemos abertamente: o GembaX não substitui a observação física. Mas oferece <strong>um diagnóstico operacional guiado por hipóteses em dias, com orçamento acessível.</strong> Transforma o formato de semanas e dezenas de milhares de dólares do Gemba Walk tradicional em um modelo que PMEs podem custear.',
+      dgSub1: 'Diagnóstico direcionado',
+      dgP1: 'O GembaX leva a disciplina de interrogação do Gemba Walk para o digital. O fluxo <strong>Purpose → Process → People</strong> de Womack reflete a sequência natural de diagnóstico do GembaX: primeiro esclarecemos o propósito e a definição de valor da sua empresa, depois escaneamos seus processos pelo framework <span class="timwoods-ref">TIM WOODS</span>, por fim entendemos como as pessoas estão posicionadas no processo.',
+      dgP2: 'Cada pergunta está vinculada a uma categoria específica do framework de desperdícios <span class="timwoods-ref">TIM WOODS</span> e carrega uma <strong>hipótese de desperdício</strong> a testar. Não coletamos informações aleatórias — realizamos diagnóstico direcionado. Sua resposta confirma ou refuta a hipótese; ambos os resultados avançam a análise.',
+      dgSide1Label: 'O que é uma hipótese de desperdício?',
+      dgSide1P: 'Um consultor em campo pergunta "Quantas vezes esse pedido muda de mãos?" Por trás da pergunta há uma hipótese: <strong>"Pode haver movimento ou transporte desnecessário aqui."</strong> No GembaX, cada pergunta está vinculada à sua hipótese subjacente. Hipóteses confirmadas entram na fórmula, produzindo custos em dólares. Hipóteses refutadas saem do escopo — o relatório final contém apenas achados reais.',
+      dgSub2: 'IA + Controle especializado',
+      dgP3: 'No GembaX, a IA não trabalha sozinha. A IA processa dados, detecta padrões e compara com benchmarks do setor — comprime semanas de análise em horas. Mas o especialista humano valida cada achado, verifica cada padrão, sintetiza causas-raiz entre categorias de desperdício e determina o nível de confiança do relatório.',
+      dgP4: 'Este modelo protege você dos riscos de ambos os extremos. Só IA dá resultados superficiais sem contexto — a IA não conhece a história por trás de um número. Só consultores significa semanas de espera e custos altos. O GembaX <strong>combina ambos</strong>: a velocidade e capacidade da IA com o conhecimento setorial e a experiência de campo do especialista.',
+      dgPQ1: '"A pergunta certa leva aos dados certos. Os dados certos ao diagnóstico certo. O diagnóstico certo à ação certa."',
+      dgPQ1Cite: 'Princípio de Diagnóstico GembaX',
+      dgP5: 'A IA executa análises sobre suas respostas e dados compartilhados. Os achados são classificados segundo o framework <span class="timwoods-ref">TIM WOODS</span>, comparados com benchmarks do setor, e gargalos são identificados. O custo em dólares de cada desperdício é calculado. Toda a síntese passa pela revisão de especialistas antes de chegar a você.',
+      dgSub3: 'Exemplos de perguntas que revelam a realidade operacional',
+      dgSub3Desc: 'Cada pergunta testa uma hipótese de desperdício. Sua resposta a confirma ou refuta — ambos os resultados avançam a análise.',
+      qc1Sector: 'Manufatura',
+      qc1Q: '"Quando uma máquina quebra em uma linha de produção, quanto tempo em média leva a resposta? Outras linhas também param durante esse tempo?"',
+      qc1Why: '<strong>Hipótese:</strong> Desperdício de espera + efeito gargalo. Uma falha de máquina pode causar perdas de produção em cascata.',
+      qc2Sector: 'Varejo',
+      qc2Q: '"Qual a participação da receita total que veio de produtos remarcados por excesso de estoque nos últimos 12 meses? De quais categorias?"',
+      qc2Why: '<strong>Hipótese:</strong> Superprodução/estoque. Previsão de demanda incorreta converte receita em perdas de remarcação.',
+      qc3Sector: 'Serviços / Escritório',
+      qc3Q: '"Por quantas etapas de aprovação passa uma proposta comercial? Quantos dias em média ela espera neste processo?"',
+      qc3Why: '<strong>Hipótese:</strong> Desperdício de espera + superprocessamento. Camadas de aprovação desnecessárias alongam ciclos de venda, perdendo clientes.',
+      qc4Sector: 'Logística',
+      qc4Q: '"Seus veículos transportam carga nas viagens de retorno? Qual é sua taxa de retorno vazio?"',
+      qc4Why: '<strong>Hipótese:</strong> Desperdício de transporte. Viagens vazias dobram custos de combustível, tempo e depreciação de veículos.',
+      gembaMore: "Saiba mais sobre a filosofia Lean e o Gemba →",
+      footerPricing: 'Preços', footerTerms: 'Termos', footerPrivacy: 'Privacidade', footerRefund: 'Reembolso',
       footerBrand: '<strong>Gemba<span>X</span></strong> — Radiografia do desperdício operacional',
-      footerPricing: "Preços", footerTerms: "Termos", footerPrivacy: "Privacidade", footerRefund: "Reembolso"
+      footerContact: "Contato"
     }
   };
 
@@ -1627,16 +1907,13 @@
     const $$ = (s) => document.querySelectorAll(s);
 
     // HTML lang attr
-    document.documentElement.lang = lang === 'TR' ? 'tr' : lang === 'DE' ? 'de' : lang === 'ES' ? 'es' : 'en';
+    document.documentElement.lang = {TR:'tr',EN:'en',DE:'de',ES:'es',FR:'fr',PT:'pt'}[lang] || 'en';
 
     // NAV
     $('.logo-sub').textContent = t.logoSub;
-    const navA = $$('.nav-links > a');
-    if (navA[0]) navA[0].textContent = t.navGemba;
-    if (navA[1]) navA[1].textContent = t.navProcess;
-    if (navA[2]) navA[2].textContent = t.navWaste;
-    if (navA[3]) navA[3].textContent = t.navSectors;
-    if (navA[4]) navA[4].textContent = t.navPricing;
+    const nlg = $('.nav-link-gemba'); if (nlg) nlg.textContent = t.navGemba;
+    const nlm = $('.nav-link-metod'); if (nlm) nlm.textContent = t.navMetod;
+    const nlp = $('.nav-link-price'); if (nlp) nlp.textContent = t.navPrice;
     $('.nav-benchmark').textContent = t.navBenchmark;
     $('.nav-cta').textContent = t.navCta;
 
@@ -1821,14 +2098,32 @@
       cta.querySelector('.btn-primary').textContent = t.ctaBtn;
     }
 
+
+    // GEMBA (slim)
+    const gEl = (id) => document.getElementById(id);
+    if (gEl('gemba-label')) gEl('gemba-label').textContent = t.gembaLabel;
+    if (gEl('gemba-title')) gEl('gemba-title').innerHTML = t.gembaTitle;
+    if (gEl('gemba-desc1')) gEl('gemba-desc1').textContent = t.gembaDesc1;
+    if (gEl('gemba-desc2')) gEl('gemba-desc2').innerHTML = t.gembaDesc2;
+    if (gEl('gemba-more-link')) gEl('gemba-more-link').textContent = t.gembaMore;
+    if (gEl('eq-gemba-label')) gEl('eq-gemba-label').textContent = t.eqGemba;
+    if (gEl('eq-gemba-val')) gEl('eq-gemba-val').innerHTML = t.eqGembaVal;
+    if (gEl('eq-xray-label')) gEl('eq-xray-label').textContent = t.eqXray;
+    if (gEl('eq-xray-val')) gEl('eq-xray-val').innerHTML = t.eqXrayVal;
+    if (gEl('eq-result-label')) gEl('eq-result-label').textContent = t.eqResult;
+    if (gEl('eq-output-label')) gEl('eq-output-label').textContent = t.eqOutput;
+    if (gEl('eq-output-text')) gEl('eq-output-text').innerHTML = t.eqOutputText;
+
+    // (Dijital Gemba moved to /metodoloji.html)
+
     // FOOTER
     const fb = document.querySelector('.footer-brand');
     if (fb) fb.innerHTML = t.footerBrand;
-    const fl = document.querySelectorAll('.footer-link-legal');
-    if (fl[0]) fl[0].textContent = t.footerPricing;
-    if (fl[1]) fl[1].textContent = t.footerTerms;
-    if (fl[2]) fl[2].textContent = t.footerPrivacy;
-    if (fl[3]) fl[3].textContent = t.footerRefund;
+    const fll = document.querySelectorAll('.footer-link-legal');
+    if (fll[0]) fll[0].textContent = t.footerPricing;
+    if (fll[1]) fll[1].textContent = t.footerTerms;
+    if (fll[2]) fll[2].textContent = t.footerPrivacy;
+    if (fll[3]) fll[3].textContent = t.footerRefund;
 
     // Update page title
     const titles = { TR: "GembaX — Operasyonel İsrafın Röntgeni", EN: "GembaX — X-Ray of Operational Waste", DE: "GembaX — Röntgen der operativen Verschwendung", ES: "GembaX — Radiografía del Desperdicio Operativo", FR: "GembaX — Radiographie du Gaspillage Opérationnel", PT: "GembaX — Radiografia do Desperdício Operacional" };
