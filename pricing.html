@@ -78,11 +78,11 @@
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 1.2rem;
     max-width: 1080px; margin: 0 auto;
     padding: 0 2rem 5rem;
   }
-  .pricing-card {
+  .pricing-card { display:flex; flex-direction:column;
     background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -119,7 +119,7 @@
   .pricing-desc {
     font-size: 0.88rem; color: var(--text-secondary);
     line-height: 1.6; margin-bottom: 1.5rem;
-    min-height: 3.2rem;
+    min-height: 2.4rem;
   }
   .pricing-price {
     margin-bottom: 1.5rem;
@@ -254,29 +254,7 @@
 
 </head>
 
-  /* Lang dropdown */
-  .lang-dropdown { position: relative; }
-  .lang-toggle {
-    display: flex; align-items: center; gap: 0.35rem; cursor: pointer;
-    font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
-    border: 1px solid var(--border); border-radius: 6px; padding: 0.4rem 0.7rem;
-    background: transparent; transition: all 0.2s;
-  }
-  .lang-toggle:hover { border-color: var(--border-accent); }
-  .lang-toggle svg { width: 12px; height: 12px; color: var(--text-muted); transition: transform 0.2s; }
-  .lang-dropdown.open .lang-toggle svg { transform: rotate(180deg); }
-  .lang-menu {
-    display: none; position: absolute; top: 100%; right: 0; margin-top: 0.4rem;
-    background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08); min-width: 120px; z-index: 200; overflow: hidden;
-  }
-  .lang-dropdown.open .lang-menu { display: block; }
-  .lang-menu a {
-    display: block !important; padding: 0.5rem 1rem !important; font-size: 0.82rem !important;
-    color: var(--text-secondary) !important; text-decoration: none !important; width: 100% !important;
-  }
-  .lang-menu a:hover { background: var(--accent-glow) !important; color: var(--accent-dark) !important; }
-  .lang-menu a.active { color: var(--accent) !important; font-weight: 600 !important; }
+
 </style>
 </head>
 <body>
@@ -288,19 +266,7 @@
   </a>
   <div style="display:flex; align-items:center; gap:1.2rem;">
     <a href="/" class="nav-back" id="nav-back">← Ana Sayfa</a>
-    <div class="lang-dropdown" id="langDropdown">
-      <div class="lang-toggle" id="langToggle" onclick="document.getElementById('langDropdown').classList.toggle('open')">
-        TR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-      </div>
-      <div class="lang-menu">
-        <a href="#" data-lang="TR" class="active" onclick="selectLang(event)">Türkçe</a>
-        <a href="#" data-lang="EN" onclick="selectLang(event)">English</a>
-        <a href="#" data-lang="DE" onclick="selectLang(event)">Deutsch</a>
-        <a href="#" data-lang="ES" onclick="selectLang(event)">Español</a>
-        <a href="#" data-lang="FR" onclick="selectLang(event)">Français</a>
-        <a href="#" data-lang="PT" onclick="selectLang(event)">Português</a>
-      </div>
-    </div>
+
   </div>
 </nav>
 
@@ -313,38 +279,39 @@
   <div class="pricing-card">
     <div class="pricing-tier">Tier 01</div>
     <div class="pricing-name">Scan</div>
-    <div class="pricing-desc" id="pd1">En kritik 3 israf kategorisine odaklanan hızlı tarama.</div>
+    <div class="pricing-desc" id="pd1">7+1 israf sinyali taraması ve tahmini maliyet etkisi.</div>
     <div class="pricing-price">
       <div class="pricing-amount"><span class="currency">$</span>550</div>
       <div class="pricing-period" id="pp1">Tek seferlik ödeme</div>
     </div>
     <ul class="pricing-features">
-      <li id="pf1a">7+1 israf kategorisi taraması</li>
-      <li id="pf1b">En kritik 3 israf $ cinsinden</li>
-      <li id="pf1c">Sektör benchmark karşılaştırması</li>
-      <li id="pf1d">Öncelik aksiyon özeti</li>
+      <li id="pf1a">7+1 kategori taraması</li>
+      <li id="pf1b">En önemli 3 israf sinyali</li>
+      <li id="pf1c">Tahmini maliyet etkisi (aralık olarak)</li>
+      <li id="pf1d">Sektör benchmark karşılaştırması</li>
       <li id="pf1e">5 iş günü içinde teslim</li>
     </ul>
     <a href="mailto:murat@gembax.ai?subject=GembaX%20Scan" class="pricing-btn secondary" id="pb1">Başlayın →</a>
   </div>
 
   <div class="pricing-card featured">
-    <div class="pricing-badge" id="pbadge">En Popüler</div>
+    <div class="pricing-badge" id="pbadge">Tavsiye Edilen</div>
     <div class="pricing-tier">Tier 02</div>
     <div class="pricing-name">Diagnosis</div>
-    <div class="pricing-desc" id="pd2">Tam Hidden Cost Report — darboğaz analizi ve 90 günlük aksiyon planı.</div>
+    <div class="pricing-desc" id="pd2">Kesin maliyet hesabı, kök neden analizi ve aksiyon planı.</div>
     <div class="pricing-price">
       <div class="pricing-amount"><span class="currency">$</span>1,000</div>
       <div class="pricing-period" id="pp2">Tek seferlik ödeme</div>
     </div>
     <ul class="pricing-features">
       <li id="pf2a">Scan'deki her şey, artı:</li>
-      <li id="pf2b">7+1 israf kategorisi — tam $ kırılım</li>
-      <li id="pf2c">Darboğaz tespiti (Kısıtlar Teorisi)</li>
-      <li id="pf2d">Pareto analizi — en yüksek etki alanları</li>
-      <li id="pf2e">90 günlük öncelikli aksiyon planı</li>
-      <li id="pf2f">Her öneri için ROI projeksiyonu</li>
+      <li id="pf2b">En önemli israf kalemlerinin dolar cinsinden kesin maliyeti</li>
+      <li id="pf2c">Kök neden analizi</li>
+      <li id="pf2d">Darboğaz analizi (Kısıtlar Teorisi lensi ile)</li>
+      <li id="pf2e">30-60-90 gün aksiyon planı</li>
+      <li id="pf2f">ROI projeksiyonu</li>
       <li id="pf2g">Yönetici özeti + detaylı rapor</li>
+      <li id="pf2h">7-10 iş günü içinde teslim</li>
     </ul>
     <a href="mailto:murat@gembax.ai?subject=GembaX%20Diagnosis" class="pricing-btn primary" id="pb2">Tam Raporu Al →</a>
   </div>
@@ -370,7 +337,7 @@
 </div>
 
 <div class="guarantee-bar">
-  <p><strong id="gg-title">14 Gün Memnuniyet Garantisi</strong> — <span id="gg-text">Rapor beklentinizi karşılamazsa, teslimden itibaren 14 gün içinde tam iade.</span> <a href="/refund.html" style="color:var(--accent);" id="gg-link">İade Politikası</a></p>
+  <p><strong id="gg-title">Memnuniyet Garantisi</strong> — <span id="gg-text">Memnun kalmazsanız ücretsiz revizyon.</span></p>
 </div>
 
 <div class="faq-section">
@@ -397,6 +364,10 @@
   </div>
 </div>
 
+<div style="text-align:center; padding:2.5rem 2rem 3rem;">
+  <a href="/#cta" style="display:inline-block; background:var(--accent); color:#fff; padding:1rem 2.5rem; border-radius:10px; text-decoration:none; font-weight:700; font-size:1rem;">Analizi Başlat →</a>
+</div>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-brand" id="ft-brand"><strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni</div>
@@ -409,37 +380,6 @@
   </div>
 </footer>
 
-<script>
-const T={
-TR:{logoSub:"Operasyonel İsrafın Röntgeni",navBack:"← Ana Sayfa",phH1:'Gizli maliyetlerinizi bulun. <em>Derinliği seçin.</em>',phP:"Her planda israf dolar cinsinden raporlanır — belirsiz yüzdeler değil. İşletmenizin ihtiyacına göre analiz seviyesini seçin.",pd1:"En kritik 3 israf kategorisine odaklanan hızlı tarama.",pd2:"Tam Hidden Cost Report — darboğaz analizi ve 90 günlük aksiyon planı.",pd3:"Moresight.io ile birlikte yürütülen kurumsal dönüşüm programı.",pp:"Tek seferlik ödeme",pcustom:"Özel Fiyat",pp3:"İhtiyaca göre belirlenir",pbadge:"En Popüler",pf1a:"7+1 israf kategorisi taraması",pf1b:"En kritik 3 israf $ cinsinden",pf1c:"Sektör benchmark karşılaştırması",pf1d:"Öncelik aksiyon özeti",pf1e:"5 iş günü içinde teslim",pf2a:"Scan'deki her şey, artı:",pf2b:"7+1 israf kategorisi — tam $ kırılım",pf2c:"Darboğaz tespiti (Kısıtlar Teorisi)",pf2d:"Pareto analizi — en yüksek etki alanları",pf2e:"90 günlük öncelikli aksiyon planı",pf2f:"Her öneri için ROI projeksiyonu",pf2g:"Yönetici özeti + detaylı rapor",pf3a:"Diagnosis'deki her şey, artı:",pf3b:"Yerinde veya uzaktan uygulama desteği",pf3c:"Süreç yeniden tasarımı & değişim yönetimi",pf3d:"KPI dashboard kurulumu & takibi",pf3e:"Üç aylık periyodik gözden geçirme",pf3f:"Moresight danışmanlık ekibi tarafından",pb1:"Başlayın →",pb2:"Tam Raporu Al →",pb3:"İletişime Geçin →",ggT:"14 Gün Memnuniyet Garantisi",ggTx:"Rapor beklentinizi karşılamazsa, teslimden itibaren 14 gün içinde tam iade.",ggL:"İade Politikası",faqH:"Sıkça Sorulan Sorular",fq1:"Hangi verileri paylaşmam gerekiyor?",fa1:"Operasyonlarınız hakkında yönlendirilmiş bir sohbetle bilgi topluyoruz — ciro, çalışan sayısı, temel süreçler ve sorun noktaları. Mali tablolar veya hassas veri gerekmez.",fq2:"Ne kadar sürer?",fa2:"Scan raporları 5 iş günü içinde teslim edilir. Tam Diagnosis raporları intake tamamlandıktan sonra 7–10 iş günü içinde.",fq3:"Hangi sektörleri kapsıyorsunuz?",fa3:"Üretim, hizmet, perakende, lojistik, teknoloji/SaaS ve satış operasyonları. Değer akışı olan her yerde israf vardır.",fq4:"Verilerim güvende mi?",fa4:"Evet. Şifreli bağlantı kullanıyoruz, iş verilerinizi üçüncü taraflarla paylaşmıyoruz.",fq5:"Scan ile Diagnosis arasındaki fark ne?",fa5:"Scan en kritik 3 israf alanını dolar cinsinden verir. Diagnosis daha derine iner — tüm 7+1 kategori, darboğaz tespiti, Pareto analizi ve ROI projeksiyonlu 90 günlük aksiyon planı.",ftBrand:'<strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni',ftTerms:"Şartlar",ftPrivacy:"Gizlilik",ftRefund:"İade",title:"Fiyatlar — GembaX"},
-EN:{logoSub:"X-Ray of Operational Waste",navBack:"← Home",phH1:'Find your hidden costs. <em>Pick your depth.</em>',phP:"Every plan delivers waste quantified in dollars — not vague percentages. Choose the level of analysis your business needs.",pd1:"Focused operational scan across your top 3 waste categories.",pd2:"Full Hidden Cost Report with bottleneck analysis and 90-day action plan.",pd3:"Enterprise implementation with hands-on consulting via Moresight.io.",pp:"One-time payment",pcustom:"Custom",pp3:"Scoped to your needs",pbadge:"Most Popular",pf1a:"7+1 waste category screening",pf1b:"Top 3 waste areas in $ terms",pf1c:"Industry benchmark comparison",pf1d:"Priority action summary",pf1e:"Delivered within 5 business days",pf2a:"Everything in Scan, plus:",pf2b:"All 7+1 waste categories — full $ breakdown",pf2c:"Bottleneck detection (Theory of Constraints)",pf2d:"Pareto analysis — biggest impact areas",pf2e:"90-day prioritized action plan",pf2f:"ROI projection for each recommendation",pf2g:"Executive summary + detailed report",pf3a:"Everything in Diagnosis, plus:",pf3b:"On-site or remote implementation support",pf3c:"Process redesign & change management",pf3d:"KPI dashboard setup & tracking",pf3e:"Quarterly review cycles",pf3f:"Delivered by Moresight Consulting team",pb1:"Get Started →",pb2:"Get Full Report →",pb3:"Contact Us →",ggT:"14-Day Satisfaction Guarantee",ggTx:"If the report doesn't meet your expectations, full refund within 14 days of delivery.",ggL:"Refund Policy",faqH:"Common Questions",fq1:"What data do I need to provide?",fa1:"We collect info through a guided conversation about your operations — revenue, headcount, key processes, and pain points. No financial statements or sensitive data required.",fq2:"How long does it take?",fa2:"Scan reports are delivered within 5 business days. Full Diagnosis reports within 7–10 business days after intake completion.",fq3:"What industries do you cover?",fa3:"Manufacturing, services, retail, logistics, technology/SaaS, and sales operations. Anywhere there's a value stream, there's waste to find.",fq4:"Is my data safe?",fa4:"Yes. We use encrypted connections, don't share your business data with third parties.",fq5:"What's the difference between Scan and Diagnosis?",fa5:"Scan gives you the top 3 waste areas with dollar estimates. Diagnosis goes deeper — all 7+1 categories, bottleneck detection, Pareto analysis, and a full 90-day action plan with ROI projections.",ftBrand:'<strong>Gemba<span>X</span></strong> — X-Ray of operational waste',ftTerms:"Terms",ftPrivacy:"Privacy",ftRefund:"Refund",title:"Pricing — GembaX"},
-DE:{logoSub:"Röntgen der operativen Verschwendung",navBack:"← Startseite",phH1:'Finden Sie Ihre versteckten Kosten. <em>Wählen Sie die Tiefe.</em>',phP:"Jeder Plan liefert Verschwendung in Dollar — keine vagen Prozentsätze. Wählen Sie die Analysetiefe, die Ihr Unternehmen braucht.",pd1:"Fokussierter Scan Ihrer Top-3-Verschwendungskategorien.",pd2:"Vollständiger Hidden Cost Report mit Engpassanalyse und 90-Tage-Aktionsplan.",pd3:"Enterprise-Implementierung mit Beratung durch Moresight.io.",pp:"Einmalige Zahlung",pcustom:"Individuell",pp3:"Nach Bedarf",pbadge:"Am beliebtesten",pf1a:"7+1 Verschwendungskategorien-Screening",pf1b:"Top 3 Verschwendungen in $ beziffert",pf1c:"Branchen-Benchmark-Vergleich",pf1d:"Prioritäten-Aktionsübersicht",pf1e:"Lieferung innerhalb von 5 Werktagen",pf2a:"Alles aus Scan, plus:",pf2b:"Alle 7+1 Kategorien — volle $-Aufschlüsselung",pf2c:"Engpasserkennung (Theory of Constraints)",pf2d:"Pareto-Analyse — größte Wirkungsbereiche",pf2e:"90-Tage priorisierter Aktionsplan",pf2f:"ROI-Projektion für jede Empfehlung",pf2g:"Executive Summary + Detailbericht",pf3a:"Alles aus Diagnosis, plus:",pf3b:"Vor-Ort- oder Remote-Implementierung",pf3c:"Prozess-Redesign & Change Management",pf3d:"KPI-Dashboard-Einrichtung & Tracking",pf3e:"Vierteljährliche Review-Zyklen",pf3f:"Durch das Moresight-Beratungsteam",pb1:"Loslegen →",pb2:"Vollständigen Bericht erhalten →",pb3:"Kontakt aufnehmen →",ggT:"14-Tage-Zufriedenheitsgarantie",ggTx:"Wenn der Bericht Ihre Erwartungen nicht erfüllt, volle Rückerstattung innerhalb von 14 Tagen.",ggL:"Rückerstattungsrichtlinie",faqH:"Häufige Fragen",fq1:"Welche Daten muss ich bereitstellen?",fa1:"Wir sammeln Informationen in einem geführten Gespräch über Ihre Abläufe — Umsatz, Mitarbeiterzahl, Kernprozesse und Schmerzpunkte.",fq2:"Wie lange dauert es?",fa2:"Scan-Berichte werden innerhalb von 5 Werktagen geliefert. Volle Diagnosis-Berichte innerhalb von 7–10 Werktagen nach Intake-Abschluss.",fq3:"Welche Branchen decken Sie ab?",fa3:"Fertigung, Dienstleistung, Einzelhandel, Logistik, Technologie/SaaS und Vertrieb.",fq4:"Sind meine Daten sicher?",fa4:"Ja. Wir nutzen verschlüsselte Verbindungen und teilen Ihre Geschäftsdaten nicht mit Dritten.",fq5:"Was ist der Unterschied zwischen Scan und Diagnosis?",fa5:"Scan liefert die Top 3 Verschwendungsbereiche mit Dollarbeträgen. Diagnosis geht tiefer — alle 7+1 Kategorien, Engpasserkennung, Pareto-Analyse und ein 90-Tage-Aktionsplan mit ROI-Projektionen.",ftBrand:'<strong>Gemba<span>X</span></strong> — Röntgen der operativen Verschwendung',ftTerms:"AGB",ftPrivacy:"Datenschutz",ftRefund:"Rückerstattung",title:"Preise — GembaX"},
-ES:{logoSub:"Radiografía del Desperdicio Operativo",navBack:"← Inicio",phH1:'Encuentre sus costos ocultos. <em>Elija la profundidad.</em>',phP:"Cada plan entrega desperdicios cuantificados en dólares — no porcentajes vagos.",pd1:"Escaneo enfocado en sus 3 categorías principales de desperdicio.",pd2:"Informe completo de Costes Ocultos con análisis de cuellos de botella y plan de acción de 90 días.",pd3:"Implementación empresarial con consultoría de Moresight.io.",pp:"Pago único",pcustom:"Personalizado",pp3:"Según sus necesidades",pbadge:"Más Popular",pf1a:"Screening de 7+1 categorías",pf1b:"Top 3 desperdicios en $",pf1c:"Comparación con benchmarks",pf1d:"Resumen de acciones prioritarias",pf1e:"Entrega en 5 días hábiles",pf2a:"Todo en Scan, más:",pf2b:"Las 7+1 categorías — desglose completo en $",pf2c:"Detección de cuellos de botella",pf2d:"Análisis Pareto — áreas de mayor impacto",pf2e:"Plan de acción priorizado de 90 días",pf2f:"Proyección de ROI por recomendación",pf2g:"Resumen ejecutivo + informe detallado",pf3a:"Todo en Diagnosis, más:",pf3b:"Soporte de implementación presencial o remoto",pf3c:"Rediseño de procesos & gestión del cambio",pf3d:"Configuración y seguimiento de KPIs",pf3e:"Ciclos de revisión trimestrales",pf3f:"Por el equipo de consultoría Moresight",pb1:"Empezar →",pb2:"Obtener Informe Completo →",pb3:"Contáctenos →",ggT:"Garantía de Satisfacción de 14 Días",ggTx:"Si el informe no cumple sus expectativas, reembolso completo en 14 días.",ggL:"Política de Reembolso",faqH:"Preguntas Frecuentes",fq1:"¿Qué datos necesito proporcionar?",fa1:"Recopilamos información a través de una conversación guiada sobre sus operaciones.",fq2:"¿Cuánto tiempo toma?",fa2:"Los informes Scan se entregan en 5 días hábiles. Los informes Diagnosis en 7–10 días hábiles.",fq3:"¿Qué sectores cubren?",fa3:"Manufactura, servicios, retail, logística, tecnología/SaaS y operaciones de venta.",fq4:"¿Mis datos están seguros?",fa4:"Sí. Usamos conexiones cifradas y no compartimos sus datos con terceros.",fq5:"¿Cuál es la diferencia entre Scan y Diagnosis?",fa5:"Scan le da las 3 áreas principales de desperdicio en dólares. Diagnosis va más profundo — todas las 7+1 categorías, detección de cuellos de botella, análisis Pareto y plan de acción de 90 días con ROI.",ftBrand:'<strong>Gemba<span>X</span></strong> — Radiografía del desperdicio operativo',ftTerms:"Términos",ftPrivacy:"Privacidad",ftRefund:"Reembolso",title:"Precios — GembaX"},
-FR:{logoSub:"Radiographie du Gaspillage Opérationnel",navBack:"← Accueil",phH1:'Trouvez vos coûts cachés. <em>Choisissez la profondeur.</em>',phP:"Chaque formule quantifie les gaspillages en dollars — pas de pourcentages vagues.",pd1:"Scan ciblé sur vos 3 principales catégories de gaspillage.",pd2:"Rapport complet Hidden Cost avec analyse des goulots et plan d'action 90 jours.",pd3:"Implémentation entreprise avec accompagnement Moresight.io.",pp:"Paiement unique",pcustom:"Sur mesure",pp3:"Selon vos besoins",pbadge:"Le plus populaire",pf1a:"Screening des 7+1 catégories",pf1b:"Top 3 gaspillages chiffrés en $",pf1c:"Comparaison aux benchmarks sectoriels",pf1d:"Synthèse des actions prioritaires",pf1e:"Livraison sous 5 jours ouvrés",pf2a:"Tout le Scan, plus :",pf2b:"Les 7+1 catégories — ventilation complète en $",pf2c:"Détection des goulots (Théorie des Contraintes)",pf2d:"Analyse Pareto — zones à plus fort impact",pf2e:"Plan d'action priorisé sur 90 jours",pf2f:"Projection ROI par recommandation",pf2g:"Synthèse exécutive + rapport détaillé",pf3a:"Tout le Diagnosis, plus :",pf3b:"Support d'implémentation sur site ou à distance",pf3c:"Refonte des processus & conduite du changement",pf3d:"Mise en place et suivi des KPIs",pf3e:"Cycles de revue trimestriels",pf3f:"Par l'équipe Moresight Consulting",pb1:"Commencer →",pb2:"Obtenir le Rapport Complet →",pb3:"Nous Contacter →",ggT:"Garantie Satisfaction 14 Jours",ggTx:"Si le rapport ne répond pas à vos attentes, remboursement intégral sous 14 jours.",ggL:"Politique de Remboursement",faqH:"Questions Fréquentes",fq1:"Quelles données dois-je fournir ?",fa1:"Nous recueillons les informations lors d'une conversation guidée sur vos opérations.",fq2:"Combien de temps cela prend-il ?",fa2:"Les rapports Scan sont livrés sous 5 jours ouvrés. Les rapports Diagnosis sous 7–10 jours ouvrés.",fq3:"Quels secteurs couvrez-vous ?",fa3:"Industrie, services, commerce de détail, logistique, technologie/SaaS et opérations commerciales.",fq4:"Mes données sont-elles en sécurité ?",fa4:"Oui. Nous utilisons des connexions chiffrées et ne partageons pas vos données.",fq5:"Quelle est la différence entre Scan et Diagnosis ?",fa5:"Scan donne les 3 principales zones de gaspillage en dollars. Diagnosis va plus loin — toutes les 7+1 catégories, détection des goulots, analyse Pareto et plan d'action 90 jours avec ROI.",ftBrand:'<strong>Gemba<span>X</span></strong> — Radiographie du gaspillage opérationnel',ftTerms:"CGV",ftPrivacy:"Confidentialité",ftRefund:"Remboursement",title:"Tarifs — GembaX"},
-PT:{logoSub:"Radiografia do Desperdício Operacional",navBack:"← Início",phH1:'Encontre seus custos ocultos. <em>Escolha a profundidade.</em>',phP:"Cada plano quantifica desperdícios em dólares — não percentuais vagos.",pd1:"Scan focado nas suas 3 principais categorias de desperdício.",pd2:"Relatório completo Hidden Cost com análise de gargalos e plano de ação de 90 dias.",pd3:"Implementação empresarial com consultoria da Moresight.io.",pp:"Pagamento único",pcustom:"Personalizado",pp3:"Conforme sua necessidade",pbadge:"Mais Popular",pf1a:"Triagem das 7+1 categorias",pf1b:"Top 3 desperdícios em $",pf1c:"Comparação com benchmarks do setor",pf1d:"Resumo de ações prioritárias",pf1e:"Entrega em 5 dias úteis",pf2a:"Tudo do Scan, mais:",pf2b:"Todas as 7+1 categorias — detalhamento completo em $",pf2c:"Detecção de gargalos (Teoria das Restrições)",pf2d:"Análise Pareto — áreas de maior impacto",pf2e:"Plano de ação priorizado de 90 dias",pf2f:"Projeção de ROI por recomendação",pf2g:"Resumo executivo + relatório detalhado",pf3a:"Tudo do Diagnosis, mais:",pf3b:"Suporte de implementação presencial ou remoto",pf3c:"Redesenho de processos & gestão de mudanças",pf3d:"Configuração e acompanhamento de KPIs",pf3e:"Ciclos de revisão trimestrais",pf3f:"Pela equipe de consultoria Moresight",pb1:"Começar →",pb2:"Obter Relatório Completo →",pb3:"Fale Conosco →",ggT:"Garantia de Satisfação de 14 Dias",ggTx:"Se o relatório não atender suas expectativas, reembolso total em 14 dias.",ggL:"Política de Reembolso",faqH:"Perguntas Frequentes",fq1:"Quais dados preciso fornecer?",fa1:"Coletamos informações através de uma conversa guiada sobre suas operações.",fq2:"Quanto tempo leva?",fa2:"Relatórios Scan são entregues em 5 dias úteis. Relatórios Diagnosis em 7–10 dias úteis.",fq3:"Quais setores vocês cobrem?",fa3:"Manufatura, serviços, varejo, logística, tecnologia/SaaS e operações de vendas.",fq4:"Meus dados estão seguros?",fa4:"Sim. Usamos conexões criptografadas e não compartilhamos seus dados com terceiros.",fq5:"Qual a diferença entre Scan e Diagnosis?",fa5:"Scan dá as 3 principais áreas de desperdício em dólares. Diagnosis vai mais fundo — todas as 7+1 categorias, detecção de gargalos, análise Pareto e plano de ação de 90 dias com ROI.",ftBrand:'<strong>Gemba<span>X</span></strong> — Radiografia do desperdício operacional',ftTerms:"Termos",ftPrivacy:"Privacidade",ftRefund:"Reembolso",title:"Preços — GembaX"}
-};
 
-function applyLang(lang){
-const t=T[lang];if(!t)return;
-document.documentElement.lang={TR:'tr',EN:'en',DE:'de',ES:'es',FR:'fr',PT:'pt'}[lang]||'en';
-document.title=t.title;
-const g=id=>document.getElementById(id);
-g('nav-logo-sub').textContent=t.logoSub;
-g('nav-back').textContent=t.navBack;
-g('ph-h1').innerHTML=t.phH1;
-g('ph-p').textContent=t.phP;
-g('pd1').textContent=t.pd1;g('pd2').textContent=t.pd2;g('pd3').textContent=t.pd3;
-g('pp1').textContent=t.pp;g('pp2').textContent=t.pp;g('pp3').textContent=t.pp3;
-g('pcustom').textContent=t.pcustom;g('pbadge').textContent=t.pbadge;
-['pf1a','pf1b','pf1c','pf1d','pf1e','pf2a','pf2b','pf2c','pf2d','pf2e','pf2f','pf2g','pf3a','pf3b','pf3c','pf3d','pf3e','pf3f'].forEach(k=>g(k).textContent=t[k]);
-g('pb1').textContent=t.pb1;g('pb2').textContent=t.pb2;g('pb3').textContent=t.pb3;
-g('gg-title').textContent=t.ggT;g('gg-text').textContent=t.ggTx;g('gg-link').textContent=t.ggL;
-g('faq-h2').textContent=t.faqH;
-['fq1','fa1','fq2','fa2','fq3','fa3','fq4','fa4','fq5','fa5'].forEach(k=>g(k).textContent=t[k]);
-g('ft-brand').innerHTML=t.ftBrand;g('ft-terms').textContent=t.ftTerms;g('ft-privacy').textContent=t.ftPrivacy;g('ft-refund').textContent=t.ftRefund;
-}
-function selectLang(e){e.preventDefault();const el=e.currentTarget,lang=el.dataset.lang;document.getElementById('langToggle').firstChild.textContent=lang+' ';document.querySelectorAll('.lang-menu a').forEach(a=>a.classList.remove('active'));el.classList.add('active');document.getElementById('langDropdown').classList.remove('open');applyLang(lang);try{localStorage.setItem('gembax-lang',lang)}catch(e){}}
-try{const s=localStorage.getItem('gembax-lang');if(s&&T[s]&&s!=='TR'){applyLang(s);document.getElementById('langToggle').firstChild.textContent=s+' ';document.querySelectorAll('.lang-menu a').forEach(a=>a.classList.toggle('active',a.dataset.lang===s))}}catch(e){}
-</script>
 </body>
 </html>
