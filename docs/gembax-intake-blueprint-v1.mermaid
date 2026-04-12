@@ -1,0 +1,214 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#F5F0E8', 'primaryTextColor': '#1A1A18', 'primaryBorderColor': '#3A3A32', 'lineColor': '#4ADE80', 'secondaryColor': '#ECFDF5', 'tertiaryColor': '#23231F', 'fontSize': '14px'}}}%%
+
+flowchart TD
+
+%% ============================================================
+%% DOKUNUŞ 1 — FORM 1 + ÖDEME + FORM 1++
+%% ============================================================
+
+subgraph D1["DOKUNUŞ 1 — gembax.ai/analiz  (~15 dk)"]
+    direction TB
+    
+    A1[🟢 Müşteri siteye geldi] --> A2[Karşılama + Ad & Şirket]
+    A2 --> A3{n8n → Haiku 4.5 + Google Search}
+    A3 --> A4["'ABC Makina, CNC üretimi, 2008 — bu siz, doğru mu?'"]
+    A4 --> A5[Sektör seçimi — Pill]
+    A5 --> A6[Çalışan + Ciro — Pill]
+    A6 --> A7[Müşteri problemi — Serbest metin]
+    A7 --> A7b{Haiku: Derinlik yeterli mi?}
+    A7b -->|Yüzeysel| A7c[Probe sorusu]
+    A7c --> A7
+    A7b -->|Yeterli| A8[Müşteri öncelikleri — Multi-3]
+    A8 --> A9[Rekabet avantajı — Serbest metin]
+    A9 --> A9b{Haiku: Derinlik kontrolü}
+    A9b -->|Probe| A9c[Follow-up]
+    A9c --> A9
+    A9b -->|OK| A10[Value gap — Serbest metin]
+    A10 --> A11[Org öncelik — Pill]
+    A11 --> A12[Tetikleyici — Serbest metin]
+    A12 --> A12b{Haiku: Derinlik kontrolü}
+    A12b -->|Probe| A12c[Follow-up]
+    A12c --> A12
+    A12b -->|OK| A13[12 ay testi — Serbest metin]
+    A13 --> A14[Geçmiş denemeler — Pill+Metin]
+    A14 --> A15[Kaybedilen müşteri — Pill+Metin]
+    A15 --> A16[Odak value stream — Serbest metin]
+    A16 --> A17[SENTEZ — Haiku ilk sinyalleri özetler]
+    A17 --> A18[E-posta + Telefon + Pozisyon]
+    A18 --> A19[Paket seçimi — $550 / $1,100]
+    A19 --> A20[NDA onayı]
+    A20 --> A21[Ödemeye geç — Paddle]
+end
+
+A21 --> P1
+
+%% ============================================================
+%% ÖDEME + FORM 1++
+%% ============================================================
+
+subgraph P["ÖDEME + PROFİL"]
+    direction TB
+    P1[💳 Paddle ödeme başarılı] --> P2[n8n: Webhook tetiklendi]
+    P2 --> P3[n8n: Notion'da müşteri sayfası oluştur]
+    P2 --> P4[n8n: Müşteriye e-posta — Profil formunu doldurun]
+    P4 --> P5["Form 1++ — gembax.ai/profil (~5 dk)"]
+    P5 --> P6[Şirket profili: kuruluş, ürün çeşitliliği, lokasyon, ihracat, büyüme]
+    P6 --> P7["Stakeholder bilgileri (ZORUNLU)\nOperasyon: ad + e-posta\nFinans: ad + e-posta ($1,100)\nSaha: ad + e-posta ($1,100 ops.)"]
+    P7 --> P8[Sistemler + metrikler + teknik seviye]
+    P8 --> P9[Problem detayı + tahmini etki]
+    P9 --> P10[Form 1++ tamamlandı]
+end
+
+P10 --> C1
+P10 --> N1
+
+%% ============================================================
+%% CAL.COM RANDEVU
+%% ============================================================
+
+subgraph CAL["TAKVİM"]
+    direction TB
+    C1[Cal.com embed gösterilir] --> C2["Müşteri 2+ gün sonrasına slot seçer"]
+    C2 --> C3[n8n: Google Calendar'a sync]
+    C3 --> C4[n8n: Müşteriye onay e-postası]
+end
+
+%% ============================================================
+%% MURAT — ARAŞTIRMA PROTOKOLÜ
+%% ============================================================
+
+subgraph MURAT["MURAT — ARAŞTIRMA + HAZIRLIK (1.5-2.5 saat)"]
+    direction TB
+    N1[n8n: Murat'a notification — Yeni müşteri] --> N2["Notion sayfasını aç\n(Form 1 + 1++ verileri otomatik dolu)"]
+    N2 --> N3["A. Şirket araştırması (~30 dk)\nWeb sitesi, LinkedIn, haberler, reviews"]
+    N3 --> N4["B. Sektör araştırması (~20 dk)\nBenchmark, trendler, pattern match"]
+    N4 --> N5["C. Müşterinin müşterisi (~15 dk)\nKim alıyor, ne bekliyor"]
+    N5 --> N6["D. Rakip analizi (~15 dk)\nKimler, nasıl farklılaşıyorlar"]
+    N6 --> N7["E. Çapraz doğrulama (~15 dk)\nForm 1 cevapları vs dış gerçeklik"]
+    N7 --> N8["F. Hipotez oluşturma (~15 dk)\n3 israf hipotezi"]
+    N8 --> N9["Chat sorularını hazırla\nLLM / Form-dropdown / Form-slider sıralaması"]
+    N9 --> N10[Drive klasörü aç + veri talepleri belirle]
+    N10 --> N11["Notion'da 'Sorular hazır' ✓ işaretle"]
+end
+
+N11 --> T1
+N11 --> VT1
+
+%% ============================================================
+%% n8n — CHAT AKTİVASYONU
+%% ============================================================
+
+subgraph TRIGGER["n8n — CHAT AKTİFLEŞTİRME"]
+    direction TB
+    T1["n8n: Notion 'Sorular hazır' değişti"] --> T2[Notion'dan tüm veriyi çek]
+    T2 --> T3["System prompt oluştur:\nMüşteri bilgileri + araştırma + hipotezler + sorular"]
+    T3 --> T4["Benzersiz chat linki oluştur\ngembax.ai/sohbet?token=abc123"]
+    T4 --> T5[Session config'i veritabanına kaydet]
+    T5 --> T6[Randevu gününde müşteriye e-posta: Chat linkiniz hazır]
+    T5 --> T7[Randevudan 1 saat önce hatırlatma]
+end
+
+%% ============================================================
+%% VERİ TALEBİ
+%% ============================================================
+
+subgraph VT["VERİ TALEBİ (paralel)"]
+    direction TB
+    VT1[n8n: Müşteriye e-posta] --> VT2["Drive klasör linki +\nİstenen dökümanlar listesi"]
+    VT2 --> VT3{Dosya yüklendi mi?}
+    VT3 -->|Evet| VT4[n8n: Murat'a notification]
+    VT3 -->|48 saat geçti| VT5[DSS düşür, mevcut veriyle devam]
+end
+
+%% ============================================================
+%% DOKUNUŞ 2 — CHAT SESSION
+%% ============================================================
+
+T6 --> D2A
+
+subgraph D2["DOKUNUŞ 2 — gembax.ai/sohbet (~30 dk)"]
+    direction TB
+    D2A[🟢 Müşteri chat linkine tıkladı] --> D2B[Frontend: token → backend'e gönder]
+    D2B --> D2C[n8n: Session config'i çek]
+    D2C --> D2D["Opus 4.6 + Extended Thinking\nSystem prompt yüklendi"]
+    D2D --> D2E["Chat başlar\n%70-80 scripted + %20-30 reasoning"]
+    
+    D2E --> D2F["Her turnus:"]
+    D2F --> D2G[Scripted soru sor — doğal dille]
+    D2G --> D2H[Müşteri cevaplar]
+    D2H --> D2I{"Opus arka plan kontrolü:"}
+    D2I --> D2J["Tutarlılık: Önceki cevaplarla çelişki var mı?"]
+    D2I --> D2K["Yeterlilik: Cevap spesifik mi?"]
+    D2I --> D2L["Hipotez: Güçlendi mi? Zayıfladı mı? Yeni sinyal mi?"]
+    
+    D2J --> D2M{Karar}
+    D2K --> D2M
+    D2L --> D2M
+    
+    D2M -->|Devam| D2N["Kısa tepki + sonraki soru"]
+    D2M -->|Probe| D2O["Follow-up sorusu (max 1-2 cümle)"]
+    D2M -->|Yeni sinyal| D2P["Serbest follow-up (%10-20)"]
+    D2M -->|Tutarsızlık| D2Q["Nazik çapraz soru"]
+    
+    D2N --> D2R{Tüm sorular bitti mi?}
+    D2O --> D2H
+    D2P --> D2H
+    D2Q --> D2H
+    
+    D2R -->|Hayır| D2G
+    D2R -->|Evet| D2S["Kapanış sentezi:\nİlk sinyaller + sonraki adımlar"]
+    D2S --> D2T[Chat transcript kaydedildi]
+end
+
+%% ============================================================
+%% STAKEHOLDER
+%% ============================================================
+
+D2T --> SH1
+
+subgraph SH["STAKEHOLDER DOĞRULAMA (paralel)"]
+    direction TB
+    SH1[n8n: Chat tamamlandı tetiklemesi] --> SH2[Notion'dan stakeholder bilgilerini çek]
+    SH2 --> SH3["Excel template'leri oluştur\nPlaceholder'ları doldur"]
+    SH3 --> SH4["Murat stakeholder e-postalarını gönderir\n+ Excel eki"]
+    SH4 --> SH5{Cevap geldi mi?}
+    SH5 -->|Evet| SH6[Notion'a ekle + DSS güçlendir]
+    SH5 -->|24 saat| SH7[n8n: Hatırlatma e-postası]
+    SH7 --> SH5
+    SH5 -->|48 saat| SH8[Deadline — mevcut veriyle devam]
+end
+
+%% ============================================================
+%% RAPOR
+%% ============================================================
+
+D2T --> R1
+SH6 --> R1
+SH8 --> R1
+VT4 --> R1
+
+subgraph RAPOR["RAPOR ÜRETİMİ"]
+    direction TB
+    R1["Murat: Tüm verileri incele\nChat transcript + stakeholder + Drive dosyaları"] --> R2[Opus 4.6 + Extended Thinking]
+    R2 --> R3[Hidden Cost Report üretimi]
+    R3 --> R4["Murat: Raporu kontrol et\nSonuçları yorumla"]
+    R4 --> R5[Müşteriye rapor gönder]
+end
+
+%% ============================================================
+%% STYLING
+%% ============================================================
+
+classDef trigger fill:#ECFDF5,stroke:#4ADE80,stroke-width:2px,color:#166534
+classDef human fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#92400E
+classDef llm fill:#EDE9FE,stroke:#7C3AED,stroke-width:2px,color:#5B21B6
+classDef n8n fill:#DBEAFE,stroke:#2563EB,stroke-width:2px,color:#1E40AF
+classDef form fill:#F5F0E8,stroke:#3A3A32,stroke-width:1px,color:#1A1A18
+classDef payment fill:#FEE2E2,stroke:#DC2626,stroke-width:2px,color:#991B1B
+
+class A1,D2A trigger
+class A3,A7b,A9b,A12b,A17 llm
+class D2D,D2I,D2J,D2K,D2L,D2M llm
+class P2,P3,P4,T1,T2,T3,T4,T5,T6,T7,SH1,SH2,SH3,SH7,VT1 n8n
+class N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,R1,R4,R5,SH4 human
+class P1,A21 payment
