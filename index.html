@@ -240,17 +240,17 @@
     filter: brightness(1.05);
   }
   
-  /* X-ray scan line effect (Çok az belli olan tarama çizgisi) */
+  /* X-ray scan line effect (İnce sarı lazer tarama çizgisi) */
   .xray-scan-line {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 2px;
-    background: rgba(45, 80, 22, 0.4); /* Hafif transparan yeşil */
-    box-shadow: 0 0 10px 1px rgba(45, 80, 22, 0.3);
-    opacity: 0.2; /* Çok az belli olması için düşük opaklık */
-    pointer-events: none; /* Tıklamaları engellemek için */
+    height: 1.5px; /* Jilet gibi ince çizgi */
+    background: rgba(241, 196, 15, 0.6); /* Şık endüstriyel sarı lazer */
+    box-shadow: 0 0 8px 1px rgba(241, 196, 15, 0.4);
+    opacity: 0.35; /* Görseli boğmayan, çok az belli olan asil parlama */
+    pointer-events: none;
     animation: xrayScan 4s linear infinite alternate; /* Orta hızda yukarı-aşağı */
     z-index: 2;
   }
@@ -267,7 +267,7 @@
     border: 1.5px solid rgba(45, 107, 69, 0.15);
     pointer-events: none;
     transition: border-color 0.4s;
-    z-index: 3; /* Tarama çizgisinin üzerinde kalması için */
+    z-index: 3;
   }
   .hero-xray:hover::after {
     border-color: rgba(45, 107, 69, 0.35);
@@ -449,10 +449,10 @@
     width: 20px; height: 20px; border-radius: 50%;
     background: rgba(45,80,22,0.12); color: var(--accent);
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; font-size: 0.7°rem; font-weight: 700;
+    flex-shrink: 0; font-size: 0.7rem; font-weight: 700;
   }
   .diff-cell .diff-val { flex: 1; }
-  .diff-cells .diff-highlight {
+  .diff-cell .diff-highlight {
     font-family: var(--font-mono); font-weight: 700;
     font-size: 0.82rem; color: var(--accent-dark);
   }
@@ -509,7 +509,7 @@
     .lang-dropdown { padding: 0.5rem 1.5rem; }
     
     .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 2.5rem; min-height: auto; gap: 2rem; max-width: 800px; }
-    .hero-xray { max-width: 600px; margin: 0 auto; } /* Mobilde resmi büyüttüm */
+    .hero-xray { max-width: 100%; margin: 0 auto; } /* Mobilde tam genişlik ve büyük ölçek */
     .hero h1 { font-size: 1.8rem; }
     .hero-actions { flex-direction: column; }
     section, .waste-section { padding: 4rem 1.5rem; }
@@ -558,7 +558,7 @@
     .hero-motto { font-size: 1.05rem; }
     .hero-sub { font-size: 0.95rem; }
     .hero-bullets li { font-size: 0.95rem; }
-    .hero-xray { max-width: 100%; } /* Mobilde tam genişlik */
+    .hero-xray { max-width: 100%; }
     .btn-primary { padding: 0.75rem 1.5rem; font-size: 0.88rem; width: 100%; justify-content: center; }
     .btn-secondary { padding: 0.75rem 1.5rem; font-size: 0.88rem; width: 100%; justify-content: center; }
     section, .waste-section { padding: 3rem 1rem; }
@@ -1099,7 +1099,7 @@
       diffDesc: "Mismo objetivo, enfoque diferente — los resultados hablan por sí solos.",
       diffOldH: "Consultoría Tradicional", diffNewH: "GembaX",
       d1L: "Costo Inicial", d1O: '<span class="diff-highlight">$30K+</span> inicio de proyecto', d1N: 'Apto para PyMEs — <span class="diff-highlight">accesible</span>',
-      d2L: "Tiempo de Diagnóstico", d2O: '<span class="diff-highlight">6–12 semanas</span> de diagnóstico', d2N: 'No semanas, resultados en <span class="diff-highlight">días</span>',
+      d2L: "Tiempo de Diagnóstico", d2O: '<span class="diff-highlight">6–12 semanas</span> de diagnóstico', d2N: 'No semanas, resultados in <span class="diff-highlight">días</span>',
       d3L: "Formato de Informe", d3O: "Informes genéricos basados en puntajes y porcentajes", d3N: 'Cada desperdicio en <span class="diff-highlight">dólares</span> — concreto',
       d4L: "Análisis Derecho", d4O: "Recomendaciones genéricas de mejores prácticas", d4N: 'Análisis específico por sector, <span class="diff-highlight">basado en datos</span>',
       d5L: "Entrega y Seguimiento", d5O: "Informe entregado — proyecto termina", d5N: 'Plan de acción de <span class="diff-highlight">90 días</span> + cálculo de ROI',
@@ -1126,7 +1126,7 @@
       heroBullet2: "AI destekli operasyonel röntgen ile israfın kaynağına iniyoruz",
       heroBullet3: "İsrafın size kaça mal olduğunu hesaplıyoruz",
       heroBullet4: "Sorunların kök nedenlerini ve 90 günlük aksiyon planını çıkarıyoruz",
-      heroBullet5: "Günler içinde, erişilebilir bütçeyle — aylarca süren danışmanlığa gerek yok",
+      heroBullet5: "Günler içinde, erişilebilir bütçeyle — aylarca süren danışmanlığayerek yok",
       heroBtn: "Analizi Başlat →",
       heroBtn2: "Nasıl Çalışır?",
       stat1Num: "%3–5", stat1Label: "Gelir Kaybı", stat1Desc: "Ortalama bir işletme, yıllık gelirinin %3–5'ini operasyonel israflarla kaybeder.",
@@ -1192,7 +1192,7 @@
       ctaP: "Kısa bir sohbette işletmenizi tanıyalım, sonra size özel hazırlanmış sorular ve verilerle analizi yapalım.",
       ctaBtn: "Analizi Başlat →",
       footerBrand: '<strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni',
-      footerPricing: 'Pricing', footerTerms: 'Terms', footerPrivacy: 'Privacy'
+      footerPricing: 'Fiyatlar', footerTerms: 'Şartlar', footerPrivacy: 'Gizlilik'
     }
   };
 
