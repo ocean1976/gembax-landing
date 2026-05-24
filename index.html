@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GembaX — Operasyonel İsrafın Röntgeni</title>
+<title>GembaX — X-Ray of Operational Waste</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -24,6 +25,11 @@
     --font-body: 'Instrument Sans', sans-serif;
     --font-mono: 'Space Mono', monospace;
     --font-editorial: 'Playfair Display', Georgia, serif;
+
+    /* Maroon (Aşama 2) */
+    --maroon: #6E1414;
+    --maroon-glow: rgba(110, 20, 20, 0.04);
+    --border-maroon: rgba(110, 20, 20, 0.25);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,11 +113,9 @@
     content: ''; position: absolute; bottom: 0; left: 0; right: 0;
     height: 14px;
     background:
-      /* Kısa tick */
       repeating-linear-gradient(90deg,
         var(--accent) 0px, var(--accent) 0.5px, transparent 0.5px, transparent 10px
       ),
-      /* Uzun tick */
       repeating-linear-gradient(90deg,
         var(--accent) 0px, var(--accent) 1px, transparent 1px, transparent 50px
       );
@@ -174,7 +178,7 @@
   .lang-menu a:hover { background: var(--accent-glow) !important; color: var(--accent-dark) !important; }
   .lang-menu a.active { color: var(--accent) !important; font-weight: 600 !important; }
 
-  /* HERO — Two column with X-ray */
+  /* HERO */
   .hero {
     min-height: 100vh; display: grid;
     grid-template-columns: 1fr 1fr;
@@ -281,80 +285,60 @@
     background-size: 28px 28px;
   }
   .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
-  .stat-number { font-family: var(--font-mono); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
-  .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; font-weight: 500; }
-  .stat-desc { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; }
+  .stats-inner .stat-item .stat-number { font-family: var(--font-mono); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
+  .stats-inner .stat-item .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; font-weight: 500; }
+  .stats-inner .stat-item .stat-desc { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; }
 
-  /* ── VERSION B: CINEMATIC X-RAY BREAK ── */
-  .xray-break {
-    position: relative;
-    width: 100%;
-    min-height: 480px;
-    background: #080c08;
-    overflow: hidden;
-    display: flex;
+  /* ROOT CAUSE PREVIEW SECTION */
+  #root-cause-preview {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 4.5rem 3rem;
+  }
+  .rc-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.7fr;
+    gap: 3.5rem;
     align-items: center;
-    justify-content: center;
   }
-  .xray-break-bg {
-    position: absolute; inset: 0;
-    background: url('/xray-hero.jpg') center center / cover no-repeat;
-    opacity: 0.45;
-    filter: contrast(1.1);
-    transition: opacity 0.8s;
+  .rc-visual-wrapper {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.2rem;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+    overflow-x: auto;
   }
-  .xray-break:hover .xray-break-bg { opacity: 0.55; }
-  .xray-break::after {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      linear-gradient(180deg, rgba(8,12,8,0.85) 0%, rgba(8,12,8,0.2) 30%, rgba(8,12,8,0.2) 70%, rgba(8,12,8,0.85) 100%),
-      linear-gradient(90deg, rgba(8,12,8,0.6) 0%, transparent 30%, transparent 70%, rgba(8,12,8,0.6) 100%);
-    pointer-events: none;
+  .ishikawa-svg {
+    width: 100%;
+    height: auto;
+    min-width: 680px;
+    display: block;
   }
-  .xray-break-content {
-    position: relative; z-index: 2;
-    text-align: center; padding: 4rem 2rem;
-    max-width: 700px;
+  .pull-quote {
+    border-left: 3px solid var(--maroon);
+    padding: 0.8rem 0 0.8rem 1.2rem;
+    margin: 1.5rem 0;
   }
-  .xray-break-content h2 {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 700; color: #fff;
-    line-height: 1.2; letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+  .pull-quote p {
+    font-family: var(--font-editorial);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.5;
   }
-  .xray-break-content h2 em {
-    font-style: italic; font-weight: 300;
-    color: var(--accent-light);
-  }
-  .xray-break-content p {
-    font-size: 1.05rem; color: rgba(255,255,255,0.65);
-    line-height: 1.7; margin-bottom: 2rem;
-  }
-  .xray-meta-row {
-    display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
-    font-family: var(--font-mono); font-size: 0.65rem;
-    color: rgba(45, 107, 69, 0.7);
-    letter-spacing: 0.08em;
+  .pull-quote cite {
+    display: block;
+    margin-top: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-style: normal;
+    color: var(--text-muted);
     text-transform: uppercase;
   }
-  .xray-meta-row span {
-    padding: 0.3rem 0.8rem;
-    border: 1px solid rgba(45, 107, 69, 0.25);
-    border-radius: 4px;
-    background: rgba(45, 107, 69, 0.08);
-  }
-
-  /* Green divider lines */
-  .xray-break-line-top,
-  .xray-break-line-bottom {
-    position: absolute; left: 0; right: 0; height: 1px; z-index: 3;
-    background: linear-gradient(90deg, transparent 0%, var(--accent) 30%, var(--accent) 70%, transparent 100%);
-    opacity: 0.4;
-  }
-  .xray-break-line-top { top: 0; }
-  .xray-break-line-bottom { bottom: 0; }
 
   /* SECTIONS */
   section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
@@ -383,16 +367,13 @@
   .eq-output-text { font-size: 0.98rem; color: var(--text-secondary); line-height: 1.6; }
   .eq-output-text strong { color: var(--accent); font-weight: 700; font-family: var(--font-mono); }
 
-  /* MAGAZINE LAYOUT — Philosophy sections */
+  /* MAGAZINE LAYOUT */
   .magazine-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 2rem; }
   .magazine-col p { font-size: 1.02rem; line-height: 1.78; color: var(--text-secondary); margin-bottom: 1.2rem; text-align: justify; hyphens: auto; }
   .drop-cap::first-letter { font-family: var(--font-editorial); float: left; font-size: 4.2rem; line-height: 0.8; padding-right: 0.6rem; padding-top: 0.35rem; color: var(--accent); font-weight: 700; }
   .col-subhead { font-family: var(--font-editorial); font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin: 2rem 0 0.8rem; line-height: 1.3; }
   .col-subhead:first-child { margin-top: 0; }
   .timwoods-ref { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.04em; font-weight: 700; }
-  .pull-quote { border-left: 3px solid var(--accent); padding: 1.2rem 0 1.2rem 1.5rem; margin: 1.5rem 0; }
-  .pull-quote p { font-family: var(--font-editorial); font-size: 1.2rem; font-style: italic; line-height: 1.5; color: var(--text-primary); text-align: left; margin-bottom: 0; }
-  .pull-quote cite { display: block; margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.65rem; font-style: normal; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
   .sidebar-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
   .sidebar-box-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.7rem; font-weight: 700; }
   .sidebar-box p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); text-align: left; margin-bottom: 0.5rem; }
@@ -440,7 +421,7 @@
   .sector-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
   .sector-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
 
-  /* DIFF — Professional Comparison */
+  /* DIFF */
   .diff-table {
     max-width: 960px; margin: 0 auto;
     border-radius: 16px; overflow: hidden;
@@ -531,60 +512,6 @@
   }
   .diff-bottom-bar svg { width: 16px; height: 16px; opacity: 0.7; }
 
-  /* PRICING */
-  .pricing-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
-  .pricing-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem; margin-top: 3rem;
-  }
-  .pricing-card {
-    background: var(--bg-secondary); border: 1px solid var(--border);
-    border-radius: 12px; padding: 2.2rem 1.8rem;
-    display: flex; flex-direction: column; position: relative;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
-  .pricing-card.featured { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 8px 30px rgba(45,80,22,0.1); }
-  .pricing-badge {
-    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-    background: var(--accent); color: #fff;
-    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 0.25rem 0.9rem; border-radius: 20px; white-space: nowrap;
-  }
-  .pricing-tier {
-    font-family: var(--font-mono); font-size: 0.65rem;
-    color: var(--text-muted); letter-spacing: 0.1em;
-    text-transform: uppercase; margin-bottom: 0.5rem;
-  }
-  .pricing-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
-  .pricing-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.2rem; min-height: 2.8rem; }
-  .pricing-price { margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
-  .pricing-amount { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em; }
-  .pricing-amount .currency { font-size: 1.3rem; font-weight: 600; vertical-align: super; }
-  .pricing-period { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
-  .pricing-features { list-style: none; flex: 1; margin-bottom: 1.8rem; }
-  .pricing-features li {
-    font-size: 0.85rem; color: var(--text-secondary);
-    padding: 0.4rem 0 0.4rem 1.4rem; position: relative; line-height: 1.5;
-  }
-  .pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 700; font-size: 0.8rem; }
-  .pricing-btn {
-    display: block; text-align: center; padding: 0.85rem 1.5rem;
-    border-radius: 8px; font-family: var(--font-body);
-    font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: all 0.2s;
-  }
-  .pricing-btn.primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
-  .pricing-btn.primary:hover { background: var(--accent-dark); box-shadow: 0 4px 15px rgba(45,80,22,0.25); }
-  .pricing-btn.secondary { background: transparent; color: var(--accent); border: 1px solid var(--border-accent); }
-  .pricing-btn.secondary:hover { background: var(--accent-glow); }
-  .pricing-guarantee {
-    text-align: center; margin-top: 2rem;
-    font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;
-  }
-  .pricing-guarantee strong { color: var(--text-secondary); }
-  .pricing-guarantee a { color: var(--accent); text-decoration: underline; }
-
   /* CTA */
   .cta-section { text-align: center; padding: 8rem 3rem; max-width: none; margin: 0; position: relative; background: var(--bg-card); color: var(--text-primary); border-top: 1px solid var(--border); }
   .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(45, 80, 22, 0.1) 0%, transparent 70%); pointer-events: none; }
@@ -610,7 +537,7 @@
   .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-  /* ── TABLET ── */
+  /* TABLET */
   @media (max-width: 1100px) {
     nav { padding: 1rem 1.5rem; padding-bottom: 1.5rem; }
     .hamburger { display: flex; }
@@ -641,11 +568,9 @@
     .process-cards { grid-template-columns: 1fr; }
     .waste-grid { grid-template-columns: repeat(2, 1fr); }
     .sector-strip { grid-template-columns: 1fr; }
-    .xray-break { min-height: 380px; }
-    .xray-meta-row { gap: 0.5rem; }
-    .xray-meta-row span { font-size: 0.55rem; padding: 0.2rem 0.5rem; }
+    .rc-container { grid-template-columns: 1fr; gap: 2rem; }
+    #root-cause-preview { padding: 4rem 1.5rem; }
 
-    /* Diff table tablet */
     .diff-table { border-radius: 12px; }
     .diff-header, .diff-row { grid-template-columns: 1fr; }
     .diff-header-cell:first-child { display: none; }
@@ -654,6 +579,7 @@
     .diff-row {
       grid-template-columns: 1fr; padding: 0.8rem 0;
       border-bottom: 1px solid var(--border);
+      gap: 0;
     }
     .diff-cell { border-left: none !important; }
     .diff-cell.label-col {
@@ -664,21 +590,19 @@
       padding-top: 0.4rem; padding-bottom: 0.4rem;
     }
 
-    /* Pricing tablet */
     .pricing-section { padding: 4rem 2rem; }
     .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
     .pricing-card.featured { order: -1; }
 
-    /* Footer tablet */
     .footer-inner { flex-direction: column; gap: 1.2rem; text-align: center; }
     .footer-links { align-items: center; }
   }
 
-  /* ── MOBILE ── */
+  /* MOBILE */
   @media (max-width: 600px) {
     nav { padding: 0.8rem 1rem; padding-bottom: 1.3rem; }
     .logo { font-size: 1.5rem; }
-    .logo-sub { font-size: 0.5rem; }
+    .logo-sub { display: none; }
     .hero { padding: 5.5rem 1rem 2rem; gap: 1.5rem; }
     .hero h1 { font-size: 1.45rem; }
     .hero-badge { font-size: 0.7rem; padding: 0.3rem 0.8rem; }
@@ -696,7 +620,6 @@
     .stat-number { font-size: 2.2rem; }
     .stat-desc { font-size: 0.98rem; }
 
-    /* Gemba equation mobile */
     .gemba-visual { padding: 1.5rem; }
     .eq-row { flex-direction: column; gap: 0.6rem; }
     .eq-plus { font-size: 1.2rem; }
@@ -704,18 +627,14 @@
     .eq-box-value { font-size: 1rem; }
     .eq-result-value { font-size: 1.3rem; }
 
-    /* Process cards mobile */
     .process-card { padding: 1.5rem; }
     .process-card h3 { font-size: 1.1rem; }
 
-    /* Waste grid 1 column on small mobile */
     .waste-grid { grid-template-columns: 1fr; }
     .waste-cell { padding: 1.3rem; }
 
-    /* Sector cards mobile */
     .sector-card { padding: 1.5rem; }
 
-    /* Diff table mobile - card layout */
     .diff-table { border-radius: 10px; }
     .diff-header { display: none; }
     .diff-row {
@@ -741,19 +660,16 @@
     .diff-cell .diff-highlight { font-size: 0.78rem; }
     .diff-bottom-bar { font-size: 0.78rem; padding: 1rem; }
 
-    /* Pricing mobile */
     .pricing-section { padding: 3rem 1rem; }
     .pricing-grid { gap: 1.2rem; }
     .pricing-card { padding: 1.8rem 1.4rem; }
     .pricing-name { font-size: 1.1rem; }
     .pricing-amount { font-size: 1.9rem; }
 
-    /* CTA mobile */
     .cta-section h2 { font-size: 1.5rem; }
     .cta-section p { font-size: 0.92rem; }
     .cta-section .cta-small { font-size: 0.82rem; }
 
-    /* Footer mobile */
     footer { padding: 2rem 1rem; }
     .footer-brand { font-size: 0.82rem; }
     .footer-links a { font-size: 0.78rem; }
@@ -766,115 +682,105 @@
 
 <div class="scroll-progress"><div class="scroll-progress-bar" id="scrollBar"></div></div>
 <nav>
-  <a href="#" class="logo"><span class="logo-main">Gemba<span class="logo-x">X</span></span><span class="logo-sub">Operasyonel İsrafın Röntgeni</span></a>
+  <a href="#" class="logo"><span class="logo-main">Gemba<span class="logo-x">X</span></span><span class="logo-sub">X-Ray of Operational Waste</span></a>
   <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menü">
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links">
-    <a href="/gemba-nedir.html" class="nav-link-gemba">Gemba Nedir</a>
-    <a href="/metodoloji.html" class="nav-link-metod">Metodoloji</a>
-    <a href="/pricing.html" class="nav-link-price">Fiyatlar</a>
-    <a class="nav-benchmark" href="benchmark.html">Benchmark Testlerini İncele</a>
+    <a href="/gemba-nedir.html" class="nav-link-gemba">What is Gemba</a>
+    <a href="/metodoloji.html" class="nav-link-metod">Methodology</a>
+    <a href="/pricing.html" class="nav-link-price">Pricing</a>
+    <a class="nav-benchmark" href="benchmark.html">Explore Benchmark Tests</a>
     <div class="lang-dropdown" id="langDropdown">
       <div class="lang-toggle" id="langToggle" onclick="document.getElementById('langDropdown').classList.toggle('open')">
-        TR
+        EN 
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="lang-menu">
-        <a href="#" data-lang="TR" data-label="Türkçe" class="active" onclick="selectLang(event)">Türkçe</a>
-        <a href="#" data-lang="EN" data-label="English" onclick="selectLang(event)">English</a>
-        <a href="#" data-lang="DE" data-label="Deutsch" onclick="selectLang(event)">Deutsch</a>
+        <a href="#" data-lang="EN" data-label="English" class="active" onclick="selectLang(event)">English</a>
         <a href="#" data-lang="ES" data-label="Español" onclick="selectLang(event)">Español</a>
-        <a href="#" data-lang="FR" data-label="Français" onclick="selectLang(event)">Français</a>
-        <a href="#" data-lang="PT" data-label="Português" onclick="selectLang(event)">Português</a>
+        <a href="#" data-lang="TR" data-label="Türkçe" onclick="selectLang(event)">Türkçe</a>
       </div>
     </div>
-    <a class="nav-cta" href="#cta">Analizi Başlat</a>
+    <a class="nav-cta" href="#cta">Start Analysis</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-text">
-    <div class="hero-badge">Uzman Liderliğinde AI Analizi</div>
-    <h1>
-      İşletmenizdeki gizli maliyetleri buluyoruz.
-    </h1>
-    <p class="hero-motto">Değer üretmeyen her şey israftır. GembaX ile işletmenizin kalbinde gizliden gizliye kemiren israfı görünür kılıyoruz:</p>
+    <div class="hero-badge">Expert-Led AI Analysis</div>
+    <h1>We find the hidden costs in your business.</h1>
+    <p class="hero-motto">Everything that doesn't create value is waste. With GembaX, we make the waste silently eating away at your operations visible:</p>
     <ul class="hero-bullets">
-      <li>Müşterinizin gözünden bakarak, operasyonunuzda neyin gerçekten değer yarattığını belirliyoruz</li>
-      <li>AI-destekli operasyonel röntgen ile israfın kaynağına iniyoruz</li>
-      <li>İsrafın size kaça mal olduğunu hesaplıyoruz</li>
-      <li>Sorunların kök nedenleri ve 90 günlük aksiyon planı çıkarıyoruz</li>
-      <li>Günler içinde, erişilebilir bütçeyle — aylarca süren danışmanlığa gerek yok</li>
+      <li>We start from your customer's perspective — identifying what truly creates value in your operations</li>
+      <li>AI-powered operational X-ray to find the root source of waste</li>
+      <li>We calculate how much each waste costs you</li>
+      <li>Root cause analysis and a 90-day action plan</li>
+      <li>Results in days, at an accessible budget — no months-long consulting needed</li>
     </ul>
     <div class="hero-actions">
-      <a href="#cta" class="btn-primary">Analizi Başlat →</a>
-      <a href="#process" class="btn-secondary">Nasıl Çalışır?</a>
+      <a href="#cta" class="btn-primary">Start Analysis →</a>
+      <a href="#process" class="btn-secondary">How It Works?</a>
     </div>
   </div>
   <div class="hero-xray">
-    <img src="/xray-hero-img.jpg" alt="GembaX — Operasyonel Röntgen: İşletmenizin gizli maliyetlerini görünür kılıyoruz" />
+    <img src="/xray-hero-img.jpg" alt="GembaX — X-Ray of Operational Waste" />
   </div>
 </div>
 
-<!-- STATS -->
 <div class="stats-strip">
   <div class="stats-inner">
-    <div class="stat-item fade-in">
-      <div class="stat-number">%3–5</div>
-      <div class="stat-label">Gelir Kaybı</div>
-      <div class="stat-desc">Ortalama bir işletme, yıllık gelirinin %3–5'ini operasyonel israfla kaybeder.</div>
+    <div class="stat-item">
+      <div class="stat-number">3–5%</div>
+      <div class="stat-label">Revenue Loss</div>
+      <div class="stat-desc">The average business loses 3–5% of its annual revenue to operational waste.</div>
     </div>
-    <div class="stat-item fade-in">
+    <div class="stat-item">
       <div class="stat-number">7+1</div>
-      <div class="stat-label">İsraf Kategorisi</div>
-      <div class="stat-desc">Uluslararası standart 7+1 israf sınıflandırması ile her sektörde geçerli analiz yapıyoruz.</div>
+      <div class="stat-label">Waste Categories</div>
+      <div class="stat-desc">We use the internationally recognized 7+1 waste classification framework across all industries.</div>
     </div>
-    <div class="stat-item fade-in">
-      <div class="stat-number">90 gün</div>
-      <div class="stat-label">İlk Sonuçlar</div>
-      <div class="stat-desc">Hızlı kazanımlarla 30 günde, yapısal iyileştirmelerle 90 günde ölçülebilir tasarruf.</div>
+    <div class="stat-item">
+      <div class="stat-number">90 days</div>
+      <div class="stat-label">First Results</div>
+      <div class="stat-desc">Quick wins in 30 days, structural improvements with measurable savings in 90 days.</div>
     </div>
   </div>
 </div>
-
-<!-- ★ VERSION B: CINEMATIC X-RAY BREAK ★ -->
 
 <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-<!-- GEMBA — Kısa versiyon + link -->
 <section id="gemba">
   <div class="gemba-grid">
     <div class="gemba-text">
-      <div class="section-label" id="gemba-label">Felsefemiz</div>
-      <h2 class="section-title" id="gemba-title">Gemba: <em>Gerçek işin<br>yapıldığı yer</em></h2>
-      <p class="section-desc" id="gemba-desc1">"Gemba" Japonca'da işin fiilen gerçekleştiği yeri ifade eder — fabrika sahası, ofis, depo, satış noktası.</p>
+      <div class="section-label" id="gemba-label">Our Philosophy</div>
+      <div class="section-title" id="gemba-title">Gemba: <em>Where the real<br>work happens</em></div>
+      <p class="section-desc" id="gemba-desc1">"Gemba" is a Japanese term for the place where work actually happens — the factory floor, the office, the warehouse, the point of sale.</p>
       <p class="section-desc" style="margin-top: -1.5rem;" id="gemba-desc2">
-        <strong style="color: var(--text-primary);">GembaX</strong>, bu felsefeyi AI ile birleştiriyor. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = operasyonlarınızın röntgenini çekiyoruz.
+        <strong style="color: var(--text-primary);">GembaX</strong> combines this philosophy with AI. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = we X-ray your operations.
       </p>
-      <a href="/gemba-nedir.html" style="display:inline-block; margin-top:1rem; font-family:var(--font-mono); font-size:0.82rem; color:var(--accent); font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:2px;" class="gemba-more-link" id="gemba-more-link">Lean felsefesi ve Gemba hakkında daha fazla →</a>
+      <a href="/gemba-nedir.html" style="display:inline-block; margin-top:1rem; font-family:var(--font-mono); font-size:0.82rem; color:var(--accent); font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:2px;" class="gemba-more-link" id="gemba-more-link">Learn more about Lean philosophy and Gemba →</a>
     </div>
     <div class="gemba-visual fade-in">
       <div class="gemba-equation">
         <div class="eq-row">
           <div class="eq-box">
             <div class="eq-box-label" id="eq-gemba-label">Gemba</div>
-            <div class="eq-box-value" id="eq-gemba-val">Gerçek <span>iş yeri</span></div>
+            <div class="eq-box-value" id="eq-gemba-val">The real <span>workplace</span></div>
           </div>
           <div class="eq-plus">+</div>
           <div class="eq-box">
             <div class="eq-box-label" id="eq-xray-label">X-Ray</div>
-            <div class="eq-box-value" id="eq-xray-val">Derin <span>analiz</span></div>
+            <div class="eq-box-value" id="eq-xray-val">Deep <span>analysis</span></div>
           </div>
         </div>
         <div class="eq-result">
-          <div class="eq-result-label" id="eq-result-label">Sonuç</div>
+          <div class="eq-result-label" id="eq-result-label">Result</div>
           <div class="eq-result-value">Gemba<span style="color:var(--accent-dark)">X</span></div>
         </div>
         <div class="eq-output-box">
-          <div class="eq-box-label" id="eq-output-label">Çıktı</div>
-          <div class="eq-output-text" id="eq-output-text">"Yılda <strong>$247K</strong> görünmez israfınız var. <strong>%68'i</strong> tek bir darboğazdan kaynaklanıyor."</div>
+          <div class="eq-box-label" id="eq-output-label">Output</div>
+          <div class="eq-output-text" id="eq-output-text">"You have <strong>$247K</strong> in invisible waste per year. <strong>68%</strong> comes from a single bottleneck."</div>
         </div>
       </div>
     </div>
@@ -883,120 +789,175 @@
 
 <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-<!-- PROCESS -->
 <section id="process">
-  <div class="section-label">Nasıl Çalışır</div>
-  <h2 class="section-title">Üç adımda <em>teşhisten aksiyona</em></h2>
-  <p class="section-desc">Sorunu bul, maliyetini hesapla, çözüm yolunu göster.</p>
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Three steps from <em>diagnosis to action</em></h2>
+  <p class="section-desc">Find the problem, calculate the cost, show the solution.</p>
   <div class="process-cards">
-    <div class="process-card fade-in"><span class="card-ref">REF-001</span><div class="process-num">01 — TEŞHİS</div><h3>Paranız nerede yanıyor?</h3><p>Önce müşteriniz için neyin değerli olduğunu netleştiriyoruz. Sonra operasyonunuzu bu değer tanımına göre 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.</p><div class="process-output">→ Hidden Cost Report</div></div>
-    <div class="process-card fade-in"><span class="card-ref">REF-002</span><div class="process-num">02 — ÖNCELİK</div><h3>Önce nereye dokunmalı?</h3><p>Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz. Kritik soru: Bu 3 israfın ortak bir kök nedeni var mı?</p><div class="process-output">→ Öncelik + Darboğaz Haritası</div></div>
-    <div class="process-card fade-in"><span class="card-ref">REF-003</span><div class="process-num">03 — AKSİYON</div><h3>Ne kadar kurtarabiliriz?</h3><p>90 günlük öncelikli aksiyon planı: 0-30 gün hızlı kazanımlar, 30-60 gün orta vadeli, 60-90 gün yapısal.</p><div class="process-output">→ 90 Günlük Yol Haritası + ROI</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-001</span><div class="process-num">01 — DIAGNOSIS</div><h3>Where is your money burning?</h3><p>First we clarify what your customers truly value. Then we scan your operations against that definition across 7+1 waste categories. Every waste is calculated in dollars.</p><div class="process-output">→ Hidden Cost Report</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-002</span><div class="process-num">02 — PRIORITIZE</div><h3>Where to focus first?</h3><p>Priority analysis identifies your top 3 highest-impact waste points. Bottleneck detection included. The critical question: do these 3 wastes share a common root cause?</p><div class="process-output">→ Priority + Bottleneck Map</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-003</span><div class="process-num">03 — ACTION</div><h3>How much can we save?</h3><p>90-day prioritized action plan: 0-30 days quick wins, 30-60 days mid-term, 60-90 days structural.</p><div class="process-output">→ 90-Day Roadmap + ROI</div></div>
   </div>
 </section>
 
 <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-<!-- 7+1 WASTE (abbreviated for brevity — same grid) -->
+<section id="root-cause-preview">
+  <div class="rc-container">
+    <div class="rc-text">
+      <div class="section-label" id="rc-label">Stage 2 Preview</div>
+      <h2 class="section-title" id="rc-title">We don't just find symptoms, <em>we map the math behind them</em></h2>
+      <p class="section-desc" id="rc-desc1">Following your Phase 1 100x ROI guaranteed ($15,000 minimum profit leakage) scan, we don't issue generic tower advice. We map your actual shop-floor reality via strict Lean Six Sigma and Theory of Constraints analytical frameworks.</p>
+      <div class="pull-quote">
+        <p id="rc-quote">"Finding the root cause means stopping chronic annual financial profit leaks permanently with a single, calculated operational countermeasure."</p>
+        <cite id="rc-cite">20+ Years Exp. Dr. Engineer • GembaX</cite>
+      </div>
+    </div>
+    
+    <div class="rc-visual-wrapper fade-in">
+      <svg class="ishikawa-svg" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="rc-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+            <path d="M 28 0 L 0 0 0 28" fill="none" stroke="rgba(45,80,22,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="800" height="420" fill="url(#rc-grid)" rx="8"/>
+
+        <path d="M 50 210 L 690 210" stroke="#2D5016" stroke-width="2.5" stroke-dasharray="3 3"/>
+        <polygon points="690,205 705,210 690,215" fill="#2D5016" />
+
+        <rect x="40" y="180" width="165" height="60" rx="6" fill="#FFFFFF" stroke="#2D5016" stroke-width="1.5"/>
+        <text x="52" y="202" font-family="var(--font-mono)" font-size="8" font-weight="700" fill="#2D5016" letter-spacing="0.05em">CRITICAL CONSTRAINT:</text>
+        <text x="52" y="224" font-family="var(--font-body)" font-size="11" font-weight="700" fill="#1B2A4A" id="svg-symptom">Line-A: Changeover Delay</text>
+
+        <path d="M 290 70 L 370 210" stroke="#8fa093" stroke-width="1.5"/>
+        <path d="M 450 70 L 530 210" stroke="#8fa093" stroke-width="1.5"/>
+        <path d="M 610 70 L 690 210" stroke="#8fa093" stroke-width="1.5"/>
+
+        <path d="M 210 350 L 290 210" stroke="#8fa093" stroke-width="1.5"/>
+        <path d="M 370 350 L 450 210" stroke="#8fa093" stroke-width="1.5"/>
+        <path d="M 550 350 L 630 210" stroke="#8fa093" stroke-width="1.5"/>
+
+        <text x="245" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r1">MACHINE</text>
+        <text x="410" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r2">METHOD</text>
+        <text x="575" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r3">PEOPLE</text>
+        
+        <text x="155" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r4">MATERIAL</text>
+        <text x="310" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r5">MEASUREMENT</text>
+        <text x="495" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r6">ENVIRONMENT</text>
+
+        <text x="360" y="130" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="#2D5016" transform="rotate(60 360 130)">Δt_loss = 52 min</text>
+        <text x="220" y="140" font-family="var(--font-mono)" font-size="8" fill="#8fa093">Drift: 42%</text>
+        <text x="515" y="130" font-family="var(--font-mono)" font-size="8" fill="#8fa093">No SMED: 25%</text>
+
+        <text x="250" y="200" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#2D5016">Loss = 52min x $4.50/min x 240 cycles</text>
+
+        <rect x="240" y="265" width="430" height="55" rx="6" fill="rgba(110, 20, 20, 0.04)" stroke="#6E1414" stroke-width="1.5"/>
+        <text x="255" y="285" font-family="var(--font-mono)" font-size="8" font-weight="700" fill="#6E1414" letter-spacing="0.05em">ROOT CAUSE VERIFIED [DQI: 94.2%]:</text>
+        <text x="255" y="305" font-family="var(--font-body)" font-size="11" font-weight="700" fill="#6E1414" id="svg-rootcause">Incomplete Pre-Heating Calibration & Maintenance Procedure</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+
 <div class="waste-section" id="waste">
-  <div class="section-label">7+1 İsraf Analizi</div>
-  <h2 class="section-title">TIM WOODS: <em>Evrensel israf haritası</em></h2>
-  <p class="section-desc">Her sektörde geçerli olan 7+1 israf türünü sistematik olarak analiz ediyoruz.</p>
+  <div class="section-label">7+1 Waste Analysis</div>
+  <h2 class="section-title">TIM WOODS: <em>The universal waste map</em></h2>
+  <p class="section-desc">We systematically analyze the 7+1 waste types applicable across every industry.</p>
   <div class="waste-grid">
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 17l5-5-5-5"/><path d="M6 17l5-5-5-5"/></svg><div class="waste-eng">Transportation</div><div class="waste-name">Taşıma İsrafı</div><div class="waste-example">Gereksiz malzeme hareketi, tekrarlanan veri transferi</div><div class="waste-cost">Tipik etki: $15K–80K/yıl</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><div class="waste-eng">Inventory</div><div class="waste-name">Stok İsrafı</div><div class="waste-example">Fazla stok, birikmiş iş yığını, bağlanan nakit</div><div class="waste-cost">Tipik etki: $30K–200K/yıl</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg><div class="waste-eng">Motion</div><div class="waste-name">Hareket İsrafı</div><div class="waste-example">Gereksiz yürüme, iş arası dağılma, bilgi arama</div><div class="waste-cost">Tipik etki: $10K–50K/yıl</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="waste-eng">Waiting</div><div class="waste-name">Bekleme İsrafı</div><div class="waste-example">Onay bekleme, malzeme bekleme, bilgi bekleme</div><div class="waste-cost">Tipik etki: $20K–120K/yıl</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><div class="waste-eng">Overproduction</div><div class="waste-name">Aşırı Üretim</div><div class="waste-example">İhtiyaçtan fazla üretim, gereksiz rapor, kullanılmayan çıktı</div><div class="waste-cost">Tipik etki: $25K–150K/yıl</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><div class="waste-eng">Over-processing</div><div class="waste-name">Gereğinden Fazla İşlem</div><div class="waste-example">Gereksiz detay, müşterinin istemediği kalite seviyesi</div><div class="waste-cost">Tipik etki: $15K–90K/yıl</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="waste-eng">Defects</div><div class="waste-name">Hata / Düzeltme</div><div class="waste-example">Hurda, yeniden yapma, iade, müşteri kaybı</div><div class="waste-cost">Tipik etki: $20K–180K/yıl</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="waste-eng">Skills</div><div class="waste-name">Yetenek İsrafı</div><div class="waste-example">Deneyimli çalışanın rutin işle uğraşması</div><div class="waste-cost">Tipik etki: $20K–100K/yıl</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 17l5-5-5-5"/><path d="M6 17l5-5-5-5"/></svg><div class="waste-eng">Transportation</div><div class="waste-name">Transportation Waste</div><div class="waste-example">Unnecessary material movement, redundant data transfers</div><div class="waste-cost">Typical impact: $15K–80K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><div class="waste-eng">Inventory</div><div class="waste-name">Inventory Waste</div><div class="waste-example">Excess stock, accumulated work-in-progress, tied-up cash</div><div class="waste-cost">Typical impact: $30K–200K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg><div class="waste-eng">Motion</div><div class="waste-name">Motion Waste</div><div class="waste-example">Unnecessary walking, task-switching, searching for information</div><div class="waste-cost">Typical impact: $10K–50K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="waste-eng">Waiting</div><div class="waste-name">Waiting Waste</div><div class="waste-example">Waiting for approvals, materials, or information</div><div class="waste-cost">Typical impact: $20K–120K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><div class="waste-eng">Overproduction</div><div class="waste-name">Overproduction</div><div class="waste-example">Producing more than needed, unnecessary reports, unused output</div><div class="waste-cost">Typical impact: $25K–150K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><div class="waste-eng">Over-processing</div><div class="waste-name">Over-processing</div><div class="waste-example">Unnecessary detail, quality level the customer doesn't need</div><div class="waste-cost">Typical impact: $15K–90K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="waste-eng">Defects</div><div class="waste-name">Defects / Rework</div><div class="waste-example">Scrap, rework, returns, lost customers</div><div class="waste-cost">Typical impact: $20K–180K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="waste-eng">Skills</div><div class="waste-name">Skills Waste</div><div class="waste-example">Experienced employees stuck on routine tasks</div><div class="waste-cost">Typical impact: $20K–100K/yr</div></div>
   </div>
 </div>
 
 <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-<!-- SECTORS -->
 <section id="sectors">
-  <div class="section-label">Kapsam</div>
-  <h2 class="section-title">Değer akışı olan <em>her yerde</em> israf vardır</h2>
-  <p class="section-desc">GembaX sadece fabrika değil — operasyonu olan her işletmede çalışır.</p>
+  <div class="section-label">Scope</div>
+  <h2 class="section-title">Wherever there's a value stream, <em>there's waste</em></h2>
+  <p class="section-desc">GembaX isn't just for factories — it works in every business with operations.</p>
   <div class="sector-strip">
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><path d="M5 20V8l5-4 5 4v12"/><path d="M9 20v-4h2v4"/><path d="M15 20V12l4-2v10"/></svg><h3>Manufacturing</h3><p>Hurda, duruş, kalıp değişim kaybı, fazla stok, makine verimsizliği.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><h3>Hizmet & Ofis</h3><p>Bekleme, gereksiz onay, bilgi tekrarı, yeniden yapma.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><h3>Perakende</h3><p>Stok fazlası, indirim kaybı, iade maliyeti, bağlanan nakit.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><h3>Lojistik & Tedarik Zinciri</h3><p>Fazla stok, gereksiz taşıma, tedarikçi gecikmesi.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><h3>Teknoloji & SaaS</h3><p>Kullanılmayan özellik, teknik borç, yavaş yayınlama döngüsü.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><h3>Satış Operasyonları</h3><p>Uzun satış döngüsü, düşük dönüşüm oranı, satış sürecindeki kayıp.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><path d="M5 20V8l5-4 5 4v12"/><path d="M9 20v-4h2v4"/><path d="M15 20V12l4-2v10"/></svg><h3>Manufacturing</h3><p>Scrap, downtime, changeover losses, excess inventory, machine inefficiency.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><h3>Services & Office</h3><p>Waiting, unnecessary approvals, information re-entry, rework.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><h3>Retail</h3><p>Excess stock, markdown losses, return costs, tied-up cash.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><h3>Logistics & Supply Chain</h3><p>Excess inventory, unnecessary transport, supplier delays.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><h3>Technology & SaaS</h3><p>Unused features, technical debt, slow release cycles.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><h3>Sales Operations</h3><p>Long sales cycles, low conversion rates, pipeline leakage.</p></div>
   </div>
 </section>
 
 <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-<!-- DIFF -->
 <section>
-  <div class="section-label">Farkımız</div>
-  <h2 class="section-title">Geleneksel danışmanlık <em>vs. GembaX</em></h2>
-  <p class="section-desc">Aynı hedef, farklı yaklaşım — sonuçlar da o kadar farklı.</p>
+  <div class="section-label">Our Difference</div>
+  <h2 class="section-title">Traditional consulting <em>vs. GembaX</em></h2>
+  <p class="section-desc">Same goal, different approach — the results speak for themselves.</p>
   <div class="diff-table fade-in">
     <div class="diff-header">
       <div class="diff-header-cell"></div>
-      <div class="diff-header-cell old-col">Geleneksel Danışmanlık</div>
+      <div class="diff-header-cell old-col">Traditional Consulting</div>
       <div class="diff-header-cell new-col">GembaX</div>
     </div>
 
     <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">$</div><div class="diff-val">Başlangıç Maliyeti</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">$30K+</span> proje başlangıç</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">KOBİ bütçesine uygun — <span class="diff-highlight">erişilebilir</span></div></div>
+      <div class="diff-cell label-col"><div class="diff-label-icon">$</div><div class="diff-val">Starting Cost</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">$30K+</span> project start</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">SMB-friendly — <span class="diff-highlight">accessible</span></div></div>
     </div>
 
     <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">◷</div><div class="diff-val">Teşhis Süresi</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">6–12 hafta</span> teşhis süresi</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Haftalar değil, <span class="diff-highlight">günler</span> içinde sonuç</div></div>
+      <div class="diff-cell label-col"><div class="diff-label-icon">◷</div><div class="diff-val">Diagnosis Time</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">6–12 weeks</span> diagnosis</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Not weeks, results in <span class="diff-highlight">days</span></div></div>
     </div>
 
     <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">≡</div><div class="diff-val">Rapor Formatı</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Skor ve yüzde bazlı genel raporlar</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Her israf <span class="diff-highlight">dolar cinsinden</span> — somut</div></div>
+      <div class="diff-cell label-col"><div class="diff-label-icon">≡</div><div class="diff-val">Report Format</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Score and percentage-based generic reports</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Every waste in <span class="diff-highlight">dollar terms</span> — concrete</div></div>
     </div>
 
     <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">◎</div><div class="diff-val">Analiz Derinliği</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Jenerik best-practice önerileri</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Sektörünüze özel, <span class="diff-highlight">veriye dayalı</span> analiz</div></div>
+      <div class="diff-cell label-col"><div class="diff-label-icon">◎</div><div class="diff-val">Analysis Depth</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Generic best-practice recommendations</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Industry-specific, <span class="diff-highlight">data-driven</span> analysis</div></div>
     </div>
 
     <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">☰</div><div class="diff-val">Çıktı & Takip</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Rapor teslim — proje biter</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val"><span class="diff-highlight">90 günlük</span> aksiyon planı + ROI hesabı</div></div>
+      <div class="diff-cell label-col"><div class="diff-label-icon">☰</div><div class="diff-val">Scale & Tracking</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Report delivered — project ends</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val"><span class="diff-highlight">90-day</span> action plan + ROI calculation</div></div>
     </div>
 
     <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">✦</div><div class="diff-val">Kalite Güvencesi</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Kişiye bağımlı, değişken kalite</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Uzman + AI hibrit — <span class="diff-highlight">tutarlı kalite</span></div></div>
+      <div class="diff-cell label-col"><div class="diff-label-icon">✦</div><div class="diff-val">Quality Assurance</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Person-dependent, variable quality</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Expert + AI hybrid — <span class="diff-highlight">consistent quality</span></div></div>
     </div>
 
     <div class="diff-bottom-bar">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      Aynı içgörü — daha hızlı ve ucuz
+      Same insight — faster and more affordable
     </div>
   </div>
 </section>
 
 <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-<!-- CTA -->
 <div class="cta-section" id="cta">
-  <div class="section-label">Başlayın</div>
-  <h2>Operasyonlarınızın <em>röntgenini</em> çekelim</h2>
-  <p class="cta-small">Gözle görülmeyen israfı buluyor, her birinin size yılda kaç dolara mal olduğunu hesaplıyoruz. Sektör fark etmez — değer akışı olan her yerde israf vardır.</p>
-  <p>Kısa bir sohbette işletmenizi tanıyalım, sonra size özel hazırlanmış sorular ve verilerle analizi yapalım.</p>
-  <a href="#" class="btn-primary">Analizi Başlat →</a>
+  <div class="section-label">Get Started</div>
+  <h2>Let us <em>X-ray</em> your operations</h2>
+  <p class="cta-small">We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.</p>
+  <p>A short guided conversation to understand your business, then we run the analysis with custom questions and data tailored to you.</p>
+  <a href="#" class="btn-primary">Start Analysis →</a>
 </div>
 
 <div class="doc-metadata">
@@ -1004,30 +965,30 @@
   <span>REV: 2.4</span><span class="meta-sep">•</span>
   <span>CLASSIFICATION: PUBLIC</span><span class="meta-sep">•</span>
   <span>PROTOCOL: TIM WOODS + TOC</span><span class="meta-sep">•</span>
-  <span>LAST AUDIT: 2025</span>
+  <span>LAST AUDIT: 2026</span>
 </div>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni</div>
+    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — X-Ray of operational waste</div>
     <div class="footer-links">
       <div style="display:flex; gap:1.2rem; margin-bottom:0.4rem;">
-        <a href="/pricing.html" class="footer-link-legal">Fiyatlar</a>
-        <a href="/terms-and-conditions.html" class="footer-link-legal">Şartlar</a>
-        <a href="/privacy.html" class="footer-link-legal">Gizlilik</a>
-        <a href="/refund.html" class="footer-link-legal">İade</a>
+        <a href="/pricing.html" class="footer-link-legal">Pricing</a>
+        <a href="/terms-and-conditions.html" class="footer-link-legal">Terms</a>
+        <a href="/privacy.html" class="footer-link-legal">Privacy</a>
+        <a href="/refund.html" class="footer-link-legal">Refund</a>
       </div>
       <a href="mailto:murat@gembax.ai" class="footer-email">murat@gembax.ai</a>
     </div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
   }, { threshold: 0.15 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  // Close mobile nav on link click
+  
   document.querySelectorAll('.nav-links a:not(.lang-toggle)').forEach(a => {
     a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
   });
@@ -1036,106 +997,18 @@
     if (!isMobile) {
       document.querySelector('nav').style.padding = window.scrollY > 50 ? '0.8rem 3rem 1.4rem' : '1.25rem 3rem 1.8rem';
     }
-    // Scroll progress bar
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
     document.getElementById('scrollBar').style.width = scrollPercent + '%';
   });
-  // Close language dropdown on outside click
+
   document.addEventListener('click', (e) => {
     const dd = document.getElementById('langDropdown');
     if (!dd.contains(e.target)) dd.classList.remove('open');
   });
-  // ═══════════════════════════════════════════════
-  // FULL i18n SYSTEM
-  // ═══════════════════════════════════════════════
+
   const T = {
-    TR: {
-      // NAV
-      logoSub: "Operasyonel İsrafın Röntgeni",
-      navGemba: "Gemba Nedir",
-      navMetod: "Metodoloji",
-      navPrice: "Fiyatlar",
-      navBenchmark: "Benchmark Testlerini İncele",
-      navCta: "Analizi Başlat",
-      // HERO
-      heroBadge: "Uzman Liderliğinde AI Analizi",
-      heroH1: "İşletmenizdeki gizli maliyetleri buluyoruz.",
-      heroMotto: 'Değer üretmeyen her şey israftır. GembaX ile işletmenizin kalbinde gizliden gizliye kemiren israfı görünür kılıyoruz:',
-      heroBullet1: "Müşterinizin gözünden bakarak, operasyonunuzda neyin gerçekten değer yarattığını belirliyoruz",
-      heroBullet2: "AI-destekli operasyonel röntgen ile israfın kaynağına iniyoruz",
-      heroBullet3: "İsrafın size kaça mal olduğunu hesaplıyoruz",
-      heroBullet4: "Sorunların kök nedenleri ve 90 günlük aksiyon planı çıkarıyoruz",
-      heroBullet5: "Günler içinde, erişilebilir bütçeyle — aylarca süren danışmanlığa gerek yok",
-      heroBtn: "Analizi Başlat →",
-      heroBtn2: "Nasıl Çalışır?",
-      // STATS
-      stat1Num: "%3–5", stat1Label: "Gelir Kaybı", stat1Desc: "Ortalama bir işletme, yıllık gelirinin %3–5'ini operasyonel israfla kaybeder.",
-      stat2Num: "7+1", stat2Label: "İsraf Kategorisi", stat2Desc: "Uluslararası standart 7+1 israf sınıflandırması ile her sektörde geçerli analiz yapıyoruz.",
-      stat3Num: "90 gün", stat3Label: "İlk Sonuçlar", stat3Desc: "Hızlı kazanımlarla 30 günde, yapısal iyileştirmelerle 90 günde ölçülebilir tasarruf.",
-      // GEMBA
-      gembaLabel: "Felsefemiz",
-      gembaTitle: 'Gemba: <em>Gerçek işin<br>yapıldığı yer</em>',
-      gembaDesc1: '"Gemba" Japonca\'da işin fiilen gerçekleştiği yeri ifade eder — fabrika sahası, ofis, depo, satış noktası.',
-      gembaDesc2: '<strong style="color: var(--text-primary);">GembaX</strong>, bu felsefeyi AI ile birleştiriyor. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = operasyonlarınızın röntgenini çekiyoruz.',
-      eqGemba: "Gemba", eqGembaVal: 'Gerçek <span>iş yeri</span>',
-      eqXray: "X-Ray", eqXrayVal: 'Derin <span>analiz</span>',
-      eqResult: "Sonuç", eqOutput: "Çıktı",
-      eqOutputText: '"Yılda <strong>$247K</strong> görünmez israfınız var. <strong>%68\'i</strong> tek bir darboğazdan kaynaklanıyor."',
-      // PROCESS
-      processLabel: "Nasıl Çalışır",
-      processTitle: 'Üç adımda <em>teşhisten aksiyona</em>',
-      processDesc: "Sorunu bul, maliyetini hesapla, çözüm yolunu göster.",
-      proc1Num: "01 — TEŞHİS", proc1H: "Paranız nerede yanıyor?", proc1P: "Önce müşteriniz için neyin değerli olduğunu netleştiriyoruz. Sonra operasyonunuzu bu değer tanımına göre 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — ÖNCELİK", proc2H: "Önce nereye dokunmalı?", proc2P: "Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz. Kritik soru: Bu 3 israfın ortak bir kök nedeni var mı?", proc2Out: "→ Öncelik + Darboğaz Haritası",
-      proc3Num: "03 — AKSİYON", proc3H: "Ne kadar kurtarabiliriz?", proc3P: "90 günlük öncelikli aksiyon planı: 0-30 gün hızlı kazanımlar, 30-60 gün orta vadeli, 60-90 gün yapısal.", proc3Out: "→ 90 Günlük Yol Haritası + ROI",
-      // WASTE
-      wasteLabel: "7+1 İsraf Analizi",
-      wasteTitle: 'TIM WOODS: <em>Evrensel israf haritası</em>',
-      wasteDesc: "Her sektörde geçerli olan 7+1 israf türünü sistematik olarak analiz ediyoruz.",
-      w1Name: "Taşıma İsrafı", w1Ex: "Gereksiz malzeme hareketi, tekrarlanan veri transferi", w1Cost: "Tipik etki: $15K–80K/yıl",
-      w2Name: "Stok İsrafı", w2Ex: "Fazla stok, birikmiş iş yığını, bağlanan nakit", w2Cost: "Tipik etki: $30K–200K/yıl",
-      w3Name: "Hareket İsrafı", w3Ex: "Gereksiz yürüme, iş arası dağılma, bilgi arama", w3Cost: "Tipik etki: $10K–50K/yıl",
-      w4Name: "Bekleme İsrafı", w4Ex: "Onay bekleme, malzeme bekleme, bilgi bekleme", w4Cost: "Tipik etki: $20K–120K/yıl",
-      w5Name: "Aşırı Üretim", w5Ex: "İhtiyaçtan fazla üretim, gereksiz rapor, kullanılmayan çıktı", w5Cost: "Tipik etki: $25K–150K/yıl",
-      w6Name: "Gereğinden Fazla İşlem", w6Ex: "Gereksiz detay, müşterinin istemediği kalite seviyesi", w6Cost: "Tipik etki: $15K–90K/yıl",
-      w7Name: "Hata / Düzeltme", w7Ex: "Hurda, yeniden yapma, iade, müşteri kaybı", w7Cost: "Tipik etki: $20K–180K/yıl",
-      w8Name: "Yetenek İsrafı", w8Ex: "Deneyimli çalışanın rutin işle uğraşması", w8Cost: "Tipik etki: $20K–100K/yıl",
-      // SECTORS
-      sectLabel: "Kapsam",
-      sectTitle: 'Değer akışı olan <em>her yerde</em> israf vardır',
-      sectDesc: "GembaX sadece fabrika değil — operasyonu olan her işletmede çalışır.",
-      s1H: "Manufacturing", s1P: "Hurda, duruş, kalıp değişim kaybı, fazla stok, makine verimsizliği.",
-      s2H: "Hizmet & Ofis", s2P: "Bekleme, gereksiz onay, bilgi tekrarı, yeniden yapma.",
-      s3H: "Perakende", s3P: "Stok fazlası, indirim kaybı, iade maliyeti, bağlanan nakit.",
-      s4H: "Lojistik & Tedarik Zinciri", s4P: "Fazla stok, gereksiz taşıma, tedarikçi gecikmesi.",
-      s5H: "Teknoloji & SaaS", s5P: "Kullanılmayan özellik, teknik borç, yavaş yayınlama döngüsü.",
-      s6H: "Satış Operasyonları", s6P: "Uzun satış döngüsü, düşük dönüşüm oranı, satış sürecindeki kayıp.",
-      // DIFF
-      diffLabel: "Farkımız",
-      diffTitle: 'Geleneksel danışmanlık <em>vs. GembaX</em>',
-      diffDesc: "Aynı hedef, farklı yaklaşım — sonuçlar da o kadar farklı.",
-      diffOldH: "Geleneksel Danışmanlık", diffNewH: "GembaX",
-      d1L: "Başlangıç Maliyeti", d1O: '<span class="diff-highlight">$30K+</span> proje başlangıç', d1N: 'KOBİ bütçesine uygun — <span class="diff-highlight">erişilebilir</span>',
-      d2L: "Teşhis Süresi", d2O: '<span class="diff-highlight">6–12 hafta</span> teşhis süresi', d2N: 'Haftalar değil, <span class="diff-highlight">günler</span> içinde sonuç',
-      d3L: "Rapor Formatı", d3O: "Skor ve yüzde bazlı genel raporlar", d3N: 'Her israf <span class="diff-highlight">dolar cinsinden</span> — somut',
-      d4L: "Analiz Derinliği", d4O: "Jenerik best-practice önerileri", d4N: 'Sektörünüze özel, <span class="diff-highlight">veriye dayalı</span> analiz',
-      d5L: "Çıktı & Takip", d5O: "Rapor teslim — proje biter", d5N: '<span class="diff-highlight">90 günlük</span> aksiyon planı + ROI hesabı',
-      d6L: "Kalite Güvencesi", d6O: "Kişiye bağımlı, değişken kalite", d6N: 'Uzman + AI hibrit — <span class="diff-highlight">tutarlı kalite</span>',
-      diffBottom: "Aynı içgörü — daha hızlı ve ucuz",
-      // CTA
-      ctaLabel: "Başlayın",
-      ctaH2: 'Operasyonlarınızın <em>röntgenini</em> çekelim',
-      ctaSmall: "Gözle görülmeyen israfı buluyor, her birinin size yılda kaç dolara mal olduğunu hesaplıyoruz. Sektör fark etmez — değer akışı olan her yerde israf vardır.",
-      ctaP: "Kısa bir sohbette işletmenizi tanıyalım, sonra size özel hazırlanmış sorular ve verilerle analizi yapalım.",
-      ctaBtn: "Analizi Başlat →",
-      // FOOTER
-      gembaMore: "Lean felsefesi ve Gemba hakkında daha fazla →",
-      footerPricing: 'Fiyatlar', footerTerms: 'Şartlar', footerPrivacy: 'Gizlilik', footerRefund: 'İade',
-      footerBrand: '<strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni',
-      footerContact: "İletişim"
-    },
     EN: {
       logoSub: "X-Ray of Operational Waste",
       navGemba: "What is Gemba",
@@ -1170,6 +1043,17 @@
       proc1Num: "01 — DIAGNOSIS", proc1H: "Where is your money burning?", proc1P: "First we clarify what your customers truly value. Then we scan your operations against that definition across 7+1 waste categories. Every waste is calculated in dollars.", proc1Out: "→ Hidden Cost Report",
       proc2Num: "02 — PRIORITIZE", proc2H: "Where to focus first?", proc2P: "Priority analysis identifies your top 3 highest-impact waste points. Bottleneck detection included. The critical question: do these 3 wastes share a common root cause?", proc2Out: "→ Priority + Bottleneck Map",
       proc3Num: "03 — ACTION", proc3H: "How much can we save?", proc3P: "90-day prioritized action plan: 0-30 days quick wins, 30-60 days mid-term, 60-90 days structural.", proc3Out: "→ 90-Day Roadmap + ROI",
+      
+      rcLabel: "Stage 2 Preview",
+      rcTitle: "We don't just find symptoms, <em>we map the math behind them</em>",
+      rcDesc1: "Following your Phase 1 100x ROI guaranteed ($15,000 minimum profit leakage) scan, we don't issue generic tower advice. We map your actual shop-floor reality via strict Lean Six Sigma and Theory of Constraints analytical frameworks.",
+      rcQuote: '"Finding the root cause means stopping chronic annual financial profit leaks permanently with a single, calculated operational countermeasure."',
+      rcCite: "20+ Years Exp. Dr. Engineer • GembaX",
+      svgSymptom: "Line-A: Changeover Delay",
+      svgR1: "MACHINE", svgR2: "METHOD", svgR3: "PEOPLE",
+      svgR4: "MATERIAL", svgR5: "MEASUREMENT", svgR6: "ENVIRONMENT",
+      svgRootcause: "Incomplete Pre-Heating Calibration & Maintenance Procedure",
+
       wasteLabel: "7+1 Waste Analysis",
       wasteTitle: 'TIM WOODS: <em>The universal waste map</em>',
       wasteDesc: "We systematically analyze the 7+1 waste types applicable across every industry.",
@@ -1198,7 +1082,7 @@
       d2L: "Diagnosis Time", d2O: '<span class="diff-highlight">6–12 weeks</span> diagnosis', d2N: 'Not weeks, results in <span class="diff-highlight">days</span>',
       d3L: "Report Format", d3O: "Score and percentage-based generic reports", d3N: 'Every waste in <span class="diff-highlight">dollar terms</span> — concrete',
       d4L: "Analysis Depth", d4O: "Generic best-practice recommendations", d4N: 'Industry-specific, <span class="diff-highlight">data-driven</span> analysis',
-      d5L: "Output & Follow-up", d5O: "Report delivered — project ends", d5N: '<span class="diff-highlight">90-day</span> action plan + ROI calculation',
+      d5L: "Scale & Tracking", d5O: "Report delivered — project ends", d5N: '<span class="diff-highlight">90-day</span> action plan + ROI calculation',
       d6L: "Quality Assurance", d6O: "Person-dependent, variable quality", d6N: 'Expert + AI hybrid — <span class="diff-highlight">consistent quality</span>',
       diffBottom: "Same insight — faster and more affordable",
       ctaLabel: "Get Started",
@@ -1206,85 +1090,8 @@
       ctaSmall: "We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.",
       ctaP: "A short guided conversation to understand your business, then we run the analysis with custom questions and data tailored to you.",
       ctaBtn: "Start Analysis →",
-      gembaMore: "Learn more about Lean philosophy and Gemba →",
-      footerPricing: 'Pricing', footerTerms: 'Terms', footerPrivacy: 'Privacy', footerRefund: 'Refund',
       footerBrand: '<strong>Gemba<span>X</span></strong> — X-Ray of operational waste',
-      footerContact: "Contact"
-    },
-    DE: {
-      logoSub: "Röntgen der operativen Verschwendung",
-      navGemba: "Was ist Gemba",
-      navMetod: "Methodik",
-      navPrice: "Preise",
-      navBenchmark: "Benchmark-Tests ansehen",
-      navCta: "Analyse starten",
-      heroBadge: "Expertengeführte KI-Analyse",
-      heroH1: "Wir finden die versteckten Kosten in Ihrem Unternehmen.",
-      heroMotto: "Alles, was keinen Wert schafft, ist Verschwendung. Mit GembaX machen wir die Verschwendung sichtbar, die leise an Ihren Abläufen nagt:",
-      heroBullet1: "Wir beginnen aus der Perspektive Ihrer Kunden — und ermitteln, was in Ihren Abläufen wirklich Wert schafft",
-      heroBullet2: "KI-gestütztes operatives Röntgen findet die Ursache der Verschwendung",
-      heroBullet3: "Wir berechnen, was jede Verschwendung Sie kostet",
-      heroBullet4: "Ursachenanalyse und ein 90-Tage-Aktionsplan",
-      heroBullet5: "Ergebnisse in Tagen, mit bezahlbarem Budget — keine monatelange Beratung nötig",
-      heroBtn: "Analyse starten →",
-      heroBtn2: "So funktioniert's",
-      stat1Num: "3–5 %", stat1Label: "Umsatzverlust", stat1Desc: "Ein durchschnittliches Unternehmen verliert 3–5 % seines Jahresumsatzes durch operative Verschwendung.",
-      stat2Num: "7+1", stat2Label: "Verschwendungskategorien", stat2Desc: "Wir nutzen die international anerkannte 7+1-Verschwendungsklassifikation für alle Branchen.",
-      stat3Num: "90 Tage", stat3Label: "Erste Ergebnisse", stat3Desc: "Quick Wins in 30 Tagen, strukturelle Verbesserungen mit messbaren Einsparungen in 90 Tagen.",
-      gembaLabel: "Unsere Philosophie",
-      gembaTitle: 'Gemba: <em>Wo die echte<br>Arbeit passiert</em>',
-      gembaDesc1: '"Gemba" ist ein japanischer Begriff für den Ort, an dem die Arbeit tatsächlich stattfindet — Fabrikhalle, Büro, Lager, Verkaufsstelle.',
-      gembaDesc2: '<strong style="color: var(--text-primary);">GembaX</strong> verbindet diese Philosophie mit KI. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = wir röntgen Ihre Abläufe.',
-      eqGemba: "Gemba", eqGembaVal: 'Der echte <span>Arbeitsort</span>',
-      eqXray: "X-Ray", eqXrayVal: 'Tiefe <span>Analyse</span>',
-      eqResult: "Ergebnis", eqOutput: "Ausgabe",
-      eqOutputText: '"Sie haben <strong>$247K</strong> unsichtbare Verschwendung pro Jahr. <strong>68 %</strong> stammen aus einem einzigen Engpass."',
-      processLabel: "So funktioniert's",
-      processTitle: 'In drei Schritten <em>von der Diagnose zur Aktion</em>',
-      processDesc: "Problem finden, Kosten berechnen, Lösung aufzeigen.",
-      proc1Num: "01 — DIAGNOSE", proc1H: "Wo verbrennt Ihr Geld?", proc1P: "Zuerst klären wir, was Ihre Kunden wirklich schätzen. Dann scannen wir Ihre Abläufe anhand dieser Wertdefinition in 7+1 Verschwendungskategorien. Jede Verschwendung wird in Dollar berechnet.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — PRIORISIERUNG", proc2H: "Wo zuerst ansetzen?", proc2P: "Die Prioritätsanalyse identifiziert Ihre 3 wirkungsvollsten Verschwendungspunkte. Engpasserkennung inklusive. Die entscheidende Frage: Haben diese 3 Verschwendungen eine gemeinsame Ursache?", proc2Out: "→ Prioritäten- & Engpasskarte",
-      proc3Num: "03 — AKTION", proc3H: "Wie viel können wir einsparen?", proc3P: "90-Tage-Aktionsplan: 0-30 Tage Quick Wins, 30-60 Tage mittelfristig, 60-90 Tage strukturell.", proc3Out: "→ 90-Tage-Roadmap + ROI",
-      wasteLabel: "7+1 Verschwendungsanalyse",
-      wasteTitle: 'TIM WOODS: <em>Die universelle Verschwendungskarte</em>',
-      wasteDesc: "Wir analysieren systematisch die 7+1 Verschwendungsarten, die in jeder Branche gelten.",
-      w1Name: "Transportverschwendung", w1Ex: "Unnötige Materialbewegung, redundanter Datentransfer", w1Cost: "Typische Auswirkung: $15K–80K/Jahr",
-      w2Name: "Bestandsverschwendung", w2Ex: "Überbestand, aufgestaute Arbeit, gebundenes Kapital", w2Cost: "Typische Auswirkung: $30K–200K/Jahr",
-      w3Name: "Bewegungsverschwendung", w3Ex: "Unnötiges Laufen, Aufgabenwechsel, Informationssuche", w3Cost: "Typische Auswirkung: $10K–50K/Jahr",
-      w4Name: "Warteverschwendung", w4Ex: "Warten auf Genehmigungen, Material oder Informationen", w4Cost: "Typische Auswirkung: $20K–120K/Jahr",
-      w5Name: "Überproduktion", w5Ex: "Mehr als nötig produzieren, unnötige Berichte, ungenutzte Ausgabe", w5Cost: "Typische Auswirkung: $25K–150K/Jahr",
-      w6Name: "Überbearbeitung", w6Ex: "Unnötige Details, Qualitätsniveau das der Kunde nicht braucht", w6Cost: "Typische Auswirkung: $15K–90K/Jahr",
-      w7Name: "Fehler / Nacharbeit", w7Ex: "Ausschuss, Nacharbeit, Retouren, Kundenverlust", w7Cost: "Typische Auswirkung: $20K–180K/Jahr",
-      w8Name: "Talentverschwendung", w8Ex: "Erfahrene Mitarbeiter mit Routineaufgaben beschäftigt", w8Cost: "Typische Auswirkung: $20K–100K/Jahr",
-      sectLabel: "Anwendungsbereich",
-      sectTitle: 'Überall wo es einen Wertstrom gibt, <em>gibt es Verschwendung</em>',
-      sectDesc: "GembaX ist nicht nur für Fabriken — es funktioniert in jedem Unternehmen mit operativen Abläufen.",
-      s1H: "Fertigung", s1P: "Ausschuss, Stillstand, Rüstzeitverluste, Überbestand, Maschineneffizienz.",
-      s2H: "Dienstleistung & Büro", s2P: "Wartezeiten, unnötige Genehmigungen, doppelte Dateneingabe, Nacharbeit.",
-      s3H: "Einzelhandel", s3P: "Überbestand, Abschriftenverluste, Retourenkosten, gebundenes Kapital.",
-      s4H: "Logistik & Lieferkette", s4P: "Überbestand, unnötiger Transport, Lieferverzögerungen.",
-      s5H: "Technologie & SaaS", s5P: "Ungenutzte Funktionen, technische Schulden, langsame Release-Zyklen.",
-      s6H: "Vertrieb", s6P: "Lange Verkaufszyklen, niedrige Konversionsraten, Pipeline-Verluste.",
-      diffLabel: "Unser Unterschied",
-      diffTitle: 'Klassische Beratung <em>vs. GembaX</em>',
-      diffDesc: "Gleiches Ziel, anderer Ansatz — die Ergebnisse sprechen für sich.",
-      diffOldH: "Klassische Beratung", diffNewH: "GembaX",
-      d1L: "Startkosten", d1O: '<span class="diff-highlight">$30K+</span> Projektstart', d1N: 'KMU-freundlich — <span class="diff-highlight">bezahlbar</span>',
-      d2L: "Diagnosezeit", d2O: '<span class="diff-highlight">6–12 Wochen</span> Diagnose', d2N: 'Keine Wochen, Ergebnisse in <span class="diff-highlight">Tagen</span>',
-      d3L: "Berichtsformat", d3O: "Score- und prozentbasierte Standardberichte", d3N: 'Jede Verschwendung in <span class="diff-highlight">Dollar</span> — konkret',
-      d4L: "Analysetiefe", d4O: "Generische Best-Practice-Empfehlungen", d4N: 'Branchenspezifische, <span class="diff-highlight">datengetriebene</span> Analyse',
-      d5L: "Ergebnis & Nachverfolgung", d5O: "Bericht geliefert — Projekt beendet", d5N: '<span class="diff-highlight">90-Tage</span>-Aktionsplan + ROI-Berechnung',
-      d6L: "Qualitätssicherung", d6O: "Personenabhängig, variable Qualität", d6N: 'Experte + KI-Hybrid — <span class="diff-highlight">gleichbleibende Qualität</span>',
-      diffBottom: "Gleiche Erkenntnis — schneller und günstiger",
-      ctaLabel: "Loslegen",
-      ctaH2: 'Lassen Sie uns Ihre Abläufe <em>röntgen</em>',
-      ctaSmall: "Wir finden die unsichtbare Verschwendung und berechnen, was sie Sie jährlich kostet. Die Branche ist egal — überall wo es einen Wertstrom gibt, gibt es Verschwendung.",
-      ctaP: "Ein kurzes geführtes Gespräch, um Ihr Unternehmen zu verstehen, dann führen wir die Analyse mit maßgeschneiderten Fragen und Daten durch.",
-      ctaBtn: "Analyse starten →",
-      gembaMore: "Mehr über Lean-Philosophie und Gemba erfahren →",
-      footerPricing: 'Preise', footerTerms: 'AGB', footerPrivacy: 'Datenschutz', footerRefund: 'Rückerstattung',
-      footerBrand: '<strong>Gemba<span>X</span></strong> — Röntgen der operativen Verschwendung',
-      footerContact: "Kontakt"
+      footerPricing: 'Pricing', footerTerms: 'Terms', footerPrivacy: 'Privacy', footerRefund: 'Refund'
     },
     ES: {
       logoSub: "Radiografía del Desperdicio Operativo",
@@ -1295,7 +1102,7 @@
       navCta: "Iniciar Análisis",
       heroBadge: "Análisis IA Liderado por Expertos",
       heroH1: "Encontramos los costos ocultos en su empresa.",
-      heroMotto: "Todo lo que no crea valor es desperdicio. Con GembaX, hacemos visible el desperdicio que silenciosamente corroe sus operaciones:",
+      heroMotto: "Todo lo que no crea valor es desperdicio. Con GembaX, hacemos visible el desperdicio que silenciosamente corróe sus operaciones:",
       heroBullet1: "Partimos desde la perspectiva de su cliente — identificando qué realmente crea valor en sus operaciones",
       heroBullet2: "Radiografía operativa con IA para encontrar la raíz del desperdicio",
       heroBullet3: "Calculamos cuánto le cuesta cada desperdicio",
@@ -1307,19 +1114,30 @@
       stat2Num: "7+1", stat2Label: "Categorías de Desperdicio", stat2Desc: "Usamos la clasificación internacional de 7+1 desperdicios, aplicable en todos los sectores.",
       stat3Num: "90 días", stat3Label: "Primeros Resultados", stat3Desc: "Victorias rápidas en 30 días, mejoras estructurales con ahorros medibles en 90 días.",
       gembaLabel: "Nuestra Filosofía",
-      gembaTitle: 'Gemba: <em>Donde ocurre<br>el trabajo real</em>',
+      gembaTitle: "Gemba: <em>El lugar donde<br>ocurre el trabajo real</em>",
       gembaDesc1: '"Gemba" es un término japonés para el lugar donde realmente ocurre el trabajo — la planta, la oficina, el almacén, el punto de venta.',
       gembaDesc2: '<strong style="color: var(--text-primary);">GembaX</strong> combina esta filosofía con IA. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = radiografiamos sus operaciones.',
-      eqGemba: "Gemba", eqGembaVal: 'El lugar de <span>trabajo real</span>',
-      eqXray: "X-Ray", eqXrayVal: 'Análisis <span>profundo</span>',
+      eqGemba: "Gemba", eqGembaVal: "El <span>lugar de trabajo</span> real",
+      eqXray: "X-Ray", eqXrayVal: "Análisis <span>profundo</span>",
       eqResult: "Resultado", eqOutput: "Salida",
       eqOutputText: '"Tiene <strong>$247K</strong> en desperdicio invisible por año. <strong>El 68%</strong> proviene de un solo cuello de botella."',
       processLabel: "Cómo Funciona",
-      processTitle: 'Tres pasos del <em>diagnóstico a la acción</em>',
+      processTitle: "Tres pasos del <em>diagnóstico a la acción</em>",
       processDesc: "Encontrar el problema, calcular el costo, mostrar la solución.",
       proc1Num: "01 — DIAGNÓSTICO", proc1H: "¿Dónde se quema su dinero?", proc1P: "Primero clarificamos qué valoran realmente sus clientes. Luego escaneamos sus operaciones según esa definición en 7+1 categorías de desperdicio. Cada desperdicio se calcula en dólares.", proc1Out: "→ Hidden Cost Report",
       proc2Num: "02 — PRIORIDAD", proc2H: "¿Dónde actuar primero?", proc2P: "El análisis de prioridad identifica sus 3 puntos de mayor impacto. Detección de cuello de botella incluida. La pregunta crítica: ¿comparten estas 3 fuentes de desperdicio una causa raíz común?", proc2Out: "→ Mapa de Prioridades + Cuello de Botella",
       proc3Num: "03 — ACCIÓN", proc3H: "¿Cuánto podemos ahorrar?", proc3P: "Plan de acción priorizado de 90 días: 0-30 días victorias rápidas, 30-60 días medio plazo, 60-90 días estructural.", proc3Out: "→ Hoja de Ruta 90 Días + ROI",
+      
+      rcLabel: "Vista Previa de la Fase 2",
+      rcTitle: "No solo encontramos síntomas, <em>mapeamos la matemática detrás de ellos</em>",
+      rcDesc1: "Tras nuestro escaneo de la Fase 1 con garantía de 100x ROI ($15,000 mínimo de pérdidas de ganancias), no ofrecemos consejos genéricos desde torres de marfil. Mapeamos la realidad de su planta a través de estrictos marcos analíticos de Lean Six Sigma y Teoría de Restricciones (TOC).",
+      rcQuote: '"Encontrar la causa raíz significa detener de forma permanente las pérdidas financieras anuales crónicas con una única contramedida operativa calculada."',
+      rcCite: "Dr. Ingeniero con 20+ Años de Exp. • GembaX",
+      svgSymptom: "Línea-A: Retraso de Cambio",
+      svgR1: "MÁQUINA", svgR2: "MÉTODO", svgR3: "PERSONAL",
+      svgR4: "MATERIAL", svgR5: "MEDICIÓN", svgR6: "ENTORNO",
+      svgRootcause: "Procedimiento de Mantenimiento y Calibración de Precalentamiento Incompleto",
+
       wasteLabel: "Análisis 7+1 Desperdicios",
       wasteTitle: 'TIM WOODS: <em>El mapa universal de desperdicios</em>',
       wasteDesc: "Analizamos sistemáticamente los 7+1 tipos de desperdicio aplicables en cada sector.",
@@ -1356,174 +1174,102 @@
       ctaSmall: "Encontramos el desperdicio que no se ve y calculamos cuánto le cuesta cada año. El sector no importa — donde hay flujo de valor, hay desperdicio.",
       ctaP: "Una breve conversación guiada para entender su empresa, luego realizamos el análisis con preguntas y datos personalizados para usted.",
       ctaBtn: "Iniciar Análisis →",
-      gembaMore: "Conozca más sobre la filosofía Lean y Gemba →",
-      footerPricing: 'Precios', footerTerms: 'Términos', footerPrivacy: 'Privacidad', footerRefund: 'Reembolso',
       footerBrand: '<strong>Gemba<span>X</span></strong> — Radiografía del desperdicio operativo',
-      footerContact: "Contacto"
+      footerPricing: 'Precios', footerTerms: 'Términos', footerPrivacy: 'Privacidad', footerRefund: 'Reembolso'
     },
-    FR: {
-      logoSub: "Radiographie du Gaspillage Opérationnel",
-      navGemba: "Qu'est-ce que Gemba",
-      navMetod: "Méthodologie",
-      navPrice: "Tarifs",
-      navBenchmark: "Voir les Tests Benchmark",
-      navCta: "Lancer l'Analyse",
-      heroBadge: "Analyse IA Guidée par des Experts",
-      heroH1: "Nous trouvons les coûts cachés dans votre entreprise.",
-      heroMotto: "Tout ce qui ne crée pas de valeur est du gaspillage. Avec GembaX, nous rendons visible le gaspillage qui ronge silencieusement vos opérations :",
-      heroBullet1: "Nous partons du regard de vos clients — pour identifier ce qui crée réellement de la valeur dans vos opérations",
-      heroBullet2: "Radiographie opérationnelle par IA pour trouver la source du gaspillage",
-      heroBullet3: "Nous calculons combien chaque gaspillage vous coûte",
-      heroBullet4: "Analyse des causes profondes et plan d'action sur 90 jours",
-      heroBullet5: "Résultats en jours, budget accessible — pas besoin de mois de conseil",
-      heroBtn: "Lancer l'Analyse →",
-      heroBtn2: "Comment ça marche ?",
-      stat1Num: "3–5 %", stat1Label: "Perte de Revenus", stat1Desc: "L'entreprise moyenne perd 3 à 5 % de son chiffre d'affaires annuel en gaspillage opérationnel.",
-      stat2Num: "7+1", stat2Label: "Catégories de Gaspillage", stat2Desc: "Nous utilisons la classification internationale 7+1 des gaspillages, applicable à tous les secteurs.",
-      stat3Num: "90 jours", stat3Label: "Premiers Résultats", stat3Desc: "Gains rapides en 30 jours, améliorations structurelles avec économies mesurables en 90 jours.",
-      gembaLabel: "Notre Philosophie",
-      gembaTitle: 'Gemba : <em>Là où le vrai<br>travail se fait</em>',
-      gembaDesc1: '"Gemba" est un terme japonais désignant le lieu où le travail se fait réellement — l\'usine, le bureau, l\'entrepôt, le point de vente.',
-      gembaDesc2: '<strong style="color: var(--text-primary);">GembaX</strong> allie cette philosophie à l\'IA. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = nous radiographions vos opérations.',
-      eqGemba: "Gemba", eqGembaVal: 'Le vrai <span>lieu de travail</span>',
-      eqXray: "X-Ray", eqXrayVal: 'Analyse <span>approfondie</span>',
-      eqResult: "Résultat", eqOutput: "Sortie",
-      eqOutputText: '"Vous avez <strong>$247K</strong> de gaspillage invisible par an. <strong>68 %</strong> provient d\'un seul goulot d\'étranglement."',
-      processLabel: "Comment ça marche",
-      processTitle: 'Trois étapes du <em>diagnostic à l\'action</em>',
-      processDesc: "Trouver le problème, calculer le coût, montrer la solution.",
-      proc1Num: "01 — DIAGNOSTIC", proc1H: "Où brûle votre argent ?", proc1P: "D'abord nous clarifions ce que vos clients valorisent vraiment. Puis nous scannons vos opérations selon cette définition en 7+1 catégories de gaspillage. Chaque gaspillage est chiffré en dollars.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — PRIORITÉ", proc2H: "Par où commencer ?", proc2P: "L'analyse de priorité identifie vos 3 points de gaspillage à plus fort impact. Détection des goulots incluse. La question clé : ces 3 gaspillages partagent-ils une cause racine commune ?", proc2Out: "→ Carte Priorités + Goulots",
-      proc3Num: "03 — ACTION", proc3H: "Combien peut-on économiser ?", proc3P: "Plan d'action priorisé sur 90 jours : 0-30 jours gains rapides, 30-60 jours moyen terme, 60-90 jours structurel.", proc3Out: "→ Feuille de Route 90 Jours + ROI",
-      wasteLabel: "Analyse 7+1 Gaspillages",
-      wasteTitle: 'TIM WOODS : <em>La carte universelle des gaspillages</em>',
-      wasteDesc: "Nous analysons systématiquement les 7+1 types de gaspillage applicables à chaque secteur.",
-      w1Name: "Gaspillage de Transport", w1Ex: "Mouvements inutiles de matériaux, transferts de données redondants", w1Cost: "Impact typique : $15K–80K/an",
-      w2Name: "Gaspillage de Stock", w2Ex: "Surstock, travail accumulé, capital immobilisé", w2Cost: "Impact typique : $30K–200K/an",
-      w3Name: "Gaspillage de Mouvement", w3Ex: "Déplacements inutiles, changements de tâches, recherche d'info", w3Cost: "Impact typique : $10K–50K/an",
-      w4Name: "Gaspillage d'Attente", w4Ex: "Attente d'approbations, de matériaux ou d'informations", w4Cost: "Impact typique : $20K–120K/an",
-      w5Name: "Surproduction", w5Ex: "Produire plus que nécessaire, rapports inutiles, sorties non utilisées", w5Cost: "Impact typique : $25K–150K/an",
-      w6Name: "Sur-traitement", w6Ex: "Détails inutiles, niveau de qualité non demandé par le client", w6Cost: "Impact typique : $15K–90K/an",
-      w7Name: "Défauts / Retouches", w7Ex: "Rebuts, retouches, retours, perte de clients", w7Cost: "Impact typique : $20K–180K/an",
-      w8Name: "Gaspillage de Talents", w8Ex: "Employés expérimentés coincés sur des tâches de routine", w8Cost: "Impact typique : $20K–100K/an",
-      sectLabel: "Périmètre",
-      sectTitle: 'Partout où il y a un flux de valeur, <em>il y a du gaspillage</em>',
-      sectDesc: "GembaX ne se limite pas aux usines — il fonctionne dans toute entreprise ayant des opérations.",
-      s1H: "Industrie", s1P: "Rebuts, arrêts, pertes de changement, surstock, inefficacité machines.",
-      s2H: "Services & Bureau", s2P: "Attentes, approbations inutiles, re-saisie d'informations, retouches.",
-      s3H: "Commerce de détail", s3P: "Surstock, pertes de démarque, coûts de retours, capital immobilisé.",
-      s4H: "Logistique & Supply Chain", s4P: "Surstock, transport inutile, retards fournisseurs.",
-      s5H: "Technologie & SaaS", s5P: "Fonctionnalités inutilisées, dette technique, cycles de release lents.",
-      s6H: "Opérations Commerciales", s6P: "Cycles de vente longs, faible taux de conversion, fuites dans le pipeline.",
-      diffLabel: "Notre Différence",
-      diffTitle: 'Conseil traditionnel <em>vs. GembaX</em>',
-      diffDesc: "Même objectif, approche différente — les résultats parlent d'eux-mêmes.",
-      diffOldH: "Conseil Traditionnel", diffNewH: "GembaX",
-      d1L: "Coût de Départ", d1O: '<span class="diff-highlight">$30K+</span> démarrage projet', d1N: 'Adapté aux PME — <span class="diff-highlight">accessible</span>',
-      d2L: "Durée du Diagnostic", d2O: '<span class="diff-highlight">6–12 semaines</span> de diagnostic', d2N: 'Pas des semaines, résultats en <span class="diff-highlight">jours</span>',
-      d3L: "Format du Rapport", d3O: "Rapports génériques basés sur des scores et pourcentages", d3N: 'Chaque gaspillage en <span class="diff-highlight">dollars</span> — concret',
-      d4L: "Profondeur d'Analyse", d4O: "Recommandations génériques de bonnes pratiques", d4N: 'Analyse spécifique au secteur, <span class="diff-highlight">basée sur les données</span>',
-      d5L: "Livrable & Suivi", d5O: "Rapport livré — projet terminé", d5N: 'Plan d\'action <span class="diff-highlight">90 jours</span> + calcul du ROI',
-      d6L: "Assurance Qualité", d6O: "Dépendant de la personne, qualité variable", d6N: 'Hybride expert + IA — <span class="diff-highlight">qualité constante</span>',
-      diffBottom: "Même insight — plus rapide et plus abordable",
-      ctaLabel: "Commencer",
-      ctaH2: 'Faisons la <em>radiographie</em> de vos opérations',
-      ctaSmall: "Nous trouvons le gaspillage invisible et calculons combien il vous coûte chaque année. Le secteur importe peu — partout où il y a un flux de valeur, il y a du gaspillage.",
-      ctaP: "Une courte conversation guidée pour comprendre votre entreprise, puis nous réalisons l'analyse avec des questions et données personnalisées.",
-      ctaBtn: "Lancer l'Analyse →",
-      gembaMore: "En savoir plus sur la philosophie Lean et le Gemba →",
-      footerPricing: 'Tarifs', footerTerms: 'CGV', footerPrivacy: 'Confidentialité', footerRefund: 'Remboursement',
-      footerBrand: '<strong>Gemba<span>X</span></strong> — Radiographie du gaspillage opérationnel',
-      footerContact: "Contact"
-    },
-    PT: {
-      logoSub: "Radiografia do Desperdício Operacional",
-      navGemba: "O que é Gemba",
-      navMetod: "Metodologia",
-      navPrice: "Preços",
-      navBenchmark: "Ver Testes de Benchmark",
-      navCta: "Iniciar Análise",
-      heroBadge: "Análise IA Liderada por Especialistas",
-      heroH1: "Encontramos os custos ocultos na sua empresa.",
-      heroMotto: "Tudo o que não cria valor é desperdício. Com o GembaX, tornamos visível o desperdício que silenciosamente corrói suas operações:",
-      heroBullet1: "Partimos da perspectiva do seu cliente — identificando o que realmente cria valor nas suas operações",
-      heroBullet2: "Radiografia operacional com IA para encontrar a raiz do desperdício",
-      heroBullet3: "Calculamos quanto cada desperdício custa para você",
-      heroBullet4: "Análise de causa raiz e plano de ação de 90 dias",
-      heroBullet5: "Resultados em dias, com orçamento acessível — sem meses de consultoria",
-      heroBtn: "Iniciar Análise →",
-      heroBtn2: "Como Funciona?",
-      stat1Num: "3–5%", stat1Label: "Perda de Receita", stat1Desc: "A empresa média perde de 3 a 5% da receita anual com desperdício operacional.",
-      stat2Num: "7+1", stat2Label: "Categorias de Desperdício", stat2Desc: "Usamos a classificação internacional 7+1 de desperdícios, aplicável em todos os setores.",
-      stat3Num: "90 dias", stat3Label: "Primeiros Resultados", stat3Desc: "Ganhos rápidos em 30 dias, melhorias estruturais com economias mensuráveis em 90 dias.",
-      gembaLabel: "Nossa Filosofia",
-      gembaTitle: 'Gemba: <em>Onde o trabalho<br>real acontece</em>',
-      gembaDesc1: '"Gemba" é um termo japonês para o lugar onde o trabalho realmente acontece — o chão de fábrica, o escritório, o armazém, o ponto de venda.',
-      gembaDesc2: '<strong style="color: var(--text-primary);">GembaX</strong> combina essa filosofia com IA. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = radiografamos suas operações.',
-      eqGemba: "Gemba", eqGembaVal: 'O verdadeiro <span>local de trabalho</span>',
-      eqXray: "X-Ray", eqXrayVal: 'Análise <span>profunda</span>',
-      eqResult: "Resultado", eqOutput: "Saída",
-      eqOutputText: '"Você tem <strong>$247K</strong> em desperdício invisível por ano. <strong>68%</strong> vem de um único gargalo."',
-      processLabel: "Como Funciona",
-      processTitle: 'Três passos do <em>diagnóstico à ação</em>',
-      processDesc: "Encontrar o problema, calcular o custo, mostrar a solução.",
-      proc1Num: "01 — DIAGNÓSTICO", proc1H: "Onde seu dinheiro está queimando?", proc1P: "Primeiro esclarecemos o que seus clientes realmente valorizam. Depois escaneamos suas operações conforme essa definição em 7+1 categorias de desperdício. Cada desperdício é calculado em dólares.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — PRIORIDADE", proc2H: "Onde agir primeiro?", proc2P: "A análise de prioridade identifica seus 3 pontos de maior impacto. Detecção de gargalo incluída. A pergunta crítica: esses 3 desperdícios compartilham uma causa-raiz comum?", proc2Out: "→ Mapa de Prioridades + Gargalo",
-      proc3Num: "03 — AÇÃO", proc3H: "Quanto podemos economizar?", proc3P: "Plano de ação priorizado de 90 dias: 0-30 dias ganhos rápidos, 30-60 dias médio prazo, 60-90 dias estrutural.", proc3Out: "→ Roteiro 90 Dias + ROI",
-      wasteLabel: "Análise 7+1 Desperdícios",
-      wasteTitle: 'TIM WOODS: <em>O mapa universal de desperdícios</em>',
-      wasteDesc: "Analisamos sistematicamente os 7+1 tipos de desperdício aplicáveis em cada setor.",
-      w1Name: "Desperdício de Transporte", w1Ex: "Movimentação desnecessária de materiais, transferências de dados redundantes", w1Cost: "Impacto típico: $15K–80K/ano",
-      w2Name: "Desperdício de Estoque", w2Ex: "Excesso de estoque, trabalho acumulado, capital imobilizado", w2Cost: "Impacto típico: $30K–200K/ano",
-      w3Name: "Desperdício de Movimento", w3Ex: "Deslocamentos desnecessários, troca de tarefas, busca de informações", w3Cost: "Impacto típico: $10K–50K/ano",
-      w4Name: "Desperdício de Espera", w4Ex: "Esperar aprovações, materiais ou informações", w4Cost: "Impacto típico: $20K–120K/ano",
-      w5Name: "Superprodução", w5Ex: "Produzir mais do que o necessário, relatórios desnecessários, saídas não utilizadas", w5Cost: "Impacto típico: $25K–150K/ano",
-      w6Name: "Superprocessamento", w6Ex: "Detalhes desnecessários, nível de qualidade que o cliente não precisa", w6Cost: "Impacto típico: $15K–90K/ano",
-      w7Name: "Defeitos / Retrabalho", w7Ex: "Sucata, retrabalho, devoluções, clientes perdidos", w7Cost: "Impacto típico: $20K–180K/ano",
-      w8Name: "Desperdício de Talento", w8Ex: "Funcionários experientes presos em tarefas rotineiras", w8Cost: "Impacto típico: $20K–100K/ano",
-      sectLabel: "Abrangência",
-      sectTitle: 'Onde há fluxo de valor, <em>há desperdício</em>',
-      sectDesc: "O GembaX não é só para fábricas — funciona em toda empresa com operações.",
-      s1H: "Manufatura", s1P: "Sucata, paradas, perdas de setup, excesso de estoque, ineficiência de máquinas.",
-      s2H: "Serviços e Escritório", s2P: "Esperas, aprovações desnecessárias, reentrada de informações, retrabalho.",
-      s3H: "Varejo", s3P: "Excesso de estoque, perdas com descontos, custos de devolução, capital imobilizado.",
-      s4H: "Logística e Cadeia de Suprimentos", s4P: "Excesso de estoque, transporte desnecessário, atrasos de fornecedores.",
-      s5H: "Tecnologia e SaaS", s5P: "Funcionalidades não utilizadas, dívida técnica, ciclos de lançamento lentos.",
-      s6H: "Operações de Vendas", s6P: "Ciclos de vendas longos, baixa taxa de conversão, vazamentos no pipeline.",
-      diffLabel: "Nosso Diferencial",
-      diffTitle: 'Consultoria tradicional <em>vs. GembaX</em>',
-      diffDesc: "Mesmo objetivo, abordagem diferente — os resultados falam por si.",
-      diffOldH: "Consultoria Tradicional", diffNewH: "GembaX",
-      d1L: "Custo Inicial", d1O: '<span class="diff-highlight">$30K+</span> início de projeto', d1N: 'Adequado para PMEs — <span class="diff-highlight">acessível</span>',
-      d2L: "Tempo de Diagnóstico", d2O: '<span class="diff-highlight">6–12 semanas</span> de diagnóstico', d2N: 'Não semanas, resultados em <span class="diff-highlight">dias</span>',
-      d3L: "Formato do Relatório", d3O: "Relatórios genéricos baseados em scores e percentuais", d3N: 'Cada desperdício em <span class="diff-highlight">dólares</span> — concreto',
-      d4L: "Profundidade da Análise", d4O: "Recomendações genéricas de melhores práticas", d4N: 'Análise específica do setor, <span class="diff-highlight">baseada em dados</span>',
-      d5L: "Entrega e Acompanhamento", d5O: "Relatório entregue — projeto termina", d5N: 'Plano de ação de <span class="diff-highlight">90 dias</span> + cálculo de ROI',
-      d6L: "Garantia de Qualidade", d6O: "Dependente da pessoa, qualidade variável", d6N: 'Híbrido especialista + IA — <span class="diff-highlight">qualidade consistente</span>',
-      diffBottom: "Mesmo insight — mais rápido e mais acessível",
-      ctaLabel: "Começar",
-      ctaH2: 'Vamos fazer a <em>radiografia</em> das suas operações',
-      ctaSmall: "Encontramos o desperdício que você não vê e calculamos quanto cada um custa por ano. O setor não importa — onde há fluxo de valor, há desperdício.",
-      ctaP: "Uma breve conversa guiada para entender sua empresa, depois realizamos a análise com perguntas e dados personalizados para você.",
-      ctaBtn: "Iniciar Análise →",
-      gembaMore: "Saiba mais sobre a filosofia Lean e o Gemba →",
-      footerPricing: 'Preços', footerTerms: 'Termos', footerPrivacy: 'Privacidade', footerRefund: 'Reembolso',
-      footerBrand: '<strong>Gemba<span>X</span></strong> — Radiografia do desperdício operacional',
-      footerContact: "Contato"
+    TR: {
+      logoSub: "Operasyonel İsrafın Röntgeni",
+      navGemba: "Gemba Nedir",
+      navMetod: "Metodoloji",
+      navPrice: "Fiyatlar",
+      navBenchmark: "Benchmark Testlerini İncele",
+      navCta: "Analizi Başlat",
+      heroBadge: "Uzman Liderliğinde AI Analizi",
+      heroH1: "İşletmenizdeki gizli maliyetleri buluyoruz.",
+      heroMotto: 'Değer üretmeyen her şey israftır. GembaX ile işletmenizin kalbinde gizliden gizliye kemiren israfı görünür kılıyoruz:',
+      heroBullet1: "Müşterinizin gözünden bakarak, operasyonunuzda neyin gerçekten değer yarattığını belirliyoruz",
+      heroBullet2: "AI-destekli operasyonel röntgen ile israfın kaynağına iniyoruz",
+      heroBullet3: "İsrafın size kaça mal olduğunu hesaplıyoruz",
+      heroBullet4: "Sorunların kök nedenleri ve 90 günlük aksiyon planı çıkarıyoruz",
+      heroBullet5: "Günler içinde, erişilebilir bütçeyle — aylarca süren danışmanlığa gerek yok",
+      heroBtn: "Analizi Başlat →",
+      heroBtn2: "Nasıl Çalışır?",
+      stat1Num: "%3–5", stat1Label: "Gelir Kaybı", stat1Desc: "Ortalama bir işletme, yıllık gelirinin %3–5'ini operasyonel israfla kaybeder.",
+      stat2Num: "7+1", stat2Label: "İsraf Kategorisi", stat2Desc: "Uluslararası standart 7+1 israf sınıflandırması ile her sektörde geçerli analiz yapıyoruz.",
+      stat3Num: "90 gün", stat3Label: "İlk Sonuçlar", stat3Desc: "Hızlı kazanımlarla 30 günde, yapısal iyileştirmelerle 90 günde ölçülebilir tasarruf.",
+      gembaLabel: "Felsefemiz",
+      gembaTitle: 'Gemba: <em>Gerçek işin<br>yapıldığı yer</em>',
+      gembaDesc1: '"Gemba" Japonca\'da işin fiilen gerçekleştiği yeri ifade eder — fabrika sahası, ofis, depo, satış noktası.',
+      gembaDesc2: '<strong style="color: var(--text-primary);">GembaX</strong>, bu felsefeyi AI ile birleştiriyor. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = operasyonlarınızın röntgenini çekiyoruz.',
+      eqGemba: "Gemba", eqGembaVal: 'Gerçek <span>iş yeri</span>',
+      eqXray: "X-Ray", eqXrayVal: 'Derin <span>analiz</span>',
+      eqResult: "Sonuç", eqOutput: "Çıktı",
+      eqOutputText: '"Yılda <strong>$247K</strong> görünmez israfınız var. <strong>%68\'i</strong> tek bir darboğazdan kaynaklanıyor."',
+      processLabel: "Nasıl Çalışır",
+      processTitle: 'Üç adımda <em>teşhisten aksiyona</em>',
+      processDesc: "Sorunu bul, maliyetini hesapla, çözüm yolunu göster.",
+      proc1Num: "01 — TEŞHİS", proc1H: "Paranız nerede yanıyor?", proc1P: "Önce müşteriniz için neyin değerli olduğunu netleştiriyoruz. Sonra operasyonunuzu bu değer tanımına göre 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.", proc1Out: "→ Hidden Cost Report",
+      proc2Num: "02 — ÖNCELİK", proc2H: "Önce nereye dokunmalı?", proc2P: "Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz. Kritik soru: Bu 3 israfın ortak bir kök nedeni var mı?", proc2Out: "→ Öncelik + Darboğaz Haritası",
+      proc3Num: "03 — AKSİYON", proc3H: "Ne kadar kurtarabiliriz?", proc3P: "90 günlük öncelikli aksiyon planı: 0-30 gün hızlı kazanımlar, 30-60 gün orta vadeli, 60-90 gün yapısal.", proc3Out: "→ 90 Günlük Yol Haritası + ROI",
+      
+      rcLabel: "Aşama 2 Önizleme",
+      rcTitle: "Sadece semptomları değil, <em>matematiği haritalandırıyoruz</em>",
+      rcDesc1: "Aşama 1'deki 100x ROI garantili kâr kaçağı röntgeninin ardından; fildişi kulelerden jenerik tavsiyeler vermek yerine, sahadan gelen verileri endüstriyel Six Sigma ve Kısıtlar Teorisi metodolojisiyle kök nedene bağlıyoruz.",
+      rcQuote: '"Kök nedeni bulmak, her yıl tekrarlayan kronik zararları ve kâr kaçaklarını tek bir operasyonel hamleyle kalıcı olarak durdurmaktır."',
+      rcCite: "20+ Yıllık Deneyimli Dr. Mühendis • GembaX",
+      svgSymptom: "Hat-A: Kalıp Değişim Gecikmesi",
+      svgR1: "MAKİNE", svgR2: "METOD", svgR3: "İNSAN",
+      svgR4: "MALZEME", svgR5: "ÖLÇÜM", svgR6: "ÇEVRE",
+      svgRootcause: "Eksik Ön Isıtma Kalibrasyonu ve Bakım Prosedürü",
+
+      wasteLabel: "7+1 İsraf Analizi",
+      wasteTitle: 'TIM WOODS: <em>Evrensel israf haritası</em>',
+      wasteDesc: "Her sektörde geçerli olan 7+1 israf türünü sistematik olarak analiz ediyoruz.",
+      w1Name: "Taşıma İsrafı", w1Ex: "Gereksiz malzeme hareketi, tekrarlanan veri transferi", w1Cost: "Tipik etki: $15K–80K/yıl",
+      w2Name: "Stok İsrafı", w2Ex: "Fazla stok, birikmiş iş yığını, bağlanan nakit", w2Cost: "Tipik etki: $30K–200K/yıl",
+      w3Name: "Hareket İsrafı", w3Ex: "Gereksiz yürüme, iş arası dağılma, bilgi arama", w3Cost: "Tipik etki: $10K–50K/yıl",
+      w4Name: "Bekleme İsrafı", w4Ex: "Onay bekleme, malzeme bekleme, bilgi bekleme", w4Cost: "Tipik etki: $20K–120K/yıl",
+      w5Name: "Aşırı Üretim", w5Ex: "İhtiyaçtan fazla üretim, gereksiz rapor, kullanılmayan çıktı", w5Cost: "Tipik etki: $25K–150K/yıl",
+      w6Name: "Gereğinden Fazla İşlem", w6Ex: "Gereksiz detay, müşterinin istemediği kalite seviyesi", w6Cost: "Tipik etki: $15K–90K/yıl",
+      w7Name: "Hata / Düzeltme", w7Ex: "Hurda, yeniden yapma, iade, müşteri kaybı", w7Cost: "Tipik etki: $20K–180K/yıl",
+      w8Name: "Yetenek İsrafı", w8Ex: "Deneyimli çalışanın rutin işle uğraşması", w8Cost: "Tipik etki: $20K–100K/yıl",
+      sectLabel: "Kapsam",
+      sectTitle: 'Değer akışı olan <em>her yerde</em> israf vardır',
+      sectDesc: "GembaX sadece fabrika değil — operasyonu olan her işletmede çalışır.",
+      s1H: "Manufacturing", s1P: "Hurda, duruş, kalıp değişim kaybı, fazla stok, makine verimsizliği.",
+      s2H: "Hizmet & Ofis", s2P: "Bekleme, gereksiz onay, bilgi tekrarı, yeniden yapma.",
+      s3H: "Perakende", s3P: "Stok fazlası, indirim kaybı, iade maliyeti, bağlanan nakit.",
+      s4H: "Lojistik & Tedarik Zinciri", s4P: "Fazla stok, gereksiz taşıma, tedarikçi gecikmesi.",
+      s5H: "Teknoloji & SaaS", s5P: "Kullanılmayan özellik, teknik borç, yavaş yayınlama döngüsü.",
+      s6H: "Satış Operasyonları", s6P: "Uzun satış döngüsü, düşük dönüşüm oranı, satış sürecindeki kayıp.",
+      diffLabel: "Farkımız",
+      diffTitle: 'Geleneksel danışmanlık <em>vs. GembaX</em>',
+      diffDesc: "Aynı hedef, farklı yaklaşım — sonuçlar da o kadar farklı.",
+      diffOldH: "Geleneksel Danışmanlık", diffNewH: "GembaX",
+      d1L: "Başlangıç Maliyeti", d1O: '<span class="diff-highlight">$30K+</span> proje başlangıç', d1N: 'KOBİ bütçesine uygun — <span class="diff-highlight">erişilebilir</span>',
+      d2L: "Teşhis Süresi", d2O: '<span class="diff-highlight">6–12 hafta</span> teşhis süresi', d2N: 'Haftalar değil, <span class="diff-highlight">günler</span> içinde sonuç',
+      d3L: "Rapor Formatı", d3O: "Skor ve yüzde bazlı genel raporlar", d3N: 'Her israf <span class="diff-highlight">dolar cinsinden</span> — somut',
+      d4L: "Analiz Derinliği", d4O: "Jenerik best-practice önerileri", d4N: 'Sektörünüze özel, <span class="diff-highlight">veriye dayalı</span> analiz',
+      d5L: "Çıktı & Takip", d5O: "Rapor teslim — proje biter", d5N: '<span class="diff-highlight">90 günlük</span> aksiyon planı + ROI hesabı',
+      d6L: "Kalite Güvencesi", d6O: "Kişiye bağımlı, değişken kalite", d6N: 'Uzman + AI hibrit — <span class="diff-highlight">tutarlı kalite</span>',
+      diffBottom: "Aynı içgörü — daha hızlı ve ucuz",
+      ctaLabel: "Başlayın",
+      ctaH2: 'Operasyonlarınızın <em>röntgenini</em> çekelim',
+      ctaSmall: "Gözle görülmeyen israfı buluyor, her birinin size yılda kaç dolara mal olduğunu hesaplıyoruz. Sektör fark etmez — değer akışı olan her yerde israf vardır.",
+      ctaP: "Kısa bir sohbette işletmenizi tanıyalım, sonra size özel hazırlanmış sorular ve verilerle analizi yapalım.",
+      ctaBtn: "Analizi Başlat →",
+      footerBrand: '<strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni',
+      footerPricing: 'Fiyatlar', footerTerms: 'Şartlar', footerPrivacy: 'Gizlilik', footerRefund: 'İade'
     }
   };
 
-  // Element mapping — selector → translation key
-  // Uses querySelectorAll index or unique selectors
   function applyLang(lang) {
     const t = T[lang]; if (!t) return;
     const $ = (s) => document.querySelector(s);
     const $$ = (s) => document.querySelectorAll(s);
 
-    // HTML lang attr
-    document.documentElement.lang = {TR:'tr',EN:'en',DE:'de',ES:'es',FR:'fr',PT:'pt'}[lang] || 'en';
+    document.documentElement.lang = {TR:'tr',EN:'en',ES:'es'}[lang] || 'en';
 
-    // NAV
     $('.logo-sub').textContent = t.logoSub;
     const nlg = $('.nav-link-gemba'); if (nlg) nlg.textContent = t.navGemba;
     const nlm = $('.nav-link-metod'); if (nlm) nlm.textContent = t.navMetod;
@@ -1531,34 +1277,26 @@
     $('.nav-benchmark').textContent = t.navBenchmark;
     $('.nav-cta').textContent = t.navCta;
 
-    // HERO
     $('.hero-badge').textContent = t.heroBadge;
-    // Re-add the pulse dot
-    const badge = $('.hero-badge');
-    if (!badge.querySelector('.badge-dot')) {
-      // The ::before pseudo handles this via CSS, no action needed
-    }
     $('.hero h1').textContent = t.heroH1;
-    // hero-motto — plain text (em/strong handled by CSS)
-    const motto = $('.hero-motto');
-    if (motto) motto.textContent = t.heroMotto;
+    const motto = $('.hero-motto'); if (motto) motto.textContent = t.heroMotto;
+    
     const bullets = $$('.hero-bullets li');
     if (bullets[0]) bullets[0].textContent = t.heroBullet1;
     if (bullets[1]) bullets[1].textContent = t.heroBullet2;
     if (bullets[2]) bullets[2].textContent = t.heroBullet3;
     if (bullets[3]) bullets[3].textContent = t.heroBullet4;
     if (bullets[4]) bullets[4].textContent = t.heroBullet5;
+    
     const heroActions = $$('.hero-actions a');
     if (heroActions[0]) heroActions[0].textContent = t.heroBtn;
     if (heroActions[1]) heroActions[1].textContent = t.heroBtn2;
 
-    // STATS
     const stats = $$('.stat-item');
     if (stats[0]) { stats[0].querySelector('.stat-number').textContent = t.stat1Num; stats[0].querySelector('.stat-label').textContent = t.stat1Label; stats[0].querySelector('.stat-desc').textContent = t.stat1Desc; }
     if (stats[1]) { stats[1].querySelector('.stat-number').textContent = t.stat2Num; stats[1].querySelector('.stat-label').textContent = t.stat2Label; stats[1].querySelector('.stat-desc').textContent = t.stat2Desc; }
     if (stats[2]) { stats[2].querySelector('.stat-number').textContent = t.stat3Num; stats[2].querySelector('.stat-label').textContent = t.stat3Label; stats[2].querySelector('.stat-desc').textContent = t.stat3Desc; }
 
-    // GEMBA
     const gemba = $('#gemba');
     if (gemba) {
       gemba.querySelector('.section-label').textContent = t.gembaLabel;
@@ -1575,7 +1313,6 @@
       if (eqOut) { eqOut.querySelector('.eq-box-label').textContent = t.eqOutput; eqOut.querySelector('.eq-output-text').innerHTML = t.eqOutputText; }
     }
 
-    // PROCESS
     const proc = $('#process');
     if (proc) {
       proc.querySelector('.section-label').textContent = t.processLabel;
@@ -1587,7 +1324,23 @@
       if (cards[2]) { cards[2].querySelector('.process-num').textContent = t.proc3Num; cards[2].querySelector('h3').textContent = t.proc3H; cards[2].querySelector('p').textContent = t.proc3P; cards[2].querySelector('.process-output').textContent = t.proc3Out; }
     }
 
-    // WASTE
+    const rc = $('#root-cause-preview');
+    if (rc) {
+      rc.querySelector('.section-label').textContent = t.rcLabel;
+      rc.querySelector('.section-title').innerHTML = t.rcTitle;
+      rc.querySelector('.section-desc').textContent = t.rcDesc1;
+      rc.querySelector('.pull-quote p').textContent = t.rcQuote;
+      rc.querySelector('.pull-quote cite').textContent = t.rcCite;
+      rc.querySelector('#svg-symptom').textContent = t.svgSymptom;
+      rc.querySelector('#svg-r1').textContent = t.svgR1;
+      rc.querySelector('#svg-r2').textContent = t.svgR2;
+      rc.querySelector('#svg-r3').textContent = t.svgR3;
+      rc.querySelector('#svg-r4').textContent = t.svgR4;
+      rc.querySelector('#svg-r5').textContent = t.svgR5;
+      rc.querySelector('#svg-r6').textContent = t.svgR6;
+      rc.querySelector('#svg-rootcause').textContent = t.svgRootcause;
+    }
+
     const waste = $('#waste');
     if (waste) {
       waste.querySelector('.section-label').textContent = t.wasteLabel;
@@ -1603,7 +1356,6 @@
       });
     }
 
-    // SECTORS
     const sect = $('#sectors');
     if (sect) {
       sect.querySelector('.section-label').textContent = t.sectLabel;
@@ -1618,7 +1370,6 @@
       });
     }
 
-    // DIFF
     const diffSection = $$('section');
     let diffSec = null;
     diffSection.forEach(s => { if (s.querySelector('.diff-table')) diffSec = s; });
@@ -1650,86 +1401,16 @@
       }
     }
 
-    const pricing = $('#pricing');
-    if (pricing) {
-      pricing.querySelector('.section-label').textContent = t.priceLabel;
-      pricing.querySelector('.section-title').innerHTML = t.priceTitle;
-      pricing.querySelector('.section-desc').textContent = t.priceSubtitle;
-      // Cards
-      const cards = pricing.querySelectorAll('.pricing-card');
-      if (cards[0]) {
-        cards[0].querySelector('.pricing-desc').textContent = t.priceDesc1;
-        cards[0].querySelectorAll('.pricing-period').forEach(el => el.textContent = t.pricePeriod);
-        const f1 = cards[0].querySelectorAll('.pricing-features li');
-        if(f1[0]) f1[0].textContent = t.pf1a; if(f1[1]) f1[1].textContent = t.pf1b;
-        if(f1[2]) f1[2].textContent = t.pf1c; if(f1[3]) f1[3].textContent = t.pf1d;
-        if(f1[4]) f1[4].textContent = t.pf1e;
-        cards[0].querySelector('.pricing-btn').textContent = t.priceBtn1;
-      }
-      if (cards[1]) {
-        const badge = cards[1].querySelector('.pricing-badge');
-        if (badge) badge.textContent = t.priceBadge;
-        cards[1].querySelector('.pricing-desc').textContent = t.priceDesc2;
-        cards[1].querySelectorAll('.pricing-period').forEach(el => el.textContent = t.pricePeriod);
-        const f2 = cards[1].querySelectorAll('.pricing-features li');
-        if(f2[0]) f2[0].textContent = t.pf2a; if(f2[1]) f2[1].textContent = t.pf2b;
-        if(f2[2]) f2[2].textContent = t.pf2c; if(f2[3]) f2[3].textContent = t.pf2d;
-        if(f2[4]) f2[4].textContent = t.pf2e; if(f2[5]) f2[5].textContent = t.pf2f;
-        if(f2[6]) f2[6].textContent = t.pf2g;
-        cards[1].querySelector('.pricing-btn').textContent = t.priceBtn2;
-      }
-      if (cards[2]) {
-        cards[2].querySelector('.pricing-desc').textContent = t.priceDesc3;
-        const customAmt = cards[2].querySelector('.pricing-custom');
-        if (customAmt) customAmt.textContent = t.priceCustom;
-        const customPeriod = cards[2].querySelector('.pricing-period');
-        if (customPeriod) customPeriod.textContent = t.priceCustomPeriod;
-        const f3 = cards[2].querySelectorAll('.pricing-features li');
-        if(f3[0]) f3[0].textContent = t.pf3a; if(f3[1]) f3[1].textContent = t.pf3b;
-        if(f3[2]) f3[2].textContent = t.pf3c; if(f3[3]) f3[3].textContent = t.pf3d;
-        if(f3[4]) f3[4].textContent = t.pf3e; if(f3[5]) f3[5].textContent = t.pf3f;
-        cards[2].querySelector('.pricing-btn').textContent = t.priceBtn3;
-      }
-      // Guarantee
-      const gTitle = pricing.querySelector('[data-i18n="priceGuaranteeTitle"]');
-      if (gTitle) gTitle.textContent = t.priceGuaranteeTitle;
-      const gText = pricing.querySelector('[data-i18n="priceGuaranteeText"]');
-      if (gText) gText.textContent = t.priceGuaranteeText;
-      const gLink = pricing.querySelector('[data-i18n="priceGuaranteeLink"]');
-      if (gLink) gLink.textContent = t.priceGuaranteeLink;
-    }
-
-    // CTA
     const cta = $('#cta');
     if (cta) {
       cta.querySelector('.section-label').textContent = t.ctaLabel;
       cta.querySelector('h2').innerHTML = t.ctaH2;
       cta.querySelector('.cta-small').textContent = t.ctaSmall;
-      // Get the paragraph that's not cta-small
       const ps = cta.querySelectorAll('p');
       ps.forEach(p => { if (!p.classList.contains('cta-small')) p.textContent = t.ctaP; });
       cta.querySelector('.btn-primary').textContent = t.ctaBtn;
     }
 
-
-    // GEMBA (slim)
-    const gEl = (id) => document.getElementById(id);
-    if (gEl('gemba-label')) gEl('gemba-label').textContent = t.gembaLabel;
-    if (gEl('gemba-title')) gEl('gemba-title').innerHTML = t.gembaTitle;
-    if (gEl('gemba-desc1')) gEl('gemba-desc1').textContent = t.gembaDesc1;
-    if (gEl('gemba-desc2')) gEl('gemba-desc2').innerHTML = t.gembaDesc2;
-    if (gEl('gemba-more-link')) gEl('gemba-more-link').textContent = t.gembaMore;
-    if (gEl('eq-gemba-label')) gEl('eq-gemba-label').textContent = t.eqGemba;
-    if (gEl('eq-gemba-val')) gEl('eq-gemba-val').innerHTML = t.eqGembaVal;
-    if (gEl('eq-xray-label')) gEl('eq-xray-label').textContent = t.eqXray;
-    if (gEl('eq-xray-val')) gEl('eq-xray-val').innerHTML = t.eqXrayVal;
-    if (gEl('eq-result-label')) gEl('eq-result-label').textContent = t.eqResult;
-    if (gEl('eq-output-label')) gEl('eq-output-label').textContent = t.eqOutput;
-    if (gEl('eq-output-text')) gEl('eq-output-text').innerHTML = t.eqOutputText;
-
-    // (Dijital Gemba moved to /metodoloji.html)
-
-    // FOOTER
     const fb = document.querySelector('.footer-brand');
     if (fb) fb.innerHTML = t.footerBrand;
     const fll = document.querySelectorAll('.footer-link-legal');
@@ -1737,49 +1418,28 @@
     if (fll[1]) fll[1].textContent = t.footerTerms;
     if (fll[2]) fll[2].textContent = t.footerPrivacy;
     if (fll[3]) fll[3].textContent = t.footerRefund;
-
-    // Update page title
-    const titles = { TR: "GembaX — Operasyonel İsrafın Röntgeni", EN: "GembaX — X-Ray of Operational Waste", DE: "GembaX — Röntgen der operativen Verschwendung", ES: "GembaX — Radiografía del Desperdicio Operativo", FR: "GembaX — Radiographie du Gaspillage Opérationnel", PT: "GembaX — Radiografia do Desperdício Operacional" };
-    document.title = titles[lang] || titles.TR;
   }
 
-  // Language selection handler
   function selectLang(e) {
     e.preventDefault();
     const el = e.currentTarget;
     const lang = el.dataset.lang;
-    // Update toggle text
     document.getElementById('langToggle').firstChild.textContent = lang + ' ';
-    // Update active state
     document.querySelectorAll('.lang-menu a').forEach(a => a.classList.remove('active'));
     el.classList.add('active');
-    // Close dropdown
     document.getElementById('langDropdown').classList.remove('open');
-    // Apply translation
     applyLang(lang);
-    // Store preference
     try { localStorage.setItem('gembax-lang', lang); } catch(e) {}
   }
 
-  // On load, check stored preference
-  try {
-    const stored = localStorage.getItem('gembax-lang');
-    if (stored && T[stored] && stored !== 'TR') {
-      applyLang(stored);
-      document.getElementById('langToggle').firstChild.textContent = stored + ' ';
-      document.querySelectorAll('.lang-menu a').forEach(a => {
-        a.classList.toggle('active', a.dataset.lang === stored);
-      });
-    }
-  } catch(e) {}
-
-  // Scroll progress bar
-  window.addEventListener('scroll', function() {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const progress = (scrollTop / scrollHeight) * 100;
-    document.getElementById('scrollBar').style.width = progress + '%';
+  const saved = localStorage.getItem('gembax-lang') || 'EN';
+  applyLang(saved);
+  document.getElementById('langToggle').firstChild.textContent = saved + ' ';
+  document.querySelectorAll('.lang-menu a').forEach(a => {
+    a.classList.toggle('active', a.dataset.lang === saved);
   });
 </script>
 </body>
 </html>
+
+```
