@@ -177,7 +177,6 @@
     align-items: center; gap: 3rem;
     padding: 7rem 3rem 3rem; max-width: 1200px; margin: 0 auto;
   }
-  .hero-text { }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 0.5rem;
     background: var(--accent-glow); border: 1px solid var(--border-accent);
@@ -281,245 +280,624 @@
   .stats-inner .stat-item .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; font-weight: 500; }
   .stats-inner .stat-item .stat-desc { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; }
 
-  .blueprint-divider {
-    display: flex; align-items: center; justify-content: center;
-    padding: 0; margin: 0 auto; max-width: 1200px;
-  }
+  /* SECTIONS */
+  section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 400; font-style: italic; }
+  .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
+  .section-title em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .section-desc { color: var(--text-secondary); font-size: 1.15rem; max-width: 620px; line-height: 1.7; margin-bottom: 3rem; }
 
   /* GEMBA */
-  <section id="gemba">
-    <div class="gemba-grid">
-      <div class="gemba-text">
-        <div class="section-label" id="gemba-label">Our Philosophy</div>
-        <h2 class="section-title" id="gemba-title">Gemba: <em>Where the real<br>work happens</em></h2>
-        <p class="section-desc" id="gemba-desc1">"Gemba" is a Japanese term for the place where work actually happens — the factory floor, the office, the warehouse, the point of sale.</p>
-        <p class="section-desc" style="margin-top: -1.5rem;" id="gemba-desc2">
-          <strong style="color: var(--text-primary);">GembaX</strong> combines this philosophy with AI. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = we X-ray your operations.
-        </p>
-        <a href="/gemba-nedir.html" style="display:inline-block; margin-top:1rem; font-family:var(--font-mono); font-size:0.82rem; color:var(--accent); font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:2px;" class="gemba-more-link" id="gemba-more-link">Learn more about Lean philosophy and Gemba →</a>
+  .gemba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .gemba-text { padding-right: 2rem; }
+  .gemba-visual { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+  .gemba-visual::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 40%, var(--accent-glow) 0%, transparent 60%); pointer-events: none; }
+  .gemba-equation { position: relative; z-index: 1; }
+  .eq-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+  .eq-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.5rem; flex: 1; }
+  .eq-box-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem; }
+  .eq-box-value { font-size: 1.15rem; font-weight: 600; }
+  .eq-box-value span { color: var(--accent); }
+  .eq-plus { font-family: var(--font-mono); color: var(--text-muted); font-size: 1.5rem; font-weight: 700; flex-shrink: 0; }
+  .eq-result { background: var(--accent-glow); border: 1px solid var(--border-accent); border-radius: 12px; padding: 1.2rem 1.5rem; text-align: center; }
+  .eq-result-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-dark); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem; }
+  .eq-result-value { font-size: 1.6rem; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+  .eq-output-box { margin-top: 1.5rem; padding: 1.2rem; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border); }
+  .eq-output-box .eq-box-label { margin-bottom: 0.5rem; }
+  .eq-output-text { font-size: 0.98rem; color: var(--text-secondary); line-height: 1.6; }
+  .eq-output-text strong { color: var(--accent); font-weight: 700; font-family: var(--font-mono); }
+
+  /* PROCESS */
+  .process-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .process-card { position: relative; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.03); }
+  .process-card:hover { border-color: var(--border-accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .process-num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1rem; font-weight: 700; }
+  .process-card h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .process-card p { color: var(--text-secondary); font-size: 1rem; line-height: 1.65; }
+  .process-card .process-output { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); font-weight: 500; }
+
+  /* ROOT CAUSE PREVIEW SECTION */
+  #root-cause-preview {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 4.5rem 3rem;
+  }
+  .rc-container {
+    max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.7fr; gap: 3.5rem; align-items: center;
+  }
+  .rc-visual-wrapper {
+    background: var(--bg-primary); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.02); overflow-x: auto;
+  }
+  .pull-quote { border-left: 3px solid var(--maroon); padding: 0.8rem 0 0.8rem 1.2rem; margin: 1.5rem 0; }
+  .pull-quote p { font-family: var(--font-editorial); font-size: 1.15rem; font-style: italic; line-height: 1.5; color: var(--text-primary); }
+  .pull-quote cite { display: block; margin-top: 0.4rem; font-family: var(--font-mono); font-size: 0.65rem; font-style: normal; color: var(--text-muted); text-transform: uppercase; }
+
+  /* WASTE */
+  .waste-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+  .waste-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
+  .waste-cell { background: var(--bg-secondary); padding: 1.8rem; transition: all 0.3s; }
+  .waste-cell:hover { background: var(--bg-card); }
+  .waste-icon-svg { width: 32px; height: 32px; margin-bottom: 0.75rem; display: block; color: var(--accent); }
+  .waste-name { font-weight: 600; font-size: 1.05rem; margin-bottom: 0.35rem; }
+  .waste-eng { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+  .waste-example { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; }
+  .waste-cost { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); font-weight: 700; margin-top: 0.6rem; letter-spacing: 0.02em; }
+
+  /* SECTORS */
+  .sector-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .sector-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s; }
+  .sector-card:hover { border-color: var(--border-accent); transform: translateY(-2px); }
+  .sector-icon-svg { width: 28px; height: 28px; margin-bottom: 0.9rem; display: block; color: var(--accent); }
+  .sector-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .sector-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
+
+  /* DIFF */
+  .diff-table {
+    max-width: 960px; margin: 0 auto;
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  }
+  .diff-header {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+    border-bottom: 2px solid var(--border);
+  }
+  .diff-header-cell {
+    padding: 1.5rem 1.8rem 1.2rem;
+    font-family: var(--font-mono); font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700;
+  }
+  .diff-header-cell:first-child { background: transparent; color: transparent; }
+  .diff-header-cell.old-col {
+    background: var(--bg-card); color: var(--text-muted);
+    text-align: center; border-left: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .diff-header-cell.new-col {
+    background: rgba(240,238,232,0.95); color: var(--accent-dark);
+    text-align: center; position: relative;
+    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  }
+  .diff-header-cell.new-col::before {
+    content: '✦'; font-size: 0.55rem; letter-spacing: 0;
+    opacity: 0.5;
+  }
+  .diff-row {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    transition: background 0.2s;
+  }
+  .diff-row:last-child { border-bottom: none; }
+  .diff-row:hover { background: rgba(45,80,22,0.02); }
+  .diff-cell {
+    padding: 1.1rem 1.8rem; display: flex;
+    align-items: center; gap: 0.6rem;
+    font-size: 0.88rem; line-height: 1.45;
+  }
+  .diff-cell.label-col {
+    font-weight: 600; color: var(--text-primary);
+    font-size: 0.85rem;
+  }
+  .diff-cell.label-col .diff-label-icon {
+    width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-glow); color: var(--accent); flex-shrink: 0;
+    font-size: 0.75rem; font-family: var(--font-mono);
+    text-rendering: optimizeLegibility;
+  }
+  .diff-cell.old-col {
+    color: var(--text-muted); border-left: 1px solid var(--border);
+    background: rgba(0,0,0,0.015);
+  }
+  .diff-cell.old-col .diff-icon {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(180,80,60,0.08); color: #b4503c;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 0.65rem; font-weight: 700;
+  }
+  .diff-cell.new-col {
+    color: var(--text-primary); font-weight: 500;
+    background: rgba(0,0,0,0.02);
+  }
+  .diff-cell.new-col .diff-icon {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(45,80,22,0.12); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 0.7°rem; font-weight: 700;
+  }
+  .diff-cell .diff-val { flex: 1; }
+  .diff-cell .diff-highlight {
+    font-family: var(--font-mono); font-weight: 700;
+    font-size: 0.82rem; color: var(--accent-dark);
+  }
+  .diff-cell.old-col .diff-highlight {
+    color: var(--text-muted); font-weight: 600;
+  }
+  .diff-bottom-bar {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.6rem; padding: 1.2rem 1.8rem;
+    background: rgba(240,238,232,0.95); color: var(--accent-dark);
+    font-size: 0.85rem; font-weight: 500;
+  }
+  .diff-bottom-bar svg { width: 16px; height: 16px; opacity: 0.7; }
+
+  /* CTA */
+  .cta-section { text-align: center; padding: 8rem 3rem; max-width: none; margin: 0; position: relative; background: var(--bg-card); color: var(--text-primary); border-top: 1px solid var(--border); }
+  .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(45, 80, 22, 0.1) 0%, transparent 70%); pointer-events: none; }
+  .cta-section h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; position: relative; z-index: 1; color: var(--text-primary); }
+  .cta-section h2 em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .cta-section p { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 2rem; position: relative; z-index: 1; }
+  .cta-section .cta-small { color: var(--text-muted); font-size: 0.88rem; max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.65; position: relative; z-index: 1; }
+  .cta-section .btn-primary { position: relative; z-index: 1; }
+  .cta-section .section-label { color: var(--text-muted) !important; border-color: var(--border) !important; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 3rem; background: var(--bg-secondary); }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+  .footer-brand strong { color: var(--text-primary); font-weight: 700; }
+  .footer-brand strong span { color: var(--accent); }
+  .footer-links { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-email { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* TABLET */
+  @media (max-width: 1100px) {
+    nav { padding: 1rem 1.5rem; padding-bottom: 1.5rem; }
+    .hamburger { display: flex; }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 0; padding: 1rem 0;
+      background: rgba(250,249,246,0.97); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 0.75rem 1.5rem !important; font-size: 0.92rem !important; width: 100%; }
+    .nav-links .nav-cta { margin: 0.5rem 1.5rem; width: auto; text-align: center; }
+    .lang-dropdown { padding: 0.5rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 2.5rem; min-height: auto; gap: 2rem; }
+    .hero-xray { max-width: 480px; margin: 0 auto; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero-actions { flex-direction: column; }
+    section, .waste-section { padding: 4rem 1.5rem; }
+    .cta-section { padding: 4rem 1.5rem; }
+    .stats-strip { padding: 3rem 1.5rem; }
+    .stats-inner { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+    .gemba-grid { grid-template-columns: 1fr; }
+    .gemba-text { padding-right: 0; }
+    .process-cards { grid-template-columns: 1fr; }
+    .waste-grid { grid-template-columns: repeat(2, 1fr); }
+    .sector-strip { grid-template-columns: 1fr; }
+    .rc-container { grid-template-columns: 1fr; gap: 2rem; }
+    #root-cause-preview { padding: 4rem 1.5rem; }
+
+    .diff-table { border-radius: 12px; }
+    .diff-header, .diff-row { grid-template-columns: 1fr; }
+    .diff-header-cell:first-child { display: none; }
+    .diff-header-cell { text-align: left !important; border-left: none !important; }
+    .diff-header { grid-template-columns: 1fr 1fr; }
+    .diff-row {
+      grid-template-columns: 1fr; padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border);
+      gap: 0;
+    }
+    .diff-cell { border-left: none !important; }
+    .diff-cell.label-col {
+      padding-bottom: 0.3rem; font-size: 0.8rem;
+      color: var(--accent-dark); border-bottom: none;
+    }
+    .diff-cell.old-col, .diff-cell.new-col {
+      padding-top: 0.4rem; padding-bottom: 0.4rem;
+    }
+
+    .footer-inner { flex-direction: column; gap: 1.2rem; text-align: center; }
+    .footer-links { align-items: center; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    nav { padding: 0.8rem 1rem; padding-bottom: 1.3rem; }
+    .logo { font-size: 1.5rem; }
+    .logo-sub { display: none; }
+    .hero { padding: 5.5rem 1rem 2rem; gap: 1.5rem; }
+    .hero h1 { font-size: 1.45rem; }
+    .hero-badge { font-size: 0.7rem; padding: 0.3rem 0.8rem; }
+    .hero-motto { font-size: 1.05rem; }
+    .hero-sub { font-size: 0.95rem; }
+    .hero-bullets li { font-size: 0.95rem; }
+    .btn-primary { padding: 0.75rem 1.5rem; font-size: 0.88rem; width: 100%; justify-content: center; }
+    .btn-secondary { padding: 0.75rem 1.5rem; font-size: 0.88rem; width: 100%; justify-content: center; }
+    section, .waste-section { padding: 3rem 1rem; }
+    .cta-section { padding: 3.5rem 1rem; }
+    .section-label { font-size: 0.95rem; }
+    .section-title { font-size: 1.5rem; margin-bottom: 1rem; }
+    .section-desc { font-size: 1.02rem; margin-bottom: 2rem; }
+    .stats-strip { padding: 2.5rem 1rem; }
+    .stat-number { font-size: 2.2rem; }
+    .stat-desc { font-size: 0.98rem; }
+
+    .gemba-visual { padding: 1.5rem; }
+    .eq-row { flex-direction: column; gap: 0.6rem; }
+    .eq-plus { font-size: 1.2rem; }
+    .eq-box { padding: 1rem; }
+    .eq-box-value { font-size: 1rem; }
+    .eq-result-value { font-size: 1.3rem; }
+
+    .process-card { padding: 1.5rem; }
+    .process-card h2 { font-size: 1.1rem; }
+
+    .waste-grid { grid-template-columns: 1fr; }
+    .waste-cell { padding: 1.3rem; }
+
+    .sector-card { padding: 1.5rem; }
+
+    .diff-table { border-radius: 10px; }
+    .diff-header { display: none; }
+    .diff-row {
+      grid-template-columns: 1fr;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      gap: 0;
+    }
+    .diff-cell {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.82rem;
+    }
+    .diff-cell.label-col {
+      padding-top: 0.8rem;
+      padding-bottom: 0.2rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .diff-cell.label-col .diff-label-icon { width: 22px; height: 22px; font-size: 0.65rem; }
+    .diff-cell.old-col { background: rgba(0,0,0,0.02); border-radius: 6px; margin: 0.15rem 0.8rem; }
+    .diff-cell.new-col { background: rgba(0,0,0,0.04); border-radius: 6px; margin: 0.15rem 0.8rem; font-weight: 600; }
+    .diff-cell .diff-highlight { font-size: 0.78rem; }
+    .diff-bottom-bar { font-size: 0.78rem; padding: 1rem; }
+
+    .cta-section h2 { font-size: 1.5rem; }
+    .cta-section p { font-size: 0.92rem; }
+    .cta-section .cta-small { font-size: 0.82rem; }
+
+    footer { padding: 2rem 1rem; }
+    .footer-brand { font-size: 0.82rem; }
+    .footer-links a { font-size: 0.78rem; }
+    .footer-email { font-size: 0.72rem; }
+    .doc-metadata { flex-wrap: wrap; gap: 0.5rem 1rem; font-size: 0.5rem; padding: 0.6rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress"><div class="scroll-progress-bar" id="scrollBar"></div></div>
+<nav>
+  <a href="#" class="logo"><span class="logo-main">Gemba<span class="logo-x">X</span></span><span class="logo-sub">X-Ray of Operational Waste</span></a>
+  <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <a href="/gemba-nedir.html" class="nav-link-gemba">What is Gemba</a>
+    <a href="/metodoloji.html" class="nav-link-metod">Methodology</a>
+    <a href="/pricing.html" class="nav-link-price">Pricing</a>
+    <div class="lang-dropdown" id="langDropdown">
+      <div class="lang-toggle" id="langToggle" onclick="document.getElementById('langDropdown').classList.toggle('open')">
+        EN 
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
       </div>
-      <div class="gemba-visual fade-in">
-        <div class="gemba-equation">
-          <div class="eq-row">
-            <div class="eq-box">
-              <div class="eq-box-label" id="eq-gemba-label">Gemba</div>
-              <div class="eq-box-value" id="eq-gemba-val">The real <span>workplace</span></div>
-            </div>
-            <div class="eq-plus">+</div>
-            <div class="eq-box">
-              <div class="eq-box-label" id="eq-xray-label">X-Ray</div>
-              <div class="eq-box-value" id="eq-xray-val">Deep <span>analysis</span></div>
-            </div>
+      <div class="lang-menu">
+        <a href="#" data-lang="en" class="active" onclick="selectLang(event)">English</a>
+        <a href="#" data-lang="es" onclick="selectLang(event)">Español</a>
+        <a href="#" data-lang="tr" onclick="selectLang(event)">Türkçe</a>
+      </div>
+    </div>
+    <a class="nav-cta" href="#cta">Start Analysis</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">Expert-Led AI Analysis</div>
+    <h1>We find the hidden costs in your business.</h1>
+    <p class="hero-motto">Everything that doesn't create value is waste. With GembaX, we make the waste silently eating away at your operations visible:</p>
+    <ul class="hero-bullets">
+      <li>We start from your customer's perspective — identifying what truly creates value in your operations</li>
+      <li>AI-powered operational X-ray to find the root source of waste</li>
+      <li>We calculate how much each waste costs you</li>
+      <li>Root cause analysis and a 90-day action plan</li>
+      <li>Results in days, at an accessible budget — no months-long consulting needed</li>
+    </ul>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">Start Analysis →</a>
+      <a href="#process" class="btn-secondary">How It Works?</a>
+    </div>
+  </div>
+  <div class="hero-xray">
+    <img src="/xray-hero-img.jpg" alt="GembaX — X-Ray of Operational Waste" />
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-number">3–5%</div>
+      <div class="stat-label">Revenue Loss</div>
+      <div class="stat-desc">The average business loses 3–5% of its annual revenue to operational waste.</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">7+1</div>
+      <div class="stat-label">Waste Categories</div>
+      <div class="stat-desc">We use the internationally recognized 7+1 waste classification framework across all industries.</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">90 days</div>
+      <div class="stat-label">First Results</div>
+      <div class="stat-desc">Quick wins in 30 days, structural improvements with measurable savings in 90 days.</div>
+    </div>
+  </div>
+</div>
+
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+
+<section id="gemba">
+  <div class="gemba-grid">
+    <div class="gemba-text">
+      <div class="section-label" id="gemba-label">Our Philosophy</div>
+      <h2 class="section-title" id="gemba-title">Gemba: <em>Where the real<br>work happens</em></h2>
+      <p class="section-desc" id="gemba-desc1">"Gemba" is a Japanese term for the place where work actually happens — the factory floor, the office, the warehouse, the point of sale.</p>
+      <p class="section-desc" style="margin-top: -1.5rem;" id="gemba-desc2">
+        <strong style="color: var(--text-primary);">GembaX</strong> combines this philosophy with AI. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = we X-ray your operations.
+      </p>
+      <a href="/gemba-nedir.html" style="display:inline-block; margin-top:1rem; font-family:var(--font-mono); font-size:0.82rem; color:var(--accent); font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:2px;" class="gemba-more-link" id="gemba-more-link">Learn more about Lean philosophy and Gemba →</a>
+    </div>
+    <div class="gemba-visual fade-in">
+      <div class="gemba-equation">
+        <div class="eq-row">
+          <div class="eq-box">
+            <div class="eq-box-label" id="eq-gemba-label">Gemba</div>
+            <div class="eq-box-value" id="eq-gemba-val">The real <span>workplace</span></div>
           </div>
-          <div class="eq-result">
-            <div class="eq-result-label" id="eq-result-label">Result</div>
-            <div class="eq-result-value">Gemba<span style="color:var(--accent-dark)">X</span></div>
+          <div class="eq-plus">+</div>
+          <div class="eq-box">
+            <div class="eq-box-label" id="eq-xray-label">X-Ray</div>
+            <div class="eq-box-value" id="eq-xray-val">Deep <span>analysis</span></div>
           </div>
-          <div class="eq-result">
-            <div class="eq-output-box">
-              <div class="eq-box-label" id="eq-output-label">Output</div>
-              <div class="eq-output-text" id="eq-output-text">"You have <strong>$247K</strong> in invisible waste per year. <strong>68%</strong> comes from a single bottleneck."</div>
-            </div>
-          </div>
+        </div>
+        <div class="eq-result">
+          <div class="eq-result-label" id="eq-result-label">Result</div>
+          <div class="eq-result-value">Gemba<span style="color:var(--accent-dark)">X</span></div>
+        </div>
+        <div class="eq-output-box">
+          <div class="eq-box-label" id="eq-output-label">Output</div>
+          <div class="eq-output-text" id="eq-output-text">"You have <strong>$247K</strong> in invisible waste per year. <strong>68%</strong> comes from a single bottleneck."</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-  <section id="process">
-    <div class="section-label">How It Works</div>
-    <h2 class="section-title">Three steps from <em>diagnosis to action</em></h2>
-    <p class="section-desc">Find the problem, calculate the cost, show the solution.</p>
-    <div class="process-cards">
-      <div class="process-card fade-in"><span class="card-ref">REF-001</span><div class="process-num">01 — DIAGNOSIS</div><h2>Where is your money burning?</h2><p>First we clarify what your customers truly value. Then we scan your operations against that definition across 7+1 waste categories. Every waste is calculated in dollars.</p><div class="process-output">→ Hidden Cost Report</div></div>
-      <div class="process-card fade-in"><span class="card-ref">REF-002</span><div class="process-num">02 — PRIORITIZE</div><h2>Where to focus first?</h2><p>Priority analysis identifies your top 3 highest-impact waste points. Bottleneck detection included. The critical question: do these 3 wastes share a common root cause?</p><div class="process-output">→ Priority + Bottleneck Map</div></div>
-      <div class="process-card fade-in"><span class="card-ref">REF-003</span><div class="process-num">03 — ACTION</div><h2>How much can we save?</h2><p>90-day prioritized action plan: 0-30 days quick wins, 30-60 days mid-term, 60-90 days structural.</p><div class="process-output">→ 90-Day Roadmap + ROI</div></div>
-    </div>
-  </section>
+<section id="process">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Three steps from <em>diagnosis to action</em></h2>
+  <p class="section-desc">Find the problem, calculate the cost, show the solution.</p>
+  <div class="process-cards">
+    <div class="process-card fade-in"><span class="card-ref">REF-001</span><div class="process-num">01 — DIAGNOSIS</div><h2>Where is your money burning?</h2><p>First we clarify what your customers truly value. Then we scan your operations against that definition across 7+1 waste categories. Every waste is calculated in dollars.</p><div class="process-output">→ Hidden Cost Report</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-002</span><div class="process-num">02 — PRIORITIZE</div><h2>Where to focus first?</h2><p>Priority analysis identifies your top 3 highest-impact waste points. Bottleneck detection included. The critical question: do these 3 wastes share a common root cause?</p><div class="process-output">→ Priority + Bottleneck Map</div></div>
+    <div class="process-card fade-in"><span class="card-ref">REF-003</span><div class="process-num">03 — ACTION</div><h2>How much can we save?</h2><p>90-day prioritized action plan: 0-30 days quick wins, 30-60 days mid-term, 60-90 days structural.</p><div class="process-output">→ 90-Day Roadmap + ROI</div></div>
+  </div>
+</section>
 
-  <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-  <section id="root-cause-preview">
-    <div class="rc-container">
-      <div class="rc-text">
-        <div class="section-label" id="rc-label">Stage 2 Preview</div>
-        <h2 class="section-title" id="rc-title">We don't just find symptoms, <em>we map the math behind them</em></h2>
-        <p class="section-desc" id="rc-desc1">Following your Phase 1 100x ROI guaranteed ($15,000 minimum profit leakage) scan, we don't issue generic tower advice. We map your actual shop-floor reality via strict Lean Six Sigma and Theory of Constraints analytical frameworks.</p>
-        <div class="pull-quote">
-          <p id="rc-quote">"Finding the root cause means stopping chronic annual financial profit leaks permanently with a single, calculated operational countermeasure."</p>
-          <cite id="rc-cite">20+ Years Exp. Dr. Engineer • GembaX</cite>
-        </div>
-      </div>
-      
-      <div class="rc-visual-wrapper fade-in">
-        <svg class="ishikawa-svg" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="rc-grid" width="28" height="28" patternUnits="userSpaceOnUse">
-              <path d="M 28 0 L 0 0 0 28" fill="none" stroke="rgba(45,80,22,0.04)" stroke-width="1"/>
-            </pattern>
-          </defs>
-          <rect width="800" height="420" fill="url(#rc-grid)" rx="8"/>
-
-          <path d="M 50 210 L 690 210" stroke="#2D5016" stroke-width="2.5" stroke-dasharray="3 3"/>
-          <polygon points="690,205 705,210 690,215" fill="#2D5016" />
-
-          <rect x="40" y="180" width="165" height="60" rx="6" fill="#FFFFFF" stroke="#2D5016" stroke-width="1.5"/>
-          <text x="52" y="202" font-family="var(--font-mono)" font-size="8" font-weight="700" fill="#2D5016" letter-spacing="0.05em">CRITICAL CONSTRAINT:</text>
-          <text x="52" y="224" font-family="var(--font-body)" font-size="11" font-weight="700" fill="#1B2A4A" id="svg-symptom">Line-A: Changeover Delay</text>
-
-          <path d="M 290 70 L 370 210" stroke="#8fa093" stroke-width="1.5"/>
-          <path d="M 450 70 L 530 210" stroke="#8fa093" stroke-width="1.5"/>
-          <path d="M 610 70 L 690 210" stroke="#8fa093" stroke-width="1.5"/>
-
-          <path d="M 210 350 L 290 210" stroke="#8fa093" stroke-width="1.5"/>
-          <path d="M 370 350 L 450 210" stroke="#8fa093" stroke-width="1.5"/>
-          <path d="M 550 350 L 630 210" stroke="#8fa093" stroke-width="1.5"/>
-
-          <text x="245" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r1">MACHINE</text>
-          <text x="410" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r2">METHOD</text>
-          <text x="575" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r3">PEOPLE</text>
-          
-          <text x="155" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r4">MATERIAL</text>
-          <text x="310" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r5">MEASUREMENT</text>
-          <text x="495" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r6">ENVIRONMENT</text>
-
-          <text x="360" y="130" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="#2D5016" transform="rotate(60 360 130)">Δt_loss = 52 min</text>
-          <text x="220" y="140" font-family="var(--font-mono)" font-size="8" fill="#8fa093">Drift: 42%</text>
-          <text x="515" y="130" font-family="var(--font-mono)" font-size="8" fill="#8fa093">No SMED: 25%</text>
-
-          <text x="250" y="200" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#2D5016">Loss = 52min x $4.50/min x 240 cycles</text>
-
-          <rect x="240" y="265" width="430" height="55" rx="6" fill="rgba(110, 20, 20, 0.04)" stroke="#6E1414" stroke-width="1.5"/>
-          <text x="255" y="285" font-family="var(--font-mono)" font-size="8" font-weight="700" fill="#6E1414" letter-spacing="0.05em">ROOT CAUSE VERIFIED [DQI: 94.2%]:</text>
-          <text x="255" y="305" font-family="var(--font-body)" font-size="11" font-weight="700" fill="#6E1414" id="svg-rootcause">Incomplete Pre-Heating Calibration & Maintenance Procedure</text>
-        </svg>
+<section id="root-cause-preview">
+  <div class="rc-container">
+    <div class="rc-text">
+      <div class="section-label" id="rc-label">Stage 2 Preview</div>
+      <h2 class="section-title" id="rc-title">We don't just find symptoms, <em>we map the math behind them</em></h2>
+      <p class="section-desc" id="rc-desc1">Following your Phase 1 100x ROI guaranteed ($15,000 minimum profit leakage) scan, we don't issue generic tower advice. We map your actual shop-floor reality via strict Lean Six Sigma and Theory of Constraints analytical frameworks.</p>
+      <div class="pull-quote">
+        <p id="rc-quote">"Finding the root cause means stopping chronic annual financial profit leaks permanently with a single, calculated operational countermeasure."</p>
+        <cite id="rc-cite">20+ Years Exp. Dr. Engineer • GembaX</cite>
       </div>
     </div>
-  </section>
+    
+    <div class="rc-visual-wrapper fade-in">
+      <svg class="ishikawa-svg" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="rc-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+            <path d="M 28 0 L 0 0 0 28" fill="none" stroke="rgba(45,80,22,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="800" height="420" fill="url(#rc-grid)" rx="8"/>
 
-  <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+        <path d="M 50 210 L 690 210" stroke="#2D5016" stroke-width="2.5" stroke-dasharray="3 3"/>
+        <polygon points="690,205 705,210 690,215" fill="#2D5016" />
 
-  <div class="waste-section" id="waste">
-    <div class="section-label">7+1 Waste Analysis</div>
-    <h2 class="section-title">TIM WOODS: <em>The universal waste map</em></h2>
-    <p class="section-desc">We systematically analyze the 7+1 waste types applicable across every industry.</p>
-    <div class="waste-grid">
-      <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 17l5-5-5-5"/><path d="M6 17l5-5-5-5"/></svg><div class="waste-eng">Transportation</div><div class="waste-name">Transportation Waste</div><div class="waste-example">Unnecessary material movement, redundant data transfers</div><div class="waste-cost">Typical impact: $15K–80K/yr</div></div>
-      <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><div class="waste-eng">Inventory</div><div class="waste-name">Inventory Waste</div><div class="waste-example">Excess stock, accumulated work-in-progress, tied-up cash</div><div class="waste-cost">Typical impact: $30K–200K/yr</div></div>
-      <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg><div class="waste-eng">Motion</div><div class="waste-name">Motion Waste</div><div class="waste-example">Unnecessary walking, task-switching, searching for information</div><div class="waste-cost">Typical impact: $10K–50K/yr</div></div>
-      <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="waste-eng">Waiting</div><div class="waste-name">Waiting Waste</div><div class="waste-example">Waiting for approvals, materials, or information</div><div class="waste-cost">Typical impact: $20K–120K/yr</div></div>
-      <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><div class="waste-eng">Overproduction</div><div class="waste-name">Overproduction</div><div class="waste-example">Producing more than needed, unnecessary reports, unused output</div><div class="waste-cost">Typical impact: $25K–150K/yr</div></div>
-      <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><div class="waste-eng">Over-processing</div><div class="waste-name">Over-processing</div><div class="waste-example">Unnecessary detail, quality level the customer doesn't need</div><div class="waste-cost">Typical impact: $15K–90K/yr</div></div>
-      <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="waste-eng">Defects</div><div class="waste-name">Defects / Rework</div><div class="waste-example">Scrap, rework, returns, lost customers</div><div class="waste-cost">Typical impact: $20K–180K/yr</div></div>
-      <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="waste-eng">Skills</div><div class="waste-name">Skills Waste</div><div class="waste-example">Experienced employees stuck on routine tasks</div><div class="waste-cost">Typical impact: $20K–100K/yr</div></div>
+        <rect x="40" y="180" width="165" height="60" rx="6" fill="#FFFFFF" stroke="#2D5016" stroke-width="1.5"/>
+        <text x="52" y="202" font-family="var(--font-mono)" font-size="8" font-weight="700" fill="#2D5016" letter-spacing="0.05em">CRITICAL CONSTRAINT:</text>
+        <text x="52" y="224" font-family="var(--font-body)" font-size="11" font-weight="700" fill="#1B2A4A" id="svg-symptom">Line-A: Changeover Delay</text>
+
+        <path d="M 290 70 L 370 210" stroke="#8fa093" stroke-width="1.5"/>
+        <path d="M 450 70 L 530 210" stroke="#8fa093" stroke-width="1.5"/>
+        <path d="M 610 70 L 690 210" stroke="#8fa093" stroke-width="1.5"/>
+
+        <path d="M 210 350 L 290 210" stroke="#8fa093" stroke-width="1.5"/>
+        <path d="M 370 350 L 450 210" stroke="#8fa093" stroke-width="1.5"/>
+        <path d="M 550 350 L 630 210" stroke="#8fa093" stroke-width="1.5"/>
+
+        <text x="245" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r1">MACHINE</text>
+        <text x="410" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r2">METHOD</text>
+        <text x="575" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r3">PEOPLE</text>
+        
+        <text x="155" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r4">MATERIAL</text>
+        <text x="310" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r5">MEASUREMENT</text>
+        <text x="495" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r6">ENVIRONMENT</text>
+
+        <text x="360" y="130" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="#2D5016" transform="rotate(60 360 130)">Δt_loss = 52 min</text>
+        <text x="220" y="140" font-family="var(--font-mono)" font-size="8" fill="#8fa093">Drift: 42%</text>
+        <text x="515" y="130" font-family="var(--font-mono)" font-size="8" fill="#8fa093">No SMED: 25%</text>
+
+        <text x="250" y="200" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#2D5016">Loss = 52min x $4.50/min x 240 cycles</text>
+
+        <rect x="240" y="265" width="430" height="55" rx="6" fill="rgba(110, 20, 20, 0.04)" stroke="#6E1414" stroke-width="1.5"/>
+        <text x="255" y="285" font-family="var(--font-mono)" font-size="8" font-weight="700" fill="#6E1414" letter-spacing="0.05em">ROOT CAUSE VERIFIED [DQI: 94.2%]:</text>
+        <text x="255" y="305" font-family="var(--font-body)" font-size="11" font-weight="700" fill="#6E1414" id="svg-rootcause">Incomplete Pre-Heating Calibration & Maintenance Procedure</text>
+      </svg>
     </div>
   </div>
+</section>
 
-  <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
 
-  <section id="sectors">
-    <div class="section-label">Scope</div>
-    <h2 class="section-title">Wherever there's a value stream, <em>there's waste</em></h2>
-    <p class="section-desc">GembaX isn't just for factories — it works in every business with operations.</p>
-    <div class="sector-strip">
-      <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><path d="M5 20V8l5-4 5 4v12"/><path d="M9 20v-4h2v4"/><path d="M15 20V12l4-2v10"/></svg><h3>Manufacturing</h3><p>Scrap, downtime, changeover losses, excess inventory, machine inefficiency.</p></div>
-      <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><h3>Services & Office</h3><p>Waiting, unnecessary approvals, information re-entry, rework.</p></div>
-      <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><h3>Retail</h3><p>Excess stock, markdown losses, return costs, tied-up cash.</p></div>
-      <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><h3>Logistics & Supply Chain</h3><p>Excess inventory, unnecessary transport, supplier delays.</p></div>
-      <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><h3>Technology & SaaS</h3><p>Unused features, technical debt, slow release cycles.</p></div>
-      <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><h3>Sales Operations</h3><p>Long sales cycles, low conversion rates, pipeline leakage.</p></div>
-    </div>
-  </section>
-
-  <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
-
-  <section>
-    <div class="section-label">Our Difference</div>
-    <h2 class="section-title">Traditional consulting <em>vs. GembaX</em></h2>
-    <p class="section-desc">Same goal, different approach — the results speak for themselves.</p>
-    <div class="diff-table fade-in">
-      <div class="diff-header">
-        <div class="diff-header-cell"></div>
-        <div class="diff-header-cell old-col">Traditional Consulting</div>
-        <div class="diff-header-cell new-col">GembaX</div>
-      </div>
-
-      <div class="diff-row">
-        <div class="diff-cell label-col"><div class="diff-label-icon">$</div><div class="diff-val">Starting Cost</div></div>
-        <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">$30K+</span> project start</div></div>
-        <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">SMB-friendly — <span class="diff-highlight">accessible</span></div></div>
-      </div>
-
-      <div class="diff-row">
-        <div class="diff-cell label-col"><div class="diff-label-icon">◷</div><div class="diff-val">Diagnosis Time</div></div>
-        <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">6–12 weeks</span> diagnosis</div></div>
-        <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Not weeks, results in <span class="diff-highlight">days</span></div></div>
-      </div>
-
-      <div class="diff-row">
-        <div class="diff-cell label-col"><div class="diff-label-icon">≡</div><div class="diff-val">Report Format</div></div>
-        <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Score and percentage-based generic reports</div></div>
-        <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Every waste in <span class="diff-highlight">dollar terms</span> — concrete</div></div>
-      </div>
-
-      <div class="diff-row">
-        <div class="diff-cell label-col"><div class="diff-label-icon">◎</div><div class="diff-val">Analysis Depth</div></div>
-        <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Generic best-practice recommendations</div></div>
-        <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Industry-specific, <span class="diff-highlight">data-driven</span> analysis</div></div>
-      </div>
-
-      <div class="diff-row">
-        <div class="diff-cell label-col"><div class="diff-label-icon">☰</div><div class="diff-val">Scale & Tracking</div></div>
-        <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Report delivered — project ends</div></div>
-        <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val"><span class="diff-highlight">90-day</span> action plan + ROI calculation</div></div>
-      </div>
-
-      <div class="diff-row">
-        <div class="diff-cell label-col"><div class="diff-label-icon">✦</div><div class="diff-val">Quality Assurance</div></div>
-        <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Person-dependent, variable quality</div></div>
-        <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Expert + AI hybrid — <span class="diff-highlight">consistent quality</span></div></div>
-      </div>
-
-      <div class="diff-bottom-bar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        Same insight — faster and more affordable
-      </div>
-    </div>
-  </section>
-
-  <div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
-
-  <div class="cta-section" id="cta">
-    <div class="section-label">Get Started</div>
-    <h2>Let us <em>X-ray</em> your operations</h2>
-    <p class="cta-small">We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.</p>
-    <p>A short guided conversation to understand your business, then we run the analysis with custom questions and data tailored to you.</p>
-    <a href="#" class="btn-primary">Start Analysis →</a>
+<div class="waste-section" id="waste">
+  <div class="section-label">7+1 Waste Analysis</div>
+  <h2 class="section-title">TIM WOODS: <em>The universal waste map</em></h2>
+  <p class="section-desc">We systematically analyze the 7+1 waste types applicable across every industry.</p>
+  <div class="waste-grid">
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 17l5-5-5-5"/><path d="M6 17l5-5-5-5"/></svg><div class="waste-eng">Transportation</div><div class="waste-name">Transportation Waste</div><div class="waste-example">Unnecessary material movement, redundant data transfers</div><div class="waste-cost">Typical impact: $15K–80K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><div class="waste-eng">Inventory</div><div class="waste-name">Inventory Waste</div><div class="waste-example">Excess stock, accumulated work-in-progress, tied-up cash</div><div class="waste-cost">Typical impact: $30K–200K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg><div class="waste-eng">Motion</div><div class="waste-name">Motion Waste</div><div class="waste-example">Unnecessary walking, task-switching, searching for information</div><div class="waste-cost">Typical impact: $10K–50K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="waste-eng">Waiting</div><div class="waste-name">Waiting Waste</div><div class="waste-example">Waiting for approvals, materials, or information</div><div class="waste-cost">Typical impact: $20K–120K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><div class="waste-eng">Overproduction</div><div class="waste-name">Overproduction</div><div class="waste-example">Producing more than needed, unnecessary reports, unused output</div><div class="waste-cost">Typical impact: $25K–150K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><div class="waste-eng">Over-processing</div><div class="waste-name">Over-processing</div><div class="waste-example">Unnecessary detail, quality level the customer doesn't need</div><div class="waste-cost">Typical impact: $15K–90K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="waste-eng">Defects</div><div class="waste-name">Defects / Rework</div><div class="waste-example">Scrap, rework, returns, lost customers</div><div class="waste-cost">Typical impact: $20K–180K/yr</div></div>
+    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="waste-eng">Skills</div><div class="waste-name">Skills Waste</div><div class="waste-example">Experienced employees stuck on routine tasks</div><div class="waste-cost">Typical impact: $20K–100K/yr</div></div>
   </div>
+</div>
 
-  <div class="doc-metadata">
-    <span>DOC: GEMBAX.AI</span><span class="meta-sep">•</span>
-    <span>REV: 2.4</span><span class="meta-sep">•</span>
-    <span>CLASSIFICATION: PUBLIC</span><span class="meta-sep">•</span>
-    <span>PROTOCOL: TIM WOODS + TOC</span><span class="meta-sep">•</span>
-    <span>LAST AUDIT: 2026</span>
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+
+<section id="sectors">
+  <div class="section-label">Scope</div>
+  <h2 class="section-title">Wherever there's a value stream, <em>there's waste</em></h2>
+  <p class="section-desc">GembaX isn't just for factories — it works in every business with operations.</p>
+  <div class="sector-strip">
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><path d="M5 20V8l5-4 5 4v12"/><path d="M9 20v-4h2v4"/><path d="M15 20V12l4-2v10"/></svg><h3>Manufacturing</h3><p>Scrap, downtime, changeover losses, excess inventory, machine inefficiency.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><h3>Services & Office</h3><p>Waiting, unnecessary approvals, information re-entry, rework.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><h3>Retail</h3><p>Excess stock, markdown losses, return costs, tied-up cash.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><h3>Lojistik & Tedarik Zinciri</h3><p>Excess inventory, unnecessary transport, supplier delays.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><h3>Technology & SaaS</h3><p>Unused features, technical debt, slow release cycles.</p></div>
+    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><h3>Sales Operations</h3><p>Long sales cycles, low conversion rates, pipeline leakage.</p></div>
   </div>
+</section>
 
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-brand"><strong>Gemba<span>X</span></strong> — X-Ray of operational waste</div>
-      <div class="footer-links">
-        <div style="display:flex; gap:1.2rem; margin-bottom:0.4rem;">
-          <a href="/pricing.html" class="footer-link-legal">Pricing</a>
-          <a href="/terms-and-conditions.html" class="footer-link-legal">Terms</a>
-          <a href="/privacy.html" class="footer-link-legal">Privacy</a>
-        </div>
-        <a href="mailto:murat@gembax.ai" class="footer-email">murat@gembax.ai</a>
-      </div>
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+
+<section>
+  <div class="section-label">Our Difference</div>
+  <h2 class="section-title">Traditional consulting <em>vs. GembaX</em></h2>
+  <p class="section-desc">Same goal, different approach — the results speak for themselves.</p>
+  <div class="diff-table fade-in">
+    <div class="diff-header">
+      <div class="diff-header-cell"></div>
+      <div class="diff-header-cell old-col">Traditional Consulting</div>
+      <div class="diff-header-cell new-col">GembaX</div>
     </div>
-  </footer>
+
+    <div class="diff-row">
+      <div class="diff-cell label-col"><div class="diff-label-icon">$</div><div class="diff-val">Starting Cost</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">$30K+</span> project start</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">SMB-friendly — <span class="diff-highlight">accessible</span></div></div>
+    </div>
+
+    <div class="diff-row">
+      <div class="diff-cell label-col"><div class="diff-label-icon">◷</div><div class="diff-val">Diagnosis Time</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">6–12 weeks</span> diagnosis</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Not weeks, results in <span class="diff-highlight">days</span></div></div>
+    </div>
+
+    <div class="diff-row">
+      <div class="diff-cell label-col"><div class="diff-label-icon">≡</div><div class="diff-val">Report Format</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Score and percentage-based generic reports</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Every waste in <span class="diff-highlight">dollar terms</span> — concrete</div></div>
+    </div>
+
+    <div class="diff-row">
+      <div class="diff-cell label-col"><div class="diff-label-icon">◎</div><div class="diff-val">Analysis Depth</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Generic best-practice recommendations</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Industry-specific, <span class="diff-highlight">data-driven</span> analysis</div></div>
+    </div>
+
+    <div class="diff-row">
+      <div class="diff-cell label-col"><div class="diff-label-icon">☰</div><div class="diff-val">Scale & Tracking</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Report delivered — project ends</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val"><span class="diff-highlight">90-day</span> action plan + ROI calculation</div></div>
+    </div>
+
+    <div class="diff-row">
+      <div class="diff-cell label-col"><div class="diff-label-icon">✦</div><div class="diff-val">Quality Assurance</div></div>
+      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Person-dependent, variable quality</div></div>
+      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Expert + AI hybrid — <span class="diff-highlight">consistent quality</span></div></div>
+    </div>
+
+    <div class="diff-bottom-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Same insight — faster and more affordable
+    </div>
+  </div>
+</section>
+
+<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+
+<div class="cta-section" id="cta">
+  <div class="section-label">Get Started</div>
+  <h2>Let us <em>X-ray</em> your operations</h2>
+  <p class="cta-small">We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.</p>
+  <p>A short guided conversation to understand your business, then we run the analysis with custom questions and data tailored to you.</p>
+  <a href="#" class="btn-primary">Start Analysis →</a>
+</div>
+
+<div class="doc-metadata">
+  <span>DOC: GEMBAX.AI</span><span class="meta-sep">•</span>
+  <span>REV: 2.4</span><span class="meta-sep">•</span>
+  <span>CLASSIFICATION: PUBLIC</span><span class="meta-sep">•</span>
+  <span>PROTOCOL: TIM WOODS + TOC</span><span class="meta-sep">•</span>
+  <span>LAST AUDIT: 2026</span>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — X-Ray of operational waste</div>
+    <div class="footer-links">
+      <div style="display:flex; gap:1.2rem; margin-bottom:0.4rem;">
+        <a href="/pricing.html" class="footer-link-legal">Pricing</a>
+        <a href="/terms-and-conditions.html" class="footer-link-legal">Terms</a>
+        <a href="/privacy.html" class="footer-link-legal">Privacy</a>
+      </div>
+      <a href="mailto:murat@gembax.ai" class="footer-email">murat@gembax.ai</a>
+    </div>
+  </div>
+</footer>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
@@ -640,7 +1018,7 @@
       heroBullet1: "Partimos desde la perspectiva de su cliente — identificando qué realmente crea valor en sus operaciones",
       heroBullet2: "Radiografía operativa con soporte de IA para encontrar la raíz del desperdicio",
       heroBullet3: "Calculamos cuánto le cuesta cada desperdicio",
-      heroBullet4: "Análisis de causa raíz y plan de acción de 90 días",
+      heroBullet4: "Análisis de causa raíz y plan de acción de 90 dias",
       heroBullet5: "Resultados en días, con presupuesto accesible — sin meses de consultoría",
       heroBtn: "Iniciar Análisis →",
       heroBtn2: "¿Cómo Funciona?",
@@ -655,7 +1033,7 @@
       eqXray: "X-Ray", eqXrayVal: "Análisis <span>profundo</span>",
       eqResult: "Resultado", eqOutput: "Salida",
       eqOutputText: '"Tiene <strong>$247K</strong> en desperdicio invisible por año. <strong>El 68%</strong> proviene de un solo cuello de botella."',
-      processLabel: "Cómo Funciona",
+      processLabel: "Como Funciona",
       processTitle: "Tres pasos del <em>diagnóstico a la acción</em>",
       processDesc: "Encontrar el problema, calcular el costo, mostrar la solución.",
       proc1Num: "01 — DIAGNÓSTICO", proc1H: "¿Dónde se quema su dinero?", proc1P: "Primero clarificamos qué valoran realmente sus clientes. Luego escaneamos sus operaciones según esa definición en 7+1 categorías de desperdicio. Cada desperdicio se calcula en dólares.", proc1Out: "→ Reporte de Costos Ocultos",
@@ -695,7 +1073,7 @@
       diffDesc: "Mismo objetivo, enfoque diferente — los resultados hablan por sí solos.",
       diffOldH: "Consultoría Tradicional", diffNewH: "GembaX",
       d1L: "Costo Inicial", d1O: '<span class="diff-highlight">$30K+</span> inicio de proyecto', d1N: 'Apto para PyMEs — <span class="diff-highlight">accesible</span>',
-      d2L: "Tiempo de Diagnóstico", d2O: '<span class="diff-highlight">6–12 semanas</span> de diagnóstico', d2N: 'No semanas, resultados in <span class="diff-highlight">días</span>',
+      d2L: "Tiempo de Diagnóstico", d2O: '<span class="diff-highlight">6–12 semanas</span> de diagnóstico', d2N: 'No semanas, resultados en <span class="diff-highlight">días</span>',
       d3L: "Formato de Informe", d3O: "Informes genéricos basados en puntajes y porcentajes", d3N: 'Cada desperdicio en <span class="diff-highlight">dólares</span> — concreto',
       d4L: "Análisis Derecho", d4O: "Recomendaciones genéricas de mejores prácticas", d4N: 'Análisis específico por sector, <span class="diff-highlight">basado en datos</span>',
       d5L: "Entrega y Seguimiento", d5O: "Informe entregado — proyecto termina", d5N: 'Plan de acción de <span class="diff-highlight">90 días</span> + cálculo de ROI',
@@ -828,74 +1206,74 @@
 
     const gemba = $('#gemba');
     if (gemba) {
-      gemba.querySelector('.section-label').textContent = t.gembaLabel;
-      gemba.querySelector('.section-title').innerHTML = t.gembaTitle;
+      const sl = gemba.querySelector('.section-label'); if (sl) sl.textContent = t.gembaLabel;
+      const st = gemba.querySelector('.section-title'); if (st) st.innerHTML = t.gembaTitle;
       const descs = gemba.querySelectorAll('.section-desc');
       if (descs[0]) descs[0].textContent = t.gembaDesc1;
       if (descs[1]) descs[1].innerHTML = t.gembaDesc2;
       const eqBoxes = gemba.querySelectorAll('.eq-box');
-      if (eqBoxes[0]) { eqBoxes[0].querySelector('.eq-box-label').textContent = t.eqGemba; eqBoxes[0].querySelector('.eq-box-value').innerHTML = t.eqGembaVal; }
-      if (eqBoxes[1]) { eqBoxes[1].querySelector('.eq-box-label').textContent = t.eqXray; eqBoxes[1].querySelector('.eq-box-value').innerHTML = t.eqXrayVal; }
+      if (eqBoxes[0]) { const ebl = eqBoxes[0].querySelector('.eq-box-label'); if (ebl) ebl.textContent = t.eqGemba; const ebv = eqBoxes[0].querySelector('.eq-box-value'); if (ebv) ebv.innerHTML = t.eqGembaVal; }
+      if (eqBoxes[1]) { const ebl = eqBoxes[1].querySelector('.eq-box-label'); if (ebl) ebl.textContent = t.eqXray; const ebv = eqBoxes[1].querySelector('.eq-box-value'); if (ebv) ebv.innerHTML = t.eqXrayVal; }
       const eqRes = gemba.querySelector('.eq-result');
-      if (eqRes) { eqRes.querySelector('.eq-result-label').textContent = t.eqResult; }
+      if (eqRes) { const erl = eqRes.querySelector('.eq-result-label'); if (erl) erl.textContent = t.eqResult; }
       const eqOut = gemba.querySelector('.eq-output-box');
-      if (eqOut) { eqOut.querySelector('.eq-box-label').textContent = t.eqOutput; eqOut.querySelector('.eq-output-text').innerHTML = t.eqOutputText; }
+      if (eqOut) { const ebl = eqOut.querySelector('.eq-box-label'); if (ebl) ebl.textContent = t.eqOutput; const eot = eqOut.querySelector('.eq-output-text'); if (eot) eot.innerHTML = t.eqOutputText; }
     }
 
     const proc = $('#process');
     if (proc) {
-      proc.querySelector('.section-label').textContent = t.processLabel;
-      proc.querySelector('.section-title').innerHTML = t.processTitle;
-      proc.querySelector('.section-desc').textContent = t.processDesc;
+      const sl = proc.querySelector('.section-label'); if (sl) sl.textContent = t.processLabel;
+      const st = proc.querySelector('.section-title'); if (st) st.innerHTML = t.processTitle;
+      const sd = proc.querySelector('.section-desc'); if (sd) sd.textContent = t.processDesc;
       const cards = proc.querySelectorAll('.process-card');
-      if (cards[0]) { cards[0].querySelector('.process-num').textContent = t.proc1Num; cards[0].querySelector('h2').textContent = t.proc1H; cards[0].querySelector('p').textContent = t.proc1P; cards[0].querySelector('.process-output').textContent = t.proc1Out; }
-      if (cards[1]) { cards[1].querySelector('.process-num').textContent = t.proc2Num; cards[1].querySelector('h2').textContent = t.proc2H; cards[1].querySelector('p').textContent = t.proc2P; cards[1].querySelector('.process-output').textContent = t.proc2Out; }
-      if (cards[2]) { cards[2].querySelector('.process-num').textContent = t.proc3Num; cards[2].querySelector('h2').textContent = t.proc3H; cards[2].querySelector('p').textContent = t.proc3P; cards[2].querySelector('.process-output').textContent = t.proc3Out; }
+      if (cards[0]) { const pn = cards[0].querySelector('.process-num'); if (pn) pn.textContent = t.proc1Num; const ch2 = cards[0].querySelector('h2'); if (ch2) ch2.textContent = t.proc1H; const cp = cards[0].querySelector('p'); if (cp) cp.textContent = t.proc1P; const po = cards[0].querySelector('.process-output'); if (po) po.textContent = t.proc1Out; }
+      if (cards[1]) { const pn = cards[1].querySelector('.process-num'); if (pn) pn.textContent = t.proc2Num; const ch2 = cards[1].querySelector('h2'); if (ch2) ch2.textContent = t.proc2H; const cp = cards[1].querySelector('p'); if (cp) cp.textContent = t.proc2P; const po = cards[1].querySelector('.process-output'); if (po) po.textContent = t.proc2Out; }
+      if (cards[2]) { const pn = cards[2].querySelector('.process-num'); if (pn) pn.textContent = t.proc3Num; const ch2 = cards[2].querySelector('h2'); if (ch2) ch2.textContent = t.proc3H; const cp = cards[2].querySelector('p'); if (cp) cp.textContent = t.proc3P; const po = cards[2].querySelector('.process-output'); if (po) po.textContent = t.proc3Out; }
     }
 
     const rc = $('#root-cause-preview');
     if (rc) {
-      rc.querySelector('.section-label').textContent = t.rcLabel;
-      rc.querySelector('.section-title').innerHTML = t.rcTitle;
-      rc.querySelector('.section-desc').textContent = t.rcDesc1;
-      rc.querySelector('.pull-quote p').textContent = t.rcQuote;
-      rc.querySelector('.pull-quote cite').textContent = t.rcCite;
-      rc.querySelector('#svg-symptom').textContent = t.svgSymptom;
-      rc.querySelector('#svg-r1').textContent = t.svgR1;
-      rc.querySelector('#svg-r2').textContent = t.svgR2;
-      rc.querySelector('#svg-r3').textContent = t.svgR3;
-      rc.querySelector('#svg-r4').textContent = t.svgR4;
-      rc.querySelector('#svg-r5').textContent = t.svgR5;
-      rc.querySelector('#svg-r6').textContent = t.svgR6;
-      rc.querySelector('#svg-rootcause').textContent = t.svgRootcause;
+      const sl = rc.querySelector('.section-label'); if (sl) sl.textContent = t.rcLabel;
+      const st = rc.querySelector('.section-title'); if (st) st.innerHTML = t.rcTitle;
+      const sd = rc.querySelector('.section-desc'); if (sd) sd.textContent = t.rcDesc1;
+      const rq = rc.querySelector('.pull-quote p'); if (rq) rq.textContent = t.rcQuote;
+      const rcite = rc.querySelector('.pull-quote cite'); if (rcite) rcite.textContent = t.rcCite;
+      const ss = rc.querySelector('#svg-symptom'); if (ss) ss.textContent = t.svgSymptom;
+      const sr1 = rc.querySelector('#svg-r1'); if (sr1) sr1.textContent = t.svgR1;
+      const sr2 = rc.querySelector('#svg-r2'); if (sr2) sr2.textContent = t.svgR2;
+      const sr3 = rc.querySelector('#svg-r3'); if (sr3) sr3.textContent = t.svgR3;
+      const sr4 = rc.querySelector('#svg-r4'); if (sr4) sr4.textContent = t.svgR4;
+      const sr5 = rc.querySelector('#svg-r5'); if (sr5) sr5.textContent = t.svgR5;
+      const sr6 = rc.querySelector('#svg-r6'); if (sr6) sr6.textContent = t.svgR6;
+      const src = rc.querySelector('#svg-rootcause'); if (src) src.textContent = t.svgRootcause;
     }
 
     const waste = $('#waste');
     if (waste) {
-      waste.querySelector('.section-label').textContent = t.wasteLabel;
-      waste.querySelector('.section-title').innerHTML = t.wasteTitle;
-      waste.querySelector('.section-desc').textContent = t.wasteDesc;
+      const sl = waste.querySelector('.section-label'); if (sl) sl.textContent = t.wasteLabel;
+      const st = waste.querySelector('.section-title'); if (st) st.innerHTML = t.wasteTitle;
+      const sd = waste.querySelector('.section-desc'); if (sd) sd.textContent = t.wasteDesc;
       const cells = waste.querySelectorAll('.waste-cell');
       const wKeys = ['w1','w2','w3','w4','w5','w6','w7','w8'];
       cells.forEach((cell, i) => {
         const k = wKeys[i]; if (!k) return;
-        cell.querySelector('.waste-name').textContent = t[k+'Name'];
-        cell.querySelector('.waste-example').textContent = t[k+'Ex'];
-        cell.querySelector('.waste-cost').textContent = t[k+'Cost'];
+        const wn = cell.querySelector('.waste-name'); if (wn) wn.textContent = t[k+'Name'];
+        const we = cell.querySelector('.waste-example'); if (we) we.textContent = t[k+'Ex'];
+        const wc = cell.querySelector('.waste-cost'); if (wc) wc.textContent = t[k+'Cost'];
       });
     }
 
     const sect = $('#sectors');
     if (sect) {
-      sect.querySelector('.section-label').textContent = t.sectLabel;
-      sect.querySelector('.section-title').innerHTML = t.sectTitle;
-      sect.querySelector('.section-desc').textContent = t.sectDesc;
+      const sl = sect.querySelector('.section-label'); if (sl) sl.textContent = t.sectLabel;
+      const st = sect.querySelector('.section-title'); if (st) st.innerHTML = t.sectTitle;
+      const sd = sect.querySelector('.section-desc'); if (sd) sd.textContent = t.sectDesc;
       const sCards = sect.querySelectorAll('.sector-card');
       const sKeys = ['s1','s2','s3','s4','s5','s6'];
       sCards.forEach((card, i) => {
         const k = sKeys[i]; if (!k) return;
-        card.querySelector('h3').textContent = t[k+'H'];
-        card.querySelector('p').textContent = t[k+'P'];
+        const ch3 = card.querySelector('h3'); if (ch3) ch3.textContent = t[k+'H'];
+        const cp = card.querySelector('p'); if (cp) cp.textContent = t[k+'P'];
       });
     }
 
@@ -903,9 +1281,9 @@
     let diffSec = null;
     diffSection.forEach(s => { if (s.querySelector('.diff-table')) diffSec = s; });
     if (diffSec) {
-      diffSec.querySelector('.section-label').textContent = t.diffLabel;
-      diffSec.querySelector('.section-title').innerHTML = t.diffTitle;
-      diffSec.querySelector('.section-desc').textContent = t.diffDesc;
+      const sl = diffSec.querySelector('.section-label'); if (sl) sl.textContent = t.diffLabel;
+      const st = diffSec.querySelector('.section-title'); if (st) st.innerHTML = t.diffTitle;
+      const sd = diffSec.querySelector('.section-desc'); if (sd) sd.textContent = t.diffDesc;
       const oldH = diffSec.querySelector('.diff-header-cell.old-col');
       const newH = diffSec.querySelector('.diff-header-cell.new-col');
       if (oldH) oldH.textContent = t.diffOldH;
@@ -932,12 +1310,12 @@
 
     const cta = $('#cta');
     if (cta) {
-      cta.querySelector('.section-label').textContent = t.ctaLabel;
-      cta.querySelector('h2').innerHTML = t.ctaH2;
-      cta.querySelector('.cta-small').textContent = t.ctaSmall;
+      const sl = cta.querySelector('.section-label'); if (sl) sl.textContent = t.ctaLabel;
+      const ch2 = cta.querySelector('h2'); if (ch2) ch2.innerHTML = t.ctaH2;
+      const cs = cta.querySelector('.cta-small'); if (cs) cs.textContent = t.ctaSmall;
       const ps = cta.querySelectorAll('p');
       ps.forEach(p => { if (!p.classList.contains('cta-small')) p.textContent = t.ctaP; });
-      cta.querySelector('.btn-primary').textContent = t.ctaBtn;
+      const bpri = cta.querySelector('.btn-primary'); if (bpri) bpri.textContent = t.ctaBtn;
     }
 
     const fb = document.querySelector('.footer-brand');
