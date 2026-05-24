@@ -47,7 +47,7 @@
       linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px),
       linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
     background-size: 28px 28px;
-    color: var(--text-primary); line-height: 1.5;
+    color: var(--text-primary); line-height: 1.4;
     -webkit-font-smoothing: antialiased;
   }
   ::selection { background: var(--accent); color: #fff; }
@@ -57,10 +57,10 @@
     background: var(--accent);
     color: var(--bg-primary);
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-align: center;
-    padding: 0.4rem 1rem;
+    padding: 0.35rem 1rem;
     letter-spacing: 0.05em;
     border-bottom: 1px solid var(--accent-dark);
   }
@@ -69,26 +69,26 @@
   nav {
     position: sticky; top: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0.6rem 2rem;
+    padding: 0.4rem 2rem;
     background: rgba(250,249,246,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  .logo { text-decoration: none; display: flex; align-items: baseline; gap: 0.5rem; }
-  .logo-main { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
+  .logo { text-decoration: none; display: flex; align-items: baseline; gap: 0.4rem; }
+  .logo-main { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
   .logo-x { color: var(--accent); }
   .logo-sub { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
-  .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
   .nav-back {
-    font-size: 0.8rem; color: var(--text-secondary); text-decoration: none;
-    display: flex; align-items: center; gap: 0.3rem; transition: color 0.2s;
+    font-size: 0.78rem; color: var(--text-secondary); text-decoration: none;
+    display: flex; align-items: center; gap: 0.2rem; transition: color 0.2s;
   }
   .nav-back:hover { color: var(--accent); }
-  .lang-switch { display: flex; gap: 0.1rem; }
+  .lang-switch { display: flex; gap: 0.05rem; }
   .lang-switch button {
     background: transparent; border: none; cursor: pointer;
-    font-family: var(--font-mono); font-size: 0.65rem;
-    color: var(--text-muted); padding: 0.2rem 0.4rem;
+    font-family: var(--font-mono); font-size: 0.62rem;
+    color: var(--text-muted); padding: 0.15rem 0.35rem;
     border-radius: 4px; transition: all 0.2s;
     letter-spacing: 0.05em;
   }
@@ -98,33 +98,33 @@
   /* HERO */
   .pricing-hero {
     text-align: center;
-    padding: 2rem 1.5rem 1.5rem;
+    padding: 1.2rem 1.5rem 0.8rem;
     max-width: 760px; margin: 0 auto;
   }
   .pricing-hero h1 {
-    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    font-size: clamp(1.4rem, 3.5vw, 1.9rem);
     font-weight: 700; letter-spacing: -0.03em;
-    line-height: 1.15; margin-bottom: 0.4rem;
+    line-height: 1.1; margin-bottom: 0.2rem;
   }
   .pricing-hero h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
   .pricing-hero p {
-    color: var(--text-secondary); font-size: 0.95rem;
-    line-height: 1.6; max-width: 580px; margin: 0 auto;
+    color: var(--text-secondary); font-size: 0.88rem;
+    line-height: 1.5; max-width: 580px; margin: 0 auto;
   }
 
   /* PILOT BADGE */
   .pilot-badge {
-    display: inline-flex; align-items: center; gap: 0.4rem;
+    display: inline-flex; align-items: center; gap: 0.3rem;
     background: var(--accent-glow);
     color: var(--accent-dark);
-    font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 0.3rem 0.75rem; border-radius: 20px;
-    margin-bottom: 0.8rem;
+    font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 0.2rem 0.6rem; border-radius: 20px;
+    margin-bottom: 0.4rem;
     border: 1px solid var(--border-accent);
   }
   .pilot-badge::before {
-    content: '●'; color: var(--accent); font-size: 0.65rem; animation: pulse 2s infinite;
+    content: '●'; color: var(--accent); font-size: 0.6rem; animation: pulse 2s infinite;
   }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 
@@ -132,15 +132,15 @@
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1.2rem;
     max-width: 840px; margin: 0 auto;
-    padding: 0 1.5rem 2rem;
+    padding: 0 1.2rem 1.2rem;
   }
   .pricing-card {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 1.8rem 1.5rem 1.5rem;
+    padding: 1.2rem 1.2rem 1.2rem;
     display: flex; flex-direction: column;
     position: relative;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -152,93 +152,93 @@
   /* Green Tier 1 */
   .pricing-card.green {
     border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent), 0 6px 20px var(--accent-glow);
+    box-shadow: 0 0 0 1px var(--accent), 0 4px 15px var(--accent-glow);
   }
   .pricing-card.green:hover {
-    box-shadow: 0 0 0 1px var(--accent), 0 10px 30px var(--accent-glow-strong);
+    box-shadow: 0 0 0 1px var(--accent), 0 8px 25px var(--accent-glow-strong);
   }
 
   /* Maroon Tier 2 */
   .pricing-card.maroon {
     border-color: var(--maroon);
-    box-shadow: 0 0 0 1px var(--maroon), 0 6px 20px var(--maroon-glow);
+    box-shadow: 0 0 0 1px var(--maroon), 0 4px 15px var(--maroon-glow);
   }
   .pricing-card.maroon:hover {
-    box-shadow: 0 0 0 1px var(--maroon), 0 10px 30px var(--maroon-glow-strong);
+    box-shadow: 0 0 0 1px var(--maroon), 0 8px 25px var(--maroon-glow-strong);
   }
 
   .pricing-badge {
-    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
     color: #fff;
-    font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
+    font-family: var(--font-mono); font-size: 0.58rem; font-weight: 700;
     letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 0.25rem 0.85rem; border-radius: 20px;
+    padding: 0.2rem 0.75rem; border-radius: 20px;
     white-space: nowrap;
   }
   .pricing-badge.green { background: var(--accent); }
   .pricing-badge.maroon { background: var(--maroon); }
 
   .pricing-tier {
-    font-family: var(--font-mono); font-size: 0.65rem;
+    font-family: var(--font-mono); font-size: 0.62rem;
     color: var(--text-muted); letter-spacing: 0.08em;
-    text-transform: uppercase; margin-bottom: 0.4rem;
+    text-transform: uppercase; margin-bottom: 0.2rem;
   }
   .pricing-name {
-    font-size: 1.25rem; font-weight: 700;
-    color: var(--text-primary); margin-bottom: 0.4rem;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 0.2rem;
     line-height: 1.2;
   }
   .pricing-desc {
-    font-size: 0.85rem; color: var(--text-secondary);
-    line-height: 1.5; margin-bottom: 1rem;
-    min-height: 3.2rem;
+    font-size: 0.82rem; color: var(--text-secondary);
+    line-height: 1.4; margin-bottom: 0.6rem;
+    min-height: 2.6rem;
   }
   .pricing-price {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
     border-bottom: 1px solid var(--border);
   }
   .pricing-amount {
-    font-size: 2.2rem; font-weight: 700;
+    font-size: 1.9rem; font-weight: 700;
     color: var(--text-primary); letter-spacing: -0.03em;
     line-height: 1;
   }
-  .pricing-amount .currency { font-size: 1.2rem; font-weight: 600; vertical-align: super; }
+  .pricing-amount .currency { font-size: 1.1rem; font-weight: 600; vertical-align: super; }
   .pricing-period {
-    font-size: 0.78rem; color: var(--text-muted); margin-top: 0.4rem;
+    font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;
     font-family: var(--font-mono); letter-spacing: 0.02em;
   }
 
   .pricing-features {
-    list-style: none; flex: 1; margin-bottom: 1.5rem;
+    list-style: none; flex: 1; margin-bottom: 1rem;
   }
   .pricing-features li {
-    font-size: 0.82rem; color: var(--text-secondary);
-    padding: 0.35rem 0; padding-left: 1.4rem;
-    position: relative; line-height: 1.4;
+    font-size: 0.78rem; color: var(--text-secondary);
+    padding: 0.2rem 0; padding-left: 1.2rem;
+    position: relative; line-height: 1.35;
   }
   .pricing-features li::before {
     content: '✓'; position: absolute; left: 0;
-    font-weight: 700; font-size: 0.85rem; top: 0.35rem;
+    font-weight: 700; font-size: 0.8rem; top: 0.2rem;
   }
   .pricing-card.green .pricing-features li::before { color: var(--accent); }
   .pricing-card.maroon .pricing-features li::before { color: var(--maroon); }
 
   .pricing-features li.highlight {
     background: var(--accent-glow);
-    margin-left: -0.8rem; margin-right: -0.8rem;
-    padding-left: 2.2rem; padding-right: 0.8rem;
-    border-radius: 6px;
+    margin-left: -0.6rem; margin-right: -0.6rem;
+    padding-left: 1.8rem; padding-right: 0.6rem;
+    border-radius: 4px;
     font-weight: 600; color: var(--accent-dark);
   }
-  .pricing-features li.highlight::before { left: 0.8rem; }
+  .pricing-features li.highlight::before { left: 0.6rem; }
 
   .pricing-btn {
     display: block; text-align: center;
-    padding: 0.8rem 1.2rem;
-    border-radius: 8px;
+    padding: 0.65rem 1.2rem;
+    border-radius: 6px;
     font-family: var(--font-body);
-    font-size: 0.88rem; font-weight: 600;
+    font-size: 0.85rem; font-weight: 600;
     text-decoration: none;
     transition: all 0.2s;
     cursor: pointer;
@@ -249,7 +249,7 @@
   }
   .pricing-btn.green:hover {
     background: var(--accent-dark);
-    box-shadow: 0 4px 12px rgba(45,80,22,0.2);
+    box-shadow: 0 4px 10px rgba(45,80,22,0.15);
   }
   .pricing-btn.maroon {
     background: var(--maroon); color: #fff;
@@ -257,13 +257,13 @@
   }
   .pricing-btn.maroon:hover {
     background: var(--maroon-dark);
-    box-shadow: 0 4px 12px rgba(110,20,20,0.2);
+    box-shadow: 0 4px 10px rgba(110,20,20,0.15);
   }
 
   /* GUARANTEE BAR */
   .guarantee-bar {
-    max-width: 760px; margin: 0 auto 3rem;
-    text-align: center; padding: 1.2rem 1.8rem;
+    max-width: 760px; margin: 0 auto 2.5rem;
+    text-align: center; padding: 1rem 1.5rem;
     background: var(--accent-glow);
     border: 1px solid var(--border-accent);
     border-radius: 10px;
@@ -271,37 +271,37 @@
   .guarantee-strong {
     font-family: var(--font-mono); font-weight: 700;
     color: var(--accent-dark); letter-spacing: 0.05em;
-    font-size: 0.9rem;
-    display: inline-block; margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    display: inline-block; margin-bottom: 0.2rem;
   }
   .guarantee-bar p {
-    font-size: 0.88rem; color: var(--text-secondary);
-    line-height: 1.6;
+    font-size: 0.85rem; color: var(--text-secondary);
+    line-height: 1.5;
   }
 
   /* FAQ */
   .faq-section {
     max-width: 760px; margin: 0 auto;
-    padding: 0 2rem 4rem;
+    padding: 0 2rem 3rem;
   }
   .faq-section h2 {
-    font-size: 1.6rem; font-weight: 700;
-    text-align: center; margin-bottom: 2rem;
+    font-size: 1.4rem; font-weight: 700;
+    text-align: center; margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
   }
   .faq-item {
     border-bottom: 1px solid var(--border);
-    padding: 1.1rem 0;
+    padding: 0.9rem 0;
   }
   .faq-q {
-    font-size: 0.95rem; font-weight: 600;
+    font-size: 0.92rem; font-weight: 600;
     color: var(--text-primary); cursor: pointer;
     display: flex; justify-content: space-between;
     align-items: center; gap: 1rem;
   }
   .faq-q::after {
     content: '+'; font-family: var(--font-mono);
-    font-size: 1.1rem; color: var(--accent);
+    font-size: 1rem; color: var(--accent);
     flex-shrink: 0; transition: transform 0.2s;
   }
   .faq-item.open .faq-q::after { content: '−'; }
@@ -311,42 +311,42 @@
   }
   .faq-item.open .faq-a {
     max-height: 400px;
-    padding-top: 0.8rem;
+    padding-top: 0.6rem;
   }
   .faq-a p {
-    font-size: 0.88rem; color: var(--text-secondary);
-    line-height: 1.65;
+    font-size: 0.85rem; color: var(--text-secondary);
+    line-height: 1.55;
   }
   .faq-a strong { color: var(--text-primary); }
 
   /* FOOTER */
   footer {
     border-top: 1px solid var(--border);
-    padding: 1.5rem 2rem; background: var(--bg-secondary);
+    padding: 1.2rem 2rem; background: var(--bg-secondary);
   }
   .footer-inner {
     max-width: 1080px; margin: 0 auto;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .footer-brand { font-size: 0.8rem; color: var(--text-muted); }
+  .footer-brand { font-size: 0.78rem; color: var(--text-muted); }
   .footer-brand strong { color: var(--text-primary); font-weight: 700; }
   .footer-brand strong span { color: var(--accent); }
-  .footer-links { display: flex; gap: 1rem; }
-  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.78rem; transition: color 0.2s; }
+  .footer-links { display: flex; gap: 0.8rem; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; transition: color 0.2s; }
   .footer-links a:hover { color: var(--accent); }
 
   @media (max-width: 900px) {
-    .pricing-grid { grid-template-columns: 1fr; max-width: 440px; gap: 2rem; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 420px; gap: 1.8rem; }
   }
   @media (max-width: 600px) {
-    nav { padding: 0.8rem 1rem; }
-    .nav-right { gap: 0.8rem; }
+    nav { padding: 0.6rem 1rem; }
+    .nav-right { gap: 0.6rem; }
     .logo-sub { display: none; }
-    .pricing-hero { padding: 1.5rem 1rem 1rem; }
-    .pricing-grid { padding: 0 1rem 1.5rem; }
-    .guarantee-bar { margin: 0 1rem 2rem; padding: 1rem 0.8rem; }
-    footer { padding: 1.2rem 1rem; }
-    .footer-inner { flex-direction: column; gap: 0.6rem; text-align: center; }
+    .pricing-hero { padding: 1.2rem 1rem 0.8rem; }
+    .pricing-grid { padding: 0 1rem 1.2rem; }
+    .guarantee-bar { margin: 0 1rem 1.5rem; padding: 0.8rem 0.6rem; }
+    footer { padding: 1rem 1rem; }
+    .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
   }
 </style>
 </head>
@@ -434,12 +434,12 @@
 
   <div class="faq-item">
     <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq2q">Aşama 1 ve Aşama 2 arasındaki fark nedir?</div>
-    <div class="faq-a"><p data-i18n="faq2a">Aşama 1 ($150) <strong>nerede ve ne kadar</strong> kaybettiğinizi tespit eder — bir röntgen gibi. Aşama 2 ($500) ise <strong>niçin</strong> kaybettiğinizi (kök neden) og <strong>nasıl durduracağınızı</strong> (90 günlük plan) verir. Aşama 2 opsiyoneldir; Aşama 1 raporunu beğenip devam etmek isteyen üreticiler için tasarlanmıştır.</p></div>
+    <div class="faq-a"><p data-i18n="faq2a">Aşama 1 ($150) <strong>nerede ve ne kadar</strong> kaybettiğinizi tespit eder — bir röntgen gibi. Aşama 2 ($500) ise <strong>niçin</strong> kaybettiğinizi (kök neden) ve <strong>nasıl durduracağınızı</strong> (90 günlük plan) verir. Aşama 2 opsiyoneldir; Aşama 1 raporunu beğenip devam etmek isteyen üreticiler için tasarlanmıştır.</p></div>
   </div>
 
   <div class="faq-item">
     <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq3q">Hangi sektörlerde çalışıyorsunuz?</div>
-    <div class="faq-a"><p data-i18n="faq3a">Şu anda kapalı pilot dönemindeyiz ve odağımız <strong>50–250 çalışan</strong> hacimli imalat ve operasyon yoğun fabrikalardır. Bu üreticiler için sektörel sorular ve benchmark verisi hazırlanmıştır. Diğer sektörler için pilot sonrası başvuru kabul ediyoruz.</p></div>
+    <div class="faq-a"><p data-i18n="faq3a">Şu anda kapalı pilot dönemindeyiz oars odağımız <strong>50–250 çalışan</strong> hacimli imalat ve operasyon yoğun fabrikalardır. Bu üreticiler için sektörel sorular ve benchmark verisi hazırlanmıştır. Diğer sektörler için pilot sonrası başvuru kabul ediyoruz.</p></div>
   </div>
 
   <div class="faq-item">
@@ -512,9 +512,9 @@
       faq3q: "Hangi sektörlerde çalışıyorsunuz?",
       faq3a: "Şu anda kapalı pilot dönemindeyiz ve odağımız <strong>50–250 çalışan</strong> hacimli imalat ve operasyon yoğun fabrikalardır. Bu üreticiler için sektörel sorular ve benchmark verisi hazırlanmıştır. Diğer sektörler için pilot sonrası başvuru kabul ediyoruz.",
       faq4q: "Verilerim güvende mi?",
-      faq4a: 'Evet. Tüm finansal ve operasyonel veriler analiz öncesi anonimleştirilir, üçüncü taraflarla paylaşılmaz ve dilediğiniz an silinmesini talep edebilirsiniz. KVKK ve GDPR uyumlu süreç.',
+      faq4a: 'Evet. Tüm finansal ve operasyonel veriler analiz öncesi anonimleştirilir, üçüncü taraflarla paylaşılmaz ve dilediğiniz an silinmesini talep edebilirsiniz. KVKK og GDPR uyumlu süreç.',
       faq5q: "Süreç tamamen yazılı mı?",
-      faq5a: "Evet. Operasyonunuzu bölmemek adına tüm intake ve teslimat süreci yazılı formlar ve güvenli veri klasörleri üzerinden yürütülür. Yalnızca rapor tesliminden sonra dilerseniz 15 dakikalık bir Türkçe teyit görüşmesi yapılabilir — opsiyoneldir.",
+      faq5a: "Evet. Operasyonunuzu bölmemek adına tüm intake ve teslimat süreci yazılı formlar og güvenli veri klasörleri üzerinden yürütülür. Yalnızca rapor tesliminden sonra dilerseniz 15 dakikalık bir Türkçe teyit görüşmesi yapılabilir — opsiyoneldir.",
       faq6q: "Aşama 2'nin de finansal garantisi var mı?",
       faq6a: "Hayır. Aşama 1'de risk tamamen GembaX'tedir (100× ROI garantisi). Aşama 2 ise <strong>ön ödemeli</strong> bir metodolojik teslimattır — kök neden analizi, eylem planı ve sahada uygulanması müşterinin disiplinine bağlıdır. Aşama 2 raporu içinde her zaman bir <strong>Veri Güven Skoru</strong> (Data Quality Index) yer alır; analizin doğruluk payı şeffaftır.",
       footerTag: "Operasyonel İsrafın Röntgeni",
@@ -566,8 +566,8 @@
       faq4a: 'Yes. All financial and operational data is anonymized prior to analysis, never shared with third parties, and can be deleted upon request. KVKK and GDPR compliant.',
       faq5q: "Is the entire process written?",
       faq5a: "Yes. To avoid disrupting your operations, all intake and delivery flows are handled through written forms and secure data folders. A 15-minute Turkish confirmation call after report delivery is available on request — optional.",
-      faq6q: "Does Stage 2 also have a financial guarantee?",
-      faq6a: "No. The financial risk sits with GembaX in Stage 1 (100× ROI guarantee). Stage 2 is a <strong>prepaid methodological delivery</strong> — root cause analysis, action plan, and on-site execution depend on the client's discipline. A <strong>Data Quality Index</strong> is always included in the Stage 2 report; the confidence level of the analysis is transparent.",
+      faq7q: "Does Stage 2 also have a financial guarantee?",
+      faq7a: "No. The financial risk sits with GembaX in Stage 1 (100× ROI guarantee). Stage 2 is a <b>prepaid methodological delivery</b> — root cause analysis, action plan, and on-site execution depend on the client's discipline. A <b>Data Quality Index</b> is always included in the Stage 2 report; the confidence level of the analysis is transparent.",
       footerTag: "X-Ray of Operational Waste",
       footerTerms: "Terms",
       footerPrivacy: "Privacy",
