@@ -143,13 +143,6 @@
   .nav-links a:hover { color: var(--text-primary); }
   .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 0.55rem 1.4rem; border-radius: 6px; font-weight: 600 !important; font-size: 0.85rem !important; }
   .nav-cta:hover { background: var(--accent-dark) !important; }
-  .nav-benchmark {
-    background: var(--accent-glow) !important; color: var(--accent-dark) !important;
-    border: 1.5px solid var(--accent) !important; padding: 0.55rem 1.4rem;
-    border-radius: 6px; font-weight: 600 !important; font-size: 0.85rem !important;
-    transition: all 0.25s;
-  }
-  .nav-benchmark:hover { background: var(--accent) !important; color: #fff !important; }
 
   /* Language Dropdown */
   .lang-dropdown { position: relative; }
@@ -400,7 +393,7 @@
   .process-num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1rem; font-weight: 700; }
   .process-card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
   .process-card p { color: var(--text-secondary); font-size: 1rem; line-height: 1.65; }
-  .process-output { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); font-weight: 500; }
+  .process-card .process-output { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); font-weight: 500; }
 
   /* WASTE */
   .waste-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
@@ -551,7 +544,6 @@
     .nav-links.open { display: flex; }
     .nav-links a { padding: 0.75rem 1.5rem !important; font-size: 0.92rem !important; width: 100%; }
     .nav-links .nav-cta { margin: 0.5rem 1.5rem; width: auto; text-align: center; }
-    .nav-links .nav-benchmark { margin: 0.25rem 1.5rem; width: auto; text-align: center; }
     .lang-dropdown { padding: 0.5rem 1.5rem; }
     .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 2.5rem; min-height: auto; gap: 2rem; }
     .hero-xray { max-width: 480px; margin: 0 auto; }
@@ -690,7 +682,6 @@
     <a href="/gemba-nedir.html" class="nav-link-gemba">What is Gemba</a>
     <a href="/metodoloji.html" class="nav-link-metod">Methodology</a>
     <a href="/pricing.html" class="nav-link-price">Pricing</a>
-    <a class="nav-benchmark" href="benchmark.html">Explore Benchmark Tests</a>
     <div class="lang-dropdown" id="langDropdown">
       <div class="lang-toggle" id="langToggle" onclick="document.getElementById('langDropdown').classList.toggle('open')">
         EN 
@@ -1014,7 +1005,6 @@
       navGemba: "What is Gemba",
       navMetod: "Methodology",
       navPrice: "Pricing",
-      navBenchmark: "Explore Benchmark Tests",
       navCta: "Start Analysis",
       heroBadge: "Expert-Led AI Analysis",
       heroH1: "We find the hidden costs in your business.",
@@ -1098,7 +1088,6 @@
       navGemba: "Qué es Gemba",
       navMetod: "Metodología",
       navPrice: "Precios",
-      navBenchmark: "Ver Tests de Benchmark",
       navCta: "Iniciar Análisis",
       heroBadge: "Análisis IA Liderado por Expertos",
       heroH1: "Encontramos los costos ocultos en su empresa.",
@@ -1110,6 +1099,7 @@
       heroBullet5: "Resultados en días, con presupuesto accesible — sin meses de consultoría",
       heroBtn: "Iniciar Análisis →",
       heroBtn2: "¿Cómo Funciona?",
+      textPrimary: "#1B2A4A",
       stat1Num: "3–5%", stat1Label: "Pérdida de Ingresos", stat1Desc: "La empresa promedio pierde del 3 al 5% de sus ingresos anuales por desperdicio operativo.",
       stat2Num: "7+1", stat2Label: "Categorías de Desperdicio", stat2Desc: "Usamos la clasificación internacional de 7+1 desperdicios, aplicable en todos los sectores.",
       stat3Num: "90 días", stat3Label: "Primeros Resultados", stat3Desc: "Victorias rápidas en 30 días, mejoras estructurales con ahorros medibles en 90 días.",
@@ -1145,7 +1135,7 @@
       w2Name: "Desperdicio de Inventario", w2Ex: "Exceso de stock, trabajo acumulado, capital inmovilizado", w2Cost: "Impacto típico: $30K–200K/año",
       w3Name: "Desperdicio de Movimiento", w3Ex: "Desplazamientos innecesarios, cambio de tareas, búsqueda de información", w3Cost: "Impacto típico: $10K–50K/año",
       w4Name: "Desperdicio de Espera", w4Ex: "Esperar aprobaciones, materiales o información", w4Cost: "Impacto típico: $20K–120K/año",
-      w5Name: "Sobreproducción", w5Ex: "Producir más de lo necesario, informes innecesarios, salida no utilizada", w5Cost: "Impacto típico: $25K–150K/año",
+      w5Name: "Sobreproducción", w5Ex: "Producir más de lo necesario, informes informes innecesarios, salida no utilizada", w5Cost: "Impacto típico: $25K–150K/año",
       w6Name: "Sobre-procesamiento", w6Ex: "Detalles innecesarios, nivel de calidad que el cliente no necesita", w6Cost: "Impacto típico: $15K–90K/año",
       w7Name: "Defectos / Retrabajo", w7Ex: "Chatarra, retrabajo, devoluciones, clientes perdidos", w7Cost: "Impacto típico: $20K–180K/año",
       w8Name: "Desperdicio de Talento", w8Ex: "Empleados experimentados atrapados en tareas rutinarias", w8Cost: "Impacto típico: $20K–100K/año",
@@ -1182,7 +1172,6 @@
       navGemba: "Gemba Nedir",
       navMetod: "Metodoloji",
       navPrice: "Fiyatlar",
-      navBenchmark: "Benchmark Testlerini İncele",
       navCta: "Analizi Başlat",
       heroBadge: "Uzman Liderliğinde AI Analizi",
       heroH1: "İşletmenizdeki gizli maliyetleri buluyoruz.",
@@ -1274,7 +1263,6 @@
     const nlg = $('.nav-link-gemba'); if (nlg) nlg.textContent = t.navGemba;
     const nlm = $('.nav-link-metod'); if (nlm) nlm.textContent = t.navMetod;
     const nlp = $('.nav-link-price'); if (nlp) nlp.textContent = t.navPrice;
-    $('.nav-benchmark').textContent = t.navBenchmark;
     $('.nav-cta').textContent = t.navCta;
 
     $('.hero-badge').textContent = t.heroBadge;
