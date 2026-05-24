@@ -1,4 +1,6 @@
 
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -391,7 +393,7 @@
   .process-card { position: relative; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.03); }
   .process-card:hover { border-color: var(--border-accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
   .process-num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1rem; font-weight: 700; }
-  .process-card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .process-card h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
   .process-card p { color: var(--text-secondary); font-size: 1rem; line-height: 1.65; }
   .process-card .process-output { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); font-weight: 500; }
 
@@ -620,7 +622,7 @@
     .eq-result-value { font-size: 1.3rem; }
 
     .process-card { padding: 1.5rem; }
-    .process-card h3 { font-size: 1.1rem; }
+    .process-card h2 { font-size: 1.1rem; }
 
     .waste-grid { grid-template-columns: 1fr; }
     .waste-cell { padding: 1.3rem; }
@@ -1150,7 +1152,7 @@
       d1L: "Costo Inicial", d1O: '<span class="diff-highlight">$30K+</span> inicio de proyecto', d1N: 'Apto para PyMEs — <span class="diff-highlight">accesible</span>',
       d2L: "Tiempo de Diagnóstico", d2O: '<span class="diff-highlight">6–12 semanas</span> de diagnóstico', d2N: 'No semanas, resultados en <span class="diff-highlight">días</span>',
       d3L: "Formato de Informe", d3O: "Informes genéricos basados en puntajes y porcentajes", d3N: 'Cada desperdicio en <span class="diff-highlight">dólares</span> — concreto',
-      d4L: "Profundidad de Análisis", d4O: "Recomendaciones genéricas de mejores prácticas", d4N: 'Análisis específico por sector, <span class="diff-highlight">basado en datos</span>',
+      d4L: "Análisis Derecho", d4O: "Recomendaciones genéricas de mejores prácticas", d4N: 'Análisis específico por sector, <span class="diff-highlight">basado en datos</span>',
       d5L: "Entrega y Seguimiento", d5O: "Informe entregado — proyecto termina", d5N: 'Plan de acción de <span class="diff-highlight">90 días</span> + cálculo de ROI',
       d6L: "Garantía de Calidad", d6O: "Dependiente de la persona, calidad variable", d6N: 'Híbrido experto + IA — <span class="diff-highlight">calidad consistente</span>',
       diffBottom: "Misma visión — más rápido y económico",
@@ -1236,7 +1238,7 @@
       d6L: "Kalite Güvencesi", d6O: "Kişiye bağımlı, değişken kalite", d6N: 'Uzman + AI hibrit — <span class="diff-highlight">tutarlı kalite</span>',
       diffBottom: "Aynı içgörü — daha hızlı ve ucuz",
       ctaLabel: "Başlayın",
-      ctaH2: 'Operasyonlarınızın <em>röntgenini</em> çekelim',
+      ctaH2: 'Operasyoneraj <em>röntgenini</em> çekelim',
       ctaSmall: "Gözle görülmeyen israfı buluyor, her birinin size yılda kaç dolara mal olduğunu hesaplıyoruz. Sektör fark etmez — değer akışı olan her yerde israf vardır.",
       ctaP: "Kısa bir sohbette işletmenizi tanıyalım, sonra size özel hazırlanmış sorular ve verilerle analizi yapalım.",
       ctaBtn: "Analizi Başlat →",
@@ -1246,6 +1248,8 @@
   };
 
   function applyLang(lang) {
+    // Hafızadan gelen veriyi veya tıklamayı doğrudan BÜYÜK harfe zorla (Uyuşmazlığı çözen satır)
+    lang = lang.toUpperCase();
     const t = T[lang]; if (!t) return;
     const $ = (s) => document.querySelector(s);
     const $$ = (s) => document.querySelectorAll(s);
@@ -1300,9 +1304,10 @@
       proc.querySelector('.section-title').innerHTML = t.processTitle;
       proc.querySelector('.section-desc').textContent = t.processDesc;
       const cards = proc.querySelectorAll('.process-card');
-      if (cards[0]) { cards[0].querySelector('.process-num').textContent = t.proc1Num; cards[0].querySelector('h3').textContent = t.proc1H; cards[0].querySelector('p').textContent = t.proc1P; cards[0].querySelector('.process-output').textContent = t.proc1Out; }
-      if (cards[1]) { cards[1].querySelector('.process-num').textContent = t.proc2Num; cards[1].querySelector('h3').textContent = t.proc2H; cards[1].querySelector('p').textContent = t.proc2P; cards[1].querySelector('.process-output').textContent = t.proc2Out; }
-      if (cards[2]) { cards[2].querySelector('.process-num').textContent = t.proc3Num; cards[2].querySelector('h3').textContent = t.proc3H; cards[2].querySelector('p').textContent = t.proc3P; cards[2].querySelector('.process-output').textContent = t.proc3Out; }
+      // h3 hatasını h2 olarak düzelten cerrahi dokunuş:
+      if (cards[0]) { cards[0].querySelector('.process-num').textContent = t.proc1Num; cards[0].querySelector('h2').textContent = t.proc1H; cards[0].querySelector('p').textContent = t.proc1P; cards[0].querySelector('.process-output').textContent = t.proc1Out; }
+      if (cards[1]) { cards[1].querySelector('.process-num').textContent = t.proc2Num; cards[1].querySelector('h2').textContent = t.proc2H; cards[1].querySelector('p').textContent = t.proc2P; cards[1].querySelector('.process-output').textContent = t.proc2Out; }
+      if (cards[2]) { cards[2].querySelector('.process-num').textContent = t.proc3Num; cards[2].querySelector('h2').textContent = t.proc3H; cards[2].querySelector('p').textContent = t.proc3P; cards[2].querySelector('.process-output').textContent = t.proc3Out; }
     }
 
     const rc = $('#root-cause-preview');
@@ -1404,7 +1409,7 @@
   function selectLang(e) {
     e.preventDefault();
     const el = e.currentTarget;
-    const lang = el.dataset.lang;
+    const lang = el.dataset.lang.toUpperCase(); // Büyük harfe zorla
     document.getElementById('langToggle').firstChild.textContent = lang + ' ';
     document.querySelectorAll('.lang-menu a').forEach(a => a.classList.remove('active'));
     el.classList.add('active');
@@ -1413,11 +1418,12 @@
     try { localStorage.setItem('gembax-lang', lang); } catch(e) {}
   }
 
-  const saved = localStorage.getItem('gembax-lang') || 'EN';
+  // Tarayıcı hafızasını büyük harfe senkronize eden güvenli açılış mimarisi:
+  const saved = (localStorage.getItem('gembax-lang') || 'EN').toUpperCase();
   applyLang(saved);
   document.getElementById('langToggle').firstChild.textContent = saved + ' ';
   document.querySelectorAll('.lang-menu a').forEach(a => {
-    a.classList.toggle('active', a.dataset.lang === saved);
+    a.classList.toggle('active', a.dataset.lang.toUpperCase() === saved);
   });
 </script>
 </body>
