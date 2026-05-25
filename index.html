@@ -140,7 +140,7 @@
   .nav-links { display: flex; gap: 1.2rem; align-items: center; }
   .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; font-weight: 400; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text-primary); }
-  .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 0.55rem 1.4rem; border-radius: 6px; font-weight: 600 !important; font-size: 0.85rem !important; }
+  .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 0.55rem 1.4rem; border-radius: 6px; font-weight: 600 !important; font-size: 0.85rem !important; text-decoration: none; }
   .nav-cta:hover { background: var(--accent-dark) !important; }
 
   /* Language Dropdown */
@@ -152,7 +152,7 @@
     font-size: 0.8rem; font-weight: 600; color: var(--text-primary);
     cursor: pointer; transition: all 0.2s; user-select: none;
   }
-  .lang-toggle:hover { border-color: var(--border-accent); }
+  .lang-toggle hover { border-color: var(--border-accent); }
   .lang-toggle svg { width: 12px; height: 12px; color: var(--text-muted); transition: transform 0.2s; }
   .lang-dropdown.open .lang-toggle svg { transform: rotate(180deg); }
   .lang-menu {
@@ -165,7 +165,7 @@
   .lang-menu a {
     display: block !important; padding: 0.55rem 1rem !important;
     font-size: 0.82rem !important; font-weight: 500 !important;
-    color: var(--text-secondary) !important; transition: all 0.15s;
+    color: var(--text-secondary) !important; transition: all 0.15s; text-decoration: none;
   }
   .lang-menu a:hover { background: var(--accent-glow) !important; color: var(--accent-dark) !important; }
   .lang-menu a.active { color: var(--accent) !important; font-weight: 600 !important; }
@@ -173,7 +173,7 @@
   /* HERO */
   .hero {
     min-height: 100vh; display: grid;
-    grid-template-columns: 1fr 1.1fr; /* Resmi büyütmek için ızgarayı ayarladım */
+    grid-template-columns: 1fr 1.1fr; 
     align-items: center; gap: 3rem;
     padding: 7rem 3rem 3rem; max-width: 1300px; margin: 0 auto;
   }
@@ -233,7 +233,7 @@
     object-fit: contain;
     display: block;
     transition: all 0.6s ease;
-    max-height: 80vh; /* Masaüstünde çok uzamasını engellemek için */
+    max-height: 80vh; 
   }
   .hero-xray:hover img {
     transform: scale(1.015);
@@ -246,12 +246,12 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 1.5px; /* Jilet gibi ince çizgi */
-    background: rgba(241, 196, 15, 0.6); /* Şık endüstriyel sarı lazer */
+    height: 1.5px; 
+    background: rgba(241, 196, 15, 0.6); 
     box-shadow: 0 0 8px 1px rgba(241, 196, 15, 0.4);
-    opacity: 0.35; /* Görseli boğmayan, çok az belli olan asil parlama */
+    opacity: 0.35; 
     pointer-events: none;
-    animation: xrayScan 4s linear infinite alternate; /* Orta hızda yukarı-aşağı */
+    animation: xrayScan 4s linear infinite alternate; 
     z-index: 2;
   }
   
@@ -452,7 +452,7 @@
     flex-shrink: 0; font-size: 0.7rem; font-weight: 700;
   }
   .diff-cell .diff-val { flex: 1; }
-  .diff-cell .diff-highlight {
+  .diff-cells .diff-highlight {
     font-family: var(--font-mono); font-weight: 700;
     font-size: 0.82rem; color: var(--accent-dark);
   }
@@ -509,7 +509,7 @@
     .lang-dropdown { padding: 0.5rem 1.5rem; }
     
     .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 2.5rem; min-height: auto; gap: 2rem; max-width: 800px; }
-    .hero-xray { max-width: 100%; margin: 0 auto; } /* Mobilde tam genişlik ve büyük ölçek */
+    .hero-xray { max-width: 100%; margin: 0 auto; } 
     .hero h1 { font-size: 1.8rem; }
     .hero-actions { flex-direction: column; }
     section, .waste-section { padding: 4rem 1.5rem; }
@@ -645,8 +645,7 @@
         <a href="#" data-lang="tr" onclick="selectLang(event)">Türkçe</a>
       </div>
     </div>
-    <a class="nav-cta" href="#cta">Start Analysis</a>
-  </div>
+    <a class="nav-cta" href="/intake-welcome.html">Start Analysis</a> </div>
 </nav>
 
 <div class="hero">
@@ -662,13 +661,13 @@
       <li>Results in days, at an accessible budget — no months-long consulting needed</li>
     </ul>
     <div class="hero-actions">
-      <a href="#cta" class="btn-primary">Start Analysis →</a>
-      <a href="#process" class="btn-secondary">How It Works?</a>
+      <a href="/intake-welcome.html" class="btn-primary">Start Analysis →</a> <a href="#process" class="btn-secondary">How It Works?</a>
     </div>
   </div>
   <div class="hero-xray">
     <img src="/xray-hero-img.jpg" alt="GembaX — X-Ray of Operational Waste" />
-    <div class="xray-scan-line"></div> </div>
+    <div class="xray-scan-line"></div> 
+  </div>
 </div>
 
 <div class="stats-strip">
@@ -900,8 +899,7 @@
   <h2>Let us <em>X-ray</em> your operations</h2>
   <p class="cta-small">We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.</p>
   <p>A short guided conversation to understand your business, then we run the analysis with custom questions and data tailored to you.</p>
-  <a href="#" class="btn-primary">Start Analysis →</a>
-</div>
+  <a href="/intake-welcome.html" class="btn-primary">Start Analysis →</a> </div>
 
 <div class="doc-metadata">
   <span>DOC: GEMBAX.AI</span><span class="meta-sep">•</span>
@@ -1099,7 +1097,7 @@
       diffDesc: "Mismo objetivo, enfoque diferente — los resultados hablan por sí solos.",
       diffOldH: "Consultoría Tradicional", diffNewH: "GembaX",
       d1L: "Costo Inicial", d1O: '<span class="diff-highlight">$30K+</span> inicio de proyecto', d1N: 'Apto para PyMEs — <span class="diff-highlight">accesible</span>',
-      d2L: "Tiempo de Diagnóstico", d2O: '<span class="diff-highlight">6–12 semanas</span> de diagnóstico', d2N: 'No semanas, resultados in <span class="diff-highlight">días</span>',
+      d2L: "Tiempo de Diagnóstico", d2O: '<span class="diff-highlight">6–12 semanas</span> de diagnóstico', d2N: 'No semanas, resultados en <span class="diff-highlight">días</span>',
       d3L: "Formato de Informe", d3O: "Informes genéricos basados en puntajes y porcentajes", d3N: 'Cada desperdicio en <span class="diff-highlight">dólares</span> — concreto',
       d4L: "Análisis Derecho", d4O: "Recomendaciones genéricas de mejores prácticas", d4N: 'Análisis específico por sector, <span class="diff-highlight">basado en datos</span>',
       d5L: "Entrega y Seguimiento", d5O: "Informe entregado — proyecto termina", d5N: 'Plan de acción de <span class="diff-highlight">90 días</span> + cálculo de ROI',
@@ -1126,7 +1124,7 @@
       heroBullet2: "AI destekli operasyonel röntgen ile israfın kaynağına iniyoruz",
       heroBullet3: "İsrafın size kaça mal olduğunu hesaplıyoruz",
       heroBullet4: "Sorunların kök nedenlerini ve 90 günlük aksiyon planını çıkarıyoruz",
-      heroBullet5: "Günler içinde, erişilebilir bütçeyle — aylarca süren danışmanlığayerek yok",
+      heroBullet5: "Günler içinde, erişilebilir bütçeyle — aylarca süren danışmanlığa gerek yok",
       heroBtn: "Analizi Başlat →",
       heroBtn2: "Nasıl Çalışır?",
       stat1Num: "%3–5", stat1Label: "Gelir Kaybı", stat1Desc: "Ortalama bir işletme, yıllık gelirinin %3–5'ini operasyonel israflarla kaybeder.",
@@ -1192,12 +1190,12 @@
       ctaP: "Kısa bir sohbette işletmenizi tanıyalım, sonra size özel hazırlanmış sorular ve verilerle analizi yapalım.",
       ctaBtn: "Analizi Başlat →",
       footerBrand: '<strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni',
-      footerPricing: 'Fiyatlar', footerTerms: 'Şartlar', footerPrivacy: 'Gizlilik'
+      footerPricing: 'Pricing', footerTerms: 'Terms', footerPrivacy: 'Privacy'
     }
   };
 
   function applyLang(lang) {
-    lang = lang.toLowerCase(); // Sync always as lowercase key
+    lang = lang.toLowerCase(); // Ensure lowercase matching everywhere
     const t = T[lang.toUpperCase()]; if (!t) return;
     const $ = (s) => document.querySelector(s);
     const $$ = (s) => document.querySelectorAll(s);
