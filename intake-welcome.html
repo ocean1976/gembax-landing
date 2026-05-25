@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -193,7 +192,7 @@
   }
   .info-card.maroon-highlight ul li::before { background: var(--maroon); }
 
-  /* COLLAPSIBLE BOX */
+  /* COLLAPSIBLE BOX (NDA / Privacy) */
   .collapsible {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
@@ -202,6 +201,8 @@
     overflow: hidden;
     transition: all 0.2s;
   }
+  .collapsible:hover { border-color: var(--border-accent); }
+  .collapsible.open { border-color: var(--border-accent); }
   .collapsible-header {
     display: flex; justify-content: space-between; align-items: center;
     padding: 1.1rem 1.5rem;
@@ -246,6 +247,7 @@
   .collapsible-body ol li {
     padding: 0.15rem 0;
   }
+  .collapsible-body strong { color: var(--text-primary); font-weight: 600; }
 
   /* CHECKBOX SECTION */
   .consent-box {
@@ -339,7 +341,9 @@
     border-top: 1px solid var(--border);
     margin-top: 3rem;
   }
-  footer p { font-size: 0.8rem; color: var(--text-muted); }
+  footer p {
+    font-size: 0.8rem; color: var(--text-muted);
+  }
   footer a { color: var(--text-secondary); text-decoration: none; margin: 0 0.6rem; }
   footer a:hover { color: var(--accent); }
 
@@ -363,7 +367,7 @@
   <div class="nav-right">
     <a href="/" class="nav-back" id="nav-back">← Ana Sayfa</a>
     <div class="lang-switch">
-      <button data-lang="TR" onclick="setLang(this)">TR</button>
+      <button data-lang="TR" onclick="setLang(this)" class="active">TR</button>
       <button data-lang="EN" onclick="setLang(this)">EN</button>
       <button data-lang="ES" onclick="setLang(this)">ES</button>
     </div>
@@ -390,11 +394,12 @@
       <div class="meta-stat-label" id="stat2-lbl">SORU</div>
     </div>
     <div class="meta-stat">
-      <div class="meta-stat-value" id="stat3-val">$150</div>
+      <div class="meta-stat-value" id="stat3-val">$100</div>
       <div class="meta-stat-label" id="stat3-lbl">100× ROI GARANTİ</div>
     </div>
   </div>
 
+  <!-- Why complete matters -->
   <div class="info-card highlight">
     <h2>
       <svg class="info-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -404,6 +409,7 @@
     <p id="why-p2"><strong>Pilot dönemde sınırlı sayıda başvuru kabul edebiliyoruz</strong> — bu yüzden eksiksiz başvurular önceliklendirilir. Yüzeysel veri, yüzeysel rapor demektir; biz iki tarafın da zamanını boşa harcamaktan kaçınıyoruz.</p>
   </div>
 
+  <!-- Prepare before -->
   <div class="info-card">
     <h2>
       <svg class="info-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -419,6 +425,7 @@
     </ul>
   </div>
 
+  <!-- NDA -->
   <div class="collapsible" id="ndaBox">
     <div class="collapsible-header" onclick="toggleCollapse('ndaBox')">
       <div class="collapsible-title">
@@ -428,7 +435,7 @@
       <span class="collapsible-arrow">▾</span>
     </div>
     <div class="collapsible-body">
-      <p id="nda-intro">Bu formla paylaştığınız tüm bilgiler ticari sır olarak kabul edilir and aşağıdaki kurallara tabidir:</p>
+      <p id="nda-intro">Bu formla paylaştığınız tüm bilgiler ticari sır olarak kabul edilir ve aşağıdaki kurallara tabidir:</p>
       <ol id="nda-list">
         <li>Bilgileriniz <strong>sadece sizin için yapılacak analiz amacıyla</strong> kullanılır.</li>
         <li>3. taraflarla <strong>paylaşılmaz, satılmaz, ifşa edilmez</strong>.</li>
@@ -440,6 +447,7 @@
     </div>
   </div>
 
+  <!-- Privacy -->
   <div class="collapsible" id="privBox">
     <div class="collapsible-header" onclick="toggleCollapse('privBox')">
       <div class="collapsible-title">
@@ -460,11 +468,12 @@
     </div>
   </div>
 
+  <!-- Consent -->
   <div class="consent-box" id="consentBox" onclick="toggleConsent()">
     <div class="consent-check"></div>
     <div class="consent-label" id="consent-label">
       Yukarıdaki Gizlilik Sözleşmesi (NDA) ve Veri Koruma metinlerini okudum, kabul ediyorum.
-      <small id="consent-sub">Formu doldurmaya başlamak için bu onay zorunlu dur. Onay tarihiniz ve IP adresiniz kayıt altına alınır.</small>
+      <small id="consent-sub">Formu doldurmaya başlamak için bu onay zorunludur. Onay tarihiniz ve IP adresiniz kayıt altına alınır.</small>
     </div>
   </div>
 
@@ -485,6 +494,9 @@
 </footer>
 
 <script>
+  // ═══════════════════════════════════════════════
+  // i18n — 3 dil: TR, EN, ES
+  // ═══════════════════════════════════════════════
   const T = {
     TR: {
       'nav-logo-sub': 'Operasyonel İsrafın Röntgeni',
@@ -494,7 +506,7 @@
       'hero-lead': 'Aşağıdaki onayları okuyup formu doldurun. Sınırlı sayıda pilot başvurusu kabul ediyoruz; eksiksiz dolduran başvurular önceliklendirilir.',
       'stat1-val': '~8', 'stat1-lbl': 'DAKİKA',
       'stat2-val': '~27', 'stat2-lbl': 'SORU',
-      'stat3-val': '$150', 'stat3-lbl': '100× ROI GARANTİ',
+      'stat3-val': '$100', 'stat3-lbl': '100× ROI GARANTİ',
       'why-title': 'Neden eksiksiz doldurma önemli?',
       'why-p1': 'Aşama 1 raporunun değeri, başvuru formunda paylaştığınız bilgilerin derinliğine doğrudan bağlıdır. Pre-research (sektör benchmark, rakip karşılaştırması, müşteri analizi) sizin verdiğiniz bilgiler üzerine kuruludur.',
       'why-p2': '<strong>Pilot dönemde sınırlı sayıda başvuru kabul edebiliyoruz</strong> — bu yüzden eksiksiz başvurular önceliklendirilir. Yüzeysel veri, yüzeysel rapor demektir; biz iki tarafın da zamanını boşa harcamaktan kaçınıyoruz.',
@@ -540,7 +552,7 @@
       'hero-lead': 'Read the consents below and complete the form. We accept a limited number of pilot applications; completed submissions get priority.',
       'stat1-val': '~8', 'stat1-lbl': 'MINUTES',
       'stat2-val': '~27', 'stat2-lbl': 'QUESTIONS',
-      'stat3-val': '$150', 'stat3-lbl': '100× ROI GUARANTEE',
+      'stat3-val': '$100', 'stat3-lbl': '100× ROI GUARANTEE',
       'why-title': 'Why complete responses matter',
       'why-p1': 'The value of your Stage 1 report depends directly on the depth of the information you share in the application. Pre-research (sector benchmark, competitor comparison, customer analysis) is built on top of what you provide.',
       'why-p2': '<strong>We accept a limited number of applications during the pilot</strong> — so complete submissions are prioritized. Shallow data means shallow reports; we want to respect both sides\' time.',
@@ -586,9 +598,9 @@
       'hero-lead': 'Lea los consentimientos a continuación y complete el formulario. Aceptamos un número limitado de solicitudes piloto; las solicitudes completas reciben prioridad.',
       'stat1-val': '~8', 'stat1-lbl': 'MINUTOS',
       'stat2-val': '~27', 'stat2-lbl': 'PREGUNTAS',
-      'stat3-val': '$150', 'stat3-lbl': '100× ROI GARANTIZADO',
+      'stat3-val': '$100', 'stat3-lbl': '100× ROI GARANTIZADO',
       'why-title': 'Por qué las respuestas completas son importantes',
-      'why-p1': 'El valor de su informe Etapa 1 depende directamente de la profundidad de la información que comparga en la solicitud. La investigación previa (benchmark sectorial, comparativa de competidores, análisis de clientes) se construye sobre lo que usted proporciona.',
+      'why-p1': 'El valor de su informe Etapa 1 depende directamente de la profundidad de la información que comparta en la solicitud. La investigación previa (benchmark sectorial, comparativa de competidores, análisis de clientes) se construye sobre lo que usted proporciona.',
       'why-p2': '<strong>Aceptamos un número limitado de solicitudes durante el piloto</strong> — por eso las solicitudes completas son priorizadas. Datos superficiales significan informes superficiales; queremos respetar el tiempo de ambas partes.',
       'prep-title': 'Tenga estos datos listos antes de empezar:',
       'prep-list': [
@@ -631,6 +643,7 @@
     document.documentElement.lang = lang.toLowerCase();
     document.title = t.docTitle;
     
+    // Apply all simple strings
     const fields = ['nav-logo-sub', 'nav-back', 'hero-badge', 'hero-title', 'hero-lead',
                     'stat1-val', 'stat1-lbl', 'stat2-val', 'stat2-lbl', 'stat3-val', 'stat3-lbl',
                     'why-title', 'why-p1', 'why-p2', 'prep-title',
@@ -643,11 +656,13 @@
       if (el && t[id] !== undefined) el.innerHTML = t[id];
     });
     
+    // Special case for consent-label which contains consent-sub
     const cl = document.getElementById('consent-label');
     if (cl) {
       cl.innerHTML = t['consent-label'] + '<small id="consent-sub">' + t['consent-sub'] + '</small>';
     }
     
+    // Apply list arrays
     const prepList = document.getElementById('prep-list');
     if (prepList) prepList.innerHTML = t['prep-list'].map(i => `<li>${i}</li>`).join('');
     
@@ -657,6 +672,7 @@
     const privList = document.getElementById('priv-list');
     if (privList) privList.innerHTML = t['priv-list'].map(i => `<li>${i}</li>`).join('');
     
+    // Update active language button
     document.querySelectorAll('.lang-switch button').forEach(b => {
       b.classList.toggle('active', b.dataset.lang === lang);
     });
@@ -679,18 +695,24 @@
   }
 
   function startForm() {
+    // Capture consent metadata
     const meta = {
       consentDate: new Date().toISOString(),
       lang: document.documentElement.lang.toUpperCase(),
+      // IP recorded server-side on form submission
     };
     try {
       sessionStorage.setItem('gembax-consent', JSON.stringify(meta));
     } catch(e) {}
 
+    // Redirect to form page (production: /basvuru/form)
     const lang = (document.documentElement.lang || 'tr').toLowerCase();
-    window.location.href = 'intake-form-step1-AB.html?lang=' + lang.toUpperCase();
+    // For local prototype testing: open the form HTML next to this file
+    // Production URL would be: /basvuru/form?lang=...
+    window.location.href = '/basvuru/form?lang=' + lang.toUpperCase();
   }
 
+  // Init: detect language from URL ?lang= or localStorage or browser
   (function() {
     let lang = 'TR';
     const urlLang = new URLSearchParams(window.location.search).get('lang');
@@ -699,13 +721,12 @@
     } else {
       try {
         const stored = localStorage.getItem('gembax-lang');
-        if (stored && T[stored.toUpperCase()]) lang = stored.toUpperCase();
+        if (stored && T[stored]) lang = stored;
       } catch(e) {}
     }
     applyLang(lang);
   })();
 </script>
+
 </body>
 </html>
-
-```
