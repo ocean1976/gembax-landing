@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -389,7 +390,7 @@
       <div class="meta-stat-label" id="stat2-lbl">SORU</div>
     </div>
     <div class="meta-stat">
-      <div class="meta-stat-value" id="stat3-val">$100</div>
+      <div class="meta-stat-value" id="stat3-val">$150</div>
       <div class="meta-stat-label" id="stat3-lbl">100× ROI GARANTİ</div>
     </div>
   </div>
@@ -427,7 +428,7 @@
       <span class="collapsible-arrow">▾</span>
     </div>
     <div class="collapsible-body">
-      <p id="nda-intro">Bu formla paylaştığınız tüm bilgiler ticari sır olarak kabul edilir ve aşağıdaki kurallara tabidir:</p>
+      <p id="nda-intro">Bu formla paylaştığınız tüm bilgiler ticari sır olarak kabul edilir and aşağıdaki kurallara tabidir:</p>
       <ol id="nda-list">
         <li>Bilgileriniz <strong>sadece sizin için yapılacak analiz amacıyla</strong> kullanılır.</li>
         <li>3. taraflarla <strong>paylaşılmaz, satılmaz, ifşa edilmez</strong>.</li>
@@ -463,7 +464,7 @@
     <div class="consent-check"></div>
     <div class="consent-label" id="consent-label">
       Yukarıdaki Gizlilik Sözleşmesi (NDA) ve Veri Koruma metinlerini okudum, kabul ediyorum.
-      <small id="consent-sub">Formu doldurmaya başlamak için bu onay zorunludur. Onay tarihiniz ve IP adresiniz kayıt altına alınır.</small>
+      <small id="consent-sub">Formu doldurmaya başlamak için bu onay zorunlu dur. Onay tarihiniz ve IP adresiniz kayıt altına alınır.</small>
     </div>
   </div>
 
@@ -493,7 +494,7 @@
       'hero-lead': 'Aşağıdaki onayları okuyup formu doldurun. Sınırlı sayıda pilot başvurusu kabul ediyoruz; eksiksiz dolduran başvurular önceliklendirilir.',
       'stat1-val': '~8', 'stat1-lbl': 'DAKİKA',
       'stat2-val': '~27', 'stat2-lbl': 'SORU',
-      'stat3-val': '$100', 'stat3-lbl': '100× ROI GARANTİ',
+      'stat3-val': '$150', 'stat3-lbl': '100× ROI GARANTİ',
       'why-title': 'Neden eksiksiz doldurma önemli?',
       'why-p1': 'Aşama 1 raporunun değeri, başvuru formunda paylaştığınız bilgilerin derinliğine doğrudan bağlıdır. Pre-research (sektör benchmark, rakip karşılaştırması, müşteri analizi) sizin verdiğiniz bilgiler üzerine kuruludur.',
       'why-p2': '<strong>Pilot dönemde sınırlı sayıda başvuru kabul edebiliyoruz</strong> — bu yüzden eksiksiz başvurular önceliklendirilir. Yüzeysel veri, yüzeysel rapor demektir; biz iki tarafın da zamanını boşa harcamaktan kaçınıyoruz.',
@@ -539,7 +540,7 @@
       'hero-lead': 'Read the consents below and complete the form. We accept a limited number of pilot applications; completed submissions get priority.',
       'stat1-val': '~8', 'stat1-lbl': 'MINUTES',
       'stat2-val': '~27', 'stat2-lbl': 'QUESTIONS',
-      'stat3-val': '$100', 'stat3-lbl': '100× ROI GUARANTEE',
+      'stat3-val': '$150', 'stat3-lbl': '100× ROI GUARANTEE',
       'why-title': 'Why complete responses matter',
       'why-p1': 'The value of your Stage 1 report depends directly on the depth of the information you share in the application. Pre-research (sector benchmark, competitor comparison, customer analysis) is built on top of what you provide.',
       'why-p2': '<strong>We accept a limited number of applications during the pilot</strong> — so complete submissions are prioritized. Shallow data means shallow reports; we want to respect both sides\' time.',
@@ -585,9 +586,9 @@
       'hero-lead': 'Lea los consentimientos a continuación y complete el formulario. Aceptamos un número limitado de solicitudes piloto; las solicitudes completas reciben prioridad.',
       'stat1-val': '~8', 'stat1-lbl': 'MINUTOS',
       'stat2-val': '~27', 'stat2-lbl': 'PREGUNTAS',
-      'stat3-val': '$100', 'stat3-lbl': '100× ROI GARANTIZADO',
+      'stat3-val': '$150', 'stat3-lbl': '100× ROI GARANTIZADO',
       'why-title': 'Por qué las respuestas completas son importantes',
-      'why-p1': 'El valor de su informe Etapa 1 depende directamente de la profundidad de la información que comparta en la solicitud. La investigación previa (benchmark sectorial, comparativa de competidores, análisis de clientes) se construye sobre lo que usted proporciona.',
+      'why-p1': 'El valor de su informe Etapa 1 depende directamente de la profundidad de la información que comparga en la solicitud. La investigación previa (benchmark sectorial, comparativa de competidores, análisis de clientes) se construye sobre lo que usted proporciona.',
       'why-p2': '<strong>Aceptamos un número limitado de solicitudes durante el piloto</strong> — por eso las solicitudes completas son priorizadas. Datos superficiales significan informes superficiales; queremos respetar el tiempo de ambas partes.',
       'prep-title': 'Tenga estos datos listos antes de empezar:',
       'prep-list': [
@@ -698,7 +699,6 @@
     } else {
       try {
         const stored = localStorage.getItem('gembax-lang');
-        // Küçük harfle gelen veriyi (.toUpperCase()) ile T nesnesi anahtarlarına uyumlu hale getirdik.
         if (stored && T[stored.toUpperCase()]) lang = stored.toUpperCase();
       } catch(e) {}
     }
@@ -707,3 +707,5 @@
 </script>
 </body>
 </html>
+
+```
