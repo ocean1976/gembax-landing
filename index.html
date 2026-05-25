@@ -1,3 +1,5 @@
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -645,7 +647,7 @@
         <a href="#" data-lang="tr" onclick="selectLang(event)">Türkçe</a>
       </div>
     </div>
-    <a class="nav-cta" href="intake-welcome.html">Start Analysis</a> </div>
+    <a class="nav-cta start-analysis-btn" href="intake-welcome.html">Start Analysis</a> </div>
 </nav>
 
 <div class="hero">
@@ -661,7 +663,7 @@
       <li>Results in days, at an accessible budget — no months-long consulting needed</li>
     </ul>
     <div class="hero-actions">
-      <a href="intake-welcome.html" class="btn-primary">Start Analysis →</a> <a href="#process" class="btn-secondary">How It Works?</a>
+      <a href="intake-welcome.html" class="btn-primary start-analysis-btn">Start Analysis →</a> <a href="#process" class="btn-secondary">How It Works?</a>
     </div>
   </div>
   <div class="hero-xray">
@@ -898,7 +900,7 @@
   <h2>Let us <em>X-ray</em> your operations</h2>
   <p class="cta-small">We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.</p>
   <p>A short guided conversation to understand your business, then we run the analysis with custom questions and data tailored to you.</p>
-  <a href="intake-welcome.html" class="btn-primary">Start Analysis →</a> </div>
+  <a href="intake-welcome.html" class="btn-primary start-analysis-btn">Start Analysis →</a> </div>
 
 <div class="doc-metadata">
   <span>DOC: GEMBAX.AI</span><span class="meta-sep">•</span>
@@ -1078,7 +1080,7 @@
       w5Name: "Sobreproducción", w5Ex: "Producir más de lo necesario, informes innecesarios, salida no utilizada", w5Cost: "Impacto típico: $25K–150K/año",
       w6Name: "Sobre-procesamiento", w6Ex: "Detalles innecesarios, nivel de calidad que el cliente no necesita", w6Cost: "Impacto típico: $15K–90K/año",
       w7Name: "Defectos / Retrabajo", w7Ex: "Chatarra, retrabajo, devoluciones, clientes perdidos", w7Cost: "Impacto típico: $20K–180K/año",
-      w8Name: "Desperdicio de Talento", w8Ex: "Empleados experimentados atrapados en tareas rutinarias", w8Cost: "Acción",
+      w8Name: "Desperdicio de Talento", w8Ex: "Empleados experimentados atrapados en tareas rutinarias", w8Cost: "Impacto típico: $20K–100K/año",
       sectLabel: "Alcance",
       sectTitle: 'Donde hay flujo de valor, <em>hay desperdicio</em>',
       sectDesc: "GembaX no es solo para fábricas — funciona en toda empresa con operaciones.",
@@ -1176,7 +1178,7 @@
       d1L: "Başlangıç Maliyeti", d1O: '<span class="diff-highlight">$30K+</span> proje başlangıç', d1N: 'KOBİ bütçesine uygun — <span class="diff-highlight">erişilebilir</span>',
       d2L: "Teşhis Süresi", d2O: '<span class="diff-highlight">6–12 hafta</span> teşhis süresi', d2N: 'Haftalar değil, <span class="diff-highlight">günler</span> içinde sonuç',
       d3L: "Rapor Formatı", d3O: "Skor ve yüzde bazlı genel raporlar", d3N: 'Her israf <span class="diff-highlight">dolar cinsinden</span> — somut',
-      d4L: "Analiz Derinliği", d4O: "Jenerik best-practice önerileri", d4N: 'Sektörünüze özel, <span class="diff-highlight">veriye dayalı</span> analiz',
+      d4L: "Analiz Derinliği", d4O: "Geleneksel jenerik öneriler yerine pratik çözüm", d4N: 'Sektörünüze özel, <span class="diff-highlight">veriye dayalı</span> analiz',
       d5L: "Çıktı & Takip", d5O: "Rapor teslim — proje biter", d5N: '<span class="diff-highlight">90 günlük</span> aksiyon planı + ROI hesabı',
       d6L: "Kalite Güvencesi", d6O: "Kişiye bağımlı, değişken kalite", d6N: 'Uzman + AI hibrit — <span class="diff-highlight">tutarlı kalite</span>',
       diffBottom: "Aynı içgörü — daha hızlı ve ucuz",
@@ -1345,8 +1347,9 @@
     if (fll[1]) fll[1].textContent = t.footerTerms;
     if (fll[2]) fll[2].textContent = t.footerPrivacy;
 
-    // --- Cerrahi URL Güncelleme Alanı ---
-    $$('a[href*="intake-welcome.html"]').forEach(link => {
+    // --- Dinamik ve Güvenli URL Güncelleme Alanı ---
+    // start-analysis-btn sınıfına sahip tüm elementlerin linkini o an seçili dile göre güncelliyoruz.
+    $$('.start-analysis-btn').forEach(link => {
       link.setAttribute('href', 'intake-welcome.html?lang=' + lang.toUpperCase());
     });
   }
@@ -1372,3 +1375,5 @@
 </script>
 </body>
 </html>
+
+```
