@@ -1215,7 +1215,7 @@
 <body>
 
 <nav>
-  <a href="/basvuru" class="logo">
+  <a href="/intake-welcome" class="logo">
     <span class="logo-main">Gemba<span class="logo-x">X</span></span>
     <span class="logo-sub">Başvuru Formu</span>
   </a>
@@ -4693,7 +4693,7 @@
     // (Allow bypass with ?dev=1 for testing)
     const isDev = new URLSearchParams(window.location.search).get('dev') === '1';
     if (!hasConsent && !isDev) {
-      window.location.replace('/basvuru');
+      window.location.replace('/intake-welcome');
       return;
     }
 
