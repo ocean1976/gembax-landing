@@ -24,462 +24,600 @@
 
     /* Maroon (Aşama 2) */
     --maroon: #6E1414;
-    --maroon-dark: #520f0f;
-    --maroon-light: #8a1a1a;
+    --maroon-dark: #5C0F0F;
+    --maroon-light: #8B1A1A;
     --maroon-glow: rgba(110, 20, 20, 0.08);
     --maroon-glow-strong: rgba(110, 20, 20, 0.15);
-  }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+    /* Borders */
+    --border: rgba(0,0,0,0.08);
+    --border-accent: rgba(45, 80, 22, 0.25);
+    --border-maroon: rgba(110, 20, 20, 0.25);
 
+    /* Fonts */
+    --font-body: 'Instrument Sans', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
-    font-family: 'Instrument Sans', sans-serif;
+    font-family: var(--font-body);
     background-color: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.5;
-    padding: 2rem 1rem;
+    background-image:
+      linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--text-primary); line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
   }
+  ::selection { background: var(--accent); color: #fff; }
 
-  .container {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .lang-switch {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    margin-bottom: 3rem;
-  }
-
-  .lang-switch button {
-    background: none;
-    border: 1px solid #ccc;
-    padding: 0.25rem 0.5rem;
-    cursor: pointer;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-    border-radius: 4px;
-    transition: all 0.2s;
-  }
-
-  .lang-switch button.active {
-    background: var(--text-primary);
-    color: #fff;
-    border-color: var(--text-primary);
-  }
-
-  header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  header h1 {
-    font-size: 2.5rem;
+  /* TOP ANNOUNCEMENT BAR */
+  .top-announcement-bar {
+    background: var(--accent);
+    color: var(--bg-primary);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
+    text-align: center;
+    padding: 0.35rem 1rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--accent-dark);
   }
 
-  header p {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.4rem 2rem;
+    background: rgba(250,249,246,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { text-decoration: none; display: flex; align-items: baseline; gap: 0.4rem; }
+  .logo-main { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
+  .logo-x { color: var(--accent); }
+  .logo-sub { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .nav-back {
+    font-size: 0.78rem; color: var(--text-secondary); text-decoration: none;
+    display: flex; align-items: center; gap: 0.2rem; transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+  .lang-switch { display: flex; gap: 0.05rem; }
+  .lang-switch button {
+    background: transparent; border: none; cursor: pointer;
+    font-family: var(--font-mono); font-size: 0.62rem;
+    color: var(--text-muted); padding: 0.15rem 0.35rem;
+    border-radius: 4px; transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .lang-switch button:hover { color: var(--accent); }
+  .lang-switch button.active { color: var(--accent); background: var(--accent-glow); }
+
+  /* HERO */
+  .pricing-hero {
+    text-align: center;
+    padding: 1.2rem 1.5rem 0.8rem;
+    max-width: 760px; margin: 0 auto;
+  }
+  .pricing-hero h1 {
+    font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.1; margin-bottom: 0.2rem;
+  }
+  .pricing-hero h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .pricing-hero p {
+    color: var(--text-secondary); font-size: 0.88rem;
+    line-height: 1.5; max-width: 580px; margin: 0 auto;
   }
 
+  /* PILOT BADGE */
+  .pilot-badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    background: var(--accent-glow);
+    color: var(--accent-dark);
+    font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 0.2rem 0.6rem; border-radius: 20px;
+    margin-bottom: 0.4rem;
+    border: 1px solid var(--border-accent);
+  }
+  .pilot-badge::before {
+    content: '●'; color: var(--accent); font-size: 0.6rem; animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  /* CARDS */
   .pricing-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    margin-bottom: 4rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    max-width: 840px; margin: 0 auto;
+    padding: 0 1.2rem 1.2rem;
   }
-
-  @media (min-width: 768px) {
-    .pricing-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .card {
+  .pricing-card {
     background: var(--bg-secondary);
+    border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 1.2rem 1.2rem 1.2rem;
+    display: flex; flex-direction: column;
     position: relative;
     transition: transform 0.2s, box-shadow 0.2s;
   }
-
-  .card.stage1 {
-    border: 1px solid rgba(45, 80, 22, 0.2);
-    box-shadow: 0 4px 20px var(--accent-glow);
+  .pricing-card:hover {
+    transform: translateY(-2px);
   }
 
-  .card.stage2 {
-    border: 1px solid rgba(110, 20, 20, 0.2);
-    box-shadow: 0 4px 20px var(--maroon-glow);
+  /* Green Tier 1 */
+  .pricing-card.green {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 4px 15px var(--accent-glow);
+  }
+  .pricing-card.green:hover {
+    box-shadow: 0 0 0 1px var(--accent), 0 8px 25px var(--accent-glow-strong);
   }
 
-  .card:hover {
-    transform: translateY(-4px);
+  /* Maroon Tier 2 */
+  .pricing-card.maroon {
+    border-color: var(--maroon);
+    box-shadow: 0 0 0 1px var(--maroon), 0 4px 15px var(--maroon-glow);
   }
-  
-  .card.stage1:hover {
-    box-shadow: 0 8px 30px var(--accent-glow-strong);
-  }
-
-  .card.stage2:hover {
-    box-shadow: 0 8px 30px var(--maroon-glow-strong);
+  .pricing-card.maroon:hover {
+    box-shadow: 0 0 0 1px var(--maroon), 0 8px 25px var(--maroon-glow-strong);
   }
 
-  .badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-weight: bold;
+  .pricing-badge {
+    position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+    color: #fff;
+    font-family: var(--font-mono); font-size: 0.58rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.2rem 0.75rem; border-radius: 20px;
+    white-space: nowrap;
   }
+  .pricing-badge.green { background: var(--accent); }
+  .pricing-badge.maroon { background: var(--maroon); }
 
-  .stage1 .badge {
-    background: var(--accent-glow);
-    color: var(--accent);
+  .pricing-tier {
+    font-family: var(--font-mono); font-size: 0.62rem;
+    color: var(--text-muted); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 0.2rem;
   }
-
-  .stage2 .badge {
-    background: var(--maroon-glow);
-    color: var(--maroon);
+  .pricing-name {
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 0.2rem;
+    line-height: 1.2;
   }
-
-  .card-header h2 {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
+  .pricing-desc {
+    font-size: 0.82rem; color: var(--text-secondary);
+    line-height: 1.4; margin-bottom: 0.6rem;
+    min-height: 2.6rem;
   }
-
-  .card-header .subtitle {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+  .pricing-price {
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
   }
-
-  .stage1 .subtitle { color: var(--accent); }
-  .stage2 .subtitle { color: var(--maroon); }
-
-  .price-block {
-    margin-bottom: 2rem;
-  }
-
-  .price {
-    font-size: 3rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
+  .pricing-amount {
+    font-size: 1.9rem; font-weight: 700;
+    color: var(--text-primary); letter-spacing: -0.03em;
     line-height: 1;
   }
-
-  .price-sub {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-top: 0.25rem;
+  .pricing-amount .currency { font-size: 1.1rem; font-weight: 600; vertical-align: super; }
+  .pricing-period {
+    font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;
+    font-family: var(--font-mono); letter-spacing: 0.02em;
   }
 
-  .features {
-    list-style: none;
-    margin-bottom: 2.5rem;
+  .pricing-features {
+    list-style: none; flex: 1; margin-bottom: 1rem;
   }
-
-  .features li {
-    margin-bottom: 0.75rem;
-    position: relative;
-    padding-left: 1.5rem;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
+  .pricing-features li {
+    font-size: 0.78rem; color: var(--text-secondary);
+    padding: 0.2rem 0; padding-left: 1.2rem;
+    position: relative; line-height: 1.35;
   }
-
-  .features li::before {
-    content: "→";
-    position: absolute;
-    left: 0;
+  .pricing-features li::before {
+    content: '✓'; position: absolute; left: 0;
+    font-weight: 700; font-size: 0.8rem; top: 0.2rem;
   }
+  .pricing-card.green .pricing-features li::before { color: var(--accent); }
+  .pricing-card.maroon .pricing-features li::before { color: var(--maroon); }
 
-  .stage1 .features li::before { color: var(--accent); }
-  .stage2 .features li::before { color: var(--maroon); }
+  .pricing-features li.highlight {
+    background: var(--accent-glow);
+    margin-left: -0.6rem; margin-right: -0.6rem;
+    padding-left: 1.8rem; padding-right: 0.6rem;
+    border-radius: 4px;
+    font-weight: 600; color: var(--accent-dark);
+  }
+  .pricing-features li.highlight::before { left: 0.6rem; }
 
-  .btn {
-    display: block;
-    text-align: center;
-    font-family: 'Space Mono', monospace;
-    font-weight: 700;
-    padding: 1rem;
+  .pricing-btn {
+    display: block; text-align: center;
+    padding: 0.65rem 1.2rem;
     border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-    border: none;
-    width: 100%;
-  }
-
-  .stage1 .btn {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  .stage1 .btn:hover {
-    background: var(--accent-dark);
-  }
-
-  .stage2 .btn {
-    background: var(--maroon);
-    color: #fff;
-  }
-
-  .stage2 .btn:hover {
-    background: var(--maroon-dark);
-  }
-
-  .faq-section {
-    margin-top: 6rem;
-    border-top: 1px solid #e2e8f0;
-    padding-top: 4rem;
-  }
-
-  .faq-section h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-size: 2rem;
-  }
-
-  .faq-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  @media (min-width: 768px) {
-    .faq-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .faq-item h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-  }
-
-  .faq-item p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 6rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e2e8f0;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-  }
-
-  footer .brand {
-    font-family: 'Space Mono', monospace;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-  }
-
-  footer .links {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  footer .links a {
-    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.85rem; font-weight: 600;
     text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .pricing-btn.green {
+    background: var(--accent); color: #fff;
+    border: 1px solid var(--accent);
+  }
+  .pricing-btn.green:hover {
+    background: var(--accent-dark);
+    box-shadow: 0 4px 10px rgba(45,80,22,0.15);
+  }
+  .pricing-btn.maroon {
+    background: var(--maroon); color: #fff;
+    border: 1px solid var(--maroon);
+  }
+  .pricing-btn.maroon:hover {
+    background: var(--maroon-dark);
+    box-shadow: 0 4px 10px rgba(110,20,20,0.15);
   }
 
-  footer .links a:hover {
-    color: var(--text-primary);
+  /* GUARANTEE BAR */
+  .guarantee-bar {
+    max-width: 760px; margin: 0 auto 2.5rem;
+    text-align: center; padding: 1rem 1.5rem;
+    background: var(--accent-glow);
+    border: 1px solid var(--border-accent);
+    border-radius: 10px;
+  }
+  .guarantee-strong {
+    font-family: var(--font-mono); font-weight: 700;
+    color: var(--accent-dark); letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    display: inline-block; margin-bottom: 0.2rem;
+  }
+  .guarantee-bar p {
+    font-size: 0.85rem; color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* FAQ */
+  .faq-section {
+    max-width: 760px; margin: 0 auto;
+    padding: 0 2rem 3rem;
+  }
+  .faq-section h2 {
+    font-size: 1.4rem; font-weight: 700;
+    text-align: center; margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem 0;
+  }
+  .faq-q {
+    font-size: 0.92rem; font-weight: 600;
+    color: var(--text-primary); cursor: pointer;
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 1rem;
+  }
+  .faq-q::after {
+    content: '+'; font-family: var(--font-mono);
+    font-size: 1rem; color: var(--accent);
+    flex-shrink: 0; transition: transform 0.2s;
+  }
+  .faq-item.open .faq-q::after { content: '−'; }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-a {
+    max-height: 400px;
+    padding-top: 0.6rem;
+  }
+  .faq-a p {
+    font-size: 0.85rem; color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .faq-a strong { color: var(--text-primary); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.2rem 2rem; background: var(--bg-secondary);
+  }
+  .footer-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand { font-size: 0.78rem; color: var(--text-muted); }
+  .footer-brand strong { color: var(--text-primary); font-weight: 700; }
+  .footer-brand strong span { color: var(--accent); }
+  .footer-links { display: flex; gap: 0.8rem; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .pricing-grid { grid-template-columns: 1fr; max-width: 420px; gap: 1.8rem; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 0.6rem 1rem; }
+    .nav-right { gap: 0.6rem; }
+    .logo-sub { display: none; }
+    .pricing-hero { padding: 1.2rem 1rem 0.8rem; }
+    .pricing-grid { padding: 0 1rem 1.2rem; }
+    .guarantee-bar { margin: 0 1rem 1.5rem; padding: 0.8rem 0.6rem; }
+    footer { padding: 1rem 1rem; }
+    .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
   }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="lang-switch">
-    <button onclick="applyLang('tr')" class="active" data-lang="tr">TR</button>
-    <button onclick="applyLang('en')" data-lang="en">EN</button>
-  </div>
+<div class="top-announcement-bar" data-i18n="topBar">[ 100x ROI GUARANTEE ] If we cannot prove at least $15,000 in annual leakage, the report is FREE.</div>
 
-  <header>
-    <h1 data-i18n="title">Netlik ve Garanti</h1>
-    <p data-i18n="subtitle">GembaX operasyonel israf analizi iki aşamadan oluşur. Önce risk almadan keşfeder, ardından aksiyona geçersiniz.</p>
-  </header>
-
-  <div class="pricing-grid">
-    <div class="card stage1">
-      <span class="badge" data-i18n="badge1">Risk Sıfır</span>
-      <div class="card-header">
-        <h2 data-i18n="stage1Title">Aşama 1: Dijital Röntgen</h2>
-        <div class="subtitle" data-i18n="stage1Sub">Keşif & 100× ROI Garantisi</div>
-        <div class="price-block">
-          <div class="price">$150</div>
-          <div class="price-sub" data-i18n="stage1PriceSub">Tek seferlik analiz ücreti</div>
-        </div>
-        <ul class="features">
-          <li data-i18n="s1f1">Uçtan uca süreç ve veri entegrasyonu analizi.</li>
-          <li data-i18n="s1f2">Yapar zeka motoru destekli israf ve darboğaz tespiti.</li>
-          <li data-i18n="s1f3"><strong>100× ROI Taahhüdü:</strong> En az 15.000$ değerinde net potansiyel tasarruf/verimlilik alanı bulunamazsa paranız kesintisiz iade edilir.</li>
-        </ul>
-      </div>
-      <button onclick="window.location.href='intake-welcome.html'" class="btn" data-i18n="btn1">Analizi Başlat</button>
-    </div>
-
-    <div class="card stage2">
-      <span class="badge" data-i18n="badge2">Opsiyonel</span>
-      <div class="card-header">
-        <h2 data-i18n="stage2Title">Aşama 2: Yol Haritası</h2>
-        <div class="subtitle" data-i18n="stage2Sub">Derin Analiz & Uygulama Sahası</div>
-        <div class="price-block">
-          <div class="price" data-i18n="stage2Price">Teklif Usulü</div>
-          <div class="price-sub" data-i18n="stage2PriceSub">Süreç karmaşıklığına göre özel bütçelendirme</div>
-        </div>
-        <ul class="features">
-          <li data-i18n="s2f1">Aşama 1 raporundaki kök nedenlerin derinlemesine incelenmesi.</li>
-          <li data-i18n="s2f2">Uygulanabilir otomasyon ve süreç yapılandırma senaryoları.</li>
-          <li data-i18n="s2f3">Uzman danışman eşliğinde sahada/operasyonda implementasyon desteği.</li>
-          <li data-i18n="s2f4">Veri Güven Skoru (Data Quality Index) şeffaflık raporu.</li>
-        </ul>
-      </div>
-      <button onclick="window.location.href='intake-welcome.html'" class="btn" data-i18n="btn2">Teklif Al / İlerle</button>
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-main">Gemba<span class="logo-x">X</span></span>
+    <span class="logo-sub" data-i18n="logoSub">X-Ray of Operational Waste</span>
+  </a>
+  <div class="nav-right">
+    <a href="/" class="nav-back">← <span data-i18n="navBack">Home</span></a>
+    <div class="lang-switch">
+      <button data-lang="en">EN</button>
+      <button data-lang="es">ES</button>
+      <button data-lang="tr">TR</button>
     </div>
   </div>
+</nav>
 
-  <div class="faq-section">
-    <h2 data-i18n="faqTitle">Sıkça Sorulan Sorular</h2>
-    <div class="faq-grid">
-      <div class="faq-item">
-        <h3 data-i18n="faq1q">100× ROI garantisi tam olarak nasıl çalışıyor?</h3>
-        <p data-i18n="faq1a">Aşama 1 analizi için 150$ ödersiniz. Eğer hazırladığımız raporda şirketiniz için en az 15.000$ hacminde bir israf, verimsizlik veya otomasyon potansiyeli kanıtlarıyla gösterilemezse, hiçbir soru sorulmaksızın 150$'ınız iade edilir.</p>
-      </div>
-      <div class="faq-item">
-        <h3 data-i18n="faq2q">Verilerimizin güvenliğini nasıl sağlıyorsunuz?</h3>
-        <p data-i18n="faq2a">Verileriniz analiz esnasında anonimleştirilir ve yalnızca sizin operasyonunuza özel izole bir yapay zeka bağlamında işlenir. Üçüncü taraflarla paylaşılmaz veya genel modellerin eğitimi için kullanılmaz.</p>
-      </div>
-      <div class="faq-item">
-        <h3 data-i18n="faq3q">Aşama 1 bittikten sonra ne oluyor?</h3>
-        <p data-i18n="faq3a">Önünüze somut israf noktalarını koyan bir "Röntgen Raporu" teslim edilir. Bu aşamada durabilir ve israfları kendi içinizde çözebilirsiniz. Dilerseniz çözümü metodolojik olarak uçtan uca tasarlamamız için Aşama 2'ye geçiş talep edebilirsiniz.</p>
-      </div>
-      <div class="faq-item">
-        <h3 data-i18n="faq4q">Aşama 2 bütçesi nasıl belirleniyor?</h3>
-        <p data-i18n="faq4a">Aşama 1'de ortaya çıkan süreçlerin sayısına, veri yapısının karmaşıklığına ve ihtiyaç duyulan insan-uzman saatine göre terzi usulü bir bütçe ve takvim sunulur.</p>
-      </div>
-      <div class="faq-item">
-        <h3 data-i18n="faq5q">Şirketimiz çok küçük/büyük, model uygun mu?</h3>
-        <p data-i18n="faq5a">Modelimiz operasyonel süreçleri (faturalama, lojistik, müşteri ilişkileri, üretim adımları vb.) olan her ölçekteki KOBİ ve startup için uygundur. Süreç karmaşıklığı arttıkça Aşama 1'den elde edeceğiniz kaldıraç etkisi de büyür.</p>
-      </div>
-      <div class="faq-item">
-        <h3 data-i18n="faq6q">Aşama 2'nin de finansal garantisi var mı?</h3>
-        <p data-i18n="faq6a">Hayır. Aşama 1'de risk tamamen GembaX'tedir (100× ROI garantisi). Aşama 2 ise <strong>ön ödemeli</strong> bir metodolojik teslimattır — kök neden analizi, eylem planı ve sahada uygulanması müşterinin disiplinine bağlıdır. Aşama 2 raporu içinde her zaman bir <strong>Veri Güven Skoru</strong> (Data Quality Index) yer alır; analizin doğruluk payı şeffaftır.</p>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="brand">GembaX</div>
-    <p data-i18n="footerTag">Operasyonel İsrafın Röntgeni</p>
-    <div class="links">
-      <a href="#" data-i18n="footerTerms">Şartlar</a>
-      <a href="#" data-i18n="footerPrivacy">Gizlilik</a>
-      <a href="#" data-i18n="footerRefund">İade</a>
-      <a href="#" data-i18n="footerContact">İletişim</a>
-    </div>
-  </footer>
+<div class="pricing-hero">
+  <div class="pilot-badge" data-i18n="pilotBadge">Closed Pilot — Limited Spots</div>
+  <h1 data-i18n="heroH1">Tiered diagnostics. <em>Go as deep as you need.</em></h1>
+  <p data-i18n="heroP">First we find the leak. Then we diagnose why. Each stage is independent — stop wherever fits.</p>
 </div>
+
+<div class="pricing-grid">
+
+  <div class="pricing-card green">
+    <div class="pricing-badge green" data-i18n="t1Badge">Stage 1</div>
+    <div class="pricing-tier">TIER 01</div>
+    <div class="pricing-name" data-i18n="t1Name">Profit Leakage X-Ray</div>
+    <div class="pricing-desc" data-i18n="t1Desc">TIM WOODS waste map for one operational problem — monthly and annual loss quantified in dollars tactics.</div>
+    <div class="pricing-price">
+      <div class="pricing-amount"><span class="currency">$</span>150</div>
+      <div class="pricing-period" data-i18n="t1Period">100× ROI GUARANTEED • PAY AFTER DELIVERY</div>
+    </div>
+    <ul class="pricing-features">
+      <li data-i18n="t1f1">Single focus: one operational problem (setup, scrap, downtime, etc.)</li>
+      <li data-i18n="t1f2">TIM WOODS waste map — monthly/annual loss in $</li>
+      <li data-i18n="t1f3">Industry benchmark comparison</li>
+      <li data-i18n="t1f4">Priority action summary</li>
+      <li data-i18n="t1f5">Delivered in 7 business days, written</li>
+      <li class="highlight" data-i18n="t1f6">If less than $15,000 leakage found, the report is free</li>
+    </ul>
+    <a href="intake-welcome.html" class="pricing-btn green" data-i18n="t1Cta">Start Application →</a>
+  </div>
+
+  <div class="pricing-card maroon">
+    <div class="pricing-badge maroon" data-i18n="t2Badge">Stage 2</div>
+    <div class="pricing-tier">TIER 02</div>
+    <div class="pricing-name" data-i18n="t2Name">Root Cause + 90-Day Action Plan</div>
+    <div class="pricing-desc" data-i18n="t2Desc">Root cause analysis of the problem detected in Stage 1, plus a concrete action plan to stop the leakage.</div>
+    <div class="pricing-price">
+      <div class="pricing-amount"><span class="currency">$</span>500</div>
+      <div class="pricing-period" data-i18n="t2Period">PREPAID • OPTIONAL AFTER STAGE 1</div>
+    </div>
+    <ul class="pricing-features">
+      <li data-i18n="t2f1">5 Whys + Ishikawa root cause analysis</li>
+      <li data-i18n="t2f2">MECE + Pyramid Principle (McKinsey methodology)</li>
+      <li data-i18n="t2f3">Theory of Constraints (TOC) bottleneck detection</li>
+      <li data-i18n="t2f4">30/60/90-day prioritized action plan</li>
+      <li data-i18n="t2f5">ROI projection for each action</li>
+      <li data-i18n="t2f6">Data Quality Index</li>
+      <li data-i18n="t2f7">Delivered in 14 business days, written</li>
+    </ul>
+    <a href="intake-welcome.html" class="pricing-btn maroon" data-i18n="t2Cta">Request Root Cause Analysis →</a>
+  </div>
+
+</div>
+
+<div class="guarantee-bar">
+  <span class="guarantee-strong" data-i18n="gMain">100× ROI GUARANTEE</span>
+  <p data-i18n="gText">If we cannot prove at least <strong>$15,000</strong> in annual operational profit leakage in the Stage 1 analysis, the report is <strong>free</strong>. If leakage above this threshold is detected, you pay upon report delivery. Risk sits entirely with GembaX.</p>
+</div>
+
+<div class="faq-section">
+  <h2 data-i18n="faqTitle">Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq1q">How does the 100× ROI guarantee work?</div>
+    <div class="faq-a"><p data-i18n="faq1a">If the annual operational profit leakage in the Stage 1 report comes in <strong>below $15,000</strong>, the report is completely free. If we prove leakage above this threshold — with operational root causes (scrap, unplanned downtime, setup inefficiency, etc.) — a $150 invoice is issued upon delivery. Risk sits entirely with GembaX.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq2q">What's the difference between Stage 1 and Stage 2?</div>
+    <div class="faq-a"><p data-i18n="faq2a">Stage 1 ($150) detects <strong>where and how much</strong> you are losing — like an X-ray. Stage 2 ($500) tells you <strong>why</strong> the loss is happening (root cause) and <strong>how to stop it</strong> (90-day plan). Stage 2 is optional and designed for manufacturers who want to act on Stage 1 findings.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq3q">Which industries do you serve?</div>
+    <div class="faq-a"><p data-i18n="faq3a">We are currently in a closed pilot, focused on <strong>50–250 employee</strong> high-volume and operation-intensive factories. Sector-specific questions and benchmark data are prepared for these verticals. Other sectors are welcome to apply after the pilot.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq4q">Is my data safe?</div>
+    <div class="faq-a"><p data-i18n="faq4a">Yes. All financial and operational data is anonymized prior to analysis, never shared with third parties, and can be deleted upon request. KVKK and GDPR compliant.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq5q">Is the entire process written?</div>
+    <div class="faq-a"><p data-i18n="faq5a">Yes. To avoid disrupting your operations, all intake and delivery flows are handled through written forms and secure data folders. A 15-minute Turkish confirmation call after report delivery is available on request — optional.</p></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq6q">Does Stage 2 also have a financial guarantee?</div>
+    <div class="faq-a"><p data-i18n="faq6a">No. The financial risk sits with GembaX in Stage 1 (100× ROI guarantee). Stage 2 is a <b>prepaid methodological delivery</b> — root cause analysis, action plan, and on-site execution depend on the client's discipline. A <b>Data Quality Index</b> is always included in the Stage 2 report; the confidence level of the analysis is transparent.</p></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — <span data-i18n="footerTag">X-Ray of Operational Waste</span></div>
+    <div class="footer-links">
+      <a href="/terms-and-conditions" data-i18n="footerTerms">Terms</a>
+      <a href="/privacy" data-i18n="footerPrivacy">Privacy</a>
+      <a href="/refund" data-i18n="footerRefund">Refund</a>
+      <a href="mailto:murat@gembax.ai" data-i18n="footerContact">Contact</a>
+    </div>
+  </div>
+</footer>
 
 <script>
   const translations = {
     en: {
-      title: "Clarity and Guarantee",
-      subtitle: "GembaX operational waste analysis consists of two stages. Explore first without risk, then take action.",
-      badge1: "Zero Risk",
-      stage1Title: "Stage 1: Digital X-Ray",
-      stage1Sub: "Discovery & 100× ROI Guarantee",
-      stage1PriceSub: "One-time analysis fee",
-      s1f1: "End-to-end process and data integration analysis.",
-      s1f2: "AI engine backed waste and bottleneck detection.",
-      s1f3: "<strong>100× ROI Commitment:</strong> Full refund if at least $15,000 of net potential savings/efficiency areas cannot be identified.",
-      btn1: "Start Analysis",
-      badge2: "Optional",
-      stage2Title: "Stage 2: Roadmap",
-      stage2Sub: "Deep Dive & Implementation Field",
-      stage2Price: "Custom Quote",
-      stage2PriceSub: "Tailored pricing based on process complexity",
-      s2f1: "In-depth root cause analysis of issues detected in Stage 1.",
-      s2f2: "Actionable automation and process restructuring scenarios.",
-      s2f3: "On-site/operational implementation support with an expert consultant.",
-      s2f4: "Data Quality Index transparency report.",
-      btn2: "Get a Quote / Proceed",
+      topBar: "[ 100x ROI GUARANTEE ] If we cannot prove at least $15,000 in annual leakage, the report is FREE.",
+      logoSub: "X-Ray of Operational Waste",
+      navBack: "Home",
+      pilotBadge: "Closed Pilot — Limited Spots",
+      heroH1: 'Tiered diagnostics. <em>Go as deep as you need.</em>',
+      heroP: "First we find the leak. Then we diagnose why. Each stage is independent — stop wherever fits.",
+      t1Badge: "Stage 1",
+      t1Name: "Profit Leakage X-Ray",
+      t1Desc: "TIM WOODS waste map for one operational problem — monthly and annual loss quantified in dollars.",
+      t1Period: "100× ROI GUARANTEED • PAY AFTER DELIVERY",
+      t1f1: "Single focus: one operational problem (setup, scrap, downtime, etc.)",
+      t1f2: "TIM WOODS waste map — monthly/annual loss in $",
+      t1f3: "Industry benchmark comparison",
+      t1f4: "Priority action summary",
+      t1f5: "Delivered in 7 business days, written",
+      t1f6: "If less than $15,000 leakage found, the report is free",
+      t1Cta: "Start Application →",
+      t2Badge: "Stage 2",
+      t2Name: "Root Cause + 90-Day Action Plan",
+      t2Desc: "Root cause analysis of the problem detected in Stage 1, plus a concrete action plan to stop the leakage.",
+      t2Period: "PREPAID • OPTIONAL AFTER STAGE 1",
+      t2f1: "5 Whys + Ishikawa root cause analysis",
+      t2f2: "MECE + Pyramid Principle (McKinsey methodology)",
+      t2f3: "Theory of Constraints (TOC) bottleneck detection",
+      t2f4: "30/60/90-day prioritized action plan",
+      t2f5: "ROI projection for each action",
+      t2f6: "Data Quality Index",
+      t2f7: "Delivered in 14 business days, written",
+      t2Cta: "Request Root Cause Analysis →",
+      gMain: "100× ROI GUARANTEE",
+      gText: "If we cannot prove at least <strong>$15,000</strong> in annual operational profit leakage in the Stage 1 analysis, the report is <strong>free</strong>. If leakage above this threshold is detected, you pay upon report delivery. Risk sits entirely with GembaX.",
       faqTitle: "Frequently Asked Questions",
       faq1q: "How does the 100× ROI guarantee work?",
-      faq1a: "You pay $150 for the Stage 1 analysis. If our report fails to demonstrate at least $15,000 worth of waste or automation potential with clear evidence, your $150 will be fully refunded, no questions asked.",
-      faq2q: "How do you ensure data security?",
-      faq2a: "Your data is anonymized during the analysis and processed only within an isolated AI context specific to your operation. It is never shared with third parties or used to train public models.",
-      faq3q: "What happens after Stage 1 ends?",
-      faq3a: "You receive an 'X-Ray Report' mapping out concrete waste points. You can stop there and fix them internally, or ask us to proceed to Stage 2 to design the end-to-end implementation framework.",
-      faq4q: "How is the Stage 2 budget calculated?",
-      faq4a: "A custom budget and timeline are proposed based on the number of processes identified in Stage 1, data complexity, and required expert consultant hours.",
-      faq5q: "Is this model suitable for very small or large companies?",
-      faq5a: "Our model is suitable for any SME or startup with operational flows (billing, logistics, CRM, production steps, etc.). As process complexity increases, the leverage you gain from Stage 1 grows.",
+      faq1a: "If the annual operational profit leakage in the Stage 1 report comes in <strong>below $15,000</strong>, the report is completely free. If we prove leakage above this threshold — with operational root causes (scrap, unplanned downtime, setup inefficiency, etc.) — a $150 invoice is issued upon delivery. Risk sits entirely with GembaX.",
+      faq2q: "What's the difference between Stage 1 and Stage 2?",
+      faq2a: "Stage 1 ($150) detects <strong>where and how much</strong> you are losing — like an X-ray. Stage 2 ($500) tells you <strong>why</strong> the loss is happening (root cause) and <strong>how to stop it</strong> (90-day plan). Stage 2 is optional and designed for manufacturers who want to act on Stage 1 findings.",
+      faq3q: "Which industries do you serve?",
+      faq3a: "We are currently in a closed pilot, focused on <strong>50–250 employee</strong> high-volume and operation-intensive factories. Sector-specific questions and benchmark data are prepared for these verticals. Other sectors are welcome to apply after the pilot.",
+      faq4q: "Is my data safe?",
+      faq4a: 'Yes. All financial and operational data is anonymized prior to analysis, never shared with third parties, and can be deleted upon request. KVKK and GDPR compliant.',
+      faq5q: "Is the entire process written?",
+      faq5a: "Yes. To avoid disrupting your operations, all intake and delivery flows are handled through written forms and secure data folders. A 15-minute Turkish confirmation call after report delivery is available on request — optional.",
       faq6q: "Does Stage 2 also have a financial guarantee?",
-      faq6a: "No. In Stage 1, the risk is entirely on GembaX (100× ROI guarantee). Stage 2 is a prepaid methodological delivery — root cause analysis, action planning, and execution depend heavily on the client's internal discipline. Stage 2 includes a Data Quality Index score for absolute analytical transparency.",
-      footerTag: "The X-Ray of Operational Waste",
+      faq6a: "No. The financial risk sits with GembaX in Stage 1 (100× ROI guarantee). Stage 2 is a <b>prepaid methodological delivery</b> — root cause analysis, action plan, and on-site execution depend on the client's discipline. A <b>Data Quality Index</b> is always included in the Stage 2 report; the confidence level of the analysis is transparent.",
+      footerTag: "X-Ray of Operational Waste",
       footerTerms: "Terms",
       footerPrivacy: "Privacy",
-      footerRefund: "Refunds",
+      footerRefund: "Refund",
       footerContact: "Contact"
     },
+    es: {
+      topBar: "[ ¡GARANTÍA DE 100x ROI! ] Si no demostramos al menos $15,000 en pérdidas operativas anuales, el costo del análisis es $0.",
+      logoSub: "Radiografía del Desperdicio Operativo",
+      navBack: "Inicio",
+      pilotBadge: "Piloto Cerrado — Cupos Limitados",
+      heroH1: "Diagnóstico por fases. <em>Profundice solo lo que necesite.</em>",
+      heroP: "Primero localizamos la fuga de ganancias. Luego diagnosticamos la causa raíz. Cada etapa es independiente: deténgase donde prefiera.",
+      t1Badge: "Fase 1",
+      t1Name: "Radiografía de Fugas de Ganancias",
+      t1Desc: "Mapeo de desperdicios TIM WOODS para un problema operativo específico, cuantificando la pérdida mensual y anual en dólares.",
+      t1Period: "100× ROI GARANTIZADO • PAGO CONTRA ENTREGA",
+      t1f1: "Un solo enfoque: un problema operativo específico (setup, merma, inactividad, etc.)",
+      t1f2: "Mapeo de desperdicios TIM WOODS — pérdida mensual/anual en $",
+      t1f3: "Comparación de benchmark con la industria",
+      t1f4: "Resumen de acciones prioritarias",
+      t1f5: "Entrega por escrito en 7 días hábiles",
+      t1f6: "Gratis si se detecta una fuga menor a $15,000",
+      t1Cta: "Iniciar Solicitud →",
+      t2Badge: "Fase 2",
+      t2Name: "Causa Raíz + Plan de Acción de 90 Días",
+      t2Desc: "Análisis de causa raíz del problema detectado en la Fase 1, junto con un plan de acción concreto para detener la fuga de dinero.",
+      t2Period: "PREPAGO • OPCIONAL TRAS LA FASE 1",
+      t2f1: "Análisis de causa raíz con 5 Porqués + Ishikawa",
+      t2f2: "Metodología estructurada MECE + Pyramid Principle (McKinsey)",
+      t2f3: "Detección de cuellos de botella mediante Teoría de Restricciones (TOC)",
+      t2f4: "Plan de acción priorizado de 30/60/90 días",
+      t2f5: "Proyección de ROI para cada acción recomendada",
+      t2f6: "Índice de Calidad de Datos (Data Quality Index)",
+      t2f7: "Entrega por escrito en 14 días hábiles",
+      t2Cta: "Solicitar Análisis de Causa Raíz →",
+      gMain: "GARANTÍA DE 100× ROI",
+      gText: "Si no logramos demostrar al menos <strong>$15,000</strong> en pérdidas de ganancias operativas anuales en el análisis de la Fase 1, el informe es <strong>gratuito</strong>. Si se detecta una fuga por encima de este umbral, usted paga al momento de la entrega del informe. El riesgo corre en su totalidad por cuenta de GembaX.",
+      faqTitle: "Preguntas Frecuentes",
+      faq1q: "¿Cómo funciona la garantía de 100× ROI?",
+      faq1a: "Si la pérdida operativa anual demostrada en el informe de la Fase 1 es <strong>menor a $15,000</strong>, el informe es completamente gratuito. Si demostramos con datos y causas operativas (mermas, paradas no planificadas, ineficiencia de setup, etc.) una fuga superior a este umbral, se emitirá una factura de $150 al entregar el informe. El riesgo es 100% de GembaX.",
+      faq2q: "¿Cuál es la diferencia entre la Fase 1 y la Fase 2?",
+      faq2a: "La Fase 1 ($150) detecta <strong>dónde y cuánto</strong> está perdiendo, como una radiografía. La Fase 2 ($500) le dice <strong>por qué</strong> ocurre esa pérdida (causa raíz) y <strong>cómo detenerla</strong> (plan de 90 días). La Fase 2 es opcional y está diseñada para fabricantes que desean actuar sobre los hallazgos de la Fase 1.",
+      faq3q: "¿A qué sectores se dirigen?",
+      faq3a: "Actualmente estamos en un período piloto cerrado, enfocado en fábricas de alta producción e intensivas en operaciones con un volumen de <strong>50 a 250 empleados</strong>. Se han preparado preguntas específicas y datos de benchmark para estos sectores de la industria.",
+      faq4q: "¿Son seguros mis datos?",
+      faq4a: "Sí. Todos los datos financieros y operativos se anonimizan antes del análisis, nunca se comparten con terceros y puede solicitar su eliminación en cualquier momento. El proceso cumple plenamente con las normativas de protección de datos (KVKK / GDPR).",
+      faq5q: "¿El proceso es completamente por escrito?",
+      faq5a: "Sí. Para evitar interrumpir sus operaciones en planta, todo el flujo de recopilación de datos y entrega se maneja de forma asíncrona a través de formularios escritos y carpetas de datos seguras. De forma opcional, tras la entrega del informe se puede programar una breve llamada de confirmación de 15 minutos.",
+      faq6q: "¿La Fase 2 también tiene una garantía financiera?",
+      faq6a: "No. El riesgo financiero lo asume GembaX en la Fase 1 (garantía de 100× ROI). La Fase 2 es una <strong>entrega metodológica prepagada</strong>; el análisis de causa raíz, el plan de acción y su ejecución en planta dependen de la disciplina del cliente. Siempre se incluye un <strong>Índice de Calidad de Datos</strong> (Data Quality Index) en el informe de la Fase 2 para que el nivel de confianza del análisis sea transparente.",
+      footerTag: "Radiografía del Desperdicio Operativo",
+      footerTerms: "Términos",
+      footerPrivacy: "Privacidad",
+      footerRefund: "Reembolso",
+      footerContact: "Contacto"
+    },
     tr: {
-      title: "Netlik ve Garanti",
-      subtitle: "GembaX operasyonel israf analizi iki aşamadan oluşur. Önce risk almadan keşfeder, ardından aksiyona geçersiniz.",
-      badge1: "Risk Sıfır",
-      stage1Title: "Aşama 1: Dijital Röntgen",
-      stage1Sub: "Keşif & 100× ROI Garantisi",
-      stage1PriceSub: "Tek seferlik analiz ücreti",
-      s1f1: "Uçtan uca süreç ve veri entegrasyonu analizi.",
-      s1f2: "Yapar zeka motoru destekli israf ve darboğaz tespiti.",
-      s1f3: "<strong>100× ROI Taahhüdü:</strong> En az 15.000$ değerinde net potansiyel tasarruf/verimlilik alanı bulunamazsa paranız kesintisiz iade edilir.",
-      btn1: "Analizi Başlat",
-      badge2: "Opsiyonel",
-      stage2Title: "Aşama 2: Yol Haritası",
-      stage2Sub: "Derin Analiz & Uygulama Sahası",
-      stage2Price: "Teklif Usulü",
-      stage2PriceSub: "Süreç karmaşıklığına göre özel bütçelendirme",
-      s2f1: "Aşama 1 raporundaki kök nedenlerin derinlemesine incelenmesi.",
-      s2f2: "Uygulanabilir otomasyon ve süreç yapılandırma senaryoları.",
-      s2f3: "Uzman danışman eşliğinde sahada/operasyonda implementasyon desteği.",
-      s2f4: "Veri Güven Skoru (Data Quality Index) şeffaflık raporu.",
-      btn2: "Teklif Al / İlerle",
+      topBar: "[ 100x ROI GARANTİSİ ] Yıllık minimum $15,000 operasyonel kâr kaçağı kanıtlayamazsak analiz ücreti $0.",
+      logoSub: "Operasyonel İsrafın Röntgeni",
+      navBack: "Ana Sayfa",
+      pilotBadge: "Kapalı Pilot — Sınırlı Kontenjan",
+      heroH1: 'Aşamalı teşhis. <em>İhtiyacınız kadar derinleşin.</em>',
+      heroP: "Önce kaçağı buluyoruz. Sonra niçin kaçtığını çözüyoruz. Her aşama bağımsız — istediğiniz noktada durabilirsiniz.",
+      t1Badge: "Aşama 1",
+      t1Name: "Kâr Kaçağı Röntgeni",
+      t1Desc: "Tek bir operasyonel problem için TIM WOODS israf haritası — dolar cinsinden aylık ve yıllık kayıp büyüklüğü.",
+      t1Period: "100× ROI GARANTİLİ • SONRADAN ÖDEME",
+      t1f1: "Tek odak: bir operasyonel problem (setup, fire, duruş vb.)",
+      t1f2: "TIM WOODS israf haritası — $ cinsinden aylık/yıllık kayıp",
+      t1f3: "Sektör benchmark karşılaştırması",
+      t1f4: "Öncelik aksiyon özeti",
+      t1f5: "7 iş gününde yazılı teslim",
+      t1f6: "$15,000 altı kaçak bulunamazsa ücretsiz",
+      t1Cta: "Başvuruyu Başlat →",
+      t2Badge: "Aşama 2",
+      t2Name: "Kök Neden + 90 Gün Aksiyon Planı",
+      t2Desc: "Aşama 1'de tespit edilen problemin kök neden analizi ve kaçağı durduracak somut eylem planı.",
+      t2Period: "ÖN ÖDEMELİ • AŞAMA 1 SONRASI OPSİYONEL",
+      t2f1: "5 Whys + Ishikawa kök neden analizi",
+      t2f2: "MECE + Pyramid Principle (McKinsey metodolojisi)",
+      t2f3: "Kısıtlar Teorisi (TOC) darboğaz tespiti",
+      t2f4: "30/60/90 günlük öncelikli aksiyon planı",
+      t2f5: "Her aksiyon için ROI projeksiyonu",
+      t2f6: "Veri Güven Skoru (Data Quality Index)",
+      t2f7: "14 iş gününde yazılı teslim",
+      t2Cta: "Kök Neden Analizi Talep Et →",
+      gMain: "100× ROI GARANTİSİ",
+      gText: "Aşama 1 analizinde yıllık minimum <strong>$15,000</strong> değerinde operasyonel kâr kaçağı kanıtlayamazsak rapor <strong>ücretsizdir</strong>. Sınırın üzerinde kaçak tespit ettiğimizde rapor tesliminde ödeme yaparsınız. Risk tamamen GembaX'tedir.",
       faqTitle: "Sıkça Sorulan Sorular",
-      faq1q: "100× ROI garantisi tam olarak nasıl çalışıyor?",
-      faq1a: "Aşama 1 analizi için 150$ ödersiniz. Eğer hazırladığımız raporda şirketiniz için en az 15.000$ hacminde bir israf, verimsizlik veya otomasyon potansiyeli kanıtlarıyla gösterilemezse, hiçbir soru sorulmaksızın 150$'ınız iade edilir.",
-      faq2q: "Verilerimizin güvenliğini nasıl sağlıyorsunuz?",
-      faq2a: "Verileriniz analiz esnasında anonimleştirilir ve yalnızca sizin operasyonunuza özel izole bir yapay zeka bağlamında işlenir. Üçüncü taraflarla paylaşılmaz veya genel modellerin eğitimi için kullanılmaz.",
-      faq3q: "Aşama 1 bittikten sonra ne oluyor?",
-      faq3a: "Önünüze somut israf noktalarını koyan bir 'Röntgen Raporu' teslim edilir. Bu aşamada durabilir ve israfları kendi içinizde çözebilirsiniz. Dilerseniz çözümü metodolojik olarak uçtan uca tasarlamamız için Aşama 2'ye geçiş talep edebilirsiniz.",
-      faq4q: "Aşama 2 bütçesi nasıl belirleniyor?",
-      faq4a: "Aşama 1'de ortaya çıkan süreçlerin sayısına, veri yapısının karmaşıklığına ve ihtiyaç duyulan insan-uzman saatine göre terzi usulü bir bütçe ve takvim sunulur.",
-      faq5q: "Şirketimiz çok küçük/büyük, model uygun mu?",
-      faq5a: "Modelimiz operasyonel süreçleri (faturalama, lojistik, müşteri ilişkileri, üretim adımları vb.) olan her ölçekteki KOBİ ve startup için uygundur. Süreç karmaşıklığı arttıkça Aşama 1'den elde edeceğiniz kaldıraç etkisi de büyür.",
+      faq1q: "100× ROI garantisi nasıl çalışıyor?",
+      faq1a: "Aşama 1 raporunda yıllık operasyonel kâr kaçağı <strong>$15,000'ın altında</strong> çıkarsa rapor tamamen ücretsizdir. Bu sınırın üzerinde bir kaçak operasyonel kök nedenleriyle (fire, plansız duruş, setup verimsizliği vb.) kanıt göstererek tespit edersek rapor tesliminde $150 fatura kesilir. Risk tamamen GembaX'tedir.",
+      faq2q: "Aşama 1 ve Aşama 2 arasındaki fark nedir?",
+      faq2a: "Aşama 1 ($150) <strong>nerede ve ne kadar</strong> kaybettiğinizi tespit eder — bir röntgen gibi. Aşama 2 ($500) ise <strong>niçin</strong> kaybettiğinizi (kök neden) ve <strong>nasıl durduracağınızı</strong> (90 günlük plan) verir. Aşama 2 opsiyoneldir; Aşama 1 raporunu beğenip devam etmek isteyen üreticiler için tasarlanmıştır.",
+      faq3q: "Hangi sektörlerde çalışıyorsunuz?",
+      faq3a: "Şu anda kapalı pilot dönemindeyiz ve odağımız <strong>50–250 çalışan</strong> hacimli imalat ve operasyon yoğun fabrikalardır. Bu üreticiler için sektörel sorular ve benchmark verisi hazırlanmıştır. Diğer sektörler için pilot sonrası başvuru kabul ediyoruz.",
+      faq4q: "Verilerim güvende mi?",
+      faq4a: 'Evet. Tüm finansal ve operasyonel veriler analiz öncesi anonimleştirilir, üçüncü taraflarla paylaşılmaz ve dilediğiniz an silinişini talep edebilirsiniz. KVKK ve GDPR uyumlu süreç.',
+      faq5q: "Süreç tamamen yazılı mı?",
+      faq5a: "Evet. Operasyonunuzu bölmemek adına tüm intake ve teslimat süreci yazılı formlar ve güvenli veri klasörleri üzerinden yürütülür. Yalnızca rapor tesliminden sonra dilerseniz 15 dakikalık bir Türkçe teyit görüşmesi yapılabilir — opsiyoneldir.",
       faq6q: "Aşama 2'nin de finansal garantisi var mı?",
       faq6a: "Hayır. Aşama 1'de risk tamamen GembaX'tedir (100× ROI garantisi). Aşama 2 ise <strong>ön ödemeli</strong> bir metodolojik teslimattır — kök neden analizi, eylem planı ve sahada uygulanması müşterinin disiplinine bağlıdır. Aşama 2 raporu içinde her zaman bir <strong>Veri Güven Skoru</strong> (Data Quality Index) yer alır; analizin doğruluk payı şeffaftır.",
       footerTag: "Operasyonel İsrafın Röntgeni",
@@ -505,11 +643,13 @@
     });
   }
 
-  // Sayfa yüklendiğinde dili kontrol et
-  document.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('gembax-lang') || 'tr';
-    applyLang(savedLang);
+  document.querySelectorAll('.lang-switch button').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
   });
+
+  const saved = localStorage.getItem('gembax-lang') || 'en';
+  applyLang(saved);
 </script>
+
 </body>
 </html>
