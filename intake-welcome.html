@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Başvuru — GembaX</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #FAF9F6;
+    --bg-secondary: #FFFFFF;
+    --bg-card: #F4F2EE;
+    --text-primary: #1B2A4A;
+    --text-secondary: #4A5568;
+    --text-muted: #8FA093;
+    --accent: #2D5016;
+    --accent-dark: #1E3F0F;
+    --accent-light: #3D6B22;
+    --accent-glow: rgba(45, 80, 22, 0.08);
+    --accent-glow-strong: rgba(45, 80, 22, 0.15);
+    --maroon: #6E1414;
+    --maroon-glow: rgba(110, 20, 20, 0.08);
+    --border: rgba(0,0,0,0.08);
+    --border-accent: rgba(45, 80, 22, 0.25);
+    --font-body: 'Instrument Sans', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    background-image:
+      linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(250,249,246,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { text-decoration: none; display: flex; align-items: baseline; gap: 0.6rem; }
+  .logo-main { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
+  .logo-x { color: var(--accent); }
+  .logo-sub { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
+
+  .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+  .nav-back {
+    font-size: 0.85rem; color: var(--text-secondary); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  .lang-switch { display: flex; gap: 0.15rem; }
+  .lang-switch button {
+    background: transparent; border: none; cursor: pointer;
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--text-muted);
+    padding: 0.3rem 0.55rem; border-radius: 4px;
+    letter-spacing: 0.05em; transition: all 0.15s;
+  }
+  .lang-switch button:hover { background: var(--bg-card); }
+  .lang-switch button.active {
+    color: var(--accent); background: var(--accent-glow); font-weight: 700;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 720px; margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: left;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    color: var(--accent);
+    background: var(--accent-glow);
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-accent);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.2; margin-bottom: 0.6rem;
+  }
+  .hero h1 em { color: var(--accent); font-style: italic; font-weight: 400; }
+  .hero-lead {
+    color: var(--text-secondary); font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  /* META STATS */
+  .meta-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+    margin: 2rem 0 2.5rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .meta-stat { text-align: left; }
+  .meta-stat-value {
+    font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700;
+    color: var(--accent-dark); line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .meta-stat-label {
+    font-size: 0.75rem; color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* INFO CARD */
+  .info-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .info-card.highlight {
+    background: var(--accent-glow);
+    border-color: var(--border-accent);
+  }
+  .info-card.maroon-highlight {
+    background: var(--maroon-glow);
+    border-color: rgba(110, 20, 20, 0.25);
+  }
+  .info-card h2 {
+    font-size: 1.15rem; font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--text-primary);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .info-card-icon {
+    width: 24px; height: 24px;
+    color: var(--accent); stroke-width: 1.5;
+    flex-shrink: 0;
+  }
+  .info-card.maroon-highlight .info-card-icon { color: var(--maroon); }
+  .info-card p {
+    color: var(--text-secondary); font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .info-card p + p { margin-top: 0.8rem; }
+  .info-card ul {
+    list-style: none; padding: 0; margin-top: 0.6rem;
+  }
+  .info-card ul li {
+    font-size: 0.92rem; color: var(--text-secondary);
+    padding: 0.35rem 0 0.35rem 1.5rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .info-card ul li::before {
+    content: ''; position: absolute;
+    left: 0.3rem; top: 0.85rem;
+    width: 5px; height: 5px;
+    background: var(--accent); border-radius: 50%;
+  }
+  .info-card.maroon-highlight ul li::before { background: var(--maroon); }
+
+  /* COLLAPSIBLE BOX (NDA / Privacy) */
+  .collapsible {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .collapsible:hover { border-color: var(--border-accent); }
+  .collapsible.open { border-color: var(--border-accent); }
+  .collapsible-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .collapsible-header:hover { background: var(--bg-card); }
+  .collapsible-title {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-weight: 600; font-size: 1rem;
+    color: var(--text-primary);
+  }
+  .collapsible-icon {
+    width: 20px; height: 20px;
+    color: var(--accent); stroke-width: 1.5;
+  }
+  .collapsible-arrow {
+    font-family: var(--font-mono); font-size: 1rem;
+    color: var(--text-muted);
+    transition: transform 0.25s;
+  }
+  .collapsible.open .collapsible-arrow { transform: rotate(180deg); }
+  .collapsible-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s;
+    padding: 0 1.5rem;
+  }
+  .collapsible.open .collapsible-body {
+    max-height: 800px;
+    padding: 0.4rem 1.5rem 1.4rem;
+  }
+  .collapsible-body p {
+    color: var(--text-secondary); font-size: 0.9rem;
+    line-height: 1.7;
+  }
+  .collapsible-body ol {
+    margin: 0.6rem 0 0.6rem 1.2rem;
+    color: var(--text-secondary); font-size: 0.9rem;
+    line-height: 1.75;
+  }
+  .collapsible-body ol li {
+    padding: 0.15rem 0;
+  }
+  .collapsible-body strong { color: var(--text-primary); font-weight: 600; }
+
+  /* CHECKBOX SECTION */
+  .consent-box {
+    background: var(--accent-glow);
+    border: 1px solid var(--border-accent);
+    border-radius: 14px;
+    padding: 1.5rem 1.5rem;
+    margin: 2rem 0 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+  .consent-box:hover {
+    background: rgba(45, 80, 22, 0.12);
+  }
+  .consent-box.checked {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .consent-check {
+    width: 24px; height: 24px;
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    background: white;
+    transition: all 0.15s;
+    margin-top: 2px;
+  }
+  .consent-box.checked .consent-check {
+    background: var(--accent);
+  }
+  .consent-check::after {
+    content: ''; width: 0; height: 0;
+    border-style: solid; border-width: 0 2.5px 2.5px 0;
+    border-color: white;
+    transform: rotate(45deg);
+    opacity: 0; transition: all 0.15s;
+  }
+  .consent-box.checked .consent-check::after {
+    width: 6px; height: 12px; opacity: 1;
+    margin-bottom: 3px;
+  }
+  .consent-label {
+    font-size: 0.95rem; color: var(--text-primary);
+    line-height: 1.55;
+    font-weight: 500;
+  }
+  .consent-label small {
+    display: block; margin-top: 0.4rem;
+    color: var(--text-muted); font-size: 0.82rem; font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* START BUTTON */
+  .start-btn {
+    display: block; width: 100%;
+    padding: 1.15rem 2rem;
+    background: var(--accent); color: white;
+    border: none; border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+  .start-btn:hover:not(:disabled) {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px var(--accent-glow-strong);
+  }
+  .start-btn:disabled {
+    background: var(--border);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+  }
+  .start-btn-arrow {
+    display: inline-block; margin-left: 0.4rem;
+    transition: transform 0.2s;
+  }
+  .start-btn:hover:not(:disabled) .start-btn-arrow {
+    transform: translateX(4px);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+  footer p {
+    font-size: 0.8rem; color: var(--text-muted);
+  }
+  footer a { color: var(--text-secondary); text-decoration: none; margin: 0 0.6rem; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.2rem; }
+    .logo-sub { display: none; }
+    main { padding: 2rem 1rem 3rem; }
+    .meta-stats { padding: 1rem; }
+    .info-card { padding: 1.3rem; }
+    .collapsible-header { padding: 1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-main">Gemba<span class="logo-x">X</span></span>
+    <span class="logo-sub" id="nav-logo-sub">Operasyonel İsrafın Röntgeni</span>
+  </a>
+  <div class="nav-right">
+    <a href="/" class="nav-back" id="nav-back">← Ana Sayfa</a>
+    <div class="lang-switch">
+      <button data-lang="TR" onclick="setLang(this)" class="active">TR</button>
+      <button data-lang="EN" onclick="setLang(this)">EN</button>
+      <button data-lang="ES" onclick="setLang(this)">ES</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-badge" id="hero-badge">Kapalı Pilot — Sınırlı Kontenjan</div>
+    <h1 id="hero-title">Başvuru. <em>İlk adım.</em></h1>
+    <p class="hero-lead" id="hero-lead">
+      Aşağıdaki onayları okuyup formu doldurun. Sınırlı sayıda pilot başvurusu kabul ediyoruz; eksiksiz dolduran başvurular önceliklendirilir.
+    </p>
+  </div>
+
+  <div class="meta-stats">
+    <div class="meta-stat">
+      <div class="meta-stat-value" id="stat1-val">~8</div>
+      <div class="meta-stat-label" id="stat1-lbl">DAKİKA</div>
+    </div>
+    <div class="meta-stat">
+      <div class="meta-stat-value" id="stat2-val">~27</div>
+      <div class="meta-stat-label" id="stat2-lbl">SORU</div>
+    </div>
+    <div class="meta-stat">
+      <div class="meta-stat-value" id="stat3-val">$100</div>
+      <div class="meta-stat-label" id="stat3-lbl">100× ROI GARANTİ</div>
+    </div>
+  </div>
+
+  <!-- Why complete matters -->
+  <div class="info-card highlight">
+    <h2>
+      <svg class="info-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span id="why-title">Neden eksiksiz doldurma önemli?</span>
+    </h2>
+    <p id="why-p1">Aşama 1 raporunun değeri, başvuru formunda paylaştığınız bilgilerin derinliğine doğrudan bağlıdır. Pre-research (sektör benchmark, rakip karşılaştırması, müşteri analizi) sizin verdiğiniz bilgiler üzerine kuruludur.</p>
+    <p id="why-p2"><strong>Pilot dönemde sınırlı sayıda başvuru kabul edebiliyoruz</strong> — bu yüzden eksiksiz başvurular önceliklendirilir. Yüzeysel veri, yüzeysel rapor demektir; biz iki tarafın da zamanını boşa harcamaktan kaçınıyoruz.</p>
+  </div>
+
+  <!-- Prepare before -->
+  <div class="info-card">
+    <h2>
+      <svg class="info-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span id="prep-title">Formdan önce şu bilgileri elinizde tutun:</span>
+    </h2>
+    <ul id="prep-list">
+      <li>Şirket adı, kuruluş yılı, çalışan sayısı, yıllık ciro aralığı</li>
+      <li>Operasyon sorumlusu + (varsa) finans sorumlusunun ad/unvan/e-postaları</li>
+      <li>En önemli 3 müşterinizin adı ve cironuza katkı yüzdesi (yaklaşık)</li>
+      <li>3 ana rakibinizin adı</li>
+      <li>Üretim KPI'larınız hakkında bir fikir: setup süresi, fire oranı, OEE, plansız duruş (varsa)</li>
+      <li>Şu an sizin için en kritik 1 operasyonel problem (genel hatlarıyla)</li>
+    </ul>
+  </div>
+
+  <!-- NDA -->
+  <div class="collapsible" id="ndaBox">
+    <div class="collapsible-header" onclick="toggleCollapse('ndaBox')">
+      <div class="collapsible-title">
+        <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span id="nda-title">Gizlilik Sözleşmesi (NDA)</span>
+      </div>
+      <span class="collapsible-arrow">▾</span>
+    </div>
+    <div class="collapsible-body">
+      <p id="nda-intro">Bu formla paylaştığınız tüm bilgiler ticari sır olarak kabul edilir ve aşağıdaki kurallara tabidir:</p>
+      <ol id="nda-list">
+        <li>Bilgileriniz <strong>sadece sizin için yapılacak analiz amacıyla</strong> kullanılır.</li>
+        <li>3. taraflarla <strong>paylaşılmaz, satılmaz, ifşa edilmez</strong>.</li>
+        <li>Açık yazılı izniniz olmadan şirket adınız <strong>referans vaka olarak yayınlanmaz</strong>.</li>
+        <li>Analiz sonrası bilgileriniz <strong>3 yıl saklanır</strong>; istediğiniz zaman silinme talebinde bulunabilirsiniz.</li>
+        <li>Silme talebiniz <strong>30 iş günü içinde</strong> işleme alınır.</li>
+      </ol>
+      <p id="nda-contact" style="margin-top:0.8rem;"><strong>Yetkili:</strong> Dr. Murat Uzunlu — murat@gembax.ai</p>
+    </div>
+  </div>
+
+  <!-- Privacy -->
+  <div class="collapsible" id="privBox">
+    <div class="collapsible-header" onclick="toggleCollapse('privBox')">
+      <div class="collapsible-title">
+        <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span id="priv-title">Veri Koruma (KVKK + GDPR)</span>
+      </div>
+      <span class="collapsible-arrow">▾</span>
+    </div>
+    <div class="collapsible-body">
+      <p id="priv-intro">Verilerinizin teknik yönetimi şu şekildedir:</p>
+      <ol id="priv-list">
+        <li>Veriler <strong>güvenli sunucularda</strong> şifreli (HTTPS + AES-256) olarak saklanır.</li>
+        <li>Erişim yalnızca <strong>Dr. Murat Uzunlu</strong> (yetkili) tarafından yapılır.</li>
+        <li>Açık rıza temellidir: <strong>KVKK md. 5/2-a + GDPR Art. 6/1/a</strong> uyumludur.</li>
+        <li>Form altyapısı: Vercel (AB sunucu) + Formspree (AB sunucu) + Notion (özel iş alanı).</li>
+        <li>Veri silme, düzeltme veya kopyası için talep: <strong>murat@gembax.ai</strong>.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Consent -->
+  <div class="consent-box" id="consentBox" onclick="toggleConsent()">
+    <div class="consent-check"></div>
+    <div class="consent-label" id="consent-label">
+      Yukarıdaki Gizlilik Sözleşmesi (NDA) ve Veri Koruma metinlerini okudum, kabul ediyorum.
+      <small id="consent-sub">Formu doldurmaya başlamak için bu onay zorunludur. Onay tarihiniz ve IP adresiniz kayıt altına alınır.</small>
+    </div>
+  </div>
+
+  <button class="start-btn" id="startBtn" disabled onclick="startForm()">
+    <span id="start-text">Forma Başla</span>
+    <span class="start-btn-arrow">→</span>
+  </button>
+
+</main>
+
+<footer>
+  <p>
+    <a href="/terms-and-conditions.html" id="ft-terms">Şartlar</a> ·
+    <a href="/privacy.html" id="ft-privacy">Gizlilik</a> ·
+    <a href="/refund.html" id="ft-refund">İade</a> ·
+    <a href="mailto:murat@gembax.ai">murat@gembax.ai</a>
+  </p>
+</footer>
+
+<script>
+  // ═══════════════════════════════════════════════
+  // i18n — 3 dil: TR, EN, ES
+  // ═══════════════════════════════════════════════
+  const T = {
+    TR: {
+      'nav-logo-sub': 'Operasyonel İsrafın Röntgeni',
+      'nav-back': '← Ana Sayfa',
+      'hero-badge': 'Kapalı Pilot — Sınırlı Kontenjan',
+      'hero-title': 'Başvuru. <em>İlk adım.</em>',
+      'hero-lead': 'Aşağıdaki onayları okuyup formu doldurun. Sınırlı sayıda pilot başvurusu kabul ediyoruz; eksiksiz dolduran başvurular önceliklendirilir.',
+      'stat1-val': '~8', 'stat1-lbl': 'DAKİKA',
+      'stat2-val': '~27', 'stat2-lbl': 'SORU',
+      'stat3-val': '$100', 'stat3-lbl': '100× ROI GARANTİ',
+      'why-title': 'Neden eksiksiz doldurma önemli?',
+      'why-p1': 'Aşama 1 raporunun değeri, başvuru formunda paylaştığınız bilgilerin derinliğine doğrudan bağlıdır. Pre-research (sektör benchmark, rakip karşılaştırması, müşteri analizi) sizin verdiğiniz bilgiler üzerine kuruludur.',
+      'why-p2': '<strong>Pilot dönemde sınırlı sayıda başvuru kabul edebiliyoruz</strong> — bu yüzden eksiksiz başvurular önceliklendirilir. Yüzeysel veri, yüzeysel rapor demektir; biz iki tarafın da zamanını boşa harcamaktan kaçınıyoruz.',
+      'prep-title': 'Formdan önce şu bilgileri elinizde tutun:',
+      'prep-list': [
+        "Şirket adı, kuruluş yılı, çalışan sayısı, yıllık ciro aralığı",
+        "Operasyon sorumlusu + (varsa) finans sorumlusunun ad/unvan/e-postaları",
+        "En önemli 3 müşterinizin adı ve cironuza katkı yüzdesi (yaklaşık)",
+        "3 ana rakibinizin adı",
+        "Üretim KPI'larınız hakkında bir fikir: setup süresi, fire oranı, OEE, plansız duruş (varsa)",
+        "Şu an sizin için en kritik 1 operasyonel problem (genel hatlarıyla)"
+      ],
+      'nda-title': 'Gizlilik Sözleşmesi (NDA)',
+      'nda-intro': 'Bu formla paylaştığınız tüm bilgiler ticari sır olarak kabul edilir ve aşağıdaki kurallara tabidir:',
+      'nda-list': [
+        "Bilgileriniz <strong>sadece sizin için yapılacak analiz amacıyla</strong> kullanılır.",
+        "3. taraflarla <strong>paylaşılmaz, satılmaz, ifşa edilmez</strong>.",
+        "Açık yazılı izniniz olmadan şirket adınız <strong>referans vaka olarak yayınlanmaz</strong>.",
+        "Analiz sonrası bilgileriniz <strong>3 yıl saklanır</strong>; istediğiniz zaman silinme talebinde bulunabilirsiniz.",
+        "Silme talebiniz <strong>30 iş günü içinde</strong> işleme alınır."
+      ],
+      'nda-contact': '<strong>Yetkili:</strong> Dr. Murat Uzunlu — murat@gembax.ai',
+      'priv-title': 'Veri Koruma (KVKK + GDPR)',
+      'priv-intro': 'Verilerinizin teknik yönetimi şu şekildedir:',
+      'priv-list': [
+        "Veriler <strong>güvenli sunucularda</strong> şifreli (HTTPS + AES-256) olarak saklanır.",
+        "Erişim yalnızca <strong>Dr. Murat Uzunlu</strong> (yetkili) tarafından yapılır.",
+        "Açık rıza temellidir: <strong>KVKK md. 5/2-a + GDPR Art. 6/1/a</strong> uyumludur.",
+        "Form altyapısı: Vercel (AB sunucu) + Formspree (AB sunucu) + Notion (özel iş alanı).",
+        "Veri silme, düzeltme veya kopyası için talep: <strong>murat@gembax.ai</strong>."
+      ],
+      'consent-label': 'Yukarıdaki Gizlilik Sözleşmesi (NDA) ve Veri Koruma metinlerini okudum, kabul ediyorum.',
+      'consent-sub': 'Formu doldurmaya başlamak için bu onay zorunludur. Onay tarihiniz ve IP adresiniz kayıt altına alınır.',
+      'start-text': 'Forma Başla',
+      'ft-terms': 'Şartlar', 'ft-privacy': 'Gizlilik', 'ft-refund': 'İade',
+      'docTitle': 'Başvuru — GembaX'
+    },
+    EN: {
+      'nav-logo-sub': 'X-Ray of Operational Waste',
+      'nav-back': '← Home',
+      'hero-badge': 'Closed Pilot — Limited Spots',
+      'hero-title': 'Application. <em>First step.</em>',
+      'hero-lead': 'Read the consents below and complete the form. We accept a limited number of pilot applications; completed submissions get priority.',
+      'stat1-val': '~8', 'stat1-lbl': 'MINUTES',
+      'stat2-val': '~27', 'stat2-lbl': 'QUESTIONS',
+      'stat3-val': '$100', 'stat3-lbl': '100× ROI GUARANTEE',
+      'why-title': 'Why complete responses matter',
+      'why-p1': 'The value of your Stage 1 report depends directly on the depth of the information you share in the application. Pre-research (sector benchmark, competitor comparison, customer analysis) is built on top of what you provide.',
+      'why-p2': '<strong>We accept a limited number of applications during the pilot</strong> — so complete submissions are prioritized. Shallow data means shallow reports; we want to respect both sides\' time.',
+      'prep-title': 'Have these ready before starting:',
+      'prep-list': [
+        "Company name, founding year, employee count, annual revenue range",
+        "Operations lead + (if available) finance lead — names, titles, emails",
+        "Top 3 customers (name + approximate % of revenue)",
+        "3 main competitors (names)",
+        "A sense of your production KPIs: setup time, scrap rate, OEE, unplanned downtime (if available)",
+        "The single most critical operational problem you face right now (in general terms)"
+      ],
+      'nda-title': 'Non-Disclosure Agreement (NDA)',
+      'nda-intro': 'All information you share through this form is treated as confidential business information and is subject to the following:',
+      'nda-list': [
+        "Your information is used <strong>solely for the analysis we prepare for you</strong>.",
+        "It is <strong>not shared, sold, or disclosed</strong> to third parties.",
+        "Your company name will <strong>not be published as a reference case</strong> without your explicit written consent.",
+        "After analysis, your data is <strong>retained for 3 years</strong>; you can request deletion at any time.",
+        "Deletion requests are processed <strong>within 30 business days</strong>."
+      ],
+      'nda-contact': '<strong>Responsible:</strong> Dr. Murat Uzunlu — murat@gembax.ai',
+      'priv-title': 'Data Protection (KVKK + GDPR)',
+      'priv-intro': 'Technical handling of your data:',
+      'priv-list': [
+        "Data is stored on <strong>secure servers</strong> with encryption (HTTPS + AES-256).",
+        "Access is limited to <strong>Dr. Murat Uzunlu</strong> only.",
+        "Based on explicit consent: <strong>KVKK Art. 5/2-a + GDPR Art. 6/1/a</strong> compliant.",
+        "Infrastructure: Vercel (EU server) + Formspree (EU server) + Notion (private workspace).",
+        "For data deletion, correction, or a copy of your data: <strong>murat@gembax.ai</strong>."
+      ],
+      'consent-label': 'I have read and accept the Non-Disclosure Agreement (NDA) and Data Protection terms above.',
+      'consent-sub': 'This consent is required to begin the form. Your consent date and IP address are recorded.',
+      'start-text': 'Start Application',
+      'ft-terms': 'Terms', 'ft-privacy': 'Privacy', 'ft-refund': 'Refund',
+      'docTitle': 'Application — GembaX'
+    },
+    ES: {
+      'nav-logo-sub': 'Radiografía del Desperdicio Operacional',
+      'nav-back': '← Inicio',
+      'hero-badge': 'Piloto Cerrado — Cupos Limitados',
+      'hero-title': 'Solicitud. <em>Primer paso.</em>',
+      'hero-lead': 'Lea los consentimientos a continuación y complete el formulario. Aceptamos un número limitado de solicitudes piloto; las solicitudes completas reciben prioridad.',
+      'stat1-val': '~8', 'stat1-lbl': 'MINUTOS',
+      'stat2-val': '~27', 'stat2-lbl': 'PREGUNTAS',
+      'stat3-val': '$100', 'stat3-lbl': '100× ROI GARANTIZADO',
+      'why-title': 'Por qué las respuestas completas son importantes',
+      'why-p1': 'El valor de su informe Etapa 1 depende directamente de la profundidad de la información que comparta en la solicitud. La investigación previa (benchmark sectorial, comparativa de competidores, análisis de clientes) se construye sobre lo que usted proporciona.',
+      'why-p2': '<strong>Aceptamos un número limitado de solicitudes durante el piloto</strong> — por eso las solicitudes completas son priorizadas. Datos superficiales significan informes superficiales; queremos respetar el tiempo de ambas partes.',
+      'prep-title': 'Tenga estos datos listos antes de empezar:',
+      'prep-list': [
+        "Nombre de la empresa, año de fundación, número de empleados, rango de facturación anual",
+        "Responsable de operaciones + (si está disponible) responsable financiero — nombres, cargos, emails",
+        "Top 3 clientes (nombre + aproximadamente % de facturación)",
+        "3 competidores principales (nombres)",
+        "Una idea de sus KPIs de producción: tiempo de setup, tasa de scrap, OEE, paros no planificados (si disponible)",
+        "El problema operacional más crítico que enfrenta ahora (en términos generales)"
+      ],
+      'nda-title': 'Acuerdo de Confidencialidad (NDA)',
+      'nda-intro': 'Toda la información que comparte a través de este formulario se trata como información comercial confidencial y está sujeta a lo siguiente:',
+      'nda-list': [
+        "Su información se usa <strong>únicamente para el análisis que preparamos para usted</strong>.",
+        "<strong>No se comparte, vende ni divulga</strong> a terceros.",
+        "El nombre de su empresa <strong>no se publica como caso de referencia</strong> sin su consentimiento escrito explícito.",
+        "Después del análisis, sus datos se <strong>conservan por 3 años</strong>; puede solicitar la eliminación en cualquier momento.",
+        "Las solicitudes de eliminación se procesan <strong>en 30 días hábiles</strong>."
+      ],
+      'nda-contact': '<strong>Responsable:</strong> Dr. Murat Uzunlu — murat@gembax.ai',
+      'priv-title': 'Protección de Datos (KVKK + GDPR)',
+      'priv-intro': 'Manejo técnico de sus datos:',
+      'priv-list': [
+        "Los datos se almacenan en <strong>servidores seguros</strong> con cifrado (HTTPS + AES-256).",
+        "El acceso está limitado al <strong>Dr. Murat Uzunlu</strong>.",
+        "Basado en consentimiento explícito: cumple <strong>KVKK Art. 5/2-a + GDPR Art. 6/1/a</strong>.",
+        "Infraestructura: Vercel (servidor UE) + Formspree (servidor UE) + Notion (espacio privado).",
+        "Para eliminación, corrección o copia de datos: <strong>murat@gembax.ai</strong>."
+      ],
+      'consent-label': 'He leído y acepto el Acuerdo de Confidencialidad (NDA) y los términos de Protección de Datos anteriores.',
+      'consent-sub': 'Este consentimiento es obligatorio para comenzar el formulario. Se registran su fecha de consentimiento y dirección IP.',
+      'start-text': 'Comenzar Solicitud',
+      'ft-terms': 'Términos', 'ft-privacy': 'Privacidad', 'ft-refund': 'Reembolso',
+      'docTitle': 'Solicitud — GembaX'
+    }
+  };
+
+  function applyLang(lang) {
+    const t = T[lang]; if (!t) return;
+    document.documentElement.lang = lang.toLowerCase();
+    document.title = t.docTitle;
+    
+    // Apply all simple strings
+    const fields = ['nav-logo-sub', 'nav-back', 'hero-badge', 'hero-title', 'hero-lead',
+                    'stat1-val', 'stat1-lbl', 'stat2-val', 'stat2-lbl', 'stat3-val', 'stat3-lbl',
+                    'why-title', 'why-p1', 'why-p2', 'prep-title',
+                    'nda-title', 'nda-intro', 'nda-contact',
+                    'priv-title', 'priv-intro',
+                    'consent-label', 'consent-sub', 'start-text',
+                    'ft-terms', 'ft-privacy', 'ft-refund'];
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && t[id] !== undefined) el.innerHTML = t[id];
+    });
+    
+    // Special case for consent-label which contains consent-sub
+    const cl = document.getElementById('consent-label');
+    if (cl) {
+      cl.innerHTML = t['consent-label'] + '<small id="consent-sub">' + t['consent-sub'] + '</small>';
+    }
+    
+    // Apply list arrays
+    const prepList = document.getElementById('prep-list');
+    if (prepList) prepList.innerHTML = t['prep-list'].map(i => `<li>${i}</li>`).join('');
+    
+    const ndaList = document.getElementById('nda-list');
+    if (ndaList) ndaList.innerHTML = t['nda-list'].map(i => `<li>${i}</li>`).join('');
+    
+    const privList = document.getElementById('priv-list');
+    if (privList) privList.innerHTML = t['priv-list'].map(i => `<li>${i}</li>`).join('');
+    
+    // Update active language button
+    document.querySelectorAll('.lang-switch button').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+    
+    try { localStorage.setItem('gembax-lang', lang); } catch(e) {}
+  }
+
+  function setLang(btn) {
+    applyLang(btn.dataset.lang);
+  }
+
+  function toggleCollapse(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function toggleConsent() {
+    const box = document.getElementById('consentBox');
+    box.classList.toggle('checked');
+    document.getElementById('startBtn').disabled = !box.classList.contains('checked');
+  }
+
+  function startForm() {
+    // Capture consent metadata
+    const meta = {
+      consentDate: new Date().toISOString(),
+      lang: document.documentElement.lang.toUpperCase(),
+      // IP recorded server-side on form submission
+    };
+    try {
+      sessionStorage.setItem('gembax-consent', JSON.stringify(meta));
+    } catch(e) {}
+
+    // Redirect to form page (production: /basvuru/form)
+    const lang = (document.documentElement.lang || 'tr').toLowerCase();
+    // For local prototype testing: open the form HTML next to this file
+    // Production URL would be: /basvuru/form?lang=...
+    window.location.href = 'intake-form-step1-AB.html?lang=' + lang.toUpperCase();
+  }
+
+  // Init: detect language from URL ?lang= → localStorage → browser → EN
+  (function() {
+    let lang = null;
+
+    // 1) URL parameter (en yüksek öncelik — index'ten geliyor olabilir)
+    const urlLang = new URLSearchParams(window.location.search).get('lang');
+    if (urlLang && T[urlLang.toUpperCase()]) {
+      lang = urlLang.toUpperCase();
+    }
+
+    // 2) localStorage (kullanıcının daha önceki seçimi — index ve welcome paylaşır)
+    if (!lang) {
+      try {
+        const stored = localStorage.getItem('gembax-lang');
+        if (stored) {
+          const normalized = stored.toUpperCase();
+          if (T[normalized]) lang = normalized;
+        }
+      } catch(e) {}
+    }
+
+    // 3) Browser language (TR/ES → kendi dili, diğerleri → EN)
+    if (!lang) {
+      const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+      if (browserLang.startsWith('tr')) lang = 'TR';
+      else if (browserLang.startsWith('es')) lang = 'ES';
+      else lang = 'EN';
+    }
+
+    applyLang(lang);
+  })();
+</script>
+
+</body>
+</html>
