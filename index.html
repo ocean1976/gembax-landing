@@ -876,6 +876,7 @@
       else { var el = document.querySelector(k[1]); if (el) o[k[0]] = el.innerHTML; }
     });
     o.viz = window.__VIZ; o.htmlLang = 'tr';
+    o.sub = '<span>Değer üretmeyen her şey israftır.</span><span>Görünmeyen kayıpları bulun, maliyetini görün.</span>';
     return o;
   }
   var VIZ_EN = { rep: "REPRESENTATIVE VISUALIZATION",
@@ -896,7 +897,7 @@
     navGemba: 'What Is Gemba', navMeth: 'Methodology', navPrice: 'Pricing', navCta: 'Start Analysis',
     rail: 'Operational Diagnostics', crumb: '<span>GembaX</span><i>/</i>Operational Diagnostics',
     title: 'The X-Ray of Operational Waste',
-    sub: '<span>Everything that doesn\'t create value is waste.</span><span>Find the losses you can\'t see. See what they cost.</span>',
+    sub: 'Everything that doesn\'t create value is waste. Find the losses you can\'t see. See what they cost.',
     para: '<strong>Gemba<span>X</span></strong> analyzes the processes that create value in your organization and the root causes behind its problems; it makes waste signals visible. By combining expert judgment with three different AI perspectives, it makes consulting more accessible, faster and more effective.',
     listIntro: 'We look at your operation through your customer\'s eyes and identify which work truly creates value.',
     listItems: [
@@ -943,7 +944,7 @@
     navGemba: 'Qué es Gemba', navMeth: 'Metodología', navPrice: 'Precios', navCta: 'Iniciar Análisis',
     rail: 'Diagnóstico Operacional', crumb: '<span>GembaX</span><i>/</i>Diagnóstico Operacional',
     title: 'La Radiografía del Desperdicio Operacional',
-    sub: '<span>Todo lo que no crea valor es desperdicio.</span><span>Encuentre las pérdidas que no ve. Vea cuánto cuestan.</span>',
+    sub: 'Todo lo que no crea valor es desperdicio. Encuentre las pérdidas que no ve. Vea cuánto cuestan.',
     para: '<strong>Gemba<span>X</span></strong> analiza los procesos que crean valor en su organización y las causas raíz de sus problemas; hace visibles las señales de desperdicio. Al combinar el criterio experto con tres perspectivas distintas de IA, hace la consultoría más accesible, rápida y efectiva.',
     listIntro: 'Miramos su operación con los ojos de su cliente e identificamos qué trabajo crea valor de verdad.',
     listItems: [
@@ -994,8 +995,16 @@
       else { var el = document.querySelector(k[1]); if (el) el.innerHTML = v; }
     });
     window.__VIZ = t.viz; document.documentElement.lang = t.htmlLang;
+    var lc = t.htmlLang;
+    document.querySelectorAll('a[href*="intake-welcome"]').forEach(function (a) {
+      var h = a.getAttribute('href').replace(/([?&])lang=[a-z]{2}(&|$)/, '$1').replace(/[?&]$/, '');
+      a.setAttribute('href', h + (h.indexOf('?') > -1 ? '&' : '?') + 'lang=' + lc);
+    });
+    try { localStorage.setItem('gembax-lang', lc); } catch (e) {}
     var b = document.getElementById('langBtn'); if (b) b.firstChild.textContent = code + ' ';
   };
+  var saved = null; try { saved = localStorage.getItem('gembax-lang'); } catch (e) {}
+  window.applyLang((saved || 'tr').toUpperCase() in T ? (saved || 'tr').toUpperCase() : 'TR');
 })();
 </script>
 </body>
