@@ -1,1698 +1,1002 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GembaX — X-Ray of Operational Waste</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<title>GembaX — Mockup v2 · Koyu İlk Ekran</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..900&family=Inter:wght@300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-primary: #FAF9F6;
-    --bg-secondary: #FFFFFF;
-    --bg-card: #F4F2EE;
-    --text-primary: #1B2A4A;
-    --text-secondary: #4A5568;
-    --text-muted: #8fa093;
-    --accent: #2D5016;
-    --accent-dark: #1e3f0f;
-    --accent-light: #3d6b22;
-    --accent-glow: rgba(45, 80, 22, 0.08);
-    --accent-glow-strong: rgba(45, 80, 22, 0.15);
-    --border: rgba(0,0,0,0.08);
-    --border-accent: rgba(45, 80, 22, 0.25);
-    --dot-color: rgba(45, 80, 22, 0.18);
-    --font-body: 'Instrument Sans', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-    --font-editorial: 'Playfair Display', Georgia, serif;
-
-    /* Maroon (Aşama 2) */
-    --maroon: #6E1414;
-    --maroon-glow: rgba(110, 20, 20, 0.04);
-    --border-maroon: rgba(110, 20, 20, 0.25);
+    --bg-primary: #FAF9F6; --bg-secondary: #FFFFFF; --bg-card: #F4F2EE;
+    --text-primary: #1B2A4A; --text-secondary: #4A5568; --text-muted: #8fa093;
+    --accent: #2D5016; --accent-dark: #1e3f0f; --accent-light: #3d6b22;
+    --accent-glow: rgba(45,80,22,0.08); --maroon: #6E1414;
+    --border: rgba(0,0,0,0.08); --border-accent: rgba(45,80,22,0.25); --red: #FF1525;
+    --font-body: 'Inter', sans-serif; --font-mono: 'Space Mono', monospace; --font-serif: 'Inter Tight', sans-serif;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: var(--font-body);
+    font-family: var(--font-body); color: var(--text-primary);
     background-color: var(--bg-primary);
-    background-image: 
+    background-image:
       linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px),
       linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
     background-size: 28px 28px;
-    color: var(--text-primary); line-height: 1.6;
-    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
   ::selection { background: var(--accent); color: #fff; }
+  #fieldCanvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+  nav, .hero, section, footer { position: relative; z-index: 1; }
 
-  /* Scroll progress bar */
-  .scroll-progress {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    height: 3px; background: transparent;
-  }
-  .scroll-progress-bar {
-    height: 100%; width: 0%;
-    background: linear-gradient(90deg, var(--accent), var(--accent-light));
-    transition: width 0.1s linear;
-    box-shadow: 0 0 8px rgba(45,80,22,0.4);
-  }
-
-  /* Section blueprint divider */
-  .blueprint-divider {
-    display: flex; align-items: center; justify-content: center;
-    padding: 0; margin: 0 auto; max-width: 1200px;
-  }
-  .blueprint-divider::before,
-  .blueprint-divider::after {
-    content: ''; flex: 1; height: 1px;
-    background: repeating-linear-gradient(90deg,
-      var(--accent) 0px, var(--accent) 8px, transparent 8px, transparent 14px
-    );
-    opacity: 0.18;
-  }
-  .blueprint-divider-mark {
-    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent);
-    opacity: 0.25; flex-shrink: 0; margin: 0 0.8rem;
-    border: 1px solid rgba(45,80,22,0.15); border-radius: 50%;
-  }
-
-  /* Card ref label */
-  .card-ref {
-    position: absolute; top: 0.8rem; right: 0.8rem;
-    font-family: var(--font-mono); font-size: 0.58rem;
-    color: var(--text-muted); opacity: 0.5;
-    letter-spacing: 0.08em; text-transform: uppercase;
-  }
-
-  /* Doc metadata strip */
-  .doc-metadata {
-    display: flex; align-items: center; justify-content: center;
-    gap: 1.5rem; padding: 0.7rem 2rem;
-    font-family: var(--font-mono); font-size: 0.6rem;
-    color: var(--text-muted); letter-spacing: 0.1em;
-    text-transform: uppercase; opacity: 0.45;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .doc-metadata span { white-space: nowrap; }
-  .doc-metadata .meta-sep { opacity: 0.3; }
-
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 1.25rem 3rem; padding-bottom: 1.8rem;
-    display: flex; justify-content: space-between; align-items: center;
-    backdrop-filter: blur(20px);
-    background: rgba(240,238,232,0.92);
-    border-bottom: none;
-    transition: all 0.3s ease;
-  }
-  nav::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-    height: 14px;
-    background:
-      repeating-linear-gradient(90deg,
-        var(--accent) 0px, var(--accent) 0.5px, transparent 0.5px, transparent 10px
-      ),
-      repeating-linear-gradient(90deg,
-        var(--accent) 0px, var(--accent) 1px, transparent 1px, transparent 50px
-      );
-    background-size: 10px 5px, 50px 13px;
-    background-position: 0 bottom, 0 bottom;
-    background-repeat: repeat-x;
-    opacity: 0.20;
-    pointer-events: none;
-  }
-  .logo { display: flex; flex-direction: column; font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; color: var(--text-primary); text-decoration: none; line-height: 1; }
-  .logo-main { display: inline; }
-  .logo-x { color: var(--accent); }
-  .logo-sub { font-size: 0.6rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0.06em; margin-top: 0.2rem; }
-  .hamburger {
-    display: none; background: none; border: none; cursor: pointer;
-    flex-direction: column; gap: 5px; padding: 0.4rem;
-  }
-  .hamburger span {
-    display: block; width: 22px; height: 2px;
-    background: var(--text-primary); border-radius: 2px;
-    transition: all 0.3s;
-  }
-  .nav-links { display: flex; gap: 1.2rem; align-items: center; }
-  .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; font-weight: 400; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--text-primary); }
-  .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 0.55rem 1.4rem; border-radius: 6px; font-weight: 600 !important; font-size: 0.85rem !important; text-decoration: none; }
-  .nav-cta:hover { background: var(--accent-dark) !important; }
-
-  /* Language Dropdown */
-  .lang-dropdown { position: relative; }
-  .lang-toggle {
-    display: flex; align-items: center; gap: 0.35rem;
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 6px; padding: 0.35rem 0.7rem;
-    font-size: 0.8rem; font-weight: 600; color: var(--text-primary);
-    cursor: pointer; transition: all 0.2s; user-select: none;
-  }
-  .lang-toggle:hover { border-color: var(--border-accent); }
-  .lang-toggle svg { width: 12px; height: 12px; color: var(--text-muted); transition: transform 0.2s; }
-  .lang-dropdown.open .lang-toggle svg { transform: rotate(180deg); }
-  .lang-menu {
-    display: none; position: absolute; top: calc(100% + 6px); right: 0;
-    background: var(--bg-secondary); border: 1px solid var(--border);
-    border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-    min-width: 100px; overflow: hidden; z-index: 200;
-  }
-  .lang-dropdown.open .lang-menu { display: block; }
-  .lang-menu a {
-    display: block !important; padding: 0.55rem 1rem !important;
-    font-size: 0.82rem !important; font-weight: 500 !important;
-    color: var(--text-secondary) !important; transition: all 0.15s; text-decoration: none;
-  }
-  .lang-menu a:hover { background: var(--accent-glow) !important; color: var(--accent-dark) !important; }
-  .lang-menu a.active { color: var(--accent) !important; font-weight: 600 !important; }
-
-  /* HERO */
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 1.32fr;
-    align-items: center; gap: 2.5rem;
-    padding: 6rem 3rem 1.5rem; max-width: 1300px; margin: 0 auto;
-  }
-  .hero-text { padding-right: 1rem; }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--accent-glow); border: 1px solid var(--border-accent);
-    border-radius: 100px; padding: 0.4rem 1rem;
-    font-size: 0.8rem; color: var(--accent-dark); font-weight: 500;
-    margin-bottom: 1.2rem; width: fit-content;
-    animation: fadeUp 0.8s ease both;
-  }
-  .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s ease infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-  .hero h1 {
-    font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 700;
-    line-height: 1.15; letter-spacing: -0.02em;
-    margin-bottom: 1rem; animation: fadeUp 0.8s 0.1s ease both;
-  }
-  .hero h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
-  .hero-subtitle {
-    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-    color: var(--text-secondary); font-weight: 400;
-    line-height: 1.35; letter-spacing: -0.005em;
-    margin-bottom: 1.25rem; max-width: 560px;
-    animation: fadeUp 0.8s 0.12s ease both;
-  }
-  .hero-subtitle strong { color: var(--text-primary); font-weight: 600; }
-  .hero-visual {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    align-self: center;
-    animation: fadeUp 0.8s 0.4s ease both;
-  }
-  .hero-caption {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    text-align: center;
-    max-width: 90%;
-    margin: 0.2rem auto 0;
-  }
-  .hero-caption-lead {
-    display: block;
-    color: var(--accent);
-    font-style: italic;
-    font-weight: 600;
-    font-size: 1.1rem;
-    line-height: 1.35;
-    margin-bottom: 0.4rem;
-  }
-  .hero-guarantee {
-    background: var(--accent-glow);
-    border: 1.5px solid var(--accent);
-    border-radius: 10px;
-    padding: 0.9rem 1.1rem;
-    margin: 0;
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
-    align-items: center;
-  }
-  .hero-guarantee-roi {
-    text-align: center;
-    padding-right: 1rem;
-    border-right: 1px solid var(--border-accent);
-    line-height: 1;
-  }
-  .hero-guarantee-roi-num {
-    font-size: 2rem; font-weight: 700;
-    color: var(--accent-dark);
-    letter-spacing: -0.04em;
-    font-family: var(--font-sans, inherit);
-  }
-  .hero-guarantee-roi-label {
-    font-size: 0.56rem; font-weight: 600;
-    color: var(--accent-dark);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 0.3rem;
-  }
-  .hero-guarantee-text { line-height: 1.45; }
-  .hero-guarantee-main {
-    font-size: 0.88rem; font-weight: 500;
-    color: var(--accent-dark);
-    margin-bottom: 0.25rem;
-  }
-  .hero-guarantee-main mark {
-    background: var(--accent);
-    color: #fff;
-    padding: 0.05rem 0.35rem;
-    border-radius: 3px;
-    font-weight: 600;
-  }
-  .hero-guarantee-sub {
-    font-size: 0.74rem;
-    color: var(--accent-dark);
-    opacity: 0.85;
-  }
-  @media (max-width: 768px) {
-    .hero-guarantee {
-      grid-template-columns: 1fr;
-      gap: 0.55rem;
-      padding: 0.8rem 0.95rem;
-    }
-    .hero-guarantee-roi {
-      border-right: none;
-      border-bottom: 1px solid var(--border-accent);
-      padding-right: 0;
-      padding-bottom: 0.55rem;
-      display: flex;
-      align-items: baseline;
-      gap: 0.55rem;
-      justify-content: flex-start;
-    }
-    .hero-guarantee-roi-num { font-size: 1.65rem; }
-    .hero-guarantee-roi-label { margin-top: 0; }
-  }
-  .hero-motto {
-    font-size: 1.15rem; color: var(--text-muted);
-    max-width: 580px; line-height: 1.6; margin-bottom: 0.75rem;
-    animation: fadeUp 0.8s 0.15s ease both;
-  }
-  .hero-motto em { color: var(--accent); font-style: italic; font-weight: 500; }
-  .hero-motto strong { font-weight: 700; color: var(--text-primary); }
-  .hero-sub { font-size: 1.05rem; color: var(--text-secondary); max-width: 520px; line-height: 1.65; margin-bottom: 1rem; animation: fadeUp 0.8s 0.2s ease both; }
-  .hero-bullets {
-    list-style: none; max-width: 520px; margin-bottom: 2rem;
-    animation: fadeUp 0.8s 0.25s ease both;
-  }
-  .hero-bullets li {
-    position: relative; padding-left: 1.4rem;
-    font-size: 1.02rem; color: var(--text-secondary);
-    line-height: 1.6; margin-bottom: 0.4rem;
-  }
-  .hero-bullets li::before {
-    content: '→'; position: absolute; left: 0;
-    color: var(--accent); font-weight: 600;
-  }
-  .hero-actions { display: flex; gap: 1rem; animation: fadeUp 0.8s 0.3s ease both; }
-
-  /* Hero X-ray image with Scan effect */
-  .hero-xray {
-    position: relative;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow:
-      0 20px 60px rgba(0,0,0,0.18),
-      0 0 0 1px rgba(0,0,0,0.08);
-    background: #0a0f0a;
-  }
-  .hero-xray img {
-    width: 100%; height: auto;
-    object-fit: contain;
-    display: block;
-    transition: all 0.6s ease;
-    max-height: 80vh;
-  }
-  .hero-xray:hover img {
-    transform: scale(1.015);
-    filter: brightness(1.05);
-  }
-  
-  /* X-ray scan line effect */
-  .xray-scan-line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 1.5px;
-    background: rgba(241, 196, 15, 0.6);
-    box-shadow: 0 0 8px 1px rgba(241, 196, 15, 0.4);
-    opacity: 0.35;
-    pointer-events: none;
-    animation: xrayScan 4s linear infinite alternate;
-    z-index: 2;
-  }
-  
-  @keyframes xrayScan {
-    0% { top: 0%; }
-    100% { top: 100%; }
-  }
-
-  .hero-xray::after {
-    content: '';
-    position: absolute; inset: 0;
-    border-radius: 18px;
-    border: 1.5px solid rgba(45, 107, 69, 0.15);
-    pointer-events: none;
-    transition: border-color 0.4s;
-    z-index: 3;
-  }
-  .hero-xray:hover::after {
-    border-color: rgba(45, 107, 69, 0.35);
-    box-shadow: 0 0 40px rgba(45, 107, 69, 0.08);
-  }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--accent); color: #fff;
-    padding: 0.85rem 2rem; border-radius: 8px;
-    font-weight: 600; font-size: 0.95rem; text-decoration: none;
-    transition: all 0.25s; border: none; cursor: pointer;
-  }
-  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow-strong); }
-  .btn-secondary {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--bg-secondary); color: var(--text-primary);
-    padding: 0.85rem 2rem; border-radius: 8px;
-    font-weight: 500; font-size: 0.95rem; text-decoration: none;
-    border: 1px solid var(--border); transition: all 0.25s;
-  }
-  .btn-secondary:hover { border-color: var(--text-muted); }
-
-  /* AI VALUE-ALIGNMENT BAND (contained within page frame — Stage-2 maroon, on-system) */
-  .hero-ai-band {
-    max-width: 1300px;
-    margin: 0.7rem auto 0;
-    background: var(--maroon-glow);
-    border: 1px solid var(--border-maroon);
-    border-radius: 12px;
-    padding: 1.05rem 1.6rem;
-  }
-  .hero-ai-band-inner {
-    display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap;
-    border-left: 3px solid var(--maroon); padding-left: 1.1rem;
-  }
-  .hero-ai-line { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.45; flex: 1 1 280px; margin: 0; }
-  .hero-ai-line strong { color: var(--maroon); font-weight: 700; }
-  .btn-ai-align {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    background: transparent; color: var(--maroon);
-    padding: 0.6rem 1.2rem; border-radius: 7px;
-    font-weight: 700; font-size: 0.82rem; text-decoration: none;
-    border: 1.5px solid var(--maroon); transition: all 0.25s; white-space: nowrap;
-  }
-  .btn-ai-align:hover { background: var(--maroon); color: #fff; transform: translateY(-1px); }
-
-  /* STATS */
-  .stats-strip {
-    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    padding: 4rem 3rem; background: var(--bg-secondary);
-    background-image: 
-      linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
-    background-size: 28px 28px;
-  }
-  .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
-  .stats-inner .stat-item .stat-number { font-family: var(--font-mono); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
-  .stats-inner .stat-item .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; font-weight: 500; }
-  .stats-inner .stat-item .stat-desc { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6; }
-
-  /* SECTIONS */
-  section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
-  .section-label { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 400; font-style: italic; }
-  .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
-  .section-title em { font-style: italic; font-weight: 300; color: var(--accent); }
-  .section-desc { color: var(--text-secondary); font-size: 1.15rem; max-width: 620px; line-height: 1.7; margin-bottom: 3rem; }
-
-  /* GEMBA */
-  .gemba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-  .gemba-text { padding-right: 2rem; }
-  .gemba-visual { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
-  .gemba-visual::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 40%, var(--accent-glow) 0%, transparent 60%); pointer-events: none; }
-  .gemba-equation { position: relative; z-index: 1; }
-  .eq-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-  .eq-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.5rem; flex: 1; }
-  .eq-box-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem; }
-  .eq-box-value { font-size: 1.15rem; font-weight: 600; }
-  .eq-box-value span { color: var(--accent); }
-  .eq-plus { font-family: var(--font-mono); color: var(--text-muted); font-size: 1.5rem; font-weight: 700; flex-shrink: 0; }
-  .eq-result { background: var(--accent-glow); border: 1px solid var(--border-accent); border-radius: 12px; padding: 1.2rem 1.5rem; text-align: center; }
-  .eq-result-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-dark); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem; }
-  .eq-result-value { font-size: 1.6rem; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
-  .eq-output-box { margin-top: 1.5rem; padding: 1.2rem; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border); }
-  .eq-output-box .eq-box-label { margin-bottom: 0.5rem; }
-  .eq-output-text { font-size: 0.98rem; color: var(--text-secondary); line-height: 1.6; }
-  .eq-output-text strong { color: var(--accent); font-weight: 700; font-family: var(--font-mono); }
-
-  /* PROCESS */
-  .process-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .process-card { position: relative; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.03); }
-  .process-card:hover { border-color: var(--border-accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
-  .process-num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1rem; font-weight: 700; }
-  .process-card h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
-  .process-card p { color: var(--text-secondary); font-size: 1rem; line-height: 1.65; }
-  .process-card .process-output { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); font-weight: 500; }
-
-  /* ROOT CAUSE PREVIEW SECTION */
-  #root-cause-preview {
-    background: var(--bg-secondary);
-    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem; background: rgba(250,249,246,0.82); backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
-    padding: 4.5rem 3rem;
   }
-  .rc-container {
-    max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.7fr; gap: 3.5rem; align-items: center;
-  }
-  .rc-visual-wrapper {
-    background: var(--bg-primary); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.02); overflow-x: auto;
-  }
-  .pull-quote { border-left: 3px solid var(--maroon); padding: 0.8rem 0 0.8rem 1.2rem; margin: 1.5rem 0; }
-  .pull-quote p { font-family: var(--font-editorial); font-size: 1.15rem; font-style: italic; line-height: 1.5; color: var(--text-primary); }
-  .pull-quote cite { display: block; margin-top: 0.4rem; font-family: var(--font-mono); font-size: 0.65rem; font-style: normal; color: var(--text-muted); text-transform: uppercase; }
+  .logo { font-family: var(--font-mono); font-weight: 700; font-size: 1.15rem; color: var(--text-primary); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 1.6rem; align-items: center; }
+  .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+  .nav-cta { background: var(--accent); color: #fff !important; padding: 0.55rem 1.2rem; border-radius: 8px; font-weight: 600; }
 
-  /* WASTE */
-  .waste-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
-  .waste-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
-  .waste-cell { background: var(--bg-secondary); padding: 1.8rem; transition: all 0.3s; }
-  .waste-cell:hover { background: var(--bg-card); }
-  .waste-icon-svg { width: 32px; height: 32px; margin-bottom: 0.75rem; display: block; color: var(--accent); }
-  .waste-name { font-weight: 600; font-size: 1.05rem; margin-bottom: 0.35rem; }
-  .waste-eng { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-  .waste-example { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; }
-  .waste-cost { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); font-weight: 700; margin-top: 0.6rem; letter-spacing: 0.02em; }
+  .mono { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
 
-  /* SECTORS */
-  .sector-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .sector-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s; }
-  .sector-card:hover { border-color: var(--border-accent); transform: translateY(-2px); }
-  .sector-icon-svg { width: 28px; height: 28px; margin-bottom: 0.9rem; display: block; color: var(--accent); }
-  .sector-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .sector-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
+  /* ===== 0. Koyu ilk ekran (MIT kalıbı) ===== */
+  :root {
+    --dark-bg: #1A1916;
+    --cream: #F5F0E8; --cream-mid: #B9B2A4; --cream-dim: #8C867A; --cream-faint: #55514A;
+    --green-bright: #4ade80; --orange: #F28C28; --mit-red: #FF1525; --mit-gray: #838D95;
+    --font-head: 'Inter Tight', 'Inter', sans-serif; --font-inter: 'Inter', sans-serif;
+  }
+  body { position: relative; }
+  #darkBackdrop { position: absolute; top: 0; left: 0; right: 0; height: 100vh; min-height: 100vh; z-index: 0;
+    background-color: var(--dark-bg);
+    background-image:
+      linear-gradient(rgba(245,240,232,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,240,232,0.055) 1px, transparent 1px);
+    background-size: 28px 28px; }
+  #fieldCanvas { z-index: 0; }
+  .ruler { position: fixed; top: 0; left: 0; right: 0; height: 20px; z-index: 101; background: var(--dark-bg);
+    border-bottom: 1px solid rgba(245,240,232,0.14); overflow: hidden; transition: background .35s, border-color .35s; }
+  .ruler canvas { display: block; width: 100%; height: 100%; }
+  .ruler.light { background: rgba(250,249,246,0.92); border-bottom-color: var(--border); }
 
-  /* THREE LENSES */
-  .lens-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .lens-card { position: relative; display: flex; flex-direction: column; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: all 0.3s ease; box-shadow: 0 2px 12px rgba(0,0,0,0.03); }
-  .lens-card:hover { border-color: var(--border-accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
-  .lens-icon { width: 34px; height: 34px; color: var(--accent); margin-bottom: 0.6rem; }
-  .lens-icon svg { width: 100%; height: 100%; display: block; }
-  .lens-num { font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent); letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; margin-bottom: 0.6rem; }
-  .lens-card h3 { font-size: 1.18rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .lens-tag { color: var(--text-secondary); font-size: 0.98rem; line-height: 1.55; margin-bottom: 1.1rem; }
-  .lens-bullets { list-style: none; margin: 0 0 1.4rem; padding: 0; }
-  .lens-bullets li { position: relative; padding-left: 1.3rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.55rem; }
-  .lens-bullets li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
-  .lens-cta { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; color: var(--accent); text-decoration: none; border: 1.5px solid var(--accent); border-radius: 7px; padding: 0.55rem 1.1rem; transition: all 0.25s; }
-  .lens-cta:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
-  /* AI track variant — Stage-2 maroon */
-  .lens-card.track-ai { border-left: 3px solid var(--maroon); }
-  .lens-card.track-ai .lens-icon, .lens-card.track-ai .lens-num { color: var(--maroon); }
-  .lens-card.track-ai .lens-bullets li::before { color: var(--maroon); }
-  .lens-card.track-ai .lens-cta { color: var(--maroon); border-color: var(--maroon); }
-  .lens-card.track-ai .lens-cta:hover { background: var(--maroon); color: #fff; }
+  nav { top: 20px; background: transparent; border-bottom: 1px solid rgba(245,240,232,0.08); backdrop-filter: none; transition: background .35s, border-color .35s; }
+  nav .logo { color: var(--cream); } nav .logo span { color: var(--green-bright); }
+  nav .nav-links a { color: var(--cream-mid); font-family: var(--font-inter); }
+  nav .nav-cta { background: transparent; color: var(--cream) !important; border: 1px solid rgba(245,240,232,0.35); }
+  .lang { position: relative; }
+  .lang-btn { font-family: var(--font-inter); font-size: 0.86rem; font-weight: 600; cursor: pointer; background: transparent;
+    color: var(--cream); border: 1px solid rgba(245,240,232,0.35); border-radius: 8px; padding: 0.45rem 0.75rem; display: flex; gap: 0.35rem; align-items: center; }
+  .lang-btn span { font-size: 0.7rem; opacity: 0.7; }
+  .lang-menu { position: absolute; top: calc(100% + 6px); right: 0; min-width: 130px; background: #23221E; border: 1px solid rgba(245,240,232,0.15); border-radius: 8px; padding: 0.3rem; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+  .lang.open .lang-menu { display: block; }
+  .lang-menu button { display: block; width: 100%; text-align: left; background: transparent; border: none; cursor: pointer; font-family: var(--font-inter); font-size: 0.86rem; color: var(--cream-mid); padding: 0.45rem 0.6rem; border-radius: 5px; }
+  .lang-menu button:hover { background: rgba(245,240,232,0.08); color: var(--cream); }
+  nav.light .lang-btn { color: var(--text-primary); border-color: var(--border); background: var(--bg-secondary); }
+  nav.light .lang-menu { background: var(--bg-secondary); border-color: var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+  nav.light .lang-menu button { color: var(--text-secondary); }
+  nav.light .lang-menu button:hover { background: var(--bg-card); color: var(--text-primary); }
+  nav.light { background: rgba(250,249,246,0.86); backdrop-filter: blur(10px); border-bottom-color: var(--border); }
+  nav.light .logo { color: var(--text-primary); } nav.light .logo span { color: var(--accent); }
+  nav.light .nav-links a { color: var(--text-secondary); }
+  nav.light .nav-cta { background: var(--accent); color: #fff !important; border-color: var(--accent); }
 
-  /* DIFF */
-  .diff-table {
-    max-width: 960px; margin: 0 auto;
-    border-radius: 16px; overflow: hidden;
-    border: 1px solid var(--border);
-    background: var(--bg-secondary);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  .dark-hero { position: relative; z-index: 1; min-height: 100vh; color: var(--cream); display: grid; grid-template-columns: 64px 1fr; }
+  .dark-rail { border-right: 1px solid rgba(245,240,232,0.12); position: relative; }
+  .dark-rail .rail-label { position: absolute; top: 150px; left: 50%; transform: translateX(-50%) rotate(180deg); writing-mode: vertical-rl;
+    font-family: var(--font-inter); font-size: 0.82rem; font-weight: 500; color: var(--cream); white-space: nowrap; }
+  .dark-rail .rail-badge { position: absolute; left: 0; bottom: 0; width: 64px; height: 64px; background: var(--green-bright); color: var(--dark-bg);
+    display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem; }
+  .dark-main { padding: 9.5rem 3rem 6rem clamp(1.4rem, 12vw, 18rem); max-width: 1500px; min-width: 0; overflow-wrap: anywhere; }
+  .dark-crumb { font-family: var(--font-inter); font-size: 0.82rem; color: var(--cream-dim); margin-bottom: 2.4rem; }
+  .dark-crumb span { color: var(--cream); } .dark-crumb i { font-style: normal; color: var(--green-bright); margin: 0 0.5rem; }
+  .dark-square { width: 54px; height: 54px; background: var(--green-bright); margin-bottom: 2.6rem; }
+  .dark-head { font-family: var(--font-head); font-weight: 700; font-size: clamp(1.35rem, min(2.5vw, 3.3vh), 2.3rem);
+    line-height: 1.18; letter-spacing: -0.025em; color: #A39C8E; max-width: 36ch; }
+  .dark-head .lead { display: block; color: var(--orange); margin-bottom: 0.12em; }
+  .dark-head .u { color: inherit; text-decoration: underline; text-decoration-color: rgba(163,156,142,0.4); text-decoration-thickness: 2px; text-underline-offset: 0.14em; transition: text-decoration-color .2s; }
+  .dark-head .u:hover { text-decoration-color: var(--orange); }
+  .dark-head .w { color: #FFFFFF; }
+  .dark-main { padding-top: 6.5rem; padding-bottom: 4rem; }
+  .dark-crumb { margin-bottom: 1.2rem; }
+  .dark-square { margin-bottom: 1.4rem; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; color: var(--dark-bg); }
+  .dark-actions { margin-top: 1.6rem; }
+  .dark-title, .dark-sub { font-family: var(--font-head); font-weight: 700; font-size: clamp(2rem, min(5vw, 6.6vh), 4.4rem); line-height: 1.04; letter-spacing: -0.035em; }
+  .dark-title { color: var(--mit-red); display: block; font-weight: 900; letter-spacing: -0.015em; margin-bottom: 0.1em; }
+  .dark-sub { color: var(--mit-gray); display: block; font-weight: 700; }
+  .dark-sub span { display: block; }
+  .dark-main { --text-w: min(100%, 980px); }
+  .dark-headline { max-width: var(--text-w); }
+  .dark-para { font-family: var(--font-inter); font-weight: 400; font-size: clamp(1.15rem, min(1.7vw, 2.7vh), 1.65rem); line-height: 1.55; color: var(--mit-gray); max-width: var(--text-w); margin-top: 1.8rem; }
+  .dark-para strong { color: #FFFFFF; font-weight: 700; }
+  .dark-para strong span { color: var(--green-bright); }
+  .dark-para + .dark-para { margin-top: 0.9rem; }
+  .dark-list { max-width: var(--text-w); margin-top: 1.3rem; font-family: var(--font-inter); font-size: clamp(0.9rem, min(1.15vw, 1.9vh), 1.1rem); line-height: 1.5; color: var(--mit-gray); font-weight: 350; }
+  .dark-list p { margin-bottom: 0.6rem; font-weight: 350; }
+  .dark-list li strong { font-weight: 350; color: var(--green-bright); }
+  .dark-list ul { list-style: none; }
+  .dark-list li { position: relative; padding-left: 1.4rem; margin-bottom: 0.35rem; font-weight: 350; }
+  .dark-list li::before { content: '→'; position: absolute; left: 0; color: var(--mit-red); }
+  .dark-actions { margin-top: 2.6rem; display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+  .dark-btn { font-family: var(--font-inter); font-weight: 600; font-size: 0.95rem; text-decoration: none; color: var(--dark-bg); background: var(--cream); padding: 0.9rem 1.6rem; border-radius: 4px; }
+  .dark-link { font-family: var(--font-inter); font-weight: 500; font-size: 0.95rem; color: var(--cream-mid); text-decoration: none; border-bottom: 1px solid var(--cream-faint); padding-bottom: 2px; }
+  .dark-scroll { position: absolute; right: 3rem; bottom: 2.2rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; color: var(--cream-dim); text-align: center; }
+  .dark-scroll::after { content: ''; display: block; width: 1px; height: 38px; background: var(--cream-faint); margin: 10px auto 0; animation: drop 1.8s ease-in-out infinite; }
+  @keyframes drop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+  @media (max-width: 900px) {
+    .dark-hero { grid-template-columns: 1fr; }
+    .dark-rail { display: none; }
+    .dark-main { padding: 7.5rem 1.4rem 5rem; }
+    .dark-title, .dark-sub { font-size: clamp(2.1rem, 9vw, 2.8rem); }
+    .dark-scroll { display: none; }
   }
-  .diff-header {
-    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
-    border-bottom: 2px solid var(--border);
-  }
-  .diff-header-cell {
-    padding: 1.5rem 1.8rem 1.2rem;
-    font-family: var(--font-mono); font-size: 0.78rem;
-    text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700;
-  }
-  .diff-header-cell:first-child { background: transparent; color: transparent; }
-  .diff-header-cell.old-col {
-    background: var(--bg-card); color: var(--text-muted);
-    text-align: center; border-left: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .diff-header-cell.new-col {
-    background: rgba(240,238,232,0.95); color: var(--accent-dark);
-    text-align: center; position: relative;
-    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-  }
-  .diff-header-cell.new-col::before {
-    content: '✦'; font-size: 0.55rem; letter-spacing: 0;
-    opacity: 0.5;
-  }
-  .diff-row {
-    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    transition: background 0.2s;
-  }
-  .diff-row:last-child { border-bottom: none; }
-  .diff-row:hover { background: rgba(45,80,22,0.02); }
-  .diff-cell {
-    padding: 1.1rem 1.8rem; display: flex;
-    align-items: center; gap: 0.6rem;
-    font-size: 0.88rem; line-height: 1.45;
-  }
-  .diff-cell.label-col {
-    font-weight: 600; color: var(--text-primary);
-    font-size: 0.85rem;
-  }
-  .diff-cell.label-col .diff-label-icon {
-    width: 28px; height: 28px; border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--accent-glow); color: var(--accent); flex-shrink: 0;
-    font-size: 0.75rem; font-family: var(--font-mono);
-    text-rendering: optimizeLegibility;
-  }
-  .diff-cell.old-col {
-    color: var(--text-muted); border-left: 1px solid var(--border);
-    background: rgba(0,0,0,0.015);
-  }
-  .diff-cell.old-col .diff-icon {
-    width: 20px; height: 20px; border-radius: 50%;
-    background: rgba(180,80,60,0.08); color: #b4503c;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; font-size: 0.65rem; font-weight: 700;
-  }
-  .diff-cell.new-col {
-    color: var(--text-primary); font-weight: 500;
-    background: rgba(0,0,0,0.02);
-  }
-  .diff-cell.new-col .diff-icon {
-    width: 20px; height: 20px; border-radius: 50%;
-    background: rgba(45,80,22,0.12); color: var(--accent);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; font-size: 0.7rem; font-weight: 700;
-  }
-  .diff-cell .diff-val { flex: 1; }
-  .diff-cell .diff-highlight {
-    font-family: var(--font-mono); font-weight: 700;
-    font-size: 0.82rem; color: var(--accent-dark);
-  }
-  .diff-cell.old-col .diff-highlight {
-    color: var(--text-muted); font-weight: 600;
-  }
-  .diff-bottom-bar {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0.6rem; padding: 1.2rem 1.8rem;
-    background: rgba(240,238,232,0.95); color: var(--accent-dark);
-    font-size: 0.85rem; font-weight: 500;
-  }
-  .diff-bottom-bar svg { width: 16px; height: 16px; opacity: 0.7; }
 
-  /* CTA */
-  .cta-section { text-align: center; padding: 8rem 3rem; max-width: none; margin: 0; position: relative; background: var(--bg-card); color: var(--text-primary); border-top: 1px solid var(--border); }
-  .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(45, 80, 22, 0.1) 0%, transparent 70%); pointer-events: none; }
-  .cta-section h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; position: relative; z-index: 1; color: var(--text-primary); }
-  .cta-section h2 em { font-style: italic; font-weight: 300; color: var(--accent); }
-  .cta-section p { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 2rem; position: relative; z-index: 1; }
-  .cta-section .cta-small { color: var(--text-muted); font-size: 0.88rem; max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.65; position: relative; z-index: 1; }
-  .cta-section .btn-primary { position: relative; z-index: 1; }
-  .cta-section .section-label { color: var(--text-muted) !important; border-color: var(--border) !important; }
+  /* ===== 1. Özet hero ===== */
+  .hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: 4rem;
+    padding: 7.5rem 3rem 4rem; max-width: 1300px; margin: 0 auto;
+  }
+  .hero h1 { font-size: clamp(2.3rem, 4.2vw, 3.6rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin: 1rem 0 1.2rem; }
+  .hero h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent); }
+  .hero-tagline { font-size: clamp(1.15rem, 1.6vw, 1.4rem); font-weight: 500; color: var(--text-primary); line-height: 1.35; margin-bottom: 1.4rem; max-width: 30ch; }
+  .hero-summary { font-size: 1.06rem; color: var(--text-secondary); line-height: 1.7; max-width: 58ch; margin-bottom: 2rem; }
+  .btn-primary {
+    display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
+    padding: 0.95rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 1rem;
+    box-shadow: 0 8px 22px rgba(45,80,22,0.22); transition: transform .2s, box-shadow .2s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(45,80,22,0.28); }
+  .btn-ghost { display: inline-block; color: var(--accent-dark); text-decoration: none; padding: 0.95rem 1.4rem; border-radius: 10px; font-weight: 600; border: 1.5px solid var(--border-accent); }
+  .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; }
+  .hero-guarantee-line { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); margin-top: 1.1rem; }
+  .hero-guarantee-line strong { color: var(--accent-dark); }
 
-  /* FOOTER */
-  footer { border-top: 1px solid var(--border); padding: 3rem; background: var(--bg-secondary); }
-  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-  .footer-brand { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
-  .footer-brand strong { color: var(--text-primary); font-weight: 700; }
-  .footer-brand strong span { color: var(--accent); }
-  .footer-links { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; }
-  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--accent); }
-  .footer-email { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); }
+  .hero-xray { position: relative; border-radius: 18px; overflow: hidden; background: #0a0f0a; aspect-ratio: 4 / 3.1;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.08); }
+  .hero-xray img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .xray-scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 1.5px; background: rgba(241,196,15,0.6);
+    box-shadow: 0 0 8px 1px rgba(241,196,15,0.4); opacity: 0.35; pointer-events: none; animation: xrayScan 4s linear infinite alternate; z-index: 2; }
+  @keyframes xrayScan { 0% { top: 0%; } 100% { top: 100%; } }
+  .hero-xray::after { content: ''; position: absolute; inset: 0; border-radius: 18px; border: 1.5px solid rgba(45,107,69,0.15); pointer-events: none; z-index: 3; }
+  .xray-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: rgba(245,240,232,0.35); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; }
 
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  /* ===== 2. İndeks şeridi ===== */
+  section { padding: 5.5rem 3rem; max-width: 1300px; margin: 0 auto; }
+  .index-head { max-width: 62ch; margin-bottom: 2.8rem; }
+  .index-head h2 { font-size: clamp(1.7rem, 2.6vw, 2.3rem); font-weight: 700; letter-spacing: -0.015em; margin: 0.6rem 0 0.8rem; }
+  .index-head h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent); }
+  .index-head p { color: var(--text-secondary); font-size: 1.05rem; }
+  .index-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .index-item { border-top: 1.5px solid var(--text-primary); padding-top: 1.1rem; text-decoration: none; color: inherit; display: block; transition: border-color .25s; }
+  .index-item:hover { border-color: var(--accent); }
+  .index-item .num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); }
+  .index-item h3 { font-size: 1.3rem; font-weight: 700; margin: 0.35rem 0 0.4rem; }
+  .index-item .symptom { font-family: var(--font-serif); font-style: italic; font-size: 1.08rem; color: var(--text-primary); margin-bottom: 0.7rem; }
+  .index-item .q { font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-secondary); }
+  .index-note { margin-top: 2.4rem; font-size: 0.98rem; color: var(--text-secondary); }
+  .index-note strong { color: var(--text-primary); }
 
-  /* TABLET */
-  @media (max-width: 1100px) {
-    nav { padding: 1rem 1.5rem; padding-bottom: 1.5rem; }
-    .hamburger { display: flex; }
-    .nav-links {
-      display: none; position: absolute; top: 100%; left: 0; right: 0;
-      flex-direction: column; gap: 0; padding: 1rem 0;
-      background: rgba(250,249,246,0.97); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    }
-    .nav-links.open { display: flex; }
-    .nav-links a { padding: 0.75rem 1.5rem !important; font-size: 0.92rem !important; width: 100%; }
-    .nav-links .nav-cta { margin: 0.5rem 1.5rem; width: auto; text-align: center; }
-    .lang-dropdown { padding: 0.5rem 1.5rem; }
-    
-    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 2.5rem; min-height: auto; gap: 2rem; max-width: 800px; }
-    .hero-xray { max-width: 100%; margin: 0 auto; }
-    .hero-visual { max-width: 100%; }
-    .hero h1 { font-size: 1.8rem; }
-    .hero-actions { flex-direction: column; }
-    section, .waste-section { padding: 4rem 1.5rem; }
-    .cta-section { padding: 4rem 1.5rem; }
-    .stats-strip { padding: 3rem 1.5rem; }
-    .hero-ai-band { padding: 1rem 1.3rem; margin: 1rem 1.5rem 0; }
-    .stats-inner { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+  /* ===== 3–5. Teşhis satırları ===== */
+  .diag { display: grid; grid-template-columns: 1fr 1.15fr; gap: 3.5rem; align-items: center; padding: 4.5rem 3rem; scroll-margin-top: 5rem; }
+  .diag.alt .viz-space { order: -1; }
+  .viz-space { aspect-ratio: 4 / 3; min-height: 300px; max-height: 440px; width: 100%; }
+  .diag .num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.08em; }
+  .diag h2 { font-size: clamp(1.6rem, 2.5vw, 2.15rem); font-weight: 700; line-height: 1.22; letter-spacing: -0.015em; margin: 0.7rem 0 1.1rem; }
+  .diag .body { color: var(--text-secondary); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1.4rem; }
+  .diag .get-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.6rem; }
+  .diag ul { list-style: none; margin-bottom: 1.4rem; }
+  .diag li { position: relative; padding-left: 1.5rem; color: var(--text-secondary); font-size: 0.98rem; line-height: 1.55; margin-bottom: 0.55rem; }
+  .diag li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+  .diag .test { border-left: 2px solid var(--accent); padding: 0.4rem 0 0.4rem 1rem; margin-bottom: 1.6rem; font-size: 0.98rem; color: var(--text-primary); }
+  .diag .test strong { display: block; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
+  .diag .cta { display: inline-block; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: var(--accent); text-decoration: none; border: 1.5px solid var(--accent); padding: 0.7rem 1.3rem; border-radius: 8px; transition: all .2s; }
+  .diag .cta:hover { background: var(--accent); color: #fff; }
+
+  /* ===== 6. Nasıl çalışır ===== */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2.5rem; }
+  .step { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem; }
+  .step .num { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); }
+  .step h3 { font-size: 1.1rem; margin: 0.5rem 0 0.5rem; }
+  .step p { color: var(--text-secondary); font-size: 0.95rem; }
+
+  /* ===== 7. Garanti ===== */
+  .guarantee { background: var(--bg-secondary); border: 1.5px solid var(--accent); border-radius: 16px; padding: 2.4rem; display: grid; grid-template-columns: 1.1fr 1fr; gap: 2.5rem; align-items: center; }
+  .guarantee h2 { font-size: 1.7rem; line-height: 1.25; margin-bottom: 0.7rem; }
+  .guarantee h2 mark { background: none; color: var(--accent-dark); }
+  .guarantee p { color: var(--text-secondary); }
+  .guarantee ul { list-style: none; }
+  .guarantee li { font-family: var(--font-mono); font-size: 0.8rem; padding: 0.55rem 0; border-bottom: 1px solid var(--border); color: var(--text-primary); }
+  .guarantee li:last-child { border-bottom: none; }
+
+  /* ===== 8. Son CTA ===== */
+  .final { text-align: center; }
+  .final h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 0.8rem; }
+  .final h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent); }
+  .final p { color: var(--text-secondary); max-width: 50ch; margin: 0 auto 1.8rem; }
+
+  footer { border-top: 1px solid var(--border); padding: 2rem 3rem; max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--text-secondary); background: var(--bg-primary); }
+  footer a { color: var(--text-secondary); text-decoration: none; margin-left: 1rem; }
+  footer strong span { color: var(--accent); }
+
+
+  /* ===== Açık bölümler: tek tip sistem ===== */
+  .screen { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+  h2, h3 { font-family: var(--font-head); letter-spacing: -0.02em; }
+  em { font-style: normal; color: var(--red); }
+  .index-head h2 { font-family: var(--font-head); font-size: clamp(1.9rem, 3vw, 2.7rem); font-weight: 800; }
+  .index-head h2 em, .final h2 em { font-family: inherit; font-style: normal; font-weight: inherit; color: var(--red); }
+  .index-head p { font-family: var(--font-inter); }
+  .diag h2 { font-family: var(--font-head); font-size: clamp(1.8rem, 2.8vw, 2.5rem); font-weight: 800; }
+  .diag .num { color: var(--red); }
+  .diag .test { border-left-color: var(--red); }
+  .diag .test strong { color: var(--red); }
+  .diag .body, .diag li { font-family: var(--font-inter); }
+  .diag .cta { border-color: var(--text-primary); color: var(--text-primary); }
+  .diag .cta:hover { background: var(--text-primary); color: var(--bg-primary); }
+  .intro { padding: 5.5rem 3rem 0.5rem; }
+  .note-band { padding: 0 3rem 4rem; max-width: 1300px; margin: 0 auto; }
+  .note-band p { border-top: 1.5px solid var(--text-primary); padding-top: 1.2rem; font-family: var(--font-inter); font-size: 1.05rem; color: var(--text-secondary); max-width: 62ch; }
+  .note-band strong { color: var(--text-primary); }
+  .gemba-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: start; }
+  .gemba-grid p { font-family: var(--font-inter); color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; margin-bottom: 1rem; }
+  .gemba-grid p strong { color: var(--text-primary); }
+  .sectors { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0 3rem; }
+  .sectors span { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; padding: 0.45rem 0.8rem; border: 1px solid var(--border); border-radius: 100px; background: var(--bg-secondary); color: var(--text-primary); }
+  .step h3 { font-family: var(--font-head); font-weight: 700; }
+  .step p, .guarantee p { font-family: var(--font-inter); }
+  .guarantee h2 { font-family: var(--font-head); font-weight: 800; }
+  .guarantee h2 mark { color: var(--red); }
+  .final h2 { font-family: var(--font-head); font-weight: 800; }
+  .final p { font-family: var(--font-inter); }
+  .dark-hero::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(245,240,232,0.18); }
+
+  /* hamburger (adaptif nav) */
+  .nav-burger { display: none; background: transparent; border: 1px solid rgba(245,240,232,0.35); color: var(--cream); border-radius: 8px; width: 40px; height: 36px; font-size: 1.1rem; cursor: pointer; }
+  nav.light .nav-burger { color: var(--text-primary); border-color: var(--border); }
+  @media (max-width: 900px) {
+    .nav-burger { display: inline-flex; align-items: center; justify-content: center; }
+    .nav-links { display: none; position: absolute; top: calc(100% + 1px); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 0.6rem 1rem 1rem; background: #1F1E1A; border-bottom: 1px solid rgba(245,240,232,0.12); }
+    nav.light .nav-links { background: var(--bg-primary); border-bottom-color: var(--border); }
+    nav.open .nav-links { display: flex; }
+    .nav-links a:not(.nav-cta) { display: block !important; padding: 0.7rem 0.2rem; border-bottom: 1px solid rgba(128,128,128,0.15); }
+    .nav-links .nav-cta { margin-top: 0.8rem; text-align: center; }
+    .lang { padding: 0.6rem 0; }
     .gemba-grid { grid-template-columns: 1fr; }
-    .gemba-text { padding-right: 0; }
-    .process-cards { grid-template-columns: 1fr; }
-    .lens-cards { grid-template-columns: 1fr; }
-    .waste-grid { grid-template-columns: repeat(2, 1fr); }
-    .sector-strip { grid-template-columns: 1fr; }
-    .rc-container { grid-template-columns: 1fr; gap: 2rem; }
-    #root-cause-preview { padding: 4rem 1.5rem; }
-
-    .diff-table { border-radius: 12px; }
-    .diff-header, .diff-row { grid-template-columns: 1fr; }
-    .diff-header-cell:first-child { display: none; }
-    .diff-header-cell { text-align: left !important; border-left: none !important; }
-    .diff-header { grid-template-columns: 1fr 1fr; }
-    .diff-row {
-      grid-template-columns: 1fr; padding: 0.8rem 0;
-      border-bottom: 1px solid var(--border);
-      gap: 0;
-    }
-    .diff-cell { border-left: none !important; }
-    .diff-cell.label-col {
-      padding-bottom: 0.3rem; font-size: 0.8rem;
-      color: var(--accent-dark); border-bottom: none;
-    }
-    .diff-cell.old-col, .diff-cell.new-col {
-      padding-top: 0.4rem; padding-bottom: 0.4rem;
-    }
-
-    .footer-inner { flex-direction: column; gap: 1.2rem; text-align: center; }
-    .footer-links { align-items: center; }
+    .intro { padding: 4rem 1.4rem 0.5rem; }
+    .note-band { padding: 0 1.4rem 3rem; }
+    .screen { min-height: 0; }
   }
+  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
 
-  /* MOBILE */
-  @media (max-width: 600px) {
-    nav { padding: 0.8rem 1rem; padding-bottom: 1.3rem; }
-    .logo { font-size: 1.5rem; }
-    .logo-sub { display: none; }
-    .hero { padding: 5.5rem 1rem 2rem; gap: 1.5rem; }
-    .hero h1 { font-size: 1.45rem; }
-    .hero-badge { font-size: 0.7rem; padding: 0.3rem 0.8rem; }
-    .hero-motto { font-size: 1.05rem; }
-    .hero-sub { font-size: 0.95rem; }
-    .hero-bullets li { font-size: 0.95rem; }
-    .hero-xray { max-width: 100%; }
-    .btn-primary { padding: 0.75rem 1.5rem; font-size: 0.88rem; width: 100%; justify-content: center; }
-    .btn-secondary { padding: 0.75rem 1.5rem; font-size: 0.88rem; width: 100%; justify-content: center; }
-    .btn-ai-align { width: 100%; justify-content: center; }
-    section, .waste-section { padding: 3rem 1rem; }
-    .cta-section { padding: 3.5rem 1rem; }
-    .section-label { font-size: 0.95rem; }
-    .section-title { font-size: 1.5rem; margin-bottom: 1rem; }
-    .section-desc { font-size: 1.02rem; margin-bottom: 2rem; }
-    .stats-strip { padding: 2.5rem 1rem; }
-    .hero-ai-band { padding: 0.95rem 1.1rem; margin: 1rem 1rem 0; }
-    .hero-ai-band-inner .btn-ai-align { width: 100%; justify-content: center; }
-    .stat-number { font-size: 2.2rem; }
-    .stat-desc { font-size: 0.98rem; }
-
-    .gemba-visual { padding: 1.5rem; }
-    .eq-row { flex-direction: column; gap: 0.6rem; }
-    .eq-plus { font-size: 1.2rem; }
-    .eq-box { padding: 1rem; }
-    .eq-box-value { font-size: 1rem; }
-    .eq-result-value { font-size: 1.3rem; }
-
-    .process-card { padding: 1.5rem; }
-    .process-card h2 { font-size: 1.1rem; }
-
-    .waste-grid { grid-template-columns: 1fr; }
-    .waste-cell { padding: 1.3rem; }
-
-    .sector-card { padding: 1.5rem; }
-
-    .diff-table { border-radius: 10px; }
-    .diff-header { display: none; }
-    .diff-row {
-      grid-template-columns: 1fr;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
-      gap: 0;
-    }
-    .diff-cell {
-      padding: 0.6rem 1.2rem;
-      font-size: 0.82rem;
-    }
-    .diff-cell.label-col {
-      padding-top: 0.8rem;
-      padding-bottom: 0.2rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    .diff-cell.label-col .diff-label-icon { width: 22px; height: 22px; font-size: 0.65rem; }
-    .diff-cell.old-col { background: rgba(0,0,0,0.02); border-radius: 6px; margin: 0.15rem 0.8rem; }
-    .diff-cell.new-col { background: rgba(0,0,0,0.04); border-radius: 6px; margin: 0.15rem 0.8rem; font-weight: 600; }
-    .diff-cell .diff-highlight { font-size: 0.78rem; }
-    .diff-bottom-bar { font-size: 0.78rem; padding: 1rem; }
-
-    .cta-section h2 { font-size: 1.5rem; }
-    .cta-section p { font-size: 0.92rem; }
-    .cta-section .cta-small { font-size: 0.82rem; }
-
-    footer { padding: 2rem 1rem; }
-    .footer-brand { font-size: 0.82rem; }
-    .footer-links a { font-size: 0.78rem; }
-    .footer-email { font-size: 0.72rem; }
-    .doc-metadata { flex-wrap: wrap; gap: 0.5rem 1rem; font-size: 0.5rem; padding: 0.6rem 1rem; }
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.4rem; } .nav-links a:not(.nav-cta) { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 1.4rem 3rem; gap: 2.2rem; }
+    section, .diag { padding: 4rem 1.4rem; }
+    .index-strip, .steps { grid-template-columns: 1fr; }
+    .diag, .diag.alt { grid-template-columns: 1fr; gap: 1.6rem; }
+    .diag.alt .viz-space { order: 0; }
+    .viz-space { aspect-ratio: 5 / 4; min-height: 240px; }
+    .guarantee { grid-template-columns: 1fr; padding: 1.6rem; }
+    footer { padding: 2rem 1.4rem; }
   }
 </style>
 </head>
 <body>
 
-<div class="scroll-progress"><div class="scroll-progress-bar" id="scrollBar"></div></div>
-<nav>
-  <a href="#" class="logo"><span class="logo-main">Gemba<span class="logo-x">X</span></span><span class="logo-sub">X-Ray of Operational Waste</span></a>
-  <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menü">
-    <span></span><span></span><span></span>
-  </button>
+<div id="darkBackdrop"></div>
+<canvas id="fieldCanvas" aria-hidden="true"></canvas>
+<div class="ruler" id="ruler"><canvas id="rulerCanvas"></canvas></div>
+
+<nav id="topNav">
+  <a class="logo" href="#">Gemba<span>X</span></a>
+  <button type="button" class="nav-burger" id="navBurger" aria-label="Menü">☰</button>
   <div class="nav-links">
-    <a href="gemba-nedir.html" class="nav-link-gemba">What is Gemba</a>
-    <a href="metodoloji.html" class="nav-link-metod">Methodology</a>
-    <a href="pricing.html" class="nav-link-price">Pricing</a>
-    <div class="lang-dropdown" id="langDropdown">
-      <div class="lang-toggle" id="langToggle" onclick="document.getElementById('langDropdown').classList.toggle('open')">
-        EN 
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-      </div>
-      <div class="lang-menu">
-        <a href="#" data-lang="en" class="active" onclick="selectLang(event)">English</a>
-        <a href="#" data-lang="es" onclick="selectLang(event)">Español</a>
-        <a href="#" data-lang="tr" onclick="selectLang(event)">Türkçe</a>
+    <a href="#gemba">Gemba Nedir</a>
+    <a href="#nasil">Metodoloji</a>
+    <a href="pricing.html">Fiyatlar</a>
+    <div class="lang" id="langSel">
+      <button type="button" class="lang-btn" id="langBtn">TR <span>▾</span></button>
+      <div class="lang-menu" id="langMenu">
+        <button type="button" data-l="TR">Türkçe</button>
+        <button type="button" data-l="EN">English</button>
+        <button type="button" data-l="ES">Español</button>
       </div>
     </div>
-    <a class="nav-cta start-analysis-btn" href="/intake-welcome">Start Analysis</a> </div>
+    <a href="#" class="nav-cta">Analizi Başlat</a>
+  </div>
 </nav>
 
-<div class="hero">
-  <div class="hero-text">
-    <div class="hero-badge">Expert-Led AI Analysis</div>
-    <h1>We're taking the <em>X-ray of your operations.</em></h1>
-    <p class="hero-subtitle">We make the <strong>hidden money leak</strong> in your business visible.</p>
-    <p class="hero-motto">Everything that doesn't create value is waste. With GembaX, we catch the signals of waste silently eating away at your operations.</p>
-    <ul class="hero-bullets">
-      <li>We start from your customer's perspective — identifying what truly creates value in your operations</li>
-      <li>AI-powered operational X-ray to find the root source of waste</li>
-      <li>We calculate how much each waste costs you</li>
-      <li>Root cause analysis and a 90-day action plan</li>
-      <li>Results in days, at an accessible budget — no months-long consulting needed</li>
-    </ul>
-    <div class="hero-actions">
-      <a href="/intake-welcome" class="btn-primary start-analysis-btn">Start Analysis →</a> <a href="#process" class="btn-secondary">How It Works?</a>
+<!-- ===== 0. KOYU İLK EKRAN ===== -->
+<div class="dark-hero">
+  <div class="dark-rail">
+    <div class="rail-label">Operasyonel Teşhis</div>
+  </div>
+  <div class="dark-main">
+    <div class="dark-crumb"><span>GembaX</span><i>/</i>Operasyonel Teşhis</div>
+    <div class="dark-square">GX</div>
+    <div class="dark-headline">
+      <h1 class="dark-title">Operasyonel İsrafın Röntgeni</h1>
+      <h2 class="dark-sub"><span>Değer üretmeyen her şey israftır.</span><span>Görünmeyen kayıpları bulun, maliyetini görün.</span></h2>
+    </div>
+    <p class="dark-para"><strong>Gemba<span>X</span></strong>, kuruluşunuzda değer yaratan süreçleri ve sorunların kök nedenlerini analiz eder; israf sinyallerini görünür kılar. Uzman değerlendirmesini yapay zekânın üç farklı bakış açısıyla birleştirerek danışmanlığı daha erişilebilir, hızlı ve etkili hale getirir.</p>
+    <div class="dark-list">
+      <p>Operasyonunuza müşterinizin gözünden bakıyor, hangi işlerin gerçekten değer yarattığını belirliyoruz.</p>
+      <ul>
+        <li><strong>İsraf Röntgeni:</strong> Zaman ve kaynak kaybettiren işleri ortaya çıkarıyor, bu kayıpların size kaç dolara mal olduğunu hesaplıyoruz.</li>
+        <li><strong>Darboğaz tespiti (Kısıtlar Teorisi):</strong> İş akışınızı yavaşlatan ve operasyonunuzun toplam kapasitesini sınırlayan kritik noktayı buluyoruz.</li>
+        <li><strong>Kök neden analizi ve 90 günlük aksiyon planı:</strong> Sorunların neden tekrarlandığını belirliyor, çözüm için hangi adımları hangi sırayla atmanız gerektiğini gösteriyoruz.</li>
+        <li><strong>Günler içinde, erişilebilir bütçeyle:</strong> Aylarca süren danışmanlığa gerek kalmadan, kayıplarınızı ve iyileştirme önceliklerinizi netleştiriyoruz.</li>
+      </ul>
+    </div>
+    <div class="dark-actions">
+      <a href="#" class="dark-btn">Analizi Başlat →</a>
+      <a href="#teshis" class="dark-link">Üç teşhisi gör</a>
     </div>
   </div>
-  <div class="hero-visual">
-    <div class="hero-guarantee">
-      <div class="hero-guarantee-roi">
-        <div class="hero-guarantee-roi-num">100×</div>
-        <div class="hero-guarantee-roi-label">ROI Guarantee</div>
-      </div>
-      <div class="hero-guarantee-text">
-        <div class="hero-guarantee-main">If we find less than <mark>$15,000</mark> in waste signals, the report is free.</div>
-        <div class="hero-guarantee-sub">Stage 1 · Delivered in 7 days · Risk is ours, gain is yours.</div>
-      </div>
-    </div>
-    <div class="hero-xray">
-      <img src="xray-hero-img.jpg" alt="GembaX — X-Ray of Operational Waste" />
-      <div class="xray-scan-line"></div>
-    </div>
-    <p class="hero-caption"><span class="hero-caption-lead">İnsan Uzman ve AI İşbirliği Protokolü</span>Tek tip cevap veren yapay zeka değil. Her biri farklı uzmanlık alanına odaklanan AI analiz lensleri + deneyimli insan uzman denetimi = hızlı, güvenilir, erişilebilir danışmanlık.</p>
-  </div>
+  <div class="dark-scroll">KAYDIR</div>
 </div>
 
-<div class="hero-ai-band">
-  <div class="hero-ai-band-inner">
-    <p class="hero-ai-line"><strong>Before you invest in AI, the first step is value alignment.</strong> Through detailed analysis, we build an AI strategy and roadmap aligned with your real value proposition — 95% of projects fail because they skip this step.</p>
-    <a href="intake-welcome.html?track=ai-alignment" class="btn-ai-align ai-align-btn">Value Proposition · AI Alignment →</a>
-  </div>
-</div>
-
-<div class="stats-strip">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-number">3–5%</div>
-      <div class="stat-label">Revenue Loss</div>
-      <div class="stat-desc">The average business loses 3–5% of its annual revenue to operational waste.</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">7+1</div>
-      <div class="stat-label">Waste Categories</div>
-      <div class="stat-desc">We use the internationally recognized 7+1 waste classification framework across all industries.</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">90 days</div>
-      <div class="stat-label">First Results</div>
-      <div class="stat-desc">Quick wins in 30 days, structural improvements with measurable savings in 90 days.</div>
-    </div>
-  </div>
-</div>
-
-<section id="lenses">
-  <div class="section-label" id="lens-label">What We Do</div>
-  <h2 class="section-title" id="lens-title">Three lenses, <em>one touchstone</em></h2>
-  <p class="section-desc" id="lens-desc">Everything that doesn't create value is waste. We apply that one touchstone through three lenses.</p>
-  <div class="lens-cards">
-
-    <div class="lens-card">
-      <div class="lens-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/><path d="M10.5 7.6v5.8M8.9 9c0-.7.7-1.1 1.6-1.1s1.6.4 1.6 1.1-.7 1-1.6 1-1.6.4-1.6 1.1.7 1.1 1.6 1.1 1.6-.4 1.6-1.1"/></svg></div>
-      <div class="lens-num">01</div>
-      <h3>Operational Waste X-Ray</h3>
-      <p class="lens-tag">We make the hidden money leak in your business visible.</p>
-      <ul class="lens-bullets">
-        <li>We identify what truly creates value from your customer's perspective</li>
-        <li>We trace waste to its source with an AI-powered X-ray</li>
-        <li>We quantify what each waste costs you, in dollars</li>
-      </ul>
-      <a href="/intake-welcome" class="lens-cta start-analysis-btn">Start Analysis →</a>
-    </div>
-
-    <div class="lens-card">
-      <div class="lens-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><circle cx="5" cy="20" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="19" cy="20" r="2"/><path d="M12 6v4M12 10c-4 0-5 4-7 8M12 10v8M12 10c4 0 5 4 7 8"/></svg></div>
-      <div class="lens-num">02 · deeper lens</div>
-      <h3>Root Cause Analysis</h3>
-      <p class="lens-tag">We find the true source of waste — not the surface symptom.</p>
-      <ul class="lens-bullets">
-        <li>We reach the root with MECE + 5 Whys</li>
-        <li>We pinpoint the common root cause of your 3 highest-impact wastes</li>
-        <li>We deliver a 90-day action plan</li>
-      </ul>
-      <a href="/intake-welcome" class="lens-cta start-analysis-btn">Detailed Diagnosis →</a>
-    </div>
-
-    <div class="lens-card track-ai">
-      <div class="lens-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg></div>
-      <div class="lens-num">03 · separate track</div>
-      <h3>AI Value Alignment &amp; Roadmap</h3>
-      <p class="lens-tag">Before you invest in AI, we align it with your real value proposition.</p>
-      <ul class="lens-bullets">
-        <li>We map your real value proposition and its drivers</li>
-        <li>We find the alignment gap in your current or planned AI</li>
-        <li>We deliver a value-aligned AI strategy and roadmap</li>
-      </ul>
-      <a href="intake-welcome.html?track=ai-alignment" class="lens-cta ai-align-btn">Start Value Alignment →</a>
-    </div>
-
+<!-- ===== 2. GİRİŞ ===== -->
+<section class="intro" id="teshis">
+  <div class="index-head fade-in">
+    <div class="mono">Ne Yapıyoruz</div>
+    <h2>Üç teşhis, <em>tek sistem</em></h2>
+    <p>Sorunun bir yerde olduğunu biliyorsunuz. Bilmediğiniz üç şey: tam olarak nerede, kaça mal oluyor, önce neye dokunmalısınız. Her teşhis bu sorulardan birini yazılı olarak cevaplar.</p>
   </div>
 </section>
 
-<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
+<!-- ===== 3. 01 İSRAF RÖNTGENİ ===== -->
+<section class="diag" id="teshis-01">
+  <div class="fade-in">
+    <div class="num">01 · OPERASYONEL İSRAF RÖNTGENİ</div>
+    <h2>Ciro büyüdü. Kâr büyümedi. Aradaki fark bir yerde duruyor.</h2>
+    <p class="body">O fark gider tablosunda "israf" diye yazmıyor. Rutine dönmüş fazla mesai diye yazıyor. Dört aylık hammadde stoğu diye yazıyor. Her hafta yeniden yapılan iş, yarı dolu giden tır, müşterinin ödemediği fire diye yazıyor. Her satır tek başına meşru; o yüzden kimse sormuyor. Siz de sormuyorsunuz, çünkü hepsini her gün görüyorsunuz.</p>
+    <div class="get-label">Elinize geçen</div>
+    <ul>
+      <li>7+1 israf kategorisinin operasyonunuzda nerede oluştuğu ve yıllık kaça mal olduğu. Dolar cinsinden, hesap yöntemi açık.</li>
+      <li>Önce hangisine dokunmanız gerektiği: etkiye göre sıralanmış, ilk üçü işaretlenmiş.</li>
+      <li>Her rakamın kanıtı: hangi veriden geldi, hangi varsayımla.</li>
+    </ul>
+    <div class="test"><strong>Bu sizin sorununuz mu?</strong>Kârlılığınızın neden düştüğünü rakamla açıklayamıyorsanız, evet.</div>
+    <a href="#" class="cta">Analizi Başlat →</a>
+  </div>
+  <div class="viz-space" id="fieldWaste" aria-hidden="true"></div>
+</section>
 
+<!-- ===== 4. 02 DARBOĞAZ ===== -->
+<section class="diag alt" id="teshis-02">
+  <div class="fade-in">
+    <div class="num">02 · DARBOĞAZ TESPİTİ (TOC)</div>
+    <h2>Makineler boş duruyor. Siparişler yine gecikiyor. İkisi aynı anda nasıl oluyor?</h2>
+    <p class="body">Çünkü sistemin hızını en yavaş halkası belirliyor, en meşgul görüneni değil. Yeni makine, yeni vardiya, yeni eleman: darboğazın dışına yapılan her yatırım çıktıyı artırmaz, sadece darboğazın önündeki yığını büyütür. Darboğazda kaybedilen bir saat tüm fabrikada kaybedilmiştir. Başka yerde kazanılan bir saat ise sadece öyle görünür.</p>
+    <div class="get-label">Elinize geçen</div>
+    <ul>
+      <li>Sipariş girişinden sevkiyata akışınızın haritası ve sistemi tutan tek nokta. Çoğu zaman sanılan yerde değildir; bazen makine bile değildir, bir onay adımıdır.</li>
+      <li>O noktada kaybettiğiniz çıktının yıllık karşılığı, dolar cinsinden.</li>
+      <li>Darboğazı büyütmeden önce ondan nasıl daha fazla iş geçireceğiniz: sıfır yatırımla atılabilecek ilk adımlar.</li>
+    </ul>
+    <div class="test"><strong>Bu sizin sorununuz mu?</strong>Son bir yılda kapasiteye yatırım yaptınız ve teslimat süreniz kısalmadıysa, evet.</div>
+    <a href="#" class="cta">Darboğazı Bul →</a>
+  </div>
+  <div class="viz-space" id="fieldFlow" aria-hidden="true"></div>
+</section>
+
+<!-- ===== 5. 03 KÖK NEDEN ===== -->
+<section class="diag" id="teshis-03">
+  <div class="fade-in">
+    <div class="num">03 · KÖK NEDEN ANALİZİ</div>
+    <h2>Satış geç teslimattan şikâyetçi. Üretim eksik malzemeden. Satın alma geç ödemeden. Üçü aynı sorun olabilir.</h2>
+    <p class="body">Tekrarlayan sorun çözülmemiş değildir; yanlış katmanda çözülmüştür. Belirtiyi giderirsiniz, kök yerinde kalır, üç ay sonra başka bir departmanda başka bir isimle geri gelir. Her departman kendi belirtisini düzeltir, bir sonrakini suçlar. Deseni görebilecek tek kişi sizsiniz; siz de her sabah yangın söndürmekle meşgulsünüz.</p>
+    <div class="get-label">Elinize geçen</div>
+    <ul>
+      <li>İlgisiz görünen belirtilerin arkasındaki ortak kök neden, kanıt zinciriyle.</li>
+      <li>En etkili üç israfın tek nedene bağlanıp bağlanmadığı. Bağlanıyorsa, hangi tek müdahale üçünü birden çözer.</li>
+      <li>90 günlük aksiyon planı: ne, kim, hangi hafta, neyle ölçülür.</li>
+    </ul>
+    <div class="test"><strong>Bu sizin sorununuz mu?</strong>Aynı sorun için son iki yılda iki farklı çözüm denediyseniz, evet.</div>
+    <a href="#" class="cta">Detaylı Teşhis →</a>
+  </div>
+  <div class="viz-space" id="fieldRoot" aria-hidden="true"></div>
+</section>
+
+<div class="note-band fade-in">
+  <p><strong>Üçünü birden mi almalısınız? Hayır.</strong> Çoğu işletme 01 ile başlar; rapor, 02 ya da 03'ün gerekip gerekmediğini söyler.</p>
+</div>
+
+<!-- ===== 5b. GEMBA NEDİR ===== -->
 <section id="gemba">
   <div class="gemba-grid">
-    <div class="gemba-text">
-      <div class="section-label" id="gemba-label">Our Philosophy</div>
-      <h2 class="section-title" id="gemba-title">Gemba: <em>Where the real<br>work happens</em></h2>
-      <p class="section-desc" id="gemba-desc1">"Gemba" is a Japanese term for the place where work actually happens — the factory floor, the office, the warehouse, the point of sale.</p>
-      <p class="section-desc" style="margin-top: -1.5rem;" id="gemba-desc2">
-        <strong style="color: var(--text-primary);">GembaX</strong> combines this philosophy with AI. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = we X-ray your operations.
-      </p>
-      <a href="gemba-nedir.html" style="display:inline-block; margin-top:1rem; font-family:var(--font-mono); font-size:0.82rem; color:var(--accent); font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:2px;" class="gemba-more-link" id="gemba-more-link">Learn more about Lean philosophy and Gemba →</a>
+    <div class="index-head fade-in" style="margin-bottom:0">
+      <div class="mono">Gemba Nedir</div>
+      <h2>İşin gerçekten <em>yapıldığı yer</em></h2>
     </div>
-    <div class="gemba-visual fade-in">
-      <div class="gemba-equation">
-        <div class="eq-row">
-          <div class="eq-box">
-            <div class="eq-box-label" id="eq-gemba-label">Gemba</div>
-            <div class="eq-box-value" id="eq-gemba-val">The real <span>workplace</span></div>
-          </div>
-          <div class="eq-plus">+</div>
-          <div class="eq-box">
-            <div class="eq-box-label" id="eq-xray-label">X-Ray</div>
-            <div class="eq-box-value" id="eq-xray-val">Deep <span>analysis</span></div>
-          </div>
-        </div>
-        <div class="eq-result">
-          <div class="eq-result-label" id="eq-result-label">Result</div>
-          <div class="eq-result-value">Gemba<span style="color:var(--accent-dark)">X</span></div>
-        </div>
-        <div class="eq-output-box">
-          <div class="eq-box-label" id="eq-output-label">Output</div>
-          <div class="eq-output-text" id="eq-output-text">"You have <strong>$247K</strong> in invisible waste per year. <strong>68%</strong> comes from a single bottleneck."</div>
-        </div>
-      </div>
+    <div class="fade-in">
+      <p><strong>Gemba</strong>, Japonca "gerçek yer" demek: işin fiilen yapıldığı nokta. Üretim hattı, depo rampası, sipariş masası, sevkiyat kapısı.</p>
+      <p>Raporlar masada yazılır; kayıplar sahada oluşur. Bir masa raporu ne kadar iyi olursa olsun, sahaya gitmeden yazıldıysa varsayımdır.</p>
+      <p><strong>GembaX</strong> adını buradan alır: teşhisi yönetim özetlerine değil, sahadaki gerçekliğe dayandırır. Sorular size ve ekibinize sorulur; rakamlar sahadan gelen cevaplarla doğrulanır.</p>
     </div>
   </div>
 </section>
 
-<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
-
-<section id="process">
-  <div class="section-label">How It Works</div>
-  <h2 class="section-title">Three steps from <em>diagnosis to action</em></h2>
-  <p class="section-desc">Find the problem, calculate the cost, show the solution.</p>
-  <div class="process-cards">
-    <div class="process-card fade-in"><span class="card-ref">REF-001</span><div class="process-num">01 — DIAGNOSIS</div><h2>Where is your money burning?</h2><p>First we clarify what your customers truly value. Then we scan your operations against that definition across 7+1 waste categories. Every waste is calculated in dollars.</p><div class="process-output">→ Hidden Cost Report</div></div>
-    <div class="process-card fade-in"><span class="card-ref">REF-002</span><div class="process-num">02 — PRIORITIZE</div><h2>Where to focus first?</h2><p>Priority analysis identifies your top 3 highest-impact waste points. Bottleneck detection included. The critical question: do these 3 wastes share a common root cause?</p><div class="process-output">→ Priority + Bottleneck Map</div></div>
-    <div class="process-card fade-in"><span class="card-ref">REF-003</span><div class="process-num">03 — ACTION</div><h2>How much can we save?</h2><p>90-day prioritized action plan: 0-30 days quick wins, 30-60 days mid-term, 60-90 days structural.</p><div class="process-output">→ 90-Day Roadmap + ROI</div></div>
+<!-- ===== 6. NASIL ÇALIŞIR ===== -->
+<section id="nasil">
+  <div class="index-head fade-in">
+    <div class="mono">Nasıl Çalışır</div>
+    <h2>Teşhisten aksiyona <em>üç adım</em></h2>
+    <p>Hepsi yazılı. Takviminize tek bir toplantı düşmez.</p>
+  </div>
+  <div class="steps fade-in">
+    <div class="step"><div class="num">ADIM 1 · ~15 DK</div><h3>Yazılı sohbet</h3><p>Operasyonunuzu kendi cümlelerinizle anlatırsınız. Sorular sizinle birlikte dallanır; anlamsız alan doldurmazsınız.</p></div>
+    <div class="step"><div class="num">ADIM 2 · UZMAN + AI</div><h3>Doğrulama ve analiz</h3><p>Yapay zeka üç bakış açısıyla tarar: israf, darboğaz, kök neden. İnsan uzman girdileri doğrular, gerekirse ekibinizden kısa teyit alır. Doğrulanmamış rakam rapora girmez.</p></div>
+    <div class="step"><div class="num">ADIM 3 · 7 İŞ GÜNÜ</div><h3>İmzalı rapor</h3><p>Nerede, kaça mal oluyor, önce neye dokunulacak. Her rakamın kaynağı ve varsayımı yazılı. İnsan uzman imzalı.</p></div>
   </div>
 </section>
 
-<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
-
-<section id="root-cause-preview">
-  <div class="rc-container">
-    <div class="rc-text">
-      <div class="section-label" id="rc-label">Stage 2 Preview</div>
-      <h2 class="section-title" id="rc-title">We don't just find symptoms, <em>we map the math behind them</em></h2>
-      <p class="section-desc" id="rc-desc1">Following your Phase 1 100x ROI guaranteed ($15,000 minimum profit leakage) scan, we don't issue generic tower advice. We map your actual shop-floor reality via strict Lean Six Sigma and Theory of Constraints analytical frameworks.</p>
-      <div class="pull-quote">
-        <p id="rc-quote">"Finding the root cause means stopping chronic annual financial profit leaks permanently with a single, calculated operational countermeasure."</p>
-        <cite id="rc-cite">20+ Years Exp. Dr. Engineer • GembaX</cite>
-      </div>
+<!-- ===== 7. GARANTİ ===== -->
+<section id="garanti">
+  <div class="index-head fade-in" style="margin-bottom:0.5rem">
+    <div class="mono">Kimler İçin</div>
+    <h2>Sahası olan <em>her işletme</em></h2>
+  </div>
+  <div class="sectors fade-in">
+    <span>ÜRETİM</span><span>LOJİSTİK</span><span>DİSTRİBÜTÖRLÜK</span><span>HİZMET</span><span>PERAKENDE</span><span>SAAS / DİJİTAL</span><span>SATIŞ OPERASYONU</span>
+  </div>
+  <div class="guarantee fade-in">
+    <div>
+      <div class="mono">Garanti ve Dürüstlük</div>
+      <h2 style="margin-top:0.5rem">En az <mark>$15.000</mark> yıllık kaçak gösteremezsek, rapor ücretsiz.</h2>
+      <p>Sonuç vaat etmiyoruz; süreç vaat ediyoruz. Uydurma istatistik yok, kaynağı gösterilmeyen rakam yok, "tipik müşterimiz şu kadar kazandı" cümlesi yok. Ne bulduysak onu, nasıl bulduysak öyle yazarız.</p>
     </div>
-    
-    <div class="rc-visual-wrapper fade-in">
-      <svg class="ishikawa-svg" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="rc-grid" width="28" height="28" patternUnits="userSpaceOnUse">
-            <path d="M 28 0 L 0 0 0 28" fill="none" stroke="rgba(45,80,22,0.04)" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <rect width="800" height="420" fill="url(#rc-grid)" rx="8"/>
-
-        <path d="M 50 210 L 690 210" stroke="#2D5016" stroke-width="2.5" stroke-dasharray="3 3"/>
-        <polygon points="690,205 705,210 690,215" fill="#2D5016" />
-
-        <rect x="40" y="180" width="165" height="60" rx="6" fill="#FFFFFF" stroke="#2D5016" stroke-width="1.5"/>
-        <text x="52" y="202" font-family="var(--font-mono)" font-size="8" font-weight="700" fill="#2D5016" letter-spacing="0.05em">CRITICAL CONSTRAINT:</text>
-        <text x="52" y="224" font-family="var(--font-body)" font-size="11" font-weight="700" fill="#1B2A4A" id="svg-symptom">Line-A: Changeover Delay</text>
-
-        <path d="M 290 70 L 370 210" stroke="#8fa093" stroke-width="1.5"/>
-        <path d="M 450 70 L 530 210" stroke="#8fa093" stroke-width="1.5"/>
-        <path d="M 610 70 L 690 210" stroke="#8fa093" stroke-width="1.5"/>
-
-        <path d="M 210 350 L 290 210" stroke="#8fa093" stroke-width="1.5"/>
-        <path d="M 370 350 L 450 210" stroke="#8fa093" stroke-width="1.5"/>
-        <path d="M 550 350 L 630 210" stroke="#8fa093" stroke-width="1.5"/>
-
-        <text x="245" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r1">MACHINE</text>
-        <text x="410" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r2">METHOD</text>
-        <text x="575" y="60" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r3">PEOPLE</text>
-        
-        <text x="155" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r4">MATERIAL</text>
-        <text x="310" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r5">MEASUREMENT</text>
-        <text x="495" y="365" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#1B2A4A" id="svg-r6">ENVIRONMENT</text>
-
-        <text x="360" y="130" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="#2D5016" transform="rotate(60 360 130)">Δt_loss = 52 min</text>
-        <text x="220" y="140" font-family="var(--font-mono)" font-size="8" fill="#8fa093">Drift: 42%</text>
-        <text x="515" y="130" font-family="var(--font-mono)" font-size="8" fill="#8fa093">No SMED: 25%</text>
-
-        <text x="250" y="200" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="#2D5016">Loss = 52min x $4.50/min x 240 cycles</text>
-
-        <rect x="240" y="265" width="430" height="55" rx="6" fill="rgba(110, 20, 20, 0.04)" stroke="#6E1414" stroke-width="1.5"/>
-        <text x="255" y="285" font-family="var(--font-mono)" font-size="8" font-weight="700" fill="#6E1414" letter-spacing="0.05em">ROOT CAUSE VERIFIED [DQI: 94.2%]:</text>
-        <text x="255" y="305" font-family="var(--font-body)" font-size="11" font-weight="700" fill="#6E1414" id="svg-rootcause">Incomplete Pre-Heating Calibration & Maintenance Procedure</text>
-      </svg>
-    </div>
+    <ul>
+      <li>→ Ödeme, kapsam yazılı olarak netleştikten sonra</li>
+      <li>→ Her dolar rakamının hesap yöntemi raporda</li>
+      <li>→ İnsan uzman imzası olmayan hiçbir sayı yayınlanmaz</li>
+      <li>→ Toplantı, arama, saha ziyareti yok</li>
+    </ul>
   </div>
 </section>
 
-<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
-
-<div class="waste-section" id="waste">
-  <div class="section-label">7+1 Waste Analysis</div>
-  <h2 class="section-title">TIM WOODS: <em>The universal waste map</em></h2>
-  <p class="section-desc">We systematically analyze the 7+1 waste types applicable across every industry.</p>
-  <div class="waste-grid">
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 17l5-5-5-5"/><path d="M6 17l5-5-5-5"/></svg><div class="waste-eng">Transportation</div><div class="waste-name">Transportation Waste</div><div class="waste-example">Unnecessary material movement, redundant data transfers</div><div class="waste-cost">Typical impact: $15K–80K/yr</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><div class="waste-eng">Inventory</div><div class="waste-name">Inventory Waste</div><div class="waste-example">Excess stock, accumulated work-in-progress, tied-up cash</div><div class="waste-cost">Typical impact: $30K–200K/yr</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg><div class="waste-eng">Motion</div><div class="waste-name">Motion Waste</div><div class="waste-example">Unnecessary walking, task-switching, searching for information</div><div class="waste-cost">Typical impact: $10K–50K/yr</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="waste-eng">Waiting</div><div class="waste-name">Waiting Waste</div><div class="waste-example">Waiting for approvals, materials, or information</div><div class="waste-cost">Typical impact: $20K–120K/yr</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><div class="waste-eng">Overproduction</div><div class="waste-name">Overproduction</div><div class="waste-example">Producing more than needed, unnecessary reports, unused output</div><div class="waste-cost">Typical impact: $25K–150K/yr</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><div class="waste-eng">Over-processing</div><div class="waste-name">Over-processing</div><div class="waste-example">Unnecessary detail, quality level the customer doesn't need</div><div class="waste-cost">Typical impact: $15K–90K/yr</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="waste-eng">Defects</div><div class="waste-name">Defects / Rework</div><div class="waste-example">Scrap, rework, returns, lost customers</div><div class="waste-cost">Typical impact: $20K–180K/yr</div></div>
-    <div class="waste-cell fade-in"><svg class="waste-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="waste-eng">Skills</div><div class="waste-name">Skills Waste</div><div class="waste-example">Experienced employees stuck on routine tasks</div><div class="waste-cost">Typical impact: $20K–100K/yr</div></div>
-  </div>
-</div>
-
-<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
-
-<section id="sectors">
-  <div class="section-label">Scope</div>
-  <h2 class="section-title">Wherever there's a value stream, <em>there's waste</em></h2>
-  <p class="section-desc">GembaX isn't just for factories — it works in every business with operations.</p>
-  <div class="sector-strip">
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><path d="M5 20V8l5-4 5 4v12"/><path d="M9 20v-4h2v4"/><path d="M15 20V12l4-2v10"/></svg><h3>Manufacturing</h3><p>Scrap, downtime, changeover losses, excess inventory, machine inefficiency.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><h3>Services & Office</h3><p>Waiting, unnecessary approvals, information re-entry, rework.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><h3>Retail</h3><p>Excess stock, markdown losses, return costs, tied-up cash.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><h3>Lojistik & Tedarik Zinciri</h3><p>Excess inventory, unnecessary transport, supplier delays.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><h3>Technology & SaaS</h3><p>Unused features, technical debt, slow release cycles.</p></div>
-    <div class="sector-card fade-in"><svg class="sector-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><h3>Sales Operations</h3><p>Long sales cycles, low conversion rates, pipeline leakage.</p></div>
+<!-- ===== 8. SON CTA ===== -->
+<section class="final">
+  <div class="fade-in">
+    <div class="mono">Başlangıç</div>
+    <h2 style="margin-top:0.6rem">Sorunun nerede olduğunu biliyor musunuz,<br>yoksa <em>bir yerde olduğunu mu?</em></h2>
+    <p>Yedi iş günü sonra elinizde yazılı, imzalı cevap olur.</p>
+    <a href="#" class="btn-primary">Analizi Başlat →</a>
   </div>
 </section>
-
-<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
-
-<section>
-  <div class="section-label">Our Difference</div>
-  <h2 class="section-title">Traditional consulting <em>vs. GembaX</em></h2>
-  <p class="section-desc">Same goal, different approach — the results speak for themselves.</p>
-  <div class="diff-table fade-in">
-    <div class="diff-header">
-      <div class="diff-header-cell"></div>
-      <div class="diff-header-cell old-col">Traditional Consulting</div>
-      <div class="diff-header-cell new-col">GembaX</div>
-    </div>
-
-    <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">$</div><div class="diff-val">Starting Cost</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">$30K+</span> project start</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">SMB-friendly — <span class="diff-highlight">accessible</span></div></div>
-    </div>
-
-    <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">◷</div><div class="diff-val">Diagnosis Time</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val"><span class="diff-highlight">6–12 weeks</span> diagnosis</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Not weeks, results in <span class="diff-highlight">days</span></div></div>
-    </div>
-
-    <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">≡</div><div class="diff-val">Report Format</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Score and percentage-based generic reports</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Every waste in <span class="diff-highlight">dollar terms</span> — concrete</div></div>
-    </div>
-
-    <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">◎</div><div class="diff-val">Analysis Depth</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Generic best-practice recommendations</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Industry-specific, <span class="diff-highlight">data-driven</span> analysis</div></div>
-    </div>
-
-    <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">☰</div><div class="diff-val">Scale & Tracking</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Report delivered — project ends</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val"><span class="diff-highlight">90-day</span> action plan + ROI calculation</div></div>
-    </div>
-
-    <div class="diff-row">
-      <div class="diff-cell label-col"><div class="diff-label-icon">✦</div><div class="diff-val">Quality Assurance</div></div>
-      <div class="diff-cell old-col"><div class="diff-icon">✕</div><div class="diff-val">Person-dependent, variable quality</div></div>
-      <div class="diff-cell new-col"><div class="diff-icon">✓</div><div class="diff-val">Expert + AI hybrid — <span class="diff-highlight">consistent quality</span></div></div>
-    </div>
-
-    <div class="diff-bottom-bar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      Same insight — faster and more affordable
-    </div>
-  </div>
-</section>
-
-<div class="blueprint-divider"><div class="blueprint-divider-mark">⊕</div></div>
-
-<div class="cta-section" id="cta">
-  <div class="section-label">Get Started</div>
-  <h2>Let us <em>X-ray</em> your operations</h2>
-  <p class="cta-small">We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.</p>
-  <p>A short guided conversation to understand your business, then we run the analysis with custom questions and data tailored to you.</p>
-  <a href="/intake-welcome" class="btn-primary start-analysis-btn">Start Analysis →</a> </div>
-
-<div class="doc-metadata">
-  <span>DOC: GEMBAX.AI</span><span class="meta-sep">•</span>
-  <span>REV: 2.4</span><span class="meta-sep">•</span>
-  <span>CLASSIFICATION: PUBLIC</span><span class="meta-sep">•</span>
-  <span>PROTOCOL: TIM WOODS + TOC</span><span class="meta-sep">•</span>
-  <span>LAST AUDIT: 2026</span>
-</div>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — X-Ray of operational waste</div>
-    <div class="footer-links">
-      <div style="display:flex; gap:1.2rem; margin-bottom:0.4rem;">
-        <a href="pricing.html" class="footer-link-legal">Pricing</a> <a href="terms-and-conditions.html" class="footer-link-legal">Terms</a> <a href="privacy.html" class="footer-link-legal">Privacy</a> </div>
-      <a href="/cdn-cgi/l/email-protection#5e332b2c3f2a1e393b333c3f26703f37" class="footer-email"><span class="__cf_email__" data-cfemail="d2bfa7a0b3a692b5b7bfb0b3aafcb3bb">[email&#160;protected]</span></a>
-    </div>
-  </div>
+  <div><strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni</div>
+  <div><a href="#">Fiyatlandırma</a><a href="#">Koşullar</a><a href="#">Gizlilik</a><a href="#">AI Değer Hizalama · MoreSight</a></div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  
-  document.querySelectorAll('.nav-links a:not(.lang-toggle)').forEach(a => {
-    a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
-  });
-  window.addEventListener('scroll', () => {
-    const isMobile = window.innerWidth <= 900;
-    if (!isMobile) {
-      document.querySelector('nav').style.padding = window.scrollY > 50 ? '0.8rem 3rem 1.4rem' : '1.25rem 3rem 1.8rem';
-    }
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    document.getElementById('scrollBar').style.width = scrollPercent + '%';
-  });
-
-  document.addEventListener('click', (e) => {
-    const dd = document.getElementById('langDropdown');
-    if (!dd.contains(e.target)) dd.classList.remove('open');
-  });
-
-  const T = {
-    EN: {
-      logoSub: "X-Ray of Operational Waste",
-      navGemba: "What is Gemba",
-      navMetod: "Methodology",
-      navPrice: "Pricing",
-      navCta: "Start Analysis",
-      heroBadge: "Expert-Led AI Analysis",
-      heroH1: "We're taking the <em>X-ray of your operations.</em>",
-      heroSubtitle: "We make the <strong>hidden money leak</strong> in your business visible.",
-      heroGuaranteeRoiNum: "100×",
-      heroGuaranteeRoiLabel: "ROI Guarantee",
-      heroGuaranteeMain: 'If we find less than <mark>$15,000</mark> in waste signals, the report is free.',
-      heroGuaranteeSub: "Stage 1 · Delivered in 7 days · Risk is ours, gain is yours.",
-      heroMotto: "Everything that doesn't create value is waste. With GembaX, we catch the signals of waste silently eating away at your operations.",
-      heroBullet1: "We start from your customer's perspective — identifying what truly creates value in your operations",
-      heroBullet2: "AI-powered operational X-ray to find the root source of waste",
-      heroBullet3: "We calculate how much each waste costs you",
-      heroBullet4: "Root cause analysis and a 90-day action plan",
-      heroBullet5: "Results in days, at an accessible budget — no months-long consulting needed",
-      heroBtn: "Start Analysis →",
-      heroBtn2: "How It Works?",
-      heroAiLine: "<strong>Before you invest in AI, the first step is value alignment.</strong> Through detailed analysis, we build an AI strategy and roadmap aligned with your real value proposition — 95% of projects fail because they skip this step.",
-      heroAiBtn: "Value Proposition · AI Alignment →",
-      lens: {
-        label: "What We Do",
-        title: "Three lenses, <em>one touchstone</em>",
-        desc: "Everything that doesn't create value is waste. We apply that one touchstone through three lenses.",
-        cards: [
-          { title: "Operational Waste X-Ray", tag: "We make the hidden money leak in your business visible.", bullets: ["We identify what truly creates value from your customer's perspective", "We trace waste to its source with an AI-powered X-ray", "We quantify what each waste costs you, in dollars"], cta: "Start Analysis →" },
-          { title: "Root Cause Analysis", tag: "We find the true source of waste — not the surface symptom.", bullets: ["We reach the root with MECE + 5 Whys", "We pinpoint the common root cause of your 3 highest-impact wastes", "We deliver a 90-day action plan"], cta: "Detailed Diagnosis →" },
-          { title: "AI Value Alignment & Roadmap", tag: "Before you invest in AI, we align it with your real value proposition.", bullets: ["We map your real value proposition and its drivers", "We find the alignment gap in your current or planned AI", "We deliver a value-aligned AI strategy and roadmap"], cta: "Start Value Alignment →" }
-        ]
-      },
-      heroCaption: '<span class="hero-caption-lead">Human Expert &amp; AI Collaboration Protocol</span>Not a one-size-fits-all AI. Multiple AI analysis lenses — each focused on a different field of expertise — plus experienced human expert oversight = fast, reliable, accessible consulting.',
-      stat1Num: "3–5%", stat1Label: "Revenue Loss", stat1Desc: "The average business loses 3–5% of its annual revenue to operational waste.",
-      stat2Num: "7+1", stat2Label: "Waste Categories", stat2Desc: "We use the internationally recognized 7+1 waste classification framework across all industries.",
-      stat3Num: "90 days", stat3Label: "First Results", stat3Desc: "Quick wins in 30 days, structural improvements with measurable savings in 90 days.",
-      gembaLabel: "Our Philosophy",
-      gembaTitle: 'Gemba: <em>Where the real<br>work happens</em>',
-      gembaDesc1: '"Gemba" is a Japanese term for the place where work actually happens — the factory floor, the office, the warehouse, the point of sale.',
-      gembaDesc2: '<strong style="color: var(--text-primary);">GembaX</strong> combines this philosophy with AI. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = we X-ray your operations.',
-      eqGemba: "Gemba", eqGembaVal: 'The real <span>workplace</span>',
-      eqXray: "X-Ray", eqXrayVal: 'Deep <span>analysis</span>',
-      eqResult: "Result", eqOutput: "Output",
-      eqOutputText: '"You have <strong>$247K</strong> in invisible waste per year. <strong>68%</strong> comes from a single bottleneck."',
-      processLabel: "How It Works",
-      processTitle: 'Three steps from <em>diagnosis to action</em>',
-      processDesc: "Find the problem, calculate the cost, show the solution.",
-      proc1Num: "01 — DIAGNOSIS", proc1H: "Where is your money burning?", proc1P: "First we clarify what your customers truly value. Then we scan your operations against that definition across 7+1 waste categories. Every waste is calculated in dollars.", proc1Out: "→ Hidden Cost Report",
-      proc2Num: "02 — PRIORITIZE", proc2H: "Where to focus first?", proc2P: "Priority analysis identifies your top 3 highest-impact waste points. Bottleneck detection included. The critical question: do these 3 wastes share a common root cause?", proc2Out: "→ Priority + Bottleneck Map",
-      proc3Num: "03 — ACTION", proc3H: "How much can we save?", proc3P: "90-day prioritized action plan: 0-30 days quick wins, 30-60 days mid-term, 60-90 days structural.", proc3Out: "→ 90-Day Roadmap + ROI",
-      rcLabel: "Stage 2 Preview",
-      rcTitle: "We don't just find symptoms, <em>we map the math behind them</em>",
-      rcDesc1: "Following your Phase 1 100x ROI guaranteed ($15,000 minimum profit leakage) scan, we don't issue generic tower advice. We map your actual shop-floor reality via strict Lean Six Sigma and Theory of Constraints analytical frameworks.",
-      rcQuote: '"Finding the root cause means stopping chronic annual financial profit leaks permanently with a single, calculated operational countermeasure."',
-      rcCite: "20+ Years Exp. Dr. Engineer • GembaX",
-      svgSymptom: "Line-A: Changeover Delay",
-      svgR1: "MACHINE", svgR2: "METHOD", svgR3: "PEOPLE",
-      svgR4: "MATERIAL", svgR5: "MEASUREMENT", svgR6: "ENVIRONMENT",
-      svgRootcause: "Incomplete Pre-Heating Calibration & Maintenance Procedure",
-      wasteLabel: "7+1 Waste Analysis",
-      wasteTitle: 'TIM WOODS: <em>The universal waste map</em>',
-      wasteDesc: "We systematically analyze the 7+1 waste types applicable across every industry.",
-      w1Name: "Transportation Waste", w1Ex: "Unnecessary material movement, redundant data transfers", w1Cost: "Typical impact: $15K–80K/yr",
-      w2Name: "Inventory Waste", w2Ex: "Excess stock, accumulated work-in-progress, tied-up cash", w2Cost: "Typical impact: $30K–200K/yr",
-      w3Name: "Motion Waste", w3Ex: "Unnecessary walking, task-switching, searching for information", w3Cost: "Typical impact: $10K–50K/yr",
-      w4Name: "Waiting Waste", w4Ex: "Waiting for approvals, materials, or information", w4Cost: "Typical impact: $20K–120K/yr",
-      w5Name: "Overproduction", w5Ex: "Producing more than needed, unnecessary reports, unused output", w5Cost: "Typical impact: $25K–150K/yr",
-      w6Name: "Over-processing", w6Ex: "Unnecessary detail, quality level the customer doesn't need", w6Cost: "Typical impact: $15K–90K/yr",
-      w7Name: "Defects / Rework", w7Ex: "Scrap, rework, returns, lost customers", w7Cost: "Typical impact: $20K–180K/yr",
-      w8Name: "Skills Waste", w8Ex: "Experienced employees stuck on routine tasks", w8Cost: "Typical impact: $20K–100K/yr",
-      sectLabel: "Scope",
-      sectTitle: 'Wherever there\'s a value stream, <em>there\'s waste</em>',
-      sectDesc: "GembaX isn't just for factories — it works in every business with operations.",
-      s1H: "Manufacturing", s1P: "Scrap, downtime, changeover losses, excess inventory, machine inefficiency.",
-      s2H: "Services & Office", s2P: "Waiting, unnecessary approvals, information re-entry, rework.",
-      s3H: "Retail", s3P: "Excess stock, markdown losses, return costs, tied-up cash.",
-      s4H: "Logistics & Supply Chain", s4P: "Excess inventory, unnecessary transport, supplier delays.",
-      s5H: "Technology & SaaS", s5P: "Unused features, technical debt, slow release cycles.",
-      s6H: "Sales Operations", s6P: "Long sales cycles, low conversion rates, pipeline leakage.",
-      diffLabel: "Our Difference",
-      diffTitle: 'Traditional consulting <em>vs. GembaX</em>',
-      diffDesc: "Same goal, different approach — the results speak for themselves.",
-      diffOldH: "Traditional Consulting", diffNewH: "GembaX",
-      d1L: "Starting Cost", d1O: '<span class="diff-highlight">$30K+</span> project start', d1N: 'SMB-friendly — <span class="diff-highlight">accessible</span>',
-      d2L: "Diagnosis Time", d2O: '<span class="diff-highlight">6–12 weeks</span> diagnosis', d2N: 'Not weeks, results in <span class="diff-highlight">days</span>',
-      d3L: "Report Format", d3O: "Score and percentage-based generic reports", d3N: 'Every waste in <span class="diff-highlight">dollar terms</span> — concrete',
-      d4L: "Analysis Depth", d4O: "Generic best-practice recommendations", d4N: 'Industry-specific, <span class="diff-highlight">data-driven</span> analysis',
-      d5L: "Scale & Tracking", d5O: "Report delivered — project ends", d5N: '<span class="diff-highlight">90-day</span> action plan + ROI calculation',
-      d6L: "Quality Assurance", d6O: "Person-dependent, variable quality", d6N: 'Expert + AI hybrid — <span class="diff-highlight">consistent quality</span>',
-      diffBottom: "Same insight — faster and more affordable",
-      ctaLabel: "Get Started",
-      ctaH2: 'Let us <em>X-ray</em> your operations',
-      ctaSmall: "We find the waste you can't see and calculate how much each one costs you per year. Industry doesn't matter — wherever there's a value stream, there's waste.",
-      ctaP: "A short guided conversation to understand your business, then we run the analysis with custom questions and data tailored to you.",
-      ctaBtn: "Start Analysis →",
-      footerBrand: '<strong>Gemba<span>X</span></strong> — X-Ray of operational waste',
-      footerPricing: 'Pricing', footerTerms: 'Terms', footerPrivacy: 'Privacy'
-    },
-    ES: {
-      logoSub: "Radiografía del Desperdicio Operativo",
-      navGemba: "Qué es Gemba",
-      navMetod: "Metodología",
-      navPrice: "Precios",
-      navCta: "Iniciar Análisis",
-      heroBadge: "Análisis IA Liderado por Expertos",
-      heroH1: "Estamos haciendo la <em>radiografía de sus operaciones.</em>",
-      heroSubtitle: "Hacemos visible la <strong>fuga de dinero oculta</strong> en su empresa.",
-      heroGuaranteeRoiNum: "100×",
-      heroGuaranteeRoiLabel: "Garantía ROI",
-      heroGuaranteeMain: 'Si encontramos menos de <mark>$15.000</mark> en señales de desperdicio, el informe es gratuito.',
-      heroGuaranteeSub: "Etapa 1 · Entregado en 7 días · El riesgo es nuestro, la ganancia es suya.",
-      heroMotto: "Todo lo que no crea valor es desperdicio. Con GembaX, captamos las señales del desperdicio que silenciosamente corroe sus operaciones.",
-      heroBullet1: "Partimos desde la perspectiva de su cliente — identificando qué realmente crea valor en sus operaciones",
-      heroBullet2: "Radiografía operativa con soporte de IA para encontrar la raíz del desperdicio",
-      heroBullet3: "Calculamos cuánto le cuesta cada desperdicio",
-      heroBullet4: "Análisis de causa raíz y plan de acción de 90 dias",
-      heroBullet5: "Resultados en días, con presupuesto accesible — sin meses de consultoría",
-      heroBtn: "Iniciar Análisis →",
-      heroBtn2: "¿Cómo Funciona?",
-      heroAiLine: "<strong>Antes de invertir en IA, el primer paso es la alineación de valor.</strong> Con un análisis detallado, construimos una estrategia y hoja de ruta de IA alineadas con su verdadera propuesta de valor — el 95% de los proyectos fracasa por saltarse este paso.",
-      heroAiBtn: "Propuesta de Valor · Alineación IA →",
-      lens: {
-        label: "Qué Hacemos",
-        title: "Tres lentes, <em>un solo criterio</em>",
-        desc: "Todo lo que no crea valor es desperdicio. Aplicamos ese único criterio a través de tres lentes.",
-        cards: [
-          { title: "Radiografía del Desperdicio Operacional", tag: "Hacemos visible la fuga de dinero oculta en su empresa.", bullets: ["Identificamos qué crea valor real desde la perspectiva de su cliente", "Rastreamos el desperdicio hasta su origen con una radiografía con IA", "Cuantificamos cuánto le cuesta cada desperdicio, en dólares"], cta: "Iniciar Análisis →" },
-          { title: "Análisis de Causa Raíz", tag: "Encontramos el origen real del desperdicio, no el síntoma superficial.", bullets: ["Llegamos a la raíz con MECE + 5 Porqués", "Identificamos la causa raíz común de sus 3 desperdicios de mayor impacto", "Entregamos un plan de acción de 90 días"], cta: "Diagnóstico Detallado →" },
-          { title: "Alineación de Valor de IA y Hoja de Ruta", tag: "Antes de invertir en IA, la alineamos con su verdadera propuesta de valor.", bullets: ["Mapeamos su verdadera propuesta de valor y sus impulsores", "Encontramos la brecha de alineación en su IA actual o planificada", "Entregamos una estrategia y hoja de ruta de IA alineadas con el valor"], cta: "Iniciar Alineación de Valor →" }
-        ]
-      },
-      heroCaption: '<span class="hero-caption-lead">Protocolo de Colaboración entre Experto Humano e IA</span>No es una IA de respuesta única. Múltiples lentes de análisis de IA — cada uno enfocado en un área de especialización distinta — más la supervisión de un experto humano con experiencia = consultoría rápida, confiable y accesible.',
-      stat1Num: "3–5%", stat1Label: "Pérdida de Ingresos", stat1Desc: "La empresa promedio pierde del 3 al 5% de sus ingresos anuales por desperdicio operativo.",
-      stat2Num: "7+1", stat2Label: "Categorías de Desperdicio", stat2Desc: "Usamos la clasificación internacional de 7+1 desperdicios, aplicable en todos los sectores.",
-      stat3Num: "90 días", stat3Label: "Primeros Resultados", stat3Desc: "Victorias rápidas en 30 días, mejoras estructurales con ahorros medibles en 90 días.",
-      gembaLabel: "Nuestra Filosofía",
-      gembaTitle: "Gemba: <em>El lugar donde<br>ocurre el trabajo real</em>",
-      gembaDesc1: '"Gemba" es un término japonés para el lugar donde realmente ocurre el trabajo — la planta, la oficina, el almacén, el punto de venta.',
-      gembaDesc2: '<strong style="color: var(--text-primary);">GembaX</strong> combina esta filosofía con IA. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = radiografiamos sus operaciones.',
-      eqGemba: "Gemba", eqGembaVal: "El <span>lugar de trabajo</span> real",
-      eqXray: "X-Ray", eqXrayVal: "Análisis <span>profundo</span>",
-      eqResult: "Resultado", eqOutput: "Salida",
-      eqOutputText: '"Tiene <strong>$247K</strong> en desperdicio invisible por año. <strong>El 68%</strong> proviene de un solo cuello de botella."',
-      processLabel: "Como Funciona",
-      processTitle: "Tres pasos del <em>diagnóstico a la acción</em>",
-      processDesc: "Encontrar el problema, calcular el costo, mostrar la solución.",
-      proc1Num: "01 — DIAGNÓSTICO", proc1H: "¿Dónde se quema su dinero?", proc1P: "Primero clarificamos qué valoran realmente sus clientes. Luego escaneamos sus operaciones según esa definición en 7+1 categorías de desperdicio. Cada desperdicio se calcula en dólares.", proc1Out: "→ Reporte de Costos Ocultos",
-      proc2Num: "02 — PRIORIDAD", proc2H: "¿Dónde actuar primero?", proc2P: "El análisis de prioridad identifica sus 3 puntos de mayor impacto. Detección de cuello de botella incluida. La pregunta crítica: ¿comparten estas 3 fuentes de desperdicio una causa raíz común?", proc2Out: "→ Mapa de Prioridades + Cuello de Botella",
-      proc3Num: "03 — ACCIÓN", proc3H: "¿Cuánto podemos ahorrar?", proc3P: "Plan de acción priorizado de 90 días: 0-30 días victorias rápidas, 30-60 días medio plazo, 60-90 días estructural.", proc3Out: "→ Hoja de Ruta 90 Días + ROI",
-      rcLabel: "Vista Previa de la Fase 2",
-      rcTitle: "No solo encontramos síntomas, <em>mapeamos la matemática detrás de ellos</em>",
-      rcDesc1: "Tras nuestro escaneo de la Fase 1 con garantía de 100x ROI ($15,000 mínimo de pérdidas de ganancias), no ofrecemos consejos genéricos desde torres de marfil. Mapeamos la realidad de su planta a través de estrictos marcos analíticos de Lean Six Sigma y Teoría de Restricciones (TOC).",
-      rcQuote: '"Encontrar la causa raíz significa detener de forma permanente las pérdidas financieras anuales crónicas con una única contramedida operativa calculada."',
-      rcCite: "Dr. Ingeniero con 20+ Años de Exp. • GembaX",
-      svgSymptom: "Línea-A: Retraso de Cambio",
-      svgR1: "MÁQUINA", svgR2: "MÉTODO", svgR3: "PERSONAL",
-      svgR4: "MATERIAL", svgR5: "MEDICIÓN", svgR6: "ENTORNO",
-      svgRootcause: "Procedimiento de Mantenimiento y Calibración de Precalentamiento Incompleto",
-      wasteLabel: "Análisis 7+1 Desperdicios",
-      wasteTitle: 'TIM WOODS: <em>El mapa universal de desperdicios</em>',
-      wasteDesc: "Analizamos sistemáticamente los 7+1 tipos de desperdicio aplicables en cada sector.",
-      w1Name: "Desperdicio de Transporte", w1Ex: "Movimiento innecesario de materiales, transferencias de datos redundantes", w1Cost: "Impacto típico: $15K–80K/año",
-      w2Name: "Desperdicio de Inventario", w2Ex: "Exceso de stock, trabajo acumulado, capital inmovilizado", w2Cost: "Impacto típico: $30K–200K/año",
-      w3Name: "Desperdicio de Movimiento", w3Ex: "Desplazamientos innecesarios, cambio de tareas, búsqueda de información", w3Cost: "Impacto típico: $10K–50K/año",
-      w4Name: "Desperdicio de Espera", w4Ex: "Esperar aprobaciones, materiales o información", w4Cost: "Impacto típico: $20K–120K/año",
-      w5Name: "Sobreproducción", w5Ex: "Producir más de lo necesario, informes innecesarios, salida no utilizada", w5Cost: "Impacto típico: $25K–150K/año",
-      w6Name: "Sobre-procesamiento", w6Ex: "Detalles innecesarios, nivel de calidad que el cliente no necesita", w6Cost: "Impacto típico: $15K–90K/año",
-      w7Name: "Defectos / Retrabajo", w7Ex: "Chatarra, retrabajo, devoluciones, clientes perdidos", w7Cost: "Impacto típico: $20K–180K/año",
-      w8Name: "Desperdicio de Talento", w8Ex: "Empleados experimentados atrapados en tareas rutinarias", w8Cost: "Impacto típico: $20K–100K/año",
-      sectLabel: "Alcance",
-      sectTitle: 'Donde hay flujo de valor, <em>hay desperdicio</em>',
-      sectDesc: "GembaX no es solo para fábricas — funciona en toda empresa con operaciones.",
-      s1H: "Manufactura", s1P: "Chatarra, paradas, pérdidas de cambio, exceso de inventario, ineficiencia de máquinas.",
-      s2H: "Servicios y Oficina", s2P: "Esperas, aprobaciones innecesarias, reingreso de información, retrabajo.",
-      s3H: "Retail", s3P: "Exceso de stock, pérdidas por descuento, costos de devolución, capital inmovilizado.",
-      s4H: "Logística y Cadena de Suministro", s4P: "Exceso de inventario, transporte innecesario, retrasos de proveedores.",
-      s5H: "Tecnología y SaaS", s5P: "Funciones no utilizadas, deuda técnica, ciclos de lanzamiento lentos.",
-      s6H: "Operaciones de Venta", s6P: "Ciclos de venta largos, baja tasa de conversión, fugas en el pipeline.",
-      diffLabel: "Nuestra Diferencia",
-      diffTitle: 'Consultoría tradicional <em>vs. GembaX</em>',
-      diffDesc: "Mismo objetivo, enfoque diferente — los resultados hablan por sí solos.",
-      diffOldH: "Consultoría Tradicional", diffNewH: "GembaX",
-      d1L: "Costo Inicial", d1O: '<span class="diff-highlight">$30K+</span> inicio de proyecto', d1N: 'Apto para PyMEs — <span class="diff-highlight">accesible</span>',
-      d2L: "Tiempo de Diagnóstico", d2O: '<span class="diff-highlight">6–12 semanas</span> de diagnóstico', d2N: 'No semanas, resultados in <span class="diff-highlight">días</span>',
-      d3L: "Formato de Informe", d3O: "Informes genéricos basados en puntajes y porcentajes", d3N: 'Cada desperdicio en <span class="diff-highlight">dólares</span> — concreto',
-      d4L: "Análisis Direito", d4O: "Recomendaciones genéricas de mejores prácticas", d4N: 'Análisis específico por sector, <span class="diff-highlight">basado en datos</span>',
-      d5L: "Entrega y Seguimiento", d5O: "Informe entregado — proyecto termina", d5N: 'Plan de acción de <span class="diff-highlight">90 días</span> + cálculo de ROI',
-      d6L: "Garantía de Calidad", d6O: "Dependiente de la persona, calidad variable", d6N: 'Híbrido experto + IA — <span class="diff-highlight">calidad consistente</span>',
-      diffBottom: "Misma visión — más rápido y económico",
-      ctaLabel: "Empezar",
-      ctaH2: 'Hagamos una <em>radiografía</em> de sus operaciones',
-      ctaSmall: "Encontramos el desperdicio que no se ve y calculamos cuánto le cuesta cada año. El sector no importa — donde hay flujo de valor, hay desperdicio.",
-      ctaP: "Una breve conversación guiada para entender su empresa, luego realizamos el análisis con preguntas y datos personalizados para usted.",
-      ctaBtn: "Iniciar Análisis →",
-      footerBrand: '<strong>Gemba<span>X</span></strong> — Radiografía del desperdicio operativo',
-      footerPricing: 'Precios', footerTerms: 'Términos', footerPrivacy: 'Privacidad'
-    },
-    TR: {
-      logoSub: "Operasyonel İsrafın Röntgeni",
-      navGemba: "Gemba Nedir",
-      navMetod: "Metodoloji",
-      navPrice: "Fiyatlar",
-      navCta: "Analizi Başlat",
-      heroBadge: "Uzman Liderliğinde AI Analizi",
-      heroH1: "Operasyonunuzun <em>röntgenini çekiyoruz.</em>",
-      heroSubtitle: "İşletmenizdeki <strong>gizli para kaybını</strong> görünür kılıyoruz.",
-      heroGuaranteeRoiNum: "100×",
-      heroGuaranteeRoiLabel: "ROI Garantisi",
-      heroGuaranteeMain: '<mark>$15.000</mark>\'den az israf sinyali bulursak rapor ücretsiz.',
-      heroGuaranteeSub: "Aşama 1 · 7 gün içinde elinizde · Risk bizde, kazanç sizde.",
-      heroMotto: 'Değer üretmeyen her şey israftır. GembaX ile işletmenizin kalbinde gizliden gizliye kemiren israf sinyallerini yakalıyoruz.',
-      heroBullet1: "Müşterinizin gözünden bakarak, operasyonunuzda neyin gerçekten değer yarattığını belirliyoruz",
-      heroBullet2: "AI destekli operasyonel röntgen ile israfın kaynağına iniyoruz",
-      heroBullet3: "İsrafın size kaça mal olduğunu hesaplıyoruz",
-      heroBullet4: "Sorunların kök nedenlerini ve 90 günlük aksiyon planını çıkarıyoruz",
-      heroBullet5: "Günler içinde, erişilebilir bütçeyle — aylarca süren danışmanlığa gerek yok",
-      heroBtn: "Analizi Başlat →",
-      heroBtn2: "Nasıl Çalışır?",
-      heroAiLine: "<strong>AI'a yatırım yapmadan önce ilk adım: değer hizalaması.</strong> Detaylı analizle, gerçek değer önerinize hizalı bir AI stratejisi ve yol haritası çıkarıyoruz — projelerin %95'i bu adımı atladığı için geri dönmüyor.",
-      heroAiBtn: "Şirket Değer Önerisi · AI Hizalama →",
-      lens: {
-        label: "Ne Yapıyoruz",
-        title: "Üç mercek, <em>tek mihenk</em>",
-        desc: "Değer üretmeyen her şey israftır. Bu tek mihenk noktasını üç mercekten uyguluyoruz.",
-        cards: [
-          { title: "Operasyonel İsraf Röntgeni", tag: "İşletmenizdeki gizli para kaybını görünür kılıyoruz.", bullets: ["Müşterinizin gözünden gerçek değeri belirliyoruz", "AI destekli röntgenle israfın kaynağına iniyoruz", "İsrafın size kaça mal olduğunu dolar cinsinden hesaplıyoruz"], cta: "Analizi Başlat →" },
-          { title: "Kök Neden Analizi", tag: "Yüzeydeki belirtiyi değil, israfın gerçek kaynağını buluyoruz.", bullets: ["MECE + 5 Neden ile sorunun köküne iniyoruz", "En etkili 3 israfın ortak kök nedenini tespit ediyoruz", "90 günlük aksiyon planı çıkarıyoruz"], cta: "Detaylı Teşhis →" },
-          { title: "AI Değer Hizalama & Yol Haritası", tag: "AI'a yatırım yapmadan önce, onu gerçek değer önerinize hizalıyoruz.", bullets: ["Gerçek değer önerinizi ve sürücülerini haritalıyoruz", "Mevcut veya planlanan AI'daki hizalama açığını buluyoruz", "Değere hizalı AI stratejisi ve yol haritası çıkarıyoruz"], cta: "Değer Hizalamasını Başlat →" }
-        ]
-      },
-      heroCaption: '<span class="hero-caption-lead">İnsan Uzman ve AI İşbirliği Protokolü</span>Tek tip cevap veren yapay zeka değil. Her biri farklı uzmanlık alanına odaklanan AI analiz lensleri + deneyimli insan uzman denetimi = hızlı, güvenilir, erişilebilir danışmanlık.',
-      stat1Num: "%3–5", stat1Label: "Gelir Kaybı", stat1Desc: "Ortalama bir işletme, yıllık gelirinin %3–5'ini operasyonel israflarla kaybeder.",
-      stat2Num: "7+1", stat2Label: "İsraf Kategorisi", stat2Desc: "Uluslararası standart olan 7+1 israf sınıflandırması ile her sektörde geçerli analiz yapıyoruz.",
-      stat3Num: "90 Gün", stat3Label: "İlk Sonuçlar", stat3Desc: "Hızlı kazanımlarla 30 günde, yapısal iyileştirmelerle 90 günde ölçülebilir tasarruf.",
-      gembaLabel: "Felsefemiz",
-      gembaTitle: 'Gemba: <em>Gerçek işin<br>yapıldığı yer</em>',
-      gembaDesc1: '"Gemba" Japonca\'da işin fiilen gerçekleştiği yeri ifade eder — fabrika sahası, ofis, depo, satış noktası.',
-      gembaDesc2: '<strong style="color: var(--text-primary);">GembaX</strong>, bu felsefeyi AI ile birleştiriyor. <strong style="color: var(--accent);">Gemba + X-Ray</strong> = operasyonlarınızın röntgenini çekiyoruz.',
-      eqGemba: "Gemba", eqGembaVal: 'Gerçek <span>iş yeri</span>',
-      eqXray: "Röntgen", eqXrayVal: 'Derin <span>analiz</span>',
-      eqResult: "Sonuç", eqOutput: "Çıktı",
-      eqOutputText: '"Yılda <strong>$247K</strong> görünmez israfınız var. <strong>%68\'i</strong> tek bir darboğazdan kaynaklanıyor."',
-      processLabel: "Nasıl Çalışır",
-      processTitle: 'Üç adımda <em>teşhisten aksiyona</em>',
-      processDesc: "Sorunu bul, maliyetini hesapla, çözüm yolunu göster.",
-      proc1Num: "01 — TEŞHİS", proc1H: "Paranız nerede yanıyor?", proc1P: "Önce müşteriniz için neyin değerli olduğunu netleştiriyoruz. Sonra operasyonunuzu bu değer tanımına göre 7+1 israf kategorisinde tarıyoruz. Her israfı dolar cinsinden hesaplıyoruz.", proc1Out: "→ Gizli Maliyet Raporu",
-      proc2Num: "02 — ÖNCELİK", proc2H: "Önce nereye dokunmalı?", proc2P: "Öncelik analizi ile en büyük etkili 3 israf noktasını belirliyoruz. Darboğaz tespiti yapıyoruz. Kritik soru: Bu 3 israfın ortak bir kök nedeni var mı?", proc2Out: "→ Öncelik + Darboğaz Haritası",
-      proc3Num: "03 — AKSİYON", proc3H: "Ne kadar kurtarabiliriz?", proc3P: "90 günlük öncelikli aksiyon planı: 0-30 gün hızlı kazanımlar, 30-60 gün orta vadeli, 60-90 gün yapısal.", proc3Out: "→ 90 Günlük Yol Haritası + ROI",
-      rcLabel: "Aşama 2 Önizleme",
-      rcTitle: "Sadece semptomları değil, <em>matematiği haritalandırıyoruz</em>",
-      rcDesc1: "Aşama 1'deki 100x ROI garantili kâr kaçağı röntgeninin ardından; fildişi kulelerden jenerik tavsiyeler vermek yerine, sahadan gelen verileri endüstriyel Six Sigma ve Kısıtlar Teorisi metodolojisiyle kök nedene bağlıyoruz.",
-      rcQuote: '"Kök nedeni bulmak, her yıl tekrarlayan kronik zararları ve kâr kaçaklarını tek bir operasyonel hamleyle kalıcı olarak durdurmaktır."',
-      rcCite: "20+ Yıllık Deneyimli Dr. Mühendis • GembaX",
-      svgSymptom: "Hat-A: Kalıp Değişim Gecikmesi",
-      svgR1: "MAKİNE", svgR2: "METOD", svgR3: "İNSAN",
-      svgR4: "MALZEME", svgR5: "ÖLÇÜM", svgR6: "ÇEVRE",
-      svgRootcause: "Eksik Ön Isıtma Kalibrasyonu ve Bakım Prosedürü",
-      wasteLabel: "7+1 İsraf Analizi",
-      wasteTitle: 'TIM WOODS: <em>Evrensel israf haritası</em>',
-      wasteDesc: "Her sektörde geçerli olan 7+1 israf türünü sistematik olarak analiz ediyoruz.",
-      w1Name: "Taşıma İsrafı", w1Ex: "Gereksiz malzeme hareketi, tekrarlanan veri transferi", w1Cost: "Tipik etki: $15K–80K/yıl",
-      w2Name: "Stok İsrafı", w2Ex: "Fazla stok, birikmiş iş yığını, bağlanan nakit", w2Cost: "Tipik etki: $30K–200K/yıl",
-      w3Name: "Hareket İsrafı", w3Ex: "Gereksiz yürüme, iş arası dağılma, bilgi arama", w3Cost: "Tipik etki: $10K–50K/yıl",
-      w4Name: "Bekleme İsrafı", w4Ex: "Onay bekleme, malzeme bekleme, bilgi bekleme", w4Cost: "Tipik etki: $20K–120K/yıl",
-      w5Name: "Aşırı Üretim", w5Ex: "İhtiyaçtan fazla üretim, gereksiz rapor, kullanılmayan çıktı", w5Cost: "Tipik etki: $25K–150K/yıl",
-      w6Name: "Gereğinden Fazla İşlem", w6Ex: "Gereksiz detay, müşterinin istemediği kalite seviyesi", w6Cost: "Tipik etki: $15K–90K/yıl",
-      w7Name: "Hata / Düzeltme", w7Ex: "Hurda, yeniden yapma, iade, müşteri kaybı", w7Cost: "Tipik etki: $20K–180K/yıl",
-      w8Name: "Yetenek İsrafı", w8Ex: "Deneyimli çalışanın rutin işlerle uğraşması", w8Cost: "Tipik etki: $20K–100K/yıl",
-      sectLabel: "Kapsam",
-      sectTitle: 'Değer akışı olan <em>her yerde</em> israf vardır',
-      sectDesc: "GembaX sadece fabrika değil — operasyonu olan her işletmede çalışır.",
-      s1H: "İmalat / Fabrika", s1P: "Hurda, duruş, kalıp değişim kaybı, fazla stok, makine verimsizliği.",
-      s2H: "Hizmet & Ofis", s2P: "Bekleme, gereksiz onay, bilgi tekrarı, yeniden yapma.",
-      s3H: "Perakende", s3P: "Stok fazlası, indirim kaybı, iade maliyeti, bağlanan nakit.",
-      s4H: "Lojistik & Tedarik Zinciri", s4P: "Fazla stok, gereksiz taşıma, tedarikçi gecikmesi.",
-      s5H: "Teknoloji & SaaS", s5P: "Kullanılmayan özellik, teknik borç, yavaş yayınlama döngüsü.",
-      s6H: "Satış Operasyonları", s6P: "Uzun satış döngüsü, düşük dönüşüm oranı, satış sürecindeki kayıp.",
-      diffLabel: "Farkımız",
-      diffTitle: 'Geleneksel danışmanlık <em>vs. GembaX</em>',
-      diffDesc: "Aynı hedef, farklı yaklaşım — sonuçlar da o kadar farklı.",
-      diffOldH: "Geleneksel Danışmanlık", diffNewH: "GembaX",
-      d1L: "Başlangıç Maliyeti", d1O: '<span class="diff-highlight">$30K+</span> proje başlangıç', d1N: 'KOBİ bütçesine uygun — <span class="diff-highlight">erişilebilir</span>',
-      d2L: "Teşhis Süresi", d2O: '<span class="diff-highlight">6–12 hafta</span> teşhis süresi', d2N: 'Haftalar değil, <span class="diff-highlight">günler</span> içinde sonuç',
-      d3L: "Rapor Formatı", d3O: "Skor ve yüzde bazlı genel raporlar", d3N: 'Her israf <span class="diff-highlight">dolar cinsinden</span> — somut',
-      d4L: "Analiz Derinliği", d4O: "Geleneksel jenerik öneriler yerine pratik çözüm", d4N: 'Sektörünüze özel, <span class="diff-highlight">veriye dayalı</span> analiz',
-      d5L: "Çıktı & Takip", d5O: "Rapor teslim — proje biter", d5N: '<span class="diff-highlight">90 günlük</span> aksiyon planı + ROI hesabı',
-      d6L: "Kalite Güvencesi", d6O: "Kişiye bağımlı, değişken kalite", d6N: 'Uzman + AI hibrit — <span class="diff-highlight">tutarlı kalite</span>',
-      diffBottom: "Aynı içgörü — daha hızlı ve ucuz",
-      ctaLabel: "Başlayın",
-      ctaH2: 'Operasyonlarınızın <em>röntgenini</em> çekelim',
-      ctaSmall: "Gözle görülmeyen israfı buluyor, her birinin size yılda kaç dolara mal olduğunu hesaplıyoruz. Sektör fark etmez — değer akışı olan her yerde israf vardır.",
-      ctaP: "Kısa bir sohbette işletmenizi tanıyalım, sonra size özel hazırlanmış sorular ve verilerle analizi yapalım.",
-      ctaBtn: "Analizi Başlat →",
-      footerBrand: '<strong>Gemba<span>X</span></strong> — Operasyonel israfın röntgeni',
-      footerPricing: 'Pricing', footerTerms: 'Terms', footerPrivacy: 'Privacy'
-    }
+<script>
+  window.__VIZ = {
+        rep: "TEMSİLİ GÖRSELLEŞTİRME",
+        scan: { s1: "OPERASYONEL VERİ · YAPISIZ", s2: "İSRAF SİNYALLERİ TARANIYOR…", s3: "7+1 İSRAF KATEGORİSİ · SİNYALLER KÜMELENDİ", s4: "SIFIRLANIYOR…", clusters: ["BEKLEME","STOK","TAŞIMA","HATALAR","AŞIRI ÜRETİM","HAREKET","AŞIRI İŞLEM","ATIL YETENEK"] },
+        hero: { s1: "CANLI SİNYAL ALANI · GEMBA", s2: "TARANIYOR…" },
+        flow: { s1: "AKIŞ UÇTAN UCA HARİTALANIYOR…", s2: "KISIT TESPİT EDİLDİ · İSTASYON 3", gate: "İSTASYON", constraint: "KISIT" },
+        root: { s1: "5 NEDEN İZLENİYOR…", s2: "TEK KÖK NEDEN · ÇOK BELİRTİ", why: "NEDEN", root: "KÖK NEDEN", symptoms: "BELİRTİLER" }
+      };
+  (function(){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(function(el){ io.observe(el); });
+  })();
+</script>
+<script>
+(function () {
+  'use strict';
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cv = document.getElementById('fieldCanvas');
+  if (!cv) return;
+  var ctx = cv.getContext('2d');
+  if (typeof CanvasRenderingContext2D !== 'undefined' && !CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+      this.moveTo(x + r, y); this.arcTo(x + w, y, x + w, y + h, r); this.arcTo(x + w, y + h, x, y + h, r);
+      this.arcTo(x, y + h, x, y, r); this.arcTo(x, y, x + w, y, r); this.closePath();
+    };
+  }
+  var NAVY = [27, 42, 74], SAGE = [123, 140, 127], OCHRE = [176, 118, 17], GREEN = [45, 80, 22], MAROON = [110, 20, 20];
+  var FB = {
+    rep: "REPRESENTATIVE VISUALIZATION",
+    scan: { s1: "OPERATIONAL DATA · UNSTRUCTURED", s2: "SCANNING FOR WASTE SIGNALS…", s3: "7+1 WASTE CATEGORIES · SIGNALS CLUSTERED", s4: "RESETTING…", clusters: ["WAITING","INVENTORY","TRANSPORT","DEFECTS","OVERPRODUCTION","MOTION","OVERPROCESSING","UNUSED TALENT"] },
+    hero: { s1: "LIVE SIGNAL FIELD · GEMBA", s2: "SCANNING…" },
+    flow: { s1: "MAPPING FLOW END-TO-END…", s2: "CONSTRAINT LOCATED · STAGE 3", gate: "STAGE", constraint: "CONSTRAINT" },
+    root: { s1: "TRACING 5 WHYS…", s2: "ONE ROOT CAUSE · MANY SYMPTOMS", why: "WHY", root: "ROOT CAUSE", symptoms: "SYMPTOMS" }
   };
+  function V() { return window.__VIZ || FB; }
+  function rgba(c, a) { return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + a + ')'; }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function mix(c1, c2, t) { return [lerp(c1[0], c2[0], t), lerp(c1[1], c2[1], t), lerp(c1[2], c2[2], t)]; }
+  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function rand(a, b) { return a + Math.random() * (b - a); }
 
-  function applyLang(lang) {
-    lang = lang.toLowerCase();
-    const t = T[lang.toUpperCase()]; if (!t) return;
-    const $ = (s) => document.querySelector(s);
-    const $$ = (s) => document.querySelectorAll(s);
+  var W = 0, H = 0, dots = [], FN = 0;
+  var CL = [[0.26,0.22,0.11,42],[0.72,0.18,0.10,36],[0.12,0.55,0.075,22],[0.46,0.48,0.085,28],[0.84,0.45,0.07,20],[0.26,0.82,0.06,15],[0.58,0.80,0.065,17],[0.87,0.80,0.052,11]];
+  var mk = { hero: null, waste: null, flow: null, root: null };
+  var mode = 'hero', rootStart = 0, flowStart = 0, wasteStart = 0;
+  var clAcc = [], clCnt = [];
 
-    document.documentElement.lang = {TR:'tr',EN:'en',ES:'es'}[lang] || 'en';
-
-    $('.logo-sub').textContent = t.logoSub;
-    const nlg = $('.nav-link-gemba'); if (nlg) nlg.textContent = t.navGemba;
-    const nlm = $('.nav-link-metod'); if (nlm) nlm.textContent = t.navMetod;
-    const nlp = $('.nav-link-price'); if (nlp) nlp.textContent = t.navPrice;
-    $('.nav-cta').textContent = t.navCta;
-
-    $('.hero-badge').textContent = t.heroBadge;
-    $('.hero h1').innerHTML = t.heroH1;
-    const heroSub = $('.hero-subtitle'); if (heroSub) heroSub.innerHTML = t.heroSubtitle;
-    const motto = $('.hero-motto'); if (motto) motto.textContent = t.heroMotto;
-    
-    const gRoiNum = $('.hero-guarantee-roi-num'); if (gRoiNum) gRoiNum.textContent = t.heroGuaranteeRoiNum;
-    const gRoiLbl = $('.hero-guarantee-roi-label'); if (gRoiLbl) gRoiLbl.textContent = t.heroGuaranteeRoiLabel;
-    const gMain = $('.hero-guarantee-main'); if (gMain) gMain.innerHTML = t.heroGuaranteeMain;
-    const gSub = $('.hero-guarantee-sub'); if (gSub) gSub.textContent = t.heroGuaranteeSub;
-    
-    const bullets = $$('.hero-bullets li');
-    if (bullets[0]) bullets[0].textContent = t.heroBullet1;
-    if (bullets[1]) bullets[1].textContent = t.heroBullet2;
-    if (bullets[2]) bullets[2].textContent = t.heroBullet3;
-    if (bullets[3]) bullets[3].textContent = t.heroBullet4;
-    if (bullets[4]) bullets[4].textContent = t.heroBullet5;
-    
-    const heroActions = $$('.hero-actions a');
-    if (heroActions[0]) heroActions[0].textContent = t.heroBtn;
-    if (heroActions[1]) heroActions[1].textContent = t.heroBtn2;
-
-    const aiLine = $('.hero-ai-line'); if (aiLine && t.heroAiLine) aiLine.innerHTML = t.heroAiLine;
-    const aiBtn = $('.ai-align-btn'); if (aiBtn && t.heroAiBtn) aiBtn.textContent = t.heroAiBtn;
-
-    if (t.lens) {
-      const L = t.lens;
-      const ll = $('#lens-label'); if (ll) ll.textContent = L.label;
-      const lt = $('#lens-title'); if (lt) lt.innerHTML = L.title;
-      const ld = $('#lens-desc'); if (ld) ld.textContent = L.desc;
-      $$('.lens-card').forEach((card, i) => {
-        const c = L.cards[i]; if (!c) return;
-        const h = card.querySelector('h3'); if (h) h.textContent = c.title;
-        const tg = card.querySelector('.lens-tag'); if (tg) tg.textContent = c.tag;
-        const bs = card.querySelectorAll('.lens-bullets li');
-        c.bullets.forEach((b, j) => { if (bs[j]) bs[j].textContent = b; });
-        const cta = card.querySelector('.lens-cta'); if (cta) cta.textContent = c.cta;
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function buildDots() {
+    var N = Math.max(800, Math.min(3200, Math.round(W * H / 470)));
+    FN = Math.min(280, Math.round(N * 0.24));
+    dots = [];
+    for (var i = 0; i < N; i++) {
+      dots.push({
+        hx: rand(0, W), hy: rand(0, H),
+        dp: Math.random() * 6.283, ds: rand(0.0002, 0.00055), dr: rand(4, 14),
+        size: i < FN ? rand(1.7, 2.7) : rand(1.0, 1.9),
+        form: i < FN, eng: false, t: 0, heat: 0,
+        base: Math.random() < 0.3 ? SAGE : NAVY,
+        cl: -1, offA: Math.random() * 6.283, offR: Math.sqrt(Math.random()),
+        lane: rand(-1, 1), p0: Math.random(), agent: -1, rv: 0, hit: false
       });
     }
-
-    const heroCap = $('.hero-caption'); if (heroCap && t.heroCaption) heroCap.innerHTML = t.heroCaption;
-
-    const stats = $$('.stat-item');
-    if (stats[0]) { stats[0].querySelector('.stat-number').textContent = t.stat1Num; stats[0].querySelector('.stat-label').textContent = t.stat1Label; stats[0].querySelector('.stat-desc').textContent = t.stat1Desc; }
-    if (stats[1]) { stats[1].querySelector('.stat-number').textContent = t.stat2Num; stats[1].querySelector('.stat-label').textContent = t.stat2Label; stats[1].querySelector('.stat-desc').textContent = t.stat2Desc; }
-    if (stats[2]) { stats[2].querySelector('.stat-number').textContent = t.stat3Num; stats[2].querySelector('.stat-label').textContent = t.stat3Label; stats[2].querySelector('.stat-desc').textContent = t.stat3Desc; }
-
-    const gemba = $('#gemba');
-    if (gemba) {
-      const sl = gemba.querySelector('.section-label'); if (sl) sl.textContent = t.gembaLabel;
-      const st = gemba.querySelector('.section-title'); if (st) st.innerHTML = t.gembaTitle;
-      const descs = gemba.querySelectorAll('.section-desc');
-      if (descs[0]) descs[0].textContent = t.gembaDesc1;
-      if (descs[1]) descs[1].innerHTML = t.gembaDesc2;
-      const eqBoxes = gemba.querySelectorAll('.eq-box');
-      if (eqBoxes[0]) { const ebl = eqBoxes[0].querySelector('.eq-box-label'); if (ebl) ebl.textContent = t.eqGemba; const ebv = eqBoxes[0].querySelector('.eq-box-value'); if (ebv) ebv.innerHTML = t.eqGembaVal; }
-      if (eqBoxes[1]) { const ebl = eqBoxes[1].querySelector('.eq-box-label'); if (ebl) ebl.textContent = t.eqXray; const ebv = eqBoxes[1].querySelector('.eq-box-value'); if (ebv) ebv.innerHTML = t.eqXrayVal; }
-      const eqRes = gemba.querySelector('.eq-result');
-      if (eqRes) { const erl = eqRes.querySelector('.eq-result-label'); if (erl) erl.textContent = t.eqResult; }
-      const eqOut = gemba.querySelector('.eq-output-box');
-      if (eqOut) { const ebl = eqOut.querySelector('.eq-box-label'); if (ebl) ebl.textContent = t.eqOutput; const eot = eqOut.querySelector('.eq-output-text'); if (eot) eot.innerHTML = t.eqOutputText; }
+    assign(mode);
+  }
+  function assign(m) {
+    for (var i = 0; i < FN; i++) { var d = dots[i]; d.eng = false; d.cl = -1; d.agent = -1; }
+    if (m === 'waste') {
+      var idx = 0;
+      for (var c = 0; c < CL.length; c++) {
+        for (var k = 0; k < CL[c][3] && idx < FN; k++, idx++) { dots[idx].eng = true; dots[idx].cl = c; }
+      }
+    } else if (m === 'flow') {
+      for (var i2 = 0; i2 < FN; i2++) dots[i2].eng = true;
+    } else if (m === 'root') {
+      for (var a = 0; a < 32 && a < FN; a++) { dots[a].eng = true; dots[a].agent = a; }
     }
-
-    const proc = $('#process');
-    if (proc) {
-      const sl = proc.querySelector('.section-label'); if (sl) sl.textContent = t.processLabel;
-      const st = proc.querySelector('.section-title'); if (st) st.innerHTML = t.processTitle;
-      const sd = proc.querySelector('.section-desc'); if (sd) sd.textContent = t.processDesc;
-      const cards = proc.querySelectorAll('.process-card');
-      if (cards[0]) { const pn = cards[0].querySelector('.process-num'); if (pn) pn.textContent = t.proc1Num; const ch2 = cards[0].querySelector('h2'); if (ch2) ch2.textContent = t.proc1H; const cp = cards[0].querySelector('p'); if (cp) cp.textContent = t.proc1P; const po = cards[0].querySelector('.process-output'); if (po) po.textContent = t.proc1Out; }
-      if (cards[1]) { const pn = cards[1].querySelector('.process-num'); if (pn) pn.textContent = t.proc2Num; const ch2 = cards[1].querySelector('h2'); if (ch2) ch2.textContent = t.proc2H; const cp = cards[1].querySelector('p'); if (cp) cp.textContent = t.proc2P; const po = cards[1].querySelector('.process-output'); if (po) po.textContent = t.proc2Out; }
-      if (cards[2]) { const pn = cards[2].querySelector('.process-num'); if (pn) pn.textContent = t.proc3Num; const ch2 = cards[2].querySelector('h2'); if (ch2) ch2.textContent = t.proc3H; const cp = cards[2].querySelector('p'); if (cp) cp.textContent = t.proc3P; const po = cards[2].querySelector('.process-output'); if (po) po.textContent = t.proc3Out; }
-    }
-
-    const rc = $('#root-cause-preview');
-    if (rc) {
-      const sl = rc.querySelector('.section-label'); if (sl) sl.textContent = t.rcLabel;
-      const st = rc.querySelector('.section-title'); if (st) st.innerHTML = t.rcTitle;
-      const sd = rc.querySelector('.section-desc'); if (sd) sd.textContent = t.rcDesc1;
-      const rq = rc.querySelector('.pull-quote p'); if (rq) rq.textContent = t.rcQuote;
-      const rcite = rc.querySelector('.pull-quote cite'); if (rcite) rcite.textContent = t.rcCite;
-      const ss = rc.querySelector('#svg-symptom'); if (ss) ss.textContent = t.svgSymptom;
-      const sr1 = rc.querySelector('#svg-r1'); if (sr1) sr1.textContent = t.svgR1;
-      const sr2 = rc.querySelector('#svg-r2'); if (sr2) sr2.textContent = t.svgR2;
-      const sr3 = rc.querySelector('#svg-r3'); if (sr3) sr3.textContent = t.svgR3;
-      const sr4 = rc.querySelector('#svg-r4'); if (sr4) sr4.textContent = t.svgR4;
-      const sr5 = rc.querySelector('#svg-r5'); if (sr5) sr5.textContent = t.svgR5;
-      const sr6 = rc.querySelector('#svg-r6'); if (sr6) sr6.textContent = t.svgR6;
-      const src = rc.querySelector('#svg-rootcause'); if (src) src.textContent = t.svgRootcause;
-    }
-
-    const waste = $('#waste');
-    if (waste) {
-      const sl = waste.querySelector('.section-label'); if (sl) sl.textContent = t.wasteLabel;
-      const st = waste.querySelector('.section-title'); if (st) st.innerHTML = t.wasteTitle;
-      const sd = waste.querySelector('.section-desc'); if (sd) sd.textContent = t.wasteDesc;
-      const cells = waste.querySelectorAll('.waste-cell');
-      const wKeys = ['w1','w2','w3','w4','w5','w6','w7','w8'];
-      cells.forEach((cell, i) => {
-        const k = wKeys[i]; if (!k) return;
-        const wn = cell.querySelector('.waste-name'); if (wn) wn.textContent = t[k+'Name'];
-        const we = cell.querySelector('.waste-example'); if (we) we.textContent = t[k+'Ex'];
-        const wc = cell.querySelector('.waste-cost'); if (wc) wc.textContent = t[k+'Cost'];
-      });
-    }
-
-    const sect = $('#sectors');
-    if (sect) {
-      const sl = sect.querySelector('.section-label'); if (sl) sl.textContent = t.sectLabel;
-      const st = sect.querySelector('.section-title'); if (st) st.innerHTML = t.sectTitle;
-      const sd = sect.querySelector('.section-desc'); if (sd) sd.textContent = t.sectDesc;
-      const sCards = sect.querySelectorAll('.sector-card');
-      const sKeys = ['s1','s2','s3','s4','s5','s6'];
-      sCards.forEach((card, i) => {
-        const k = sKeys[i]; if (!k) return;
-        const ch3 = card.querySelector('h3'); if (ch3) ch3.textContent = t[k+'H'];
-        const cp = card.querySelector('p'); if (cp) cp.textContent = t[k+'P'];
-      });
-    }
-
-    const diffSection = $$('section');
-    let diffSec = null;
-    diffSection.forEach(s => { if (s.querySelector('.diff-table')) diffSec = s; });
-    if (diffSec) {
-      const sl = diffSec.querySelector('.section-label'); if (sl) sl.textContent = t.diffLabel;
-      const st = diffSec.querySelector('.section-title'); if (st) st.innerHTML = t.diffTitle;
-      const sd = diffSec.querySelector('.section-desc'); if (sd) sd.textContent = t.diffDesc;
-      const oldH = diffSec.querySelector('.diff-header-cell.old-col');
-      const newH = diffSec.querySelector('.diff-header-cell.new-col');
-      if (oldH) oldH.textContent = t.diffOldH;
-      if (newH) newH.innerHTML = t.diffNewH;
-      const rows = diffSec.querySelectorAll('.diff-row');
-      const dKeys = ['d1','d2','d3','d4','d5','d6'];
-      rows.forEach((row, i) => {
-        const k = dKeys[i]; if (!k) return;
-        const labelVal = row.querySelector('.label-col .diff-val');
-        if (labelVal) labelVal.textContent = t[k+'L'];
-        const oldVal = row.querySelector('.old-col .diff-val');
-        if (oldVal) oldVal.innerHTML = t[k+'O'];
-        const newVal = row.querySelector('.new-col .diff-val');
-        if (newVal) newVal.innerHTML = t[k+'N'];
-      });
-      const bottom = diffSec.querySelector('.diff-bottom-bar');
-      if (bottom) {
-        const svg = bottom.querySelector('svg');
-        bottom.textContent = '';
-        if (svg) bottom.appendChild(svg);
-        bottom.appendChild(document.createTextNode(' ' + t.diffBottom));
+  }
+  function rectOf(el) { return el ? el.getBoundingClientRect() : null; }
+  function pickMode() {
+    var order = [['waste', mk.waste], ['flow', mk.flow], ['root', mk.root]];
+    var best = null, bd = 1e9;
+    for (var i = 0; i < order.length; i++) {
+      var r = rectOf(order[i][1]); if (!r) continue;
+      if (r.bottom > H * 0.12 && r.top < H * 0.88) {
+        var d = Math.abs((r.top + r.bottom) / 2 - H * 0.5);
+        if (d < bd) { bd = d; best = order[i][0]; }
       }
     }
+    if (best) return best;
+    var hr = rectOf(mk.hero);
+    if (hr && hr.bottom > H * 0.25) return 'hero';
+    return 'calm';
+  }
+  function nodePos(L, j, r) {
+    var ys = [0.08, 0.24, 0.40, 0.56, 0.72, 0.88];
+    var span = Math.pow(2, L), first = j * span, last = first + span - 1;
+    var x0 = lerp(0.06, 0.94, first / 31), x1 = lerp(0.06, 0.94, last / 31);
+    return { x: r.left + (x0 + x1) / 2 * r.width, y: r.top + ys[L] * r.height };
+  }
+  function statusAt(x, y, text, alpha) {
+    ctx.font = "10px 'Space Mono', monospace";
+    ctx.fillStyle = rgba(NAVY, 0.58 * (alpha == null ? 1 : alpha));
+    ctx.fillText(text, x, y);
+  }
+  function repAt(r, alpha) {
+    ctx.font = "9px 'Space Mono', monospace";
+    ctx.fillStyle = rgba(NAVY, 0.28 * (alpha == null ? 1 : alpha));
+    var n = V().rep;
+    ctx.fillText(n, r.left + r.width - ctx.measureText(n).width - 6, r.top + r.height - 8);
+  }
+  function chip(r, text, cx, cy, alpha, col) {
+    ctx.font = ((r && r.width < 520) ? '8px ' : '10px ') + "'Space Mono', monospace";
+    var pad = 6, tw = ctx.measureText(text).width;
+    var px = Math.min(Math.max(cx - tw / 2 - pad, 4), W - tw - pad * 2 - 4);
+    ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+    ctx.fillStyle = 'rgba(250,249,246,0.92)';
+    ctx.strokeStyle = rgba(col || OCHRE, 0.5); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.roundRect(px, cy, tw + pad * 2, 17, 3); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = rgba(NAVY, 0.85); ctx.fillText(text, px + pad, cy + 12);
+    ctx.globalAlpha = 1;
+  }
 
-    const cta = $('#cta');
-    if (cta) {
-      const sl = cta.querySelector('.section-label'); if (sl) sl.textContent = t.ctaLabel;
-      const ch2 = cta.querySelector('h2'); if (ch2) ch2.innerHTML = t.ctaH2;
-      const cs = cta.querySelector('.cta-small'); if (cs) cs.textContent = t.ctaSmall;
-      const ps = cta.querySelectorAll('p');
-      ps.forEach(p => { if (!p.classList.contains('cta-small')) p.textContent = t.ctaP; });
-      const bpri = cta.querySelector('.btn-primary'); if (bpri) bpri.textContent = t.ctaBtn;
+  var TL = 1500, HOLDT = 3000, DIS = 1200, TT = 5 * TL + HOLDT + DIS;
+
+  var CREAM = [245, 240, 232], heroStart = performance.now();
+  function frame(now) {
+    ctx.clearRect(0, 0, W, H);
+    var heroR = rectOf(mk.hero), hb = heroR ? heroR.bottom : -1;
+    var nm = pickMode();
+    if (nm !== mode) {
+      mode = nm; assign(mode);
+      if (mode === 'root') rootStart = now;
+      if (mode === 'flow') flowStart = now;
+      if (mode === 'waste') wasteStart = now;
+    }
+    var R = mode === 'waste' ? rectOf(mk.waste) : mode === 'flow' ? rectOf(mk.flow) : mode === 'root' ? rectOf(mk.root) : rectOf(mk.hero);
+
+    var sweeping = false, sx = -100;
+    if (mode === 'hero') {
+      var SWEEP = 2880, CYCLE = 9500, DELAY = 1800;           /* %20 daha yavaş tarama, daha seyrek döngü, ilk taramaya gecikme */
+      var ph = now - heroStart - DELAY;
+      var t6 = ph >= 0 ? ph % CYCLE : -1;
+      sweeping = t6 >= 0 && t6 < SWEEP;
+      sx = sweeping ? (t6 / SWEEP) * (W + 80) - 40 : -100;
     }
 
-    const fb = document.querySelector('.footer-brand');
-    if (fb) fb.innerHTML = t.footerBrand;
-    const fll = document.querySelectorAll('.footer-link-legal');
-    if (fll[0]) fll[0].textContent = t.footerPricing;
-    if (fll[1]) fll[1].textContent = t.footerTerms;
-    if (fll[2]) fll[2].textContent = t.footerPrivacy;
+    var rel = (now - rootStart) % TT, casc = Math.min(rel, 5 * TL), lvlF = casc / TL;
+    var rHold = rel > 5 * TL && rel <= 5 * TL + HOLDT, rDis = rel > 5 * TL + HOLDT;
+    var rdt = rDis ? (rel - 5 * TL - HOLDT) / DIS : 0;
+    var rFade = rDis ? Math.max(0, 1 - rdt * 1.6) : 1;
 
-    // --- Dinamik ve Güvenli URL Güncelleme Alanı ---
-    // start-analysis-btn sınıfına sahip tüm elementlerin linkini o an seçili dile göre güncelliyoruz.
-    $$('.start-analysis-btn').forEach(link => {
-      link.setAttribute('href', 'intake-welcome.html?lang=' + lang.toUpperCase());
-    });
-    $$('.ai-align-btn').forEach(link => {
-      link.setAttribute('href', 'intake-welcome.html?lang=' + lang.toUpperCase() + '&track=ai-alignment');
-    });
-  }
+    for (var ci = 0; ci < CL.length; ci++) { clAcc[ci] = 0; clCnt[ci] = 0; }
 
-  function selectLang(e) {
-    e.preventDefault();
-    const el = e.currentTarget;
-    const lang = el.dataset.lang.toLowerCase();
-    document.getElementById('langToggle').firstChild.textContent = lang.toUpperCase() + ' ';
-    document.querySelectorAll('.lang-menu a').forEach(a => a.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('langDropdown').classList.remove('open');
-    applyLang(lang);
-    try { localStorage.setItem('gembax-lang', lang); } catch(e) {}
-  }
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var ax = d.hx + Math.cos(d.dp + now * d.ds) * d.dr;
+      var ay = d.hy + Math.sin(d.dp * 1.3 + now * d.ds * 0.8) * d.dr;
+      var onDark = ay < hb;
+      var x = ax, y = ay, col = d.base, alpha = 0.20, arc = false, sz = d.size;
+      if (onDark) {
+        /* x-ray reveal: nodules exist only after the beam has passed, then fade */
+        if (mode === 'hero' && sweeping && !d.hit && ax <= sx) { d.rv = 1; d.hit = true; }
+        if (!sweeping) d.hit = false;
+        d.rv *= 0.982;
+        if (d.rv < 0.01) continue;
+        col = mix(CREAM, OCHRE, 0.45 * d.rv); alpha = 0.62 * d.rv; sz = d.size * (1 + 0.6 * d.rv);
+      }
 
-  function detectLang() {
-    // 1) Kullanıcı daha önce manuel seçtiyse ona saygı duy
-    try {
-      const stored = (localStorage.getItem('gembax-lang') || '').toLowerCase();
-      if (stored === 'tr' || stored === 'es' || stored === 'en') return stored;
-    } catch (e) {}
-    // 2) Tarayıcı / bölge dilini algıla
-    const langs = (navigator.languages && navigator.languages.length)
-      ? navigator.languages
-      : [navigator.language || navigator.userLanguage || 'en'];
-    for (const l of langs) {
-      const code = String(l).toLowerCase();
-      if (code.startsWith('tr')) return 'tr';   // Türkiye / Türkçe
-      if (code.startsWith('es')) return 'es';   // İspanyolca
+      if (d.form) {
+        d.t += (d.eng ? 0.028 : -0.032); d.t = Math.max(0, Math.min(1, d.t));
+        var e = ease(d.t);
+        if (e > 0.001 && R) {
+          var tx = ax, ty = ay, fc = OCHRE, fa = 0.5;
+          if (d.cl >= 0) {
+            var c = CL[d.cl];
+            var ccx = R.left + c[0] * R.width, ccy = R.top + c[1] * R.height;
+            var cr = c[2] * Math.min(R.width, R.height) * 1.55;
+            tx = ccx + Math.cos(d.offA + now * 0.0004) * d.offR * cr;
+            ty = ccy + Math.sin(d.offA + now * 0.0004) * d.offR * cr;
+            fc = OCHRE; fa = 0.75;
+            clAcc[d.cl] += e; clCnt[d.cl]++;
+          } else if (mode === 'flow' && d.eng) {
+            var p = (d.p0 + (now - flowStart) * 0.000045) % 1;
+            var fx, heatq = 0;
+            if (p < 0.30) fx = lerp(0.0, 0.50, p / 0.30);
+            else if (p < 0.76) { fx = lerp(0.50, 0.60, (p - 0.30) / 0.46); heatq = 1; }
+            else if (p < 0.81) fx = lerp(0.60, 0.665, (p - 0.76) / 0.05);
+            else fx = lerp(0.665, 1.0, (p - 0.81) / 0.19);
+            var laneAmp = fx < 0.615 ? lerp(0.30, 0.10, Math.max(0, fx - 0.35) / 0.265) : (fx < 0.70 ? 0.10 : lerp(0.10, 0.22, (fx - 0.70) / 0.30));
+            tx = R.left + fx * R.width;
+            ty = R.top + R.height * 0.55 + d.lane * laneAmp * R.height;
+            fc = mix(NAVY, OCHRE, heatq); fa = 0.48 + 0.37 * heatq;
+            var edge = Math.min(p / 0.04, (1 - p) / 0.04, 1);
+            fa *= Math.max(0.12, edge);
+          } else if (d.agent >= 0 && mode === 'root') {
+            var Lc = Math.min(Math.floor(lvlF), 4);
+            var st = (d.agent % 7) * 20;
+            var tt2 = Math.min(1, Math.max(0, (casc - Lc * TL - st) / (TL - 350)));
+            var e2 = ease(tt2);
+            var A = nodePos(Lc, Math.floor(d.agent / Math.pow(2, Lc)), R);
+            var B = nodePos(Lc + 1, Math.floor(d.agent / Math.pow(2, Lc + 1)), R);
+            tx = lerp(A.x, B.x, e2); ty = lerp(A.y, B.y, e2);
+            var atRoot = Lc === 4 && e2 > 0.95;
+            fc = atRoot ? GREEN : OCHRE; fa = (atRoot ? 0.85 : 0.65) * rFade;
+          }
+          x = lerp(ax, tx, e); y = lerp(ay, ty, e);
+          col = mix(d.base, fc, e); alpha = lerp(0.20, fa, e); arc = e > 0.3;
+        }
+      }
+      d.heat *= 0.96;
+      if (d.heat > 0.02) { col = mix(col, OCHRE, d.heat); alpha = Math.min(0.9, alpha + 0.55 * d.heat); }
+      ctx.fillStyle = rgba(col, alpha * (mode === 'calm' ? 0.8 : 1));
+      if (arc || onDark) { ctx.beginPath(); ctx.arc(x, y, sz, 0, 6.283); ctx.fill(); }
+      else ctx.fillRect(x, y, sz, sz);
     }
-    // 3) Diğer tüm diller → İngilizce
-    return 'en';
+
+    /* ---- overlays ---- */
+    if (mode === 'hero' && R) {
+      if (sweeping) {
+        var g = ctx.createLinearGradient(sx - 80, 0, sx, 0);
+        g.addColorStop(0, rgba(OCHRE, 0)); g.addColorStop(1, rgba(OCHRE, 0.09));
+        ctx.fillStyle = g; ctx.fillRect(sx - 80, 0, 80, H);
+        ctx.fillStyle = rgba(OCHRE, 0.7); ctx.fillRect(sx, 0, 2, H);
+      }
+      ctx.font = "10px 'Space Mono', monospace"; ctx.fillStyle = rgba(CREAM, 0.45); ctx.fillText(sweeping ? V().hero.s2 : V().hero.s1, 84, Math.max(R.top, 0) + 112);
+      ctx.font = "9px 'Space Mono', monospace";
+      ctx.fillStyle = rgba(CREAM, 0.3);
+      var rn0 = V().rep;
+      ctx.fillText(rn0, W - ctx.measureText(rn0).width - 16, H - 14);
+    }
+    if (mode === 'waste' && R) {
+      var labels = V().scan.clusters;
+      for (var c2 = 0; c2 < CL.length; c2++) {
+        var ratio = clCnt[c2] ? clAcc[c2] / clCnt[c2] : 0;
+        var cc = CL[c2];
+        var gx = R.left + cc[0] * R.width, gy = R.top + cc[1] * R.height;
+        var gr = cc[2] * Math.min(R.width, R.height) * 1.55;
+        if (ratio > 0.15) {
+          var rg = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr * 1.6);
+          rg.addColorStop(0, rgba(OCHRE, 0.16 * ratio)); rg.addColorStop(1, rgba(OCHRE, 0));
+          ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(gx, gy, gr * 1.6, 0, 6.283); ctx.fill();
+        }
+        if (ratio > 0.5) chip(R, labels[c2] || '', gx, gy + gr + 8, Math.min(1, (ratio - 0.5) / 0.3));
+      }
+      var wel = now - wasteStart;
+      statusAt(R.left + 4, R.top + 14, wel < 2600 ? V().scan.s2 : V().scan.s3);
+      repAt(R);
+    }
+    if (mode === 'flow' && R) {
+      var GXF = [0.14, 0.36, 0.615, 0.86];
+      for (var g3 = 0; g3 < GXF.length; g3++) {
+        var isC = g3 === 2;
+        var gxp = R.left + GXF[g3] * R.width;
+        var gapF = isC ? 0.13 : 0.36;
+        var cyf = R.top + R.height * 0.55;
+        var gt = cyf - gapF * R.height, gb = cyf + gapF * R.height;
+        ctx.fillStyle = isC ? rgba(MAROON, 0.6 + 0.25 * Math.sin(now * 0.004)) : rgba(NAVY, 0.32);
+        ctx.fillRect(gxp - 1.25, R.top + 26, 2.5, Math.max(0, gt - R.top - 26));
+        ctx.fillRect(gxp - 1.25, gb, 2.5, Math.max(0, R.top + R.height - 12 - gb));
+        ctx.font = "9px 'Space Mono', monospace"; ctx.fillStyle = rgba(NAVY, 0.42);
+        var lbl = V().flow.gate + ' ' + (g3 + 1);
+        ctx.fillText(lbl, gxp - ctx.measureText(lbl).width / 2, R.top + 18);
+        if (isC) chip(R, V().flow.constraint, gxp, R.top + R.height - 30, 0.75 + 0.25 * Math.sin(now * 0.004), MAROON);
+      }
+      statusAt(R.left + 4, R.top + 14, (now - flowStart) < 3000 ? V().flow.s1 : V().flow.s2);
+      repAt(R);
+    }
+    if (mode === 'root' && R) {
+      var RT = V().root;
+      ctx.font = "9px 'Space Mono', monospace";
+      for (var L = 0; L < 5; L++) {
+        var my = (nodePos(L, 0, R).y + nodePos(L + 1, 0, R).y) / 2;
+        ctx.fillStyle = rgba(NAVY, (lvlF > L ? 0.45 : 0.15) * rFade);
+        ctx.fillText(RT.why + ' ' + (L + 1), R.left + 2, my + 3);
+      }
+      ctx.lineWidth = 1;
+      var segDone = Math.min(Math.floor(lvlF), 5);
+      for (var a2 = 0; a2 < 32; a2++) {
+        for (var sg = 0; sg < segDone; sg++) {
+          var P1 = nodePos(sg, Math.floor(a2 / Math.pow(2, sg)), R);
+          var P2 = nodePos(sg + 1, Math.floor(a2 / Math.pow(2, sg + 1)), R);
+          ctx.strokeStyle = rgba(OCHRE, 0.14 * rFade);
+          ctx.beginPath(); ctx.moveTo(P1.x, P1.y); ctx.lineTo(P2.x, P2.y); ctx.stroke();
+        }
+      }
+      var conv = Math.max(0, Math.min(1, (lvlF - 4.4) / 0.6));
+      if (conv > 0) {
+        var rnp = nodePos(5, 0, R);
+        var rg2 = ctx.createRadialGradient(rnp.x, rnp.y, 0, rnp.x, rnp.y, 26);
+        rg2.addColorStop(0, rgba(GREEN, 0.45 * conv * rFade)); rg2.addColorStop(1, rgba(GREEN, 0));
+        ctx.fillStyle = rg2; ctx.beginPath(); ctx.arc(rnp.x, rnp.y, 26, 0, 6.283); ctx.fill();
+        ctx.fillStyle = rgba(GREEN, 0.9 * conv * rFade);
+        ctx.beginPath(); ctx.arc(rnp.x, rnp.y, 3.5, 0, 6.283); ctx.fill();
+        chip(R, RT.root, rnp.x, Math.min(rnp.y + 14, R.top + R.height - 22), conv * rFade, GREEN);
+      }
+      ctx.font = "9px 'Space Mono', monospace"; ctx.fillStyle = rgba(NAVY, 0.35 * rFade);
+      ctx.fillText(RT.symptoms, R.left + R.width - ctx.measureText(RT.symptoms).width - 4, nodePos(0, 0, R).y - 10);
+      statusAt(R.left + 4, R.top + 14, (rHold || lvlF >= 4.6) ? RT.s2 : RT.s1, rDis ? 1 - rdt : 1);
+      repAt(R, rFade);
+    }
   }
 
-  const saved = detectLang();
-  applyLang(saved);
-  document.getElementById('langToggle').firstChild.textContent = saved.toUpperCase() + ' ';
-  document.querySelectorAll('.lang-menu a').forEach(a => {
-    a.classList.toggle('active', a.dataset.lang.toLowerCase() === saved);
+  function staticField() {
+    ctx.clearRect(0, 0, W, H);
+    var hr = rectOf(mk.hero), hbs = hr ? hr.bottom : -1;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      if (d.hy < hbs) continue;
+      ctx.fillStyle = rgba(d.base, 0.20);
+      ctx.fillRect(d.hx, d.hy, d.size, d.size);
+    }
+  }
+
+  function init() {
+    mk.hero = document.querySelector('.dark-hero');
+    mk.waste = document.getElementById('fieldWaste');
+    mk.flow = document.getElementById('fieldFlow');
+    mk.root = document.getElementById('fieldRoot');
+    resize(); buildDots();
+    if (REDUCED) { staticField(); return; }
+    (function loop(now) { frame(now); requestAnimationFrame(loop); })(performance.now());
+  }
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { resize(); buildDots(); if (REDUCED) staticField(); }, 150);
   });
+  init();
+})();
+</script>
+
+<script>
+  (function(){
+    var rc = document.getElementById('rulerCanvas'), rul = document.getElementById('ruler'), nav = document.getElementById('topNav');
+    function drawRuler(light){
+      var dpr = Math.min(window.devicePixelRatio||1, 2), W = window.innerWidth, H = 20;
+      rc.width = W*dpr; rc.height = H*dpr; var x = rc.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0);
+      x.clearRect(0,0,W,H);
+      var ink = light ? 'rgba(27,42,74,' : 'rgba(245,240,232,';
+      x.font = "8px 'Space Mono', monospace";
+      for (var px = 0; px <= W; px += 10){
+        var major = px % 100 === 0, mid = px % 50 === 0;
+        var h = major ? 12 : mid ? 8 : 4;
+        x.fillStyle = ink + (major ? '0.75' : mid ? '0.5' : '0.28') + ')';
+        x.fillRect(px, H - h, 1, h);
+        if (major && px > 0){ x.fillStyle = ink + '0.55)'; x.fillText(String(px/10), px + 3, 8); }
+      }
+    }
+    var hero = document.querySelector('.dark-hero'), backdrop = document.getElementById('darkBackdrop');
+    function syncBackdrop(){ if (hero && backdrop) backdrop.style.height = Math.max(window.innerHeight, hero.offsetHeight) + 'px'; }
+    if (window.ResizeObserver && hero) new ResizeObserver(syncBackdrop).observe(hero);
+    window.addEventListener('resize', syncBackdrop); syncBackdrop();
+    var lightNow = false;
+    function onScroll(){
+      var edge = hero ? hero.offsetHeight - 90 : window.innerHeight * 0.72;
+      var light = window.scrollY > edge;
+      if (light !== lightNow){ lightNow = light; nav.classList.toggle('light', light); rul.classList.toggle('light', light); drawRuler(light); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', function(){ drawRuler(lightNow); });
+    drawRuler(false); onScroll();
+    var burger = document.getElementById('navBurger');
+    if (burger) burger.addEventListener('click', function(e){ e.stopPropagation(); nav.classList.toggle('open'); });
+    document.addEventListener('click', function(){ nav.classList.remove('open'); });
+    var sel = document.getElementById('langSel'), btn = document.getElementById('langBtn');
+    btn.addEventListener('click', function(e){ e.stopPropagation(); sel.classList.toggle('open'); });
+    document.querySelectorAll('#langMenu button').forEach(function(b){ b.addEventListener('click', function(){ if (window.applyLang) window.applyLang(b.dataset.l); else btn.firstChild.textContent = b.dataset.l + ' '; sel.classList.remove('open'); }); });
+    document.addEventListener('click', function(){ sel.classList.remove('open'); });
+  })();
+</script>
+<script>
+(function () {
+  var K = [
+    ['navGemba', '.nav-links > a:nth-of-type(1)'], ['navMeth', '.nav-links > a:nth-of-type(2)'], ['navPrice', '.nav-links > a:nth-of-type(3)'], ['navCta', '.nav-cta'],
+    ['rail', '.rail-label'], ['crumb', '.dark-crumb'], ['title', '.dark-title'], ['sub', '.dark-sub'], ['para', '.dark-para'],
+    ['listIntro', '.dark-list p'], ['listItems', '.dark-list li', 1], ['btn', '.dark-btn'], ['link', '.dark-link'], ['scroll', '.dark-scroll'],
+    ['introLabel', '#teshis .mono'], ['introTitle', '#teshis h2'], ['introDesc', '#teshis p'],
+    ['r1num', '#teshis-01 .num'], ['r1h', '#teshis-01 h2'], ['r1body', '#teshis-01 .body'], ['r1get', '#teshis-01 .get-label'], ['r1li', '#teshis-01 li', 1], ['r1test', '#teshis-01 .test'], ['r1cta', '#teshis-01 .cta'],
+    ['r2num', '#teshis-02 .num'], ['r2h', '#teshis-02 h2'], ['r2body', '#teshis-02 .body'], ['r2get', '#teshis-02 .get-label'], ['r2li', '#teshis-02 li', 1], ['r2test', '#teshis-02 .test'], ['r2cta', '#teshis-02 .cta'],
+    ['r3num', '#teshis-03 .num'], ['r3h', '#teshis-03 h2'], ['r3body', '#teshis-03 .body'], ['r3get', '#teshis-03 .get-label'], ['r3li', '#teshis-03 li', 1], ['r3test', '#teshis-03 .test'], ['r3cta', '#teshis-03 .cta'],
+    ['note', '.note-band p'],
+    ['gLabel', '#gemba .mono'], ['gTitle', '#gemba h2'], ['gP', '#gemba .gemba-grid > div:last-child p', 1],
+    ['nLabel', '#nasil .mono'], ['nTitle', '#nasil h2'], ['nDesc', '#nasil .index-head p'], ['stepNum', '#nasil .step .num', 1], ['stepH', '#nasil .step h3', 1], ['stepP', '#nasil .step p', 1],
+    ['kLabel', '#garanti .index-head .mono'], ['kTitle', '#garanti .index-head h2'], ['sectors', '.sectors span', 1],
+    ['gaLabel', '.guarantee .mono'], ['gaTitle', '.guarantee h2'], ['gaP', '.guarantee p'], ['gaL', '.guarantee li', 1],
+    ['fLabel', '.final .mono'], ['fTitle', '.final h2'], ['fP', '.final p'], ['fBtn', '.final .btn-primary'],
+    ['footBrand', 'footer > div:first-child'], ['footLinks', 'footer a', 1]
+  ];
+  function capture() {
+    var o = {};
+    K.forEach(function (k) {
+      if (k[2]) o[k[0]] = Array.prototype.map.call(document.querySelectorAll(k[1]), function (el) { return el.innerHTML; });
+      else { var el = document.querySelector(k[1]); if (el) o[k[0]] = el.innerHTML; }
+    });
+    o.viz = window.__VIZ; o.htmlLang = 'tr';
+    return o;
+  }
+  var VIZ_EN = { rep: "REPRESENTATIVE VISUALIZATION",
+    scan: { s1: "OPERATIONAL DATA · UNSTRUCTURED", s2: "SCANNING FOR WASTE SIGNALS…", s3: "7+1 WASTE CATEGORIES · SIGNALS CLUSTERED", s4: "RESETTING…", clusters: ["WAITING","INVENTORY","TRANSPORT","DEFECTS","OVERPRODUCTION","MOTION","OVERPROCESSING","UNUSED TALENT"] },
+    hero: { s1: "LIVE SIGNAL FIELD · GEMBA", s2: "SCANNING…" },
+    flow: { s1: "MAPPING FLOW END-TO-END…", s2: "CONSTRAINT LOCATED · STAGE 3", gate: "STAGE", constraint: "CONSTRAINT" },
+    root: { s1: "TRACING 5 WHYS…", s2: "ONE ROOT CAUSE · MANY SYMPTOMS", why: "WHY", root: "ROOT CAUSE", symptoms: "SYMPTOMS" } };
+  var VIZ_ES = { rep: "VISUALIZACIÓN REPRESENTATIVA",
+    scan: { s1: "DATOS OPERATIVOS · SIN ESTRUCTURA", s2: "ESCANEANDO SEÑALES DE DESPERDICIO…", s3: "7+1 CATEGORÍAS · SEÑALES AGRUPADAS", s4: "REINICIANDO…", clusters: ["ESPERA","INVENTARIO","TRANSPORTE","DEFECTOS","SOBREPRODUCCIÓN","MOVIMIENTO","SOBREPROCESO","TALENTO SIN USAR"] },
+    hero: { s1: "CAMPO DE SEÑALES EN VIVO · GEMBA", s2: "ESCANEANDO…" },
+    flow: { s1: "MAPEANDO EL FLUJO…", s2: "RESTRICCIÓN LOCALIZADA · ETAPA 3", gate: "ETAPA", constraint: "RESTRICCIÓN" },
+    root: { s1: "RASTREANDO 5 PORQUÉS…", s2: "UNA CAUSA RAÍZ · MUCHOS SÍNTOMAS", why: "POR QUÉ", root: "CAUSA RAÍZ", symptoms: "SÍNTOMAS" } };
+
+  var T = {};
+  T.TR = capture();
+  T.EN = {
+    htmlLang: 'en', viz: VIZ_EN,
+    navGemba: 'What Is Gemba', navMeth: 'Methodology', navPrice: 'Pricing', navCta: 'Start Analysis',
+    rail: 'Operational Diagnostics', crumb: '<span>GembaX</span><i>/</i>Operational Diagnostics',
+    title: 'The X-Ray of Operational Waste',
+    sub: '<span>Everything that doesn\'t create value is waste.</span><span>Find the losses you can\'t see. See what they cost.</span>',
+    para: '<strong>Gemba<span>X</span></strong> analyzes the processes that create value in your organization and the root causes behind its problems; it makes waste signals visible. By combining expert judgment with three different AI perspectives, it makes consulting more accessible, faster and more effective.',
+    listIntro: 'We look at your operation through your customer\'s eyes and identify which work truly creates value.',
+    listItems: [
+      '<strong>Waste X-Ray:</strong> We surface the work that burns time and resources, and calculate what those losses cost you in dollars.',
+      '<strong>Bottleneck detection (Theory of Constraints):</strong> We find the critical point that slows your flow and caps your operation\'s total capacity.',
+      '<strong>Root cause analysis and a 90-day action plan:</strong> We determine why problems keep recurring and show which steps to take, in what order.',
+      '<strong>In days, on an accessible budget:</strong> No months-long engagement; we make your losses and improvement priorities clear.'
+    ],
+    btn: 'Start Analysis →', link: 'See the three diagnostics', scroll: 'SCROLL',
+    introLabel: 'What We Do', introTitle: 'Three diagnostics, <em>one system</em>',
+    introDesc: 'You know the problem is somewhere. What you don\'t know: exactly where, what it costs, and what to touch first. Each diagnostic answers one of those questions, in writing.',
+    r1num: '01 · OPERATIONAL WASTE X-RAY', r1h: 'Revenue grew. Profit didn\'t. The difference is sitting somewhere.',
+    r1body: 'It doesn\'t show up in your P&amp;L as "waste." It shows up as overtime that became routine. As four months of raw material on the shelf. As work redone every week, trucks leaving half empty, scrap the customer never pays for. Every line is legitimate on its own; that\'s why nobody questions it. You don\'t either, because you see all of it every day.',
+    r1get: 'What you receive',
+    r1li: ['Where each of the 7+1 waste categories occurs in your operation and what it costs per year. In dollars, method shown.', 'What to touch first: ranked by impact, top three flagged.', 'The evidence behind every number: which data it came from, under which assumption.'],
+    r1test: '<strong>Is this your problem?</strong>If you can\'t explain in numbers why profitability dropped, yes.', r1cta: 'Start Analysis →',
+    r2num: '02 · BOTTLENECK DETECTION (TOC)', r2h: 'Machines sit idle. Orders still ship late. How can both be true at once?',
+    r2body: 'Because a system runs at the speed of its slowest link, not its busiest-looking one. A new machine, a new shift, a new hire: every investment outside the bottleneck doesn\'t raise output; it just grows the pile in front of it. An hour lost at the bottleneck is lost for the whole plant. An hour gained anywhere else only looks like a gain.',
+    r2get: 'What you receive',
+    r2li: ['A map of your flow from order entry to shipping, and the single point that holds the system. It\'s rarely where people think; sometimes it isn\'t a machine at all, but an approval step.', 'The annual value of the output you lose at that point, in dollars.', 'How to get more through the bottleneck before spending on it: first moves that cost nothing.'],
+    r2test: '<strong>Is this your problem?</strong>If you invested in capacity in the last year and delivery times didn\'t shrink, yes.', r2cta: 'Find the Bottleneck →',
+    r3num: '03 · ROOT CAUSE ANALYSIS', r3h: 'Sales blames late deliveries. Production blames missing material. Purchasing blames late payments. It may be one problem.',
+    r3body: 'A recurring problem isn\'t unsolved; it was solved at the wrong layer. You remove the symptom, the root stays, and three months later it\'s back in another department under another name. Each department fixes its own symptom and blames the next one. The only person who could see the pattern is you, and you spend every morning putting out fires.',
+    r3get: 'What you receive',
+    r3li: ['The common root cause behind symptoms that look unrelated, with the evidence chain.', 'Whether your three highest-impact wastes trace to a single cause. If they do, which single intervention fixes all three.', 'A 90-day action plan: what, who, which week, measured by what.'],
+    r3test: '<strong>Is this your problem?</strong>If you\'ve tried two different fixes for the same problem in the last two years, yes.', r3cta: 'Detailed Diagnosis →',
+    note: '<strong>Should you buy all three? No.</strong> Most businesses start with 01; the report tells you whether 02 or 03 is needed.',
+    gLabel: 'What Is Gemba', gTitle: 'Where the work <em>actually happens</em>',
+    gP: ['<strong>Gemba</strong> is Japanese for "the real place": where the work is physically done. The production line, the loading dock, the order desk, the shipping gate.', 'Reports are written at desks; losses happen on the floor. However good a desk report is, if it was written without going to the floor, it\'s an assumption.', '<strong>GembaX</strong> takes its name from here: it grounds the diagnosis in floor reality, not management summaries. Questions go to you and your team; numbers are validated against answers from the floor.'],
+    nLabel: 'How It Works', nTitle: 'Three steps from <em>diagnosis to action</em>', nDesc: 'All in writing. Not a single meeting lands on your calendar.',
+    stepNum: ['STEP 1 · ~15 MIN', 'STEP 2 · EXPERT + AI', 'STEP 3 · 7 BUSINESS DAYS'],
+    stepH: ['Written conversation', 'Validation and analysis', 'Signed report'],
+    stepP: ['You describe your operation in your own words. The questions branch with you; you never fill in meaningless fields.', 'AI scans from three perspectives: waste, bottleneck, root cause. A human expert validates the inputs and, if needed, gets a short confirmation from your team. No unvalidated number enters the report.', 'Where, what it costs, what to touch first. The source and assumption behind every number, in writing. Signed by a human expert.'],
+    kLabel: 'Who It\'s For', kTitle: 'Any business <em>with a floor</em>',
+    sectors: ['MANUFACTURING', 'LOGISTICS', 'DISTRIBUTION', 'SERVICES', 'RETAIL', 'SAAS / DIGITAL', 'SALES OPERATIONS'],
+    gaLabel: 'Guarantee &amp; Honesty', gaTitle: 'If we can\'t demonstrate at least <mark>$15,000</mark> in annual leakage, the report is free.',
+    gaP: 'We don\'t promise outcomes; we promise process. No made-up statistics, no number without a source, no "our typical client saved this much." We write what we found, the way we found it.',
+    gaL: ['→ Payment only after scope is confirmed in writing', '→ The calculation method behind every dollar figure, in the report', '→ No number is published without a human expert\'s signature', '→ No meetings, no calls, no site visits'],
+    fLabel: 'Getting Started', fTitle: 'Do you know where the problem is,<br>or only <em>that it\'s somewhere?</em>', fP: 'Seven business days later you hold a written, signed answer.', fBtn: 'Start Analysis →',
+    footBrand: '<strong>Gemba<span>X</span></strong> — The X-ray of operational waste', footLinks: ['Pricing', 'Terms', 'Privacy', 'AI Value Alignment · MoreSight']
+  };
+  T.ES = {
+    htmlLang: 'es', viz: VIZ_ES,
+    navGemba: 'Qué es Gemba', navMeth: 'Metodología', navPrice: 'Precios', navCta: 'Iniciar Análisis',
+    rail: 'Diagnóstico Operacional', crumb: '<span>GembaX</span><i>/</i>Diagnóstico Operacional',
+    title: 'La Radiografía del Desperdicio Operacional',
+    sub: '<span>Todo lo que no crea valor es desperdicio.</span><span>Encuentre las pérdidas que no ve. Vea cuánto cuestan.</span>',
+    para: '<strong>Gemba<span>X</span></strong> analiza los procesos que crean valor en su organización y las causas raíz de sus problemas; hace visibles las señales de desperdicio. Al combinar el criterio experto con tres perspectivas distintas de IA, hace la consultoría más accesible, rápida y efectiva.',
+    listIntro: 'Miramos su operación con los ojos de su cliente e identificamos qué trabajo crea valor de verdad.',
+    listItems: [
+      '<strong>Radiografía del Desperdicio:</strong> Sacamos a la luz el trabajo que consume tiempo y recursos, y calculamos cuánto le cuestan esas pérdidas en dólares.',
+      '<strong>Detección de cuellos de botella (Teoría de Restricciones):</strong> Encontramos el punto crítico que frena su flujo y limita la capacidad total de su operación.',
+      '<strong>Análisis de causa raíz y plan de acción de 90 días:</strong> Determinamos por qué los problemas se repiten y mostramos qué pasos dar y en qué orden.',
+      '<strong>En días, con un presupuesto accesible:</strong> Sin meses de consultoría, dejamos claras sus pérdidas y sus prioridades de mejora.'
+    ],
+    btn: 'Iniciar Análisis →', link: 'Ver los tres diagnósticos', scroll: 'DESPLACE',
+    introLabel: 'Qué Hacemos', introTitle: 'Tres diagnósticos, <em>un solo sistema</em>',
+    introDesc: 'Usted sabe que el problema está en algún lugar. Lo que no sabe: exactamente dónde, cuánto cuesta y qué tocar primero. Cada diagnóstico responde una de esas preguntas, por escrito.',
+    r1num: '01 · RADIOGRAFÍA DEL DESPERDICIO OPERACIONAL', r1h: 'Los ingresos crecieron. La ganancia no. La diferencia está en algún lugar.',
+    r1body: 'No aparece en su estado de resultados como "desperdicio". Aparece como horas extra que se volvieron rutina. Como cuatro meses de materia prima en el almacén. Como trabajo rehecho cada semana, camiones que salen medio vacíos, merma que el cliente nunca paga. Cada línea es legítima por sí sola; por eso nadie la cuestiona. Usted tampoco, porque lo ve todos los días.',
+    r1get: 'Lo que recibe',
+    r1li: ['Dónde ocurre cada una de las 7+1 categorías de desperdicio en su operación y cuánto cuesta al año. En dólares, con el método a la vista.', 'Qué tocar primero: ordenado por impacto, los tres principales marcados.', 'La evidencia detrás de cada cifra: de qué dato salió y bajo qué supuesto.'],
+    r1test: '<strong>¿Es este su problema?</strong>Si no puede explicar con números por qué cayó la rentabilidad, sí.', r1cta: 'Iniciar Análisis →',
+    r2num: '02 · DETECCIÓN DE CUELLOS DE BOTELLA (TOC)', r2h: 'Las máquinas están paradas. Los pedidos siguen llegando tarde. ¿Cómo pueden pasar las dos cosas a la vez?',
+    r2body: 'Porque un sistema va a la velocidad de su eslabón más lento, no del que parece más ocupado. Una máquina nueva, un turno nuevo, una contratación nueva: cada inversión fuera del cuello de botella no aumenta la producción; solo agranda la pila que tiene delante. Una hora perdida en el cuello de botella se pierde en toda la planta. Una hora ganada en cualquier otro lugar solo parece ganada.',
+    r2get: 'Lo que recibe',
+    r2li: ['Un mapa de su flujo desde la entrada del pedido hasta el despacho, y el único punto que sostiene el sistema. Rara vez está donde se piensa; a veces ni siquiera es una máquina, sino un paso de aprobación.', 'El valor anual de la producción que pierde en ese punto, en dólares.', 'Cómo pasar más trabajo por el cuello de botella antes de invertir en él: primeros pasos que no cuestan nada.'],
+    r2test: '<strong>¿Es este su problema?</strong>Si invirtió en capacidad el último año y sus plazos de entrega no se acortaron, sí.', r2cta: 'Encontrar el Cuello de Botella →',
+    r3num: '03 · ANÁLISIS DE CAUSA RAÍZ', r3h: 'Ventas culpa a las entregas tardías. Producción, al material faltante. Compras, a los pagos atrasados. Puede ser un solo problema.',
+    r3body: 'Un problema recurrente no está sin resolver; se resolvió en la capa equivocada. Se elimina el síntoma, la raíz se queda, y tres meses después vuelve en otro departamento con otro nombre. Cada departamento arregla su propio síntoma y culpa al siguiente. La única persona que podría ver el patrón es usted, y usted pasa cada mañana apagando incendios.',
+    r3get: 'Lo que recibe',
+    r3li: ['La causa raíz común detrás de síntomas que parecen no tener relación, con la cadena de evidencia.', 'Si sus tres desperdicios de mayor impacto se remontan a una sola causa. Si es así, qué única intervención resuelve los tres.', 'Un plan de acción de 90 días: qué, quién, qué semana, medido con qué.'],
+    r3test: '<strong>¿Es este su problema?</strong>Si probó dos soluciones distintas para el mismo problema en los últimos dos años, sí.', r3cta: 'Diagnóstico Detallado →',
+    note: '<strong>¿Debe contratar los tres? No.</strong> La mayoría de las empresas empieza con 01; el informe dice si hace falta 02 o 03.',
+    gLabel: 'Qué es Gemba', gTitle: 'Donde el trabajo <em>realmente ocurre</em>',
+    gP: ['<strong>Gemba</strong> es japonés para "el lugar real": donde el trabajo se hace físicamente. La línea de producción, el muelle de carga, la mesa de pedidos, la puerta de despacho.', 'Los informes se escriben en escritorios; las pérdidas ocurren en el piso. Por bueno que sea un informe de escritorio, si se escribió sin ir al piso, es una suposición.', '<strong>GembaX</strong> toma su nombre de ahí: basa el diagnóstico en la realidad del piso, no en resúmenes gerenciales. Las preguntas van a usted y a su equipo; las cifras se validan con las respuestas del piso.'],
+    nLabel: 'Cómo Funciona', nTitle: 'Tres pasos del <em>diagnóstico a la acción</em>', nDesc: 'Todo por escrito. Ni una sola reunión cae en su calendario.',
+    stepNum: ['PASO 1 · ~15 MIN', 'PASO 2 · EXPERTO + IA', 'PASO 3 · 7 DÍAS HÁBILES'],
+    stepH: ['Conversación escrita', 'Validación y análisis', 'Informe firmado'],
+    stepP: ['Describe su operación con sus propias palabras. Las preguntas se ramifican con usted; nunca rellena campos sin sentido.', 'La IA escanea desde tres perspectivas: desperdicio, cuello de botella, causa raíz. Un experto humano valida los datos y, si hace falta, obtiene una breve confirmación de su equipo. Ninguna cifra sin validar entra al informe.', 'Dónde, cuánto cuesta, qué tocar primero. La fuente y el supuesto de cada cifra, por escrito. Firmado por un experto humano.'],
+    kLabel: 'Para Quién', kTitle: 'Cualquier empresa <em>con piso de operación</em>',
+    sectors: ['MANUFACTURA', 'LOGÍSTICA', 'DISTRIBUCIÓN', 'SERVICIOS', 'RETAIL', 'SAAS / DIGITAL', 'OPERACIÓN COMERCIAL'],
+    gaLabel: 'Garantía y Honestidad', gaTitle: 'Si no podemos demostrar al menos <mark>$15.000</mark> de fuga anual, el informe es gratis.',
+    gaP: 'No prometemos resultados; prometemos proceso. Sin estadísticas inventadas, sin cifras sin fuente, sin "nuestro cliente típico ahorró tanto". Escribimos lo que encontramos, tal como lo encontramos.',
+    gaL: ['→ El pago, solo después de confirmar el alcance por escrito', '→ El método de cálculo de cada cifra en dólares, en el informe', '→ Ninguna cifra se publica sin la firma de un experto humano', '→ Sin reuniones, sin llamadas, sin visitas'],
+    fLabel: 'Para Empezar', fTitle: '¿Sabe dónde está el problema,<br>o solo <em>que está en algún lugar?</em>', fP: 'Siete días hábiles después tiene en sus manos una respuesta escrita y firmada.', fBtn: 'Iniciar Análisis →',
+    footBrand: '<strong>Gemba<span>X</span></strong> — La radiografía del desperdicio operacional', footLinks: ['Precios', 'Términos', 'Privacidad', 'Alineación de Valor de IA · MoreSight']
+  };
+
+  window.applyLang = function (code) {
+    var t = T[code]; if (!t) return;
+    K.forEach(function (k) {
+      var v = t[k[0]]; if (v == null) return;
+      if (k[2]) { var els = document.querySelectorAll(k[1]); for (var i = 0; i < els.length && i < v.length; i++) els[i].innerHTML = v[i]; }
+      else { var el = document.querySelector(k[1]); if (el) el.innerHTML = v; }
+    });
+    window.__VIZ = t.viz; document.documentElement.lang = t.htmlLang;
+    var b = document.getElementById('langBtn'); if (b) b.firstChild.textContent = code + ' ';
+  };
+})();
 </script>
 </body>
 </html>
-
