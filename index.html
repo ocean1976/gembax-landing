@@ -47,7 +47,7 @@
   :root {
     --dark-bg: #1A1916;
     --cream: #F5F0E8; --cream-mid: #B9B2A4; --cream-dim: #8C867A; --cream-faint: #55514A;
-    --green-bright: #4ade80; --orange: #FF7A00; --mit-red: #FF1525; --mit-gray: #838D95;
+    --green-bright: #4ade80; --orange: #FF1525; --mit-red: #FF1525; --mit-gray: #838D95;
     --font-head: 'Inter Tight', 'Inter', sans-serif; --font-inter: 'Inter', sans-serif;
   }
   body { position: relative; }
@@ -274,8 +274,8 @@
   }
 
   /* CTA renk sistemi: intake = turuncu, ücretsiz ön tarama = yeşil */
-  .btn-primary { background: var(--orange); color: #1A1916; box-shadow: 0 8px 22px rgba(255,122,0,0.28); font-weight: 700; }
-  .btn-primary:hover { box-shadow: 0 12px 28px rgba(255,122,0,0.34); }
+  .btn-primary { background: var(--orange); color: #1A1916; box-shadow: 0 8px 22px rgba(255,21,37,0.28); font-weight: 700; }
+  .btn-primary:hover { box-shadow: 0 12px 28px rgba(255,21,37,0.34); }
   .final .btn-ghost, .btn-ghost.scan { background: var(--green-bright); color: #1A1916; border-color: var(--green-bright); font-weight: 700; padding: 0.95rem 1.6rem; box-shadow: 0 8px 22px rgba(74,222,128,0.25); }
   .diag .cta { border: none; background: var(--orange); color: #1A1916; font-family: var(--font-inter); font-weight: 700; font-size: 0.95rem; padding: 0.85rem 1.4rem; border-radius: 8px; }
   .diag .cta:hover { background: var(--orange); color: #1A1916; filter: brightness(1.06); }
@@ -552,9 +552,11 @@
         form: i < FN, eng: false, t: 0, heat: 0,
         base: Math.random() < 0.3 ? SAGE : NAVY,
         cl: -1, offA: Math.random() * 6.283, offR: Math.sqrt(Math.random()),
-        lane: rand(-1, 1), p0: Math.random(), agent: -1, rv: 0, hit: false
+        lane: rand(-1, 1), p0: Math.random(), agent: -1, rv: 0, hit: false,
+        big: Math.random() < 0.06, ns: 0
       });
     }
+    for (var j = 0; j < dots.length; j++) dots[j].ns = dots[j].big ? rand(2.2, 3.2) : rand(0.7, 1.2);
     assign(mode);
   }
   function assign(m) {
@@ -617,7 +619,7 @@
 
   var TL = 1500, HOLDT = 3000, DIS = 1200, TT = 5 * TL + HOLDT + DIS;
 
-  var CREAM = [245, 240, 232], heroStart = performance.now();
+  var CREAM = [245, 240, 232], DORANGE = [225, 30, 42], heroStart = performance.now();
   function frame(now) {
     ctx.clearRect(0, 0, W, H);
     var heroR = rectOf(mk.hero), hb = heroR ? heroR.bottom : -1;
@@ -658,7 +660,7 @@
         if (!sweeping) d.hit = false;
         d.rv *= 0.982;
         if (d.rv < 0.01) continue;
-        col = mix(CREAM, OCHRE, 0.45 * d.rv); alpha = 0.62 * d.rv; sz = d.size * (1 + 0.6 * d.rv);
+        col = DORANGE; alpha = (d.big ? 0.9 : 0.78) * d.rv; sz = d.ns * (1 + 0.5 * d.rv);
       }
 
       if (d.form) {
