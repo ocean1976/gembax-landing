@@ -47,7 +47,7 @@
   :root {
     --dark-bg: #1A1916;
     --cream: #F5F0E8; --cream-mid: #B9B2A4; --cream-dim: #8C867A; --cream-faint: #55514A;
-    --green-bright: #4ade80; --orange: #F28C28; --mit-red: #FF1525; --mit-gray: #838D95;
+    --green-bright: #4ade80; --orange: #FF7A00; --mit-red: #FF1525; --mit-gray: #838D95;
     --font-head: 'Inter Tight', 'Inter', sans-serif; --font-inter: 'Inter', sans-serif;
   }
   body { position: relative; }
@@ -66,7 +66,7 @@
   nav { top: 20px; background: transparent; border-bottom: 1px solid rgba(245,240,232,0.08); backdrop-filter: none; transition: background .35s, border-color .35s; }
   nav .logo { color: var(--cream); } nav .logo span { color: var(--green-bright); }
   nav .nav-links a { color: var(--cream-mid); font-family: var(--font-inter); }
-  nav .nav-cta { background: transparent; color: var(--cream) !important; border: 1px solid rgba(245,240,232,0.35); }
+  nav .nav-cta { background: var(--orange); color: var(--dark-bg) !important; border: 1px solid var(--orange); font-weight: 700; }
   .lang { position: relative; }
   .lang-btn { font-family: var(--font-inter); font-size: 0.86rem; font-weight: 600; cursor: pointer; background: transparent;
     color: var(--cream); border: 1px solid rgba(245,240,232,0.35); border-radius: 8px; padding: 0.45rem 0.75rem; display: flex; gap: 0.35rem; align-items: center; }
@@ -82,7 +82,7 @@
   nav.light { background: rgba(250,249,246,0.86); backdrop-filter: blur(10px); border-bottom-color: var(--border); }
   nav.light .logo { color: var(--text-primary); } nav.light .logo span { color: var(--accent); }
   nav.light .nav-links a { color: var(--text-secondary); }
-  nav.light .nav-cta { background: var(--accent); color: #fff !important; border-color: var(--accent); }
+  nav.light .nav-cta { background: var(--orange); color: var(--dark-bg) !important; border-color: var(--orange); }
 
   .dark-hero { position: relative; z-index: 1; min-height: 100vh; color: var(--cream); display: grid; grid-template-columns: 64px 1fr; }
   .dark-rail { border-right: 1px solid rgba(245,240,232,0.12); position: relative; }
@@ -121,7 +121,9 @@
   .dark-list li { position: relative; padding-left: 1.4rem; margin-bottom: 0.35rem; font-weight: 350; }
   .dark-list li::before { content: '→'; position: absolute; left: 0; color: var(--mit-red); }
   .dark-actions { margin-top: 2.6rem; display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
-  .dark-btn { font-family: var(--font-inter); font-weight: 600; font-size: 0.95rem; text-decoration: none; color: var(--dark-bg); background: var(--cream); padding: 0.9rem 1.6rem; border-radius: 4px; }
+  .dark-btn { font-family: var(--font-inter); font-weight: 700; font-size: 0.95rem; text-decoration: none; color: var(--dark-bg); background: var(--orange); padding: 0.95rem 1.7rem; border-radius: 4px; transition: transform .15s, filter .15s; }
+  .dark-btn:hover { transform: translateY(-1px); filter: brightness(1.06); }
+  .dark-btn.green { background: var(--green-bright); }
   .dark-link { font-family: var(--font-inter); font-weight: 500; font-size: 0.95rem; color: var(--cream-mid); text-decoration: none; border-bottom: 1px solid var(--cream-faint); padding-bottom: 2px; }
   .dark-scroll { position: absolute; right: 3rem; bottom: 2.2rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; color: var(--cream-dim); text-align: center; }
   .dark-scroll::after { content: ''; display: block; width: 1px; height: 38px; background: var(--cream-faint); margin: 10px auto 0; animation: drop 1.8s ease-in-out infinite; }
@@ -240,6 +242,7 @@
   .note-band { padding: 0 3rem 4rem; max-width: 1300px; margin: 0 auto; }
   .note-band p { border-top: 1.5px solid var(--text-primary); padding-top: 1.2rem; font-family: var(--font-inter); font-size: 1.05rem; color: var(--text-secondary); max-width: 62ch; }
   .note-band strong { color: var(--text-primary); }
+  .note-band a { color: var(--red); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
   .gemba-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: start; }
   .gemba-grid p { font-family: var(--font-inter); color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; margin-bottom: 1rem; }
   .gemba-grid p strong { color: var(--text-primary); }
@@ -269,6 +272,14 @@
     .note-band { padding: 0 1.4rem 3rem; }
     .screen { min-height: 0; }
   }
+
+  /* CTA renk sistemi: intake = turuncu, ücretsiz ön tarama = yeşil */
+  .btn-primary { background: var(--orange); color: #1A1916; box-shadow: 0 8px 22px rgba(255,122,0,0.28); font-weight: 700; }
+  .btn-primary:hover { box-shadow: 0 12px 28px rgba(255,122,0,0.34); }
+  .final .btn-ghost, .btn-ghost.scan { background: var(--green-bright); color: #1A1916; border-color: var(--green-bright); font-weight: 700; padding: 0.95rem 1.6rem; box-shadow: 0 8px 22px rgba(74,222,128,0.25); }
+  .diag .cta { border: none; background: var(--orange); color: #1A1916; font-family: var(--font-inter); font-weight: 700; font-size: 0.95rem; padding: 0.85rem 1.4rem; border-radius: 8px; }
+  .diag .cta:hover { background: var(--orange); color: #1A1916; filter: brightness(1.06); }
+  .note-band a { color: #1A1916; background: var(--green-bright); text-decoration: none; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; }
   .fade-in { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
   .fade-in.visible { opacity: 1; transform: none; }
 
@@ -334,7 +345,7 @@
     </div>
     <div class="dark-actions">
       <a href="/intake-welcome" class="dark-btn">Analizi Başlat →</a>
-      <a href="#teshis" class="dark-link">Üç teşhisi gör</a>
+      <a href="on-tarama.html" class="dark-btn green">Ücretsiz ön tarama · 3 dk →</a>
     </div>
   </div>
   <div class="dark-scroll">KAYDIR</div>
@@ -404,7 +415,7 @@
 </section>
 
 <div class="note-band fade-in">
-  <p><strong>Üçünü birden mi almalısınız? Hayır.</strong> Çoğu işletme 01 ile başlar; rapor, 02 ya da 03'ün gerekip gerekmediğini söyler.</p>
+  <p><strong>Üçünü birden mi almalısınız? Hayır.</strong> Çoğu işletme 01 ile başlar; rapor, 02 ya da 03'ün gerekip gerekmediğini söyler. Hangisiyle başlayacağınızdan emin değilseniz <a href="on-tarama.html">3 dakikalık ücretsiz ön tarama</a> söyler: on soru, sektörünüze göre dallanır, rakam vermez, yönlendirir.</p>
 </div>
 
 <!-- ===== 5b. GEMBA NEDİR ===== -->
@@ -467,6 +478,7 @@
     <h2 style="margin-top:0.6rem">Sorunun nerede olduğunu biliyor musunuz,<br>yoksa <em>bir yerde olduğunu mu?</em></h2>
     <p>Yedi iş günü sonra elinizde yazılı, imzalı cevap olur.</p>
     <a href="/intake-welcome" class="btn-primary">Analizi Başlat →</a>
+    <a href="on-tarama.html" class="btn-ghost scan" style="margin-left:0.6rem">Ücretsiz ön tarama · 3 dk →</a>
   </div>
 </section>
 
@@ -856,7 +868,7 @@
   var K = [
     ['navGemba', '.nav-links > a:nth-of-type(1)'], ['navMeth', '.nav-links > a:nth-of-type(2)'], ['navPrice', '.nav-links > a:nth-of-type(3)'], ['navCta', '.nav-cta'],
     ['rail', '.rail-label'], ['crumb', '.dark-crumb'], ['title', '.dark-title'], ['sub', '.dark-sub'], ['para', '.dark-para'],
-    ['listIntro', '.dark-list p'], ['listItems', '.dark-list li', 1], ['btn', '.dark-btn'], ['link', '.dark-link'], ['scroll', '.dark-scroll'],
+    ['listIntro', '.dark-list p'], ['listItems', '.dark-list li', 1], ['btn', '.dark-btn:not(.green)'], ['link', '.dark-btn.green'], ['scroll', '.dark-scroll'],
     ['introLabel', '#teshis .mono'], ['introTitle', '#teshis h2'], ['introDesc', '#teshis p'],
     ['r1num', '#teshis-01 .num'], ['r1h', '#teshis-01 h2'], ['r1body', '#teshis-01 .body'], ['r1get', '#teshis-01 .get-label'], ['r1li', '#teshis-01 li', 1], ['r1test', '#teshis-01 .test'], ['r1cta', '#teshis-01 .cta'],
     ['r2num', '#teshis-02 .num'], ['r2h', '#teshis-02 h2'], ['r2body', '#teshis-02 .body'], ['r2get', '#teshis-02 .get-label'], ['r2li', '#teshis-02 li', 1], ['r2test', '#teshis-02 .test'], ['r2cta', '#teshis-02 .cta'],
@@ -866,7 +878,7 @@
     ['nLabel', '#nasil .mono'], ['nTitle', '#nasil h2'], ['nDesc', '#nasil .index-head p'], ['stepNum', '#nasil .step .num', 1], ['stepH', '#nasil .step h3', 1], ['stepP', '#nasil .step p', 1],
     ['kLabel', '#garanti .index-head .mono'], ['kTitle', '#garanti .index-head h2'], ['sectors', '.sectors span', 1],
     ['gaLabel', '.guarantee .mono'], ['gaTitle', '.guarantee h2'], ['gaP', '.guarantee p'], ['gaL', '.guarantee li', 1],
-    ['fLabel', '.final .mono'], ['fTitle', '.final h2'], ['fP', '.final p'], ['fBtn', '.final .btn-primary'],
+    ['fLabel', '.final .mono'], ['fTitle', '.final h2'], ['fP', '.final p'], ['fBtn', '.final .btn-primary'], ['fBtn2', '.final .btn-ghost'],
     ['footBrand', 'footer > div:first-child'], ['footLinks', 'footer a', 1]
   ];
   function capture() {
@@ -906,7 +918,7 @@
       '<strong>Root cause analysis and a 90-day action plan:</strong> We determine why problems keep recurring and show which steps to take, in what order.',
       '<strong>In days, on an accessible budget:</strong> No months-long engagement; we make your losses and improvement priorities clear.'
     ],
-    btn: 'Start Analysis →', link: 'See the three diagnostics', scroll: 'SCROLL',
+    btn: 'Start Analysis →', link: 'Free pre-scan · 3 min →', scroll: 'SCROLL',
     introLabel: 'What We Do', introTitle: 'Three diagnostics, <em>one system</em>',
     introDesc: 'You know the problem is somewhere. What you don\'t know: exactly where, what it costs, and what to touch first. Each diagnostic answers one of those questions, in writing.',
     r1num: '01 · OPERATIONAL WASTE X-RAY', r1h: 'Revenue grew. Profit didn\'t. The difference is sitting somewhere.',
@@ -924,7 +936,7 @@
     r3get: 'What you receive',
     r3li: ['The common root cause behind symptoms that look unrelated, with the evidence chain.', 'Whether your three highest-impact wastes trace to a single cause. If they do, which single intervention fixes all three.', 'A 90-day action plan: what, who, which week, measured by what.'],
     r3test: '<strong>Is this your problem?</strong>If you\'ve tried two different fixes for the same problem in the last two years, yes.', r3cta: 'Detailed Diagnosis →',
-    note: '<strong>Should you buy all three? No.</strong> Most businesses start with 01; the report tells you whether 02 or 03 is needed.',
+    note: '<strong>Should you buy all three? No.</strong> Most businesses start with 01; the report tells you whether 02 or 03 is needed. Not sure where to start? The <a href="on-tarama.html">3-minute free pre-scan</a> tells you: ten questions, branched by your sector, no numbers, just routing.',
     gLabel: 'What Is Gemba', gTitle: 'Where the work <em>actually happens</em>',
     gP: ['<strong>Gemba</strong> is Japanese for "the real place": where the work is physically done. The production line, the loading dock, the order desk, the shipping gate.', 'Reports are written at desks; losses happen on the floor. However good a desk report is, if it was written without going to the floor, it\'s an assumption.', '<strong>GembaX</strong> takes its name from here: it grounds the diagnosis in floor reality, not management summaries. Questions go to you and your team; numbers are validated against answers from the floor.'],
     nLabel: 'How It Works', nTitle: 'Three steps from <em>diagnosis to action</em>', nDesc: 'All in writing. Not a single meeting lands on your calendar.',
@@ -936,7 +948,7 @@
     gaLabel: 'Guarantee &amp; Honesty', gaTitle: 'If we can\'t demonstrate at least <mark>$15,000</mark> in annual leakage, the report is free.',
     gaP: 'We don\'t promise outcomes; we promise process. No made-up statistics, no number without a source, no "our typical client saved this much." We write what we found, the way we found it.',
     gaL: ['→ Payment only after scope is confirmed in writing', '→ The calculation method behind every dollar figure, in the report', '→ No number is published without a human expert\'s signature', '→ No meetings, no calls, no site visits'],
-    fLabel: 'Getting Started', fTitle: 'Do you know where the problem is,<br>or only <em>that it\'s somewhere?</em>', fP: 'Seven business days later you hold a written, signed answer.', fBtn: 'Start Analysis →',
+    fLabel: 'Getting Started', fTitle: 'Do you know where the problem is,<br>or only <em>that it\'s somewhere?</em>', fP: 'Seven business days later you hold a written, signed answer.', fBtn: 'Start Analysis →', fBtn2: 'Free pre-scan · 3 min →',
     footBrand: '<strong>Gemba<span>X</span></strong> — The X-ray of operational waste', footLinks: ['Pricing', 'Terms', 'Privacy', 'AI Value Alignment · MoreSight']
   };
   T.ES = {
@@ -953,7 +965,7 @@
       '<strong>Análisis de causa raíz y plan de acción de 90 días:</strong> Determinamos por qué los problemas se repiten y mostramos qué pasos dar y en qué orden.',
       '<strong>En días, con un presupuesto accesible:</strong> Sin meses de consultoría, dejamos claras sus pérdidas y sus prioridades de mejora.'
     ],
-    btn: 'Iniciar Análisis →', link: 'Ver los tres diagnósticos', scroll: 'DESPLACE',
+    btn: 'Iniciar Análisis →', link: 'Pre-escaneo gratuito · 3 min →', scroll: 'DESPLACE',
     introLabel: 'Qué Hacemos', introTitle: 'Tres diagnósticos, <em>un solo sistema</em>',
     introDesc: 'Usted sabe que el problema está en algún lugar. Lo que no sabe: exactamente dónde, cuánto cuesta y qué tocar primero. Cada diagnóstico responde una de esas preguntas, por escrito.',
     r1num: '01 · RADIOGRAFÍA DEL DESPERDICIO OPERACIONAL', r1h: 'Los ingresos crecieron. La ganancia no. La diferencia está en algún lugar.',
@@ -971,7 +983,7 @@
     r3get: 'Lo que recibe',
     r3li: ['La causa raíz común detrás de síntomas que parecen no tener relación, con la cadena de evidencia.', 'Si sus tres desperdicios de mayor impacto se remontan a una sola causa. Si es así, qué única intervención resuelve los tres.', 'Un plan de acción de 90 días: qué, quién, qué semana, medido con qué.'],
     r3test: '<strong>¿Es este su problema?</strong>Si probó dos soluciones distintas para el mismo problema en los últimos dos años, sí.', r3cta: 'Diagnóstico Detallado →',
-    note: '<strong>¿Debe contratar los tres? No.</strong> La mayoría de las empresas empieza con 01; el informe dice si hace falta 02 o 03.',
+    note: '<strong>¿Debe contratar los tres? No.</strong> La mayoría de las empresas empieza con 01; el informe dice si hace falta 02 o 03. ¿No sabe por dónde empezar? El <a href="on-tarama.html">pre-escaneo gratuito de 3 minutos</a> se lo dice: diez preguntas, ramificadas por sector, sin cifras, solo orientación.',
     gLabel: 'Qué es Gemba', gTitle: 'Donde el trabajo <em>realmente ocurre</em>',
     gP: ['<strong>Gemba</strong> es japonés para "el lugar real": donde el trabajo se hace físicamente. La línea de producción, el muelle de carga, la mesa de pedidos, la puerta de despacho.', 'Los informes se escriben en escritorios; las pérdidas ocurren en el piso. Por bueno que sea un informe de escritorio, si se escribió sin ir al piso, es una suposición.', '<strong>GembaX</strong> toma su nombre de ahí: basa el diagnóstico en la realidad del piso, no en resúmenes gerenciales. Las preguntas van a usted y a su equipo; las cifras se validan con las respuestas del piso.'],
     nLabel: 'Cómo Funciona', nTitle: 'Tres pasos del <em>diagnóstico a la acción</em>', nDesc: 'Todo por escrito. Ni una sola reunión cae en su calendario.',
@@ -983,7 +995,7 @@
     gaLabel: 'Garantía y Honestidad', gaTitle: 'Si no podemos demostrar al menos <mark>$15.000</mark> de fuga anual, el informe es gratis.',
     gaP: 'No prometemos resultados; prometemos proceso. Sin estadísticas inventadas, sin cifras sin fuente, sin "nuestro cliente típico ahorró tanto". Escribimos lo que encontramos, tal como lo encontramos.',
     gaL: ['→ El pago, solo después de confirmar el alcance por escrito', '→ El método de cálculo de cada cifra en dólares, en el informe', '→ Ninguna cifra se publica sin la firma de un experto humano', '→ Sin reuniones, sin llamadas, sin visitas'],
-    fLabel: 'Para Empezar', fTitle: '¿Sabe dónde está el problema,<br>o solo <em>que está en algún lugar?</em>', fP: 'Siete días hábiles después tiene en sus manos una respuesta escrita y firmada.', fBtn: 'Iniciar Análisis →',
+    fLabel: 'Para Empezar', fTitle: '¿Sabe dónde está el problema,<br>o solo <em>que está en algún lugar?</em>', fP: 'Siete días hábiles después tiene en sus manos una respuesta escrita y firmada.', fBtn: 'Iniciar Análisis →', fBtn2: 'Pre-escaneo gratuito · 3 min →',
     footBrand: '<strong>Gemba<span>X</span></strong> — La radiografía del desperdicio operacional', footLinks: ['Precios', 'Términos', 'Privacidad', 'Alineación de Valor de IA · MoreSight']
   };
 
@@ -996,7 +1008,7 @@
     });
     window.__VIZ = t.viz; document.documentElement.lang = t.htmlLang;
     var lc = t.htmlLang;
-    document.querySelectorAll('a[href*="intake-welcome"]').forEach(function (a) {
+    document.querySelectorAll('a[href*="intake-welcome"], a[href*="on-tarama"]').forEach(function (a) {
       var h = a.getAttribute('href').replace(/([?&])lang=[a-z]{2}(&|$)/, '$1').replace(/[?&]$/, '');
       a.setAttribute('href', h + (h.indexOf('?') > -1 ? '&' : '?') + 'lang=' + lc);
     });
