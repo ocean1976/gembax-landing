@@ -121,6 +121,19 @@
   }
 
   /* META STATS */
+  .ps-box { background: var(--bg-secondary); border: 1.5px solid var(--accent); border-radius: 14px; padding: 1.3rem 1.4rem; margin: 0 0 1.4rem; display: none; }
+  .ps-box.on { display: block; }
+  .ps-box .ps-h { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 0.6rem; }
+  .ps-box .ps-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+  .ps-box .ps-chips span { font-family: var(--font-mono); font-size: 0.7rem; padding: 0.3rem 0.6rem; border: 1px solid var(--border); border-radius: 100px; background: var(--bg-card); color: var(--text-secondary); }
+  .ps-box .ps-tier { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 0.8rem; }
+  .ps-box .ps-tier b { font-size: 1.1rem; color: var(--text-primary); }
+  .ps-box .ps-tier .ps-price { font-family: var(--font-mono); font-weight: 700; font-size: 1.3rem; color: var(--accent-dark); }
+  .ps-box .ps-tier .ps-price small { display: block; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.08em; color: var(--text-muted); text-align: right; }
+  .ps-box ul { list-style: none; margin: 0.6rem 0 0; padding: 0; }
+  .ps-box li { position: relative; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+  .ps-box li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+  .ps-box .ps-note { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.8rem; line-height: 1.5; }
   .meta-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -384,6 +397,8 @@
     </p>
   </div>
 
+  <div class="ps-box" id="psBox"></div>
+
   <div class="meta-stats">
     <div class="meta-stat">
       <div class="meta-stat-value" id="stat1-val">~8</div>
@@ -394,8 +409,8 @@
       <div class="meta-stat-label" id="stat2-lbl">SORU</div>
     </div>
     <div class="meta-stat">
-      <div class="meta-stat-value" id="stat3-val">$150</div>
-      <div class="meta-stat-label" id="stat3-lbl">100× ROI GARANTİ</div>
+      <div class="meta-stat-value" id="stat3-val">$500+</div>
+      <div class="meta-stat-label" id="stat3-lbl">BAŞLANGIÇ FİYATI</div>
     </div>
   </div>
 
@@ -506,7 +521,7 @@
       'hero-lead': 'Aşağıdaki onayları okuyup formu doldurun. Sınırlı sayıda pilot başvurusu kabul ediyoruz; eksiksiz dolduran başvurular önceliklendirilir.',
       'stat1-val': '~8', 'stat1-lbl': 'DAKİKA',
       'stat2-val': '~27', 'stat2-lbl': 'SORU',
-      'stat3-val': '$150', 'stat3-lbl': '100× ROI GARANTİ',
+      'stat3-val': '$500+', 'stat3-lbl': 'BAŞLANGIÇ FİYATI',
       'why-title': 'Neden eksiksiz doldurma önemli?',
       'why-p1': 'Aşama 1 raporunun değeri, başvuru formunda paylaştığınız bilgilerin derinliğine doğrudan bağlıdır. Pre-research (sektör benchmark, rakip karşılaştırması, müşteri analizi) sizin verdiğiniz bilgiler üzerine kuruludur.',
       'why-p2': '<strong>Pilot dönemde sınırlı sayıda başvuru kabul edebiliyoruz</strong> — bu yüzden eksiksiz başvurular önceliklendirilir. Yüzeysel veri, yüzeysel rapor demektir; biz iki tarafın da zamanını boşa harcamaktan kaçınıyoruz.',
@@ -552,7 +567,7 @@
       'hero-lead': 'Read the consents below and complete the form. We accept a limited number of pilot applications; completed submissions get priority.',
       'stat1-val': '~8', 'stat1-lbl': 'MINUTES',
       'stat2-val': '~27', 'stat2-lbl': 'QUESTIONS',
-      'stat3-val': '$150', 'stat3-lbl': '100× ROI GUARANTEE',
+      'stat3-val': '$500+', 'stat3-lbl': 'STARTING PRICE',
       'why-title': 'Why complete responses matter',
       'why-p1': 'The value of your Stage 1 report depends directly on the depth of the information you share in the application. Pre-research (sector benchmark, competitor comparison, customer analysis) is built on top of what you provide.',
       'why-p2': '<strong>We accept a limited number of applications during the pilot</strong> — so complete submissions are prioritized. Shallow data means shallow reports; we want to respect both sides\' time.',
@@ -598,7 +613,7 @@
       'hero-lead': 'Lea los consentimientos a continuación y complete el formulario. Aceptamos un número limitado de solicitudes piloto; las solicitudes completas reciben prioridad.',
       'stat1-val': '~8', 'stat1-lbl': 'MINUTOS',
       'stat2-val': '~27', 'stat2-lbl': 'PREGUNTAS',
-      'stat3-val': '$150', 'stat3-lbl': '100× ROI GARANTIZADO',
+      'stat3-val': '$500+', 'stat3-lbl': 'PRECIO INICIAL',
       'why-title': 'Por qué las respuestas completas son importantes',
       'why-p1': 'El valor de su informe Etapa 1 depende directamente de la profundidad de la información que comparta en la solicitud. La investigación previa (benchmark sectorial, comparativa de competidores, análisis de clientes) se construye sobre lo que usted proporciona.',
       'why-p2': '<strong>Aceptamos un número limitado de solicitudes durante el piloto</strong> — por eso las solicitudes completas son priorizadas. Datos superficiales significan informes superficiales; queremos respetar el tiempo de ambas partes.',
@@ -640,6 +655,7 @@
 
   function applyLang(lang) {
     const t = T[lang]; if (!t) return;
+    setTimeout(function(){ renderPS(lang); }, 0);
     document.documentElement.lang = lang.toLowerCase();
     document.title = t.docTitle;
     
@@ -694,6 +710,41 @@
     document.getElementById('startBtn').disabled = !box.classList.contains('checked');
   }
 
+  /* ---- Ön tarama devir paketi ---- */
+  var PS = null, PS_ENC = '';
+  var PS_T = {
+    TR: { h: 'Ön taramanız', sectors: ['Üretim','Lojistik / Depo','Distribütörlük','E-ticaret','Perakende','Hizmet','İnşaat','Restoran & Konaklama','Sağlık','SaaS','Diğer'], sizes: ['1–10','11–50','51–250','250+'], revs: ['$500K altı','$500K – $2M','$2M – $10M','$10M üstü'],
+          tiers: { xray: 'Hızlı Röntgen', 'xray-toc': 'Röntgen + Darboğaz', full: 'Tam Teşhis', transformation: 'Dönüşüm' }, rec: 'ÖNERİLEN KADEME', sig: 'Cevaplarınızdaki sinyaller',
+          note: 'Ön tarama yön gösterir; kesin kapsam ve fiyat, cevaplarınız okunduktan sonra yazılı olarak teyit edilir. Ödeme ondan sonra alınır.', stat3: 'ÖNERİLEN KADEME' },
+    EN: { h: 'Your pre-scan', sectors: ['Manufacturing','Logistics / Warehousing','Distribution','E-commerce','Retail','Services','Construction','Restaurant & Hospitality','Healthcare','SaaS','Other'], sizes: ['1–10','11–50','51–250','250+'], revs: ['Under $500K','$500K – $2M','$2M – $10M','Over $10M'],
+          tiers: { xray: 'Quick X-Ray', 'xray-toc': 'X-Ray + Bottleneck', full: 'Full Diagnosis', transformation: 'Transformation' }, rec: 'RECOMMENDED TIER', sig: 'Signals in your answers',
+          note: 'The pre-scan points the way; the final scope and price are confirmed in writing after your answers are read. Payment is taken only after that.', stat3: 'RECOMMENDED TIER' },
+    ES: { h: 'Su pre-escaneo', sectors: ['Manufactura','Logística / Almacén','Distribución','E-commerce','Retail','Servicios','Construcción','Restaurante y Hostelería','Salud','SaaS','Otro'], sizes: ['1–10','11–50','51–250','250+'], revs: ['Menos de $500K','$500K – $2M','$2M – $10M','Más de $10M'],
+          tiers: { xray: 'Radiografía Rápida', 'xray-toc': 'Radiografía + Cuello de Botella', full: 'Diagnóstico Completo', transformation: 'Transformación' }, rec: 'NIVEL RECOMENDADO', sig: 'Señales en sus respuestas',
+          note: 'El pre-escaneo orienta; el alcance y el precio definitivos se confirman por escrito después de leer sus respuestas. El pago se cobra solo después.', stat3: 'NIVEL RECOMENDADO' }
+  };
+  (function loadPS(){
+    var enc = new URLSearchParams(window.location.search).get('ps');
+    try {
+      if (enc) { PS_ENC = enc; var b = enc.replace(/-/g, '+').replace(/_/g, '/'); PS = JSON.parse(decodeURIComponent(escape(atob(b)))); localStorage.setItem('gembax-prescan', JSON.stringify(PS)); }
+      else { var st = localStorage.getItem('gembax-prescan'); if (st) { PS = JSON.parse(st); PS_ENC = btoa(unescape(encodeURIComponent(st))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); } }
+    } catch (e) { PS = null; }
+  })();
+  function renderPS(lang){
+    var box = document.getElementById('psBox'); if (!box) return;
+    if (!PS || PS.v !== 1) { box.classList.remove('on'); return; }
+    var t = PS_T[lang] || PS_T.EN;
+    var esc = function(x){ return String(x).replace(/</g, '&lt;'); };
+    box.innerHTML = '<div class="ps-h">' + t.h + '</div>'
+      + '<div class="ps-chips"><span>' + esc(t.sectors[PS.sector] || '') + '</span><span>' + esc(t.sizes[PS.size] || '') + '</span><span>' + esc(t.revs[PS.revenue] || '') + '</span></div>'
+      + '<div class="ps-tier"><div><div class="ps-h" style="margin-bottom:0.2rem">' + t.rec + '</div><b>' + esc(t.tiers[PS.tier] || PS.tier) + '</b></div><div class="ps-price">' + esc(PS.price || '') + '</div></div>'
+      + (PS.signals && PS.signals.length ? '<div class="ps-h" style="margin-top:0.9rem">' + t.sig + '</div><ul>' + PS.signals.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '')
+      + '<p class="ps-note">' + t.note + '</p>';
+    box.classList.add('on');
+    var sv = document.getElementById('stat3-val'), sl = document.getElementById('stat3-lbl');
+    if (sv && PS.price) { sv.textContent = PS.price; sl.textContent = t.stat3; }
+  }
+
   function startForm() {
     // Capture consent metadata
     const meta = {
@@ -709,7 +760,7 @@
     const lang = (document.documentElement.lang || 'tr').toLowerCase();
     // For local prototype testing: open the form HTML next to this file
     // Production URL would be: /basvuru/form?lang=...
-    window.location.href = 'intake-form-step1-AB.html?lang=' + lang.toUpperCase();
+    window.location.href = 'intake-form-step1-AB.html?lang=' + lang.toUpperCase() + (PS_ENC ? '&ps=' + PS_ENC : '') + (PS && PS.tier ? '&tier=' + PS.tier : '');
   }
 
   // Init: detect language from URL ?lang= → localStorage → browser → EN

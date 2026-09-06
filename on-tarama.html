@@ -48,7 +48,7 @@
   .intro .facts { display: flex; gap: 1.2rem; flex-wrap: wrap; margin: 1.4rem 0 2rem; }
   .intro .facts span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; padding: 0.45rem 0.8rem; border: 1px solid var(--border); border-radius: 100px; background: var(--bg2); }
   .btn-start { background: #4ade80; color: #1A1916; text-decoration: none; padding: 1rem 1.8rem; border-radius: 10px; font-weight: 700; display: inline-block; border: none; font-family: var(--body); font-size: 1rem; cursor: pointer; box-shadow: 0 8px 22px rgba(74,222,128,0.28); }
-  .btn-start.go { background: #FF7A00; box-shadow: 0 8px 22px rgba(255,122,0,0.28); }
+  .btn-start.go { background: #FF1525; box-shadow: 0 8px 22px rgba(255,21,37,0.28); }
   .fine { color: var(--text2); font-size: 0.9rem; margin-top: 1rem; max-width: 56ch; }
 
   /* result */
@@ -64,6 +64,8 @@
   .card.warn p { color: var(--navy); }
   .tier { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; border: 1.5px solid var(--green); }
   .tier .name { font-family: var(--head); font-weight: 800; font-size: 1.25rem; }
+  .tier .rec { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--green-dark); margin-bottom: 0.3rem; }
+  .tier .recnote { grid-column: 1 / -1; font-size: 0.85rem; color: var(--text2); border-top: 1px solid var(--border); padding-top: 0.7rem; margin-top: 0.2rem; }
   .tier .scope { color: var(--text2); font-size: 0.95rem; margin-top: 0.2rem; }
   .tier .price { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--green-dark); text-align: right; }
   .tier .price small { display: block; font-size: 0.68rem; font-weight: 400; color: var(--text2); letter-spacing: 0.06em; }
@@ -101,6 +103,49 @@
   @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
   @media (max-width: 600px) { nav { padding: 1rem 1.2rem; } .wrap { padding: 6rem 1.1rem 3rem; } .tier { grid-template-columns: 1fr; } .tier .price { text-align: left; } }
 
+
+  /* ===== seçenek biçimleri ===== */
+  .opts.grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.7rem; }
+  .opt.tile { flex-direction: column; align-items: flex-start; gap: 0.55rem; min-height: 96px; padding: 1rem 1rem 0.9rem; padding-right: 1rem; }
+  .opt.tile .ico { width: 26px; height: 26px; color: var(--navy); opacity: 0.8; }
+  .opt.tile .ico svg { width: 100%; height: 100%; }
+  .opt.tile.sel .ico { color: var(--green); opacity: 1; }
+  .opt.tile .k { display: none; }
+  .opt.tile .chk { right: 0.7rem; top: 0.7rem; margin-top: 0; }
+  .opts.scale { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+  .opts.scale .opt { flex: 1 1 0; min-width: 84px; justify-content: center; text-align: center; padding: 1rem 0.5rem; min-height: 62px; font-weight: 600; padding-right: 0.5rem; }
+  .opts.scale .opt .k { display: none; }
+  .opts.scale .opt .chk { position: static; margin: 0 0 0 0.35rem; width: 16px; height: 16px; font-size: 0.6rem; }
+  .opts.scale .opt.dk { flex: 1 1 100%; font-weight: 400; color: var(--text2); background: transparent; border-style: dashed; min-height: 48px; }
+  .scale-hint { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.66rem; color: var(--muted); margin: 0.35rem 0.2rem 0; letter-spacing: 0.06em; }
+  /* profil ekranı */
+  .pgroup { margin-bottom: 1.6rem; }
+  .pgroup .pl { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2); margin-bottom: 0.6rem; display: flex; gap: 0.5rem; align-items: center; }
+  .pgroup .pl .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); }
+  .pgroup.done .pl .dot { background: var(--green); }
+  .pgroup .opts.grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .pgroup .opt.tile { min-height: 82px; }
+  @media (max-width: 600px) { .opts.grid, .pgroup .opts.grid { grid-template-columns: 1fr 1fr; } .opt.tile { min-height: 80px; } }
+
+  /* ===== sonuç sayfası ===== */
+  .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.4rem 0 1.2rem; }
+  .chips span { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.05em; padding: 0.35rem 0.65rem; border: 1px solid var(--border); border-radius: 100px; background: var(--bg2); color: var(--text2); }
+  .bars { display: grid; gap: 0.55rem; }
+  .bar-row { display: grid; grid-template-columns: 120px 1fr 44px; gap: 0.7rem; align-items: center; font-size: 0.85rem; }
+  .bar-row .bl { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; color: var(--text2); }
+  .bar-row .bt { height: 8px; background: rgba(27,42,74,0.08); border-radius: 4px; overflow: hidden; }
+  .bar-row .bt i { display: block; height: 100%; background: var(--navy); border-radius: 4px; width: 0; transition: width .8s cubic-bezier(.2,.8,.2,1); }
+  .bar-row.lead .bt i { background: var(--red); }
+  .bar-row .bv { font-family: var(--mono); font-size: 0.7rem; color: var(--text2); text-align: right; }
+  .sig-tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(27,42,74,0.08); color: var(--navy); margin-left: 0.5rem; vertical-align: middle; }
+  .card.read { border-left: 3px solid var(--navy); }
+  .card.read p { color: var(--navy); font-size: 1.02rem; line-height: 1.65; }
+  .steps3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+  .steps3 div { background: var(--card); border-radius: 10px; padding: 0.9rem 1rem; font-size: 0.9rem; color: var(--text2); }
+  .steps3 b { display: block; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; color: var(--red); margin-bottom: 0.35rem; }
+  .btn-print { background: transparent; border: 1.5px solid var(--border); color: var(--text2); padding: 0.95rem 1.2rem; border-radius: 10px; font-family: var(--body); font-size: 0.95rem; cursor: pointer; }
+  @media (max-width: 600px) { .steps3 { grid-template-columns: 1fr; } .bar-row { grid-template-columns: 96px 1fr 40px; } }
+  @media print { nav, .ctas, .email, .lang, .btn-print { display: none !important; } body { background: #fff; } .wrap { padding-top: 1rem; } }
   .consent { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.88rem; color: var(--text2); margin: 0.6rem 0 0.9rem; line-height: 1.45; }
   .consent input { margin-top: 0.25rem; width: 16px; height: 16px; flex: none; accent-color: var(--green); }
   .consent a { color: var(--green-dark); }
@@ -149,7 +194,7 @@
 
 <script>
 var Q = {
-  sector:  { t: 'Hangi sektördesiniz?', h: 'Soruların dili ve içeriği buna göre değişir.', opts: [['Üretim'],['Lojistik / Depo'],['Distribütörlük / Toptan'],['Hizmet (ajans, mühendislik, bakım, klinik…)'],['Perakende'],['SaaS / Dijital'],['Diğer']] },
+  sector:  { t: 'Hangi sektördesiniz?', h: 'Soruların dili ve içeriği buna göre değişir.', opts: [['Üretim'],['Lojistik / Depo'],['Distribütörlük / Toptan'],['E-ticaret'],['Perakende'],['Hizmet / Ajans'],['İnşaat / Taahhüt'],['Restoran / Konaklama'],['Sağlık / Klinik'],['SaaS / Dijital'],['Diğer']] },
   size:    { t: 'Kaç çalışanınız var?', h: '', opts: [['1–10'],['11–50'],['51–250'],['250+']] },
   revenue: { t: 'Yıllık cironuz hangi bantta?', h: 'Garantimiz ($15.000 yıllık kaçak) her ölçekte anlamlı değil; dürüst yönlendirme için soruyoruz.', opts: [['$500K altı'],['$500K – $2M'],['$2M – $10M'],['$10M üstü']] },
   tried:   { t: 'Bu konuda daha önce ne denediniz?', h: '', opts: [['Hiçbir şey',{},'daha önce müdahale edilmemiş'],['İç ekiple çalıştık',{},'iç ekip denemesi sonuç vermemiş'],['Danışman aldık',{},'danışman denemesi sonuç vermemiş'],['Yazılım / ERP kurduk',{},'yazılım kurulmuş, sorun kalmış']] },
@@ -158,24 +203,24 @@ var Q = {
   m_pain: { t: 'Üretimde şu an en çok hangisi canınızı yakıyor?', h: 'İçinize en çok oturanı seçin.', opts: [
     ['Teslimat tarihlerini tutturamıyoruz', {b:2}, 'teslimat tarihleri tutmuyor', 'm_b1'],
     ['Fire, hurda, yeniden işleme yüksek', {w:2,r:1}, 'fire / yeniden işleme yüksek', 'm_q1'],
-    ['Yarı mamul ve stok her yerde yığılıyor', {w:2,b:1}, 'WIP ve stok yığılması', 'm_i1'],
+    ['Yarı mamul ve stok her yerde yığılıyor', {w:2,b:1}, 'yarı mamul ve stok yığılması', 'm_i1'],
     ['Fazla mesai olmadan iş çıkmıyor', {w:2,b:1}, 'fazla mesai kalıcı', 'm_o1'],
     ['Aynı arıza, aynı sorun tekrar tekrar', {r:3}, 'tekrarlayan arıza / sorun', 'm_r1'],
     ['Emin değilim, genel kontrol', {}, '', 'm_g1'] ] },
   m_b1: { t: 'İş en çok nerede bekliyor?', h: '', opts: [
     ['Belirli bir makine ya da istasyonda', {b:3}, 'iş belirli istasyonda yığılıyor', 'm_b2a'],
-    ['Ürün değişimlerinde (setup)', {b:2,w:1}, 'setup süreleri akışı tıkıyor', 'm_b2b'],
+    ['Ürün değişimlerinde (setup)', {b:2,w:1}, 'ürün değişim süreleri akışı tıkıyor', 'm_b2b'],
     ['Malzeme gelmesini beklerken', {b:2,w:1}, 'malzeme beklemesi', 'm_i2'],
     ['Kalite kontrol ya da onay adımında', {b:3}, 'iş onay adımında bekliyor', 'm_b2c'],
     ['Bilmiyoruz, her yerde', {b:2}, 'yığılma noktası bilinmiyor', 'm_b2d'] ] },
   m_b2a: { t: 'O istasyon vardiya boyunca ne kadar boş duruyor?', h: 'Kısıt olan istasyon nadiren boş kalır.', opts: [
-    ['Hiç; sürekli dolu, önünde iş bekliyor', {b:3}, 'kısıt istasyonu sürekli dolu'],
-    ['Ara ara boş kalıyor', {b:1,w:1}, 'kısıt sanılan istasyon boş kalıyor'],
+    ['Hiç; sürekli dolu, önünde iş bekliyor', {b:3}, 'darboğaz istasyonu hiç boş kalmıyor'],
+    ['Ara ara boş kalıyor', {b:1,w:1}, 'darboğaz sanılan istasyon ara ara boş kalıyor'],
     ['Bilmiyoruz, ölçmüyoruz', {b:2}, 'istasyon doluluğu ölçülmüyor'] ] },
   m_b2b: { t: 'Bir ürün değişimi ortalama ne kadar sürüyor?', h: '', opts: [
-    ['15 dakikadan az', {}, ''], ['15–60 dakika', {b:2}, 'setup 15–60 dk'], ['1 saatten fazla', {b:3,w:1}, 'setup 1 saatten uzun'], ['Bilmiyoruz', {b:2}, 'setup süresi ölçülmüyor'] ] },
+    ['15 dakikadan az', {}, ''], ['15–60 dakika', {b:2}, 'ürün değişimi 15–60 dk'], ['1 saatten fazla', {b:3,w:1}, 'ürün değişimi 1 saatten uzun'], ['Bilmiyoruz', {b:2}, 'ürün değişim süresi ölçülmüyor'] ] },
   m_b2c: { t: 'Bir iş emri ya da kalite onayı kaç kişiden geçiyor?', h: '', opts: [
-    ['Tek kişi', {}, ''], ['2–3 kişi', {b:2}, 'onay 2–3 kişiden geçiyor'], ['4 ya da daha fazla', {b:3,r:1}, 'onay 4+ kişiden geçiyor'], ['Belli değil, duruma göre', {b:2,r:2}, 'onay zinciri tanımsız'] ] },
+    ['Tek kişi', {}, ''], ['2–3 kişi', {b:2}, 'onay 2–3 kişiden geçiyor'], ['4 ya da daha fazla', {b:3,r:1}, 'onay 4+ kişiden geçiyor'], ['Belli değil, duruma göre', {b:2,r:2}, 'onay süreci tanımlı değil'] ] },
   m_b2d: { t: 'Zamanında teslimat oranınızı biliyor musunuz?', h: '', opts: [
     ['Evet, düzenli ölçüyoruz', {}, ''], ['Tahmini biliyoruz', {b:1}, 'zamanında teslimat tahmini'], ['Hayır', {b:2,w:1}, 'zamanında teslimat ölçülmüyor'] ] },
   m_q1: { t: 'Hata en çok nerede ortaya çıkıyor?', h: '', opts: [
@@ -188,7 +233,7 @@ var Q = {
   m_q2c: { t: 'Hata verisi kaydediliyor mu?', h: '', opts: [['Evet, düzenli ve sistemde',{},''],['Dağınık; kâğıtta, kişilerde',{w:1,r:1},'hata verisi dağınık'],['Hayır',{w:2,r:2},'hata verisi tutulmuyor']] },
   m_i1: { t: 'Stok en çok nerede birikiyor?', h: '', opts: [
     ['Hammadde', {w:2}, 'hammadde stoğu yüksek', 'm_i2'],
-    ['Yarı mamul, istasyonlar arasında', {w:2,b:2}, 'istasyonlar arası WIP', 'm_b2a'],
+    ['Yarı mamul, istasyonlar arasında', {w:2,b:2}, 'istasyonlar arası yarı mamul birikimi', 'm_b2a'],
     ['Bitmiş ürün, sevk bekleyen', {w:2}, 'bitmiş ürün sevk bekliyor', 'm_i3'],
     ['Hepsinde', {w:3,b:1}, 'her seviyede stok yığılması', 'm_i2'] ] },
   m_i2: { t: 'Hammadde stoğunuz kaç haftalık?', h: '', opts: [['2 haftadan az',{},''],['2–6 hafta',{w:1},''],['6–12 hafta',{w:2},'stok 6–12 hafta'],['12 haftadan fazla',{w:3},'stok 12 haftanın üstünde'],['Bilmiyoruz',{w:2},'stok seviyesi bilinmiyor']] },
@@ -218,8 +263,8 @@ var Q = {
   l_b1: { t: 'Bekleme en çok hangi adımda?', h: '', opts: [
     ['Rampa ya da kapı sırasında', {b:3}, 'rampa sırası', 'l_b2a'], ['Evrak ve onayda', {b:3,r:1}, 'evrak / onay beklemesi', 'l_b2b'],
     ['Toplamanın bitmesini beklerken', {b:2}, 'toplama beklemesi', 'l_b2c'], ['Forklift ya da ekipman sırasında', {b:2,w:1}, 'ekipman kısıtı', 'l_b2a'] ] },
-  l_b2a: { t: 'Rampalar gün içinde ne kadar boş kalıyor?', h: '', opts: [['Hiç; sürekli araç var',{b:3},'rampa sürekli dolu'],['Bazı saatler yığılma, bazı saatler boş',{b:2,w:1},'rampa yükü saatlere dengesiz dağılmış'],['Bilmiyoruz',{b:2},'rampa doluluğu ölçülmüyor']] },
-  l_b2b: { t: 'Bir sevkiyat evrakı kaç elden geçiyor?', h: '', opts: [['Tek kişi',{},''],['2–3 kişi',{b:2},'evrak 2–3 elden geçiyor'],['4 ya da daha fazla',{b:3,r:1},'evrak 4+ elden geçiyor'],['Belli değil',{b:2,r:2},'evrak akışı tanımsız']] },
+  l_b2a: { t: 'Rampalar gün içinde ne kadar boş kalıyor?', h: '', opts: [['Hiç; sürekli araç var',{b:3},'rampa sürekli dolu'],['Bazı saatler yığılma, bazı saatler boş',{b:2,w:1},'rampa yükü saatlere göre dengesiz'],['Bilmiyoruz',{b:2},'rampa doluluğu ölçülmüyor']] },
+  l_b2b: { t: 'Bir sevkiyat evrakı kaç elden geçiyor?', h: '', opts: [['Tek kişi',{},''],['2–3 kişi',{b:2},'evrak 2–3 elden geçiyor'],['4 ya da daha fazla',{b:3,r:1},'evrak 4+ elden geçiyor'],['Belli değil',{b:2,r:2},'evrak süreci tanımlı değil']] },
   l_b2c: { t: 'Sipariş başına toplama süresi biliniyor mu?', h: '', opts: [['Evet, sistemden',{},''],['Tahmini',{b:1,w:1},'toplama süresi tahmini'],['Hayır',{b:2,w:1},'toplama süresi ölçülmüyor']] },
   l_q1: { t: 'Hata en çok nerede yakalanıyor?', h: '', opts: [['Sevk öncesi kontrolde',{w:2},'hata sevk öncesi yakalanıyor','l_q2'],['Müşteride',{w:3,r:2},'hata müşteride yakalanıyor','l_q2'],['Bilmiyoruz',{w:2,r:1},'hata noktası bilinmiyor','l_q3']] },
   l_q2: { t: 'Hatalı sevkiyat oranınız?', h: '', opts: [['%1\'in altında',{},''],['%1–3',{w:2},'hatalı sevkiyat %1–3'],['%3\'ün üstünde',{w:3},'hatalı sevkiyat %3 üstü'],['Ölçmüyoruz',{w:2},'hata oranı ölçülmüyor']] },
@@ -244,7 +289,7 @@ var Q = {
     ['Emin değilim, genel kontrol', {}, '', 'd_g1'] ] },
   d_i1: { t: 'Stokta 90 günden uzun hareket görmeyen ürün payı?', h: '', next: 'd_i2', opts: [['%5\'in altında',{},''],['%5–15',{w:2},'ölü stok %5–15'],['%15\'in üstünde',{w:3},'ölü stok %15 üstü'],['Bilmiyoruz',{w:2},'ölü stok ölçülmüyor']] },
   d_i2: { t: 'Sipariş verme kararı nasıl alınıyor?', h: '', opts: [['Satış verisiyle, sistemden',{},''],['Tecrübeyle',{w:2,r:1},'sipariş kararı tecrübeyle'],['Tedarikçi kampanyası ve baskısıyla',{w:3,r:1},'sipariş kampanya baskısıyla']] },
-  d_c1: { t: 'Ortalama tahsilat süreniz (DSO)?', h: '', next: 'd_c2', opts: [['30 günden az',{},''],['30–60 gün',{w:1},'tahsilat 30–60 gün'],['60–90 gün',{w:2},'tahsilat 60–90 gün'],['90 günden fazla',{w:3},'tahsilat 90+ gün'],['Bilmiyoruz',{w:2},'DSO bilinmiyor']] },
+  d_c1: { t: 'Ortalama tahsilat süreniz (DSO)?', h: '', next: 'd_c2', opts: [['30 günden az',{},''],['30–60 gün',{w:1},'tahsilat 30–60 gün'],['60–90 gün',{w:2},'tahsilat 60–90 gün'],['90 günden fazla',{w:3},'tahsilat 90+ gün'],['Bilmiyoruz',{w:2},'tahsilat süresi bilinmiyor']] },
   d_c2: { t: 'Vadeyi geçiren müşteriye ne oluyor?', h: '', opts: [['Otomatik uyarı ve sevk durdurma',{},''],['Temsilcinin inisiyatifine kalıyor',{r:2,w:1},'vade takibi kişiye bağlı'],['Hiçbir şey',{r:3,w:2},'vade politikası yok']] },
   d_b1: { t: 'Siparişten sevke kaç gün geçiyor?', h: '', next: 'd_b2', opts: [['Aynı gün',{},''],['1–2 gün',{},''],['3–5 gün',{b:2},'sipariş-sevk 3–5 gün'],['5 günden fazla',{b:3},'sipariş-sevk 5+ gün'],['Değişken, bilmiyoruz',{b:2},'sipariş-sevk süresi ölçülmüyor']] },
   d_b2: { t: 'En çok nerede takılıyor?', h: '', opts: [['Stok yok, tedarik bekleniyor',{w:2,b:1},'stok yokluğu beklemesi','d_i2'],['Toplama ve paketleme',{b:3},'toplama darboğazı'],['Onay ve fatura',{b:3,r:1},'onay / fatura beklemesi'],['Kargo ya da araç',{b:2},'araç kısıtı']] },
@@ -265,14 +310,14 @@ var Q = {
     ['Aynı müşteri şikâyeti tekrarlıyor', {r:3}, 'tekrarlayan şikâyet', 'h_r1'],
     ['Emin değilim, genel kontrol', {}, '', 'h_g1'] ] },
   h_b1: { t: 'Gecikme en çok nerede oluyor?', h: '', opts: [
-    ['Başlangıçta: brief ve bilgi toplama', {b:2,r:1}, 'başlangıç gecikmesi', 'h_b2a'], ['Müşteri onayında', {b:3}, 'müşteri onay beklemesi', 'h_b2b'],
+    ['Başlangıçta: iş tanımı (brief) ve bilgi toplama', {b:2,r:1}, 'başlangıç gecikmesi', 'h_b2a'], ['Müşteri onayında', {b:3}, 'müşteri onay beklemesi', 'h_b2b'],
     ['Belirli bir kişi ya da uzmanda', {b:3}, 'iş belirli kişide yığılıyor', 'h_b2c'], ['Teslim öncesi kontrolde', {b:2}, 'kontrol beklemesi', 'h_q1'] ] },
-  h_b2a: { t: 'Eksik bilgiyle başlanan iş oranı?', h: '', opts: [['Nadir',{},''],['Sık',{w:2,r:2},'eksik brief ile başlama sık'],['Neredeyse her iş',{w:3,r:3},'her iş eksik briefle başlıyor']] },
+  h_b2a: { t: 'Eksik bilgiyle başlanan iş oranı?', h: '', opts: [['Nadir',{},''],['Sık',{w:2,r:2},'işe eksik tanımla başlama sık'],['Neredeyse her iş',{w:3,r:3},'her iş eksik tanımla başlıyor']] },
   h_b2b: { t: 'Bir müşteri onayı ortalama kaç gün bekliyor?', h: '', opts: [['2 günden az',{},''],['2–7 gün',{b:2},'onay 2–7 gün bekliyor'],['7 günden fazla',{b:3},'onay 7+ gün bekliyor'],['Takip etmiyoruz',{b:2,r:1},'onay süresi takip edilmiyor']] },
   h_b2c: { t: 'O kişinin işi başkasına devredilebiliyor mu?', h: '', opts: [['Evet',{},''],['Kısmen',{b:2},'kısmi kişi bağımlılığı'],['Hayır, sadece o biliyor',{b:3,r:1},'tek kişiye bağımlılık']] },
   h_u1: { t: 'Çalışan başına faturalanabilir saat oranı?', h: '', next: 'h_u2', opts: [['%70 üstü',{},''],['%50–70',{w:2},'faturalanabilir oran %50–70'],['%50 altı',{w:3},'faturalanabilir oran %50 altı'],['Ölçmüyoruz',{w:2},'faturalanabilir oran ölçülmüyor']] },
   h_u2: { t: 'Kapsam dışı, ücretsiz yapılan iş ne sıklıkla?', h: '', opts: [['Nadir',{},''],['Her projede biraz',{w:2,r:1},'kapsam kayması her projede'],['Sürekli',{w:3,r:2},'kapsam kayması sürekli']] },
-  h_q1: { t: 'Revizyonun ana nedeni ne?', h: '', next: 'h_q2', opts: [['Müşteri fikir değiştiriyor',{r:1,w:1},'müşteri kaynaklı revizyon'],['Baştan yanlış anlaşılma',{r:3,w:1},'brief yanlış anlaşılıyor'],['İç kalite hatası',{r:2,w:2},'iç kalite hatası'],['Bilmiyoruz',{r:2,w:1},'revizyon nedeni bilinmiyor']] },
+  h_q1: { t: 'Revizyonun ana nedeni ne?', h: '', next: 'h_q2', opts: [['Müşteri fikir değiştiriyor',{r:1,w:1},'müşteri kaynaklı revizyon'],['Baştan yanlış anlaşılma',{r:3,w:1},'iş tanımı baştan yanlış anlaşılıyor'],['İç kalite hatası',{r:2,w:2},'iç kalite hatası'],['Bilmiyoruz',{r:2,w:1},'revizyon nedeni bilinmiyor']] },
   h_q2: { t: 'Ortalama revizyon turu sayısı?', h: '', opts: [['1',{},''],['2–3',{w:2},'2–3 revizyon turu'],['4 ya da daha fazla',{w:3,r:1},'4+ revizyon turu']] },
   h_r1: { t: 'Tekrarlayan şikâyet ne?', h: '', opts: [['Gecikme',{r:2,b:1},'tekrarlayan gecikme','h_b1'],['Kalite',{r:2,w:1},'tekrarlayan kalite şikâyeti','h_q1'],['İletişim',{r:2},'tekrarlayan iletişim şikâyeti','h_r2'],['Fiyat ya da fatura',{r:2,w:1},'tekrarlayan fatura şikâyeti','h_u2']] },
   h_r2: { t: 'Aynı sorun son iki yılda kaç kez "çözüldü"?', h: '', opts: [['Bir kez',{},''],['İki kez',{r:2},'sorun iki kez çözülmüş'],['Üç ya da daha fazla',{r:3},'sorun üç+ kez çözülmüş']] },
@@ -289,7 +334,7 @@ var Q = {
     ['Aynı sorun her hafta', {r:3}, 'tekrarlayan sorun', 'p_r2'],
     ['Emin değilim, genel kontrol', {}, '', 'p_g1'] ] },
   p_i1: { t: 'Tükenme en çok hangi üründe?', h: '', next: 'p_i2', opts: [['En çok satanlarda',{w:3,r:1},'en çok satan ürün tükeniyor'],['Sezonluk ürünlerde',{w:2},'sezonluk stok-out'],['Her yerde',{w:3,b:1},'yaygın stok-out']] },
-  p_i2: { t: 'Sipariş ve ikmal kararı nasıl alınıyor?', h: '', opts: [['Sistem otomatik',{},''],['Mağaza müdürü tecrübeyle',{w:2,r:1},'ikmal kararı tecrübeyle'],['Merkez tahminle',{w:2},'ikmal merkez tahminiyle'],['Karışık, belli değil',{w:2,r:2},'ikmal kararı tanımsız']] },
+  p_i2: { t: 'Sipariş ve ikmal kararı nasıl alınıyor?', h: '', opts: [['Sistem otomatik',{},''],['Mağaza müdürü tecrübeyle',{w:2,r:1},'ikmal kararı tecrübeyle'],['Merkez tahminle',{w:2},'ikmal merkez tahminiyle'],['Karışık, belli değil',{w:2,r:2},'ikmal süreci tanımlı değil']] },
   p_b1: { t: 'Vardiya planı saatlik satış verisiyle yapılıyor mu?', h: '', next: 'p_b2', opts: [['Evet',{},''],['Kısmen',{b:2},'vardiya kısmen veriye bağlı'],['Hayır',{b:3,w:1},'vardiya satış verisine bağlı değil']] },
   p_b2: { t: 'Kasada bekleme şikâyeti alıyor musunuz?', h: '', opts: [['Nadiren',{},''],['Yoğun saatlerde',{b:2},'yoğun saat kasa kuyruğu'],['Sık',{b:3},'sürekli kasa kuyruğu']] },
   p_q1: { t: 'Kayıp ve fire oranınız?', h: '', next: 'p_q2', opts: [['%1\'in altında',{},''],['%1–2',{w:2},'kayıp %1–2'],['%2\'nin üstünde',{w:3},'kayıp %2 üstü'],['Ölçmüyoruz',{w:2},'kayıp ölçülmüyor']] },
@@ -302,10 +347,10 @@ var Q = {
 
   /* ============ SAAS / DİJİTAL ============ */
   s_pain: { t: 'Ürün ve operasyonda en çok hangisi canınızı yakıyor?', h: '', opts: [
-    ['Destek talepleri birikiyor, ekip yetişmiyor', {b:2,w:1}, 'destek birikimi', 's_b1'],
+    ['Destek talepleri birikiyor, ekip yetişmiyor', {b:2,w:1}, 'destek talepleri birikiyor', 's_b1'],
     ['Aynı hata, aynı olay tekrar tekrar', {r:3}, 'tekrarlayan olay', 's_r1'],
     ['Onboarding uzun, müşteri aktifleşmiyor', {w:2,b:1}, 'onboarding uzun', 's_o1'],
-    ['Geliştirme yavaş, sürüm çıkaramıyoruz', {b:3}, 'sürüm darboğazı', 's_d1'],
+    ['Geliştirme yavaş, sürüm çıkaramıyoruz', {b:3}, 'yeni sürüm çıkaramama', 's_d1'],
     ['Churn artıyor, nedenini bilmiyoruz', {r:2,w:1}, 'nedeni bilinmeyen churn', 's_c1'],
     ['Emin değilim, genel kontrol', {}, '', 's_g1'] ] },
   s_b1: { t: 'Taleplerin çoğu ne tür?', h: '', opts: [['Aynı 5 konu dönüp duruyor',{r:3,w:2},'destek talepleri aynı konularda','s_r2'],['Çok çeşitli',{b:2},'çeşitli destek yükü','s_b2'],['Bilmiyoruz, sınıflamıyoruz',{r:2,w:1},'talepler sınıflanmıyor','s_b2']] },
@@ -324,35 +369,383 @@ var Q = {
 
   /* ============ DİĞER (genel) ============ */
   g_pain: { t: 'Şu an sizi en çok hangisi rahatsız ediyor?', h: '', opts: [
-    ['Ciro artıyor, kâr artmıyor', {w:3}, 'kâr-ciro makası', 'g_w1'],
-    ['Kapasite var ama teslimat gecikiyor', {b:3}, 'kapasite–teslimat çelişkisi', 'g_b1'],
+    ['Ciro artıyor, kâr artmıyor', {w:3}, 'ciro artıyor, kâr artmıyor', 'g_w1'],
+    ['Kapasite var ama teslimat gecikiyor', {b:3}, 'kapasite var, teslimat gecikiyor', 'g_b1'],
     ['Aynı sorunlar geri geliyor', {r:3}, 'tekrarlayan sorun', 'g_r1'],
     ['Emin değilim', {}, '', 'g_w1'] ] },
   g_w1: { t: 'Fazla mesai ne kadar rutin?', h: '', next: 'g_w2', opts: [['Hiç',{},''],['Yoğun dönemde',{w:1},''],['Her ay',{w:2},'fazla mesai her ay rutin'],['Sürekli',{w:3},'fazla mesai kalıcı']] },
   g_w2: { t: 'Kârlılıktaki düşüşü rakamla açıklayabiliyor musunuz?', h: '', opts: [['Net',{},''],['Kısmen',{w:1},''],['Hayır',{w:3},'kârlılık düşüşü rakamla açıklanamıyor']] },
   g_b1: { t: 'İş en çok nerede yığılıyor?', h: '', next: 'g_b2', opts: [['Belirli bir istasyon',{b:2},'yığılma belirli istasyonda'],['Onay ve karar adımı',{b:3},'yığılma onay adımında'],['Tedarik',{b:2},'yığılma tedarikte'],['Bilmiyoruz',{b:2},'yığılma noktası bilinmiyor']] },
-  g_b2: { t: 'Bazı birimler boş beklerken başkaları sürekli dolu mu?', h: '', opts: [['Sık',{b:3},'boş birim + dolu birim aynı anda'],['Bazen',{b:1},''],['Hayır',{},'']] },
+  g_b2: { t: 'Bazı birimler boş beklerken başkaları sürekli dolu mu?', h: '', opts: [['Sık',{b:3},'bazı birimler boşken diğerleri dolu'],['Bazen',{b:1},''],['Hayır',{},'']] },
   g_r1: { t: 'Aynı sorun son iki yılda kaç kez "çözüldü"?', h: '', next: 'g_r2', opts: [['Bir',{},''],['İki',{r:2},'sorun iki kez çözülmüş'],['Üç+',{r:3},'sorun üç+ kez çözülmüş']] },
   g_r2: { t: 'Departmanlar birbirini suçluyor mu?', h: '', opts: [['Evet',{r:3},'departmanlar arası suçlama döngüsü'],['Bazen',{r:1},''],['Hayır',{},'']] },
   g_s1: { t: 'Son 12 ayda kapasiteye yatırım yaptınız mı? Sonuç?', h: '', opts: [['Yapmadık',{},''],['Yaptık, iyileşti',{},''],['Yaptık, değişmedi',{b:3},'kapasite arttı, sonuç değişmedi'],['Yaptık, kötüleşti',{b:3,r:1},'kapasite arttı, sonuç kötüleşti']] },
   g_s2: { t: 'Sabahınızın ne kadarı yangın söndürme?', h: '', opts: [['%10\'dan az',{},''],['%10–30',{r:1},''],['%30\'dan fazla',{r:3},'sabahın üçte birinden fazlası yangın söndürme']] }
 };
 
+/* ===================== YENİ SEKTÖRLER (TR ağaç) ===================== */
+var Q2 = {
+  /* ============ E-TİCARET ============ */
+  e_pain: { t: 'E-ticarette şu an en çok hangisi canınızı yakıyor?', h: '', opts: [
+    ['İade ve iptal oranı yüksek', {w:2,r:1}, 'iade / iptal oranı yüksek', 'e_q1'],
+    ['Sipariş hazırlama ve kargoya verme yavaş', {b:2}, 'kargoya verme süresi uzun', 'e_b1'],
+    ['Stok var ama satan ürün tükeniyor, satmayan birikiyor', {w:3}, 'stok karışımı yanlış', 'e_i1'],
+    ['Reklam harcaması artıyor, kâr artmıyor', {w:2,r:1}, 'reklam artıyor, kâr artmıyor', 'e_m1'],
+    ['Aynı müşteri şikâyeti tekrar tekrar', {r:3}, 'tekrarlayan şikâyet', 'e_r1'],
+    ['Emin değilim, genel kontrol', {}, '', 'e_g1'] ] },
+  e_q1: { t: 'İadeler en çok neden geliyor?', h: '', opts: [
+    ['Ürün beklentiyi karşılamıyor (açıklama, fotoğraf)', {r:2,w:1}, 'ürün sayfası beklentiyi yanlış kuruyor', 'e_q2'],
+    ['Yanlış ya da eksik ürün gönderimi', {w:3,r:1}, 'yanlış / eksik gönderim', 'e_b2'],
+    ['Kargo hasarı ya da gecikmesi', {w:2,b:1}, 'kargo hasarı / gecikmesi', 'e_b1'],
+    ['Bilmiyoruz', {w:2,r:2}, 'iade nedeni bilinmiyor', 'e_q2'] ] },
+  e_q2: { t: 'İade nedeni kaydediliyor mu?', h: '', opts: [['Evet, sınıflandırılmış',{},''],['Serbest metin olarak',{w:1,r:1},'iade nedenleri sınıflanmıyor'],['Hayır',{w:2,r:2},'iade nedeni kaydedilmiyor']] },
+  e_b1: { t: 'Siparişten kargoya verilene kadar kaç saat geçiyor?', h: '', next: 'e_b2', opts: [['24 saatten az',{},''],['24–48 saat',{b:2},'kargoya verme 24–48 saat'],['48 saatten fazla',{b:3},'kargoya verme 48+ saat'],['Bilmiyoruz',{b:2},'kargoya verme süresi ölçülmüyor']] },
+  e_b2: { t: 'En çok nerede takılıyor?', h: '', opts: [['Toplama ve paketleme',{b:3},'toplama / paketleme darboğazı'],['Kargo alım saatini kaçırma',{b:2},'kargo alım saati kaçırılıyor'],['Stok yok, tedarik bekleme',{w:2,b:1},'stok yokluğu beklemesi','e_i2'],['Onay ve ödeme kontrolü',{b:2,r:1},'onay / ödeme kontrolü beklemesi']] },
+  e_i1: { t: 'Stok kararı nasıl alınıyor?', h: '', next: 'e_i2', opts: [['Satış verisiyle, otomatik',{},''],['Tecrübeyle',{w:2,r:1},'stok kararı tecrübeyle'],['Tedarikçinin minimum adediyle',{w:3},'stok tedarikçi minimumuna göre'],['Belli değil',{w:2,r:2},'stok kararı tanımlı değil']] },
+  e_i2: { t: 'Stok devir hızı ya da ölü stok payı biliniyor mu?', h: '', opts: [['Evet',{},''],['Tahmini',{w:1},'stok devir hızı tahmini'],['Hayır',{w:2},'stok devir hızı bilinmiyor']] },
+  e_m1: { t: 'Sipariş başına kârı biliyor musunuz? (reklam, kargo, iade dahil)', h: '', next: 'e_m2', opts: [['Evet, ürün bazında',{},''],['Sadece toplamda',{w:2},'kâr sadece toplamda biliniyor'],['Hayır',{w:3},'sipariş başına kâr bilinmiyor']] },
+  e_m2: { t: 'Reklam maliyeti artınca ne yapıyorsunuz?', h: '', opts: [['Ürün bazında kısıyoruz',{},''],['Genel olarak kısıyoruz',{w:2,r:1},'reklam kararı ürün bazında değil'],['Artırmaya devam ediyoruz',{w:3,r:1},'reklam kârdan bağımsız artırılıyor'],['Bilmiyoruz',{w:2,r:2},'reklam kararı tanımlı değil']] },
+  e_r1: { t: 'Tekrarlayan şikâyet ne?', h: '', opts: [['Gecikme',{r:2,b:1},'tekrarlayan gecikme','e_b1'],['Yanlış ürün',{r:2,w:1},'tekrarlayan yanlış ürün','e_q1'],['İletişim ve yanıt süresi',{r:2},'tekrarlayan yanıt gecikmesi','e_r2'],['Ürün kalitesi',{r:2,w:1},'tekrarlayan kalite şikâyeti','e_q2']] },
+  e_r2: { t: 'Aynı sorun son iki yılda kaç kez "çözüldü"?', h: '', opts: [['Bir kez',{},''],['İki kez',{r:2},'sorun iki kez çözülmüş'],['Üç ya da daha fazla',{r:3},'sorun üç+ kez çözülmüş']] },
+  e_g1: { t: 'Sipariş başına net kârı biliyor musunuz?', h: 'Reklam, kargo ve iade düşüldükten sonra.', next: 'e_b1', opts: [['Evet, ürün bazında',{},''],['Sadece toplamda',{w:2},'kâr sadece toplamda biliniyor'],['Hayır',{w:3},'sipariş başına kâr bilinmiyor']] },
+  e_s1: { t: 'Son 12 ayda depo, personel ya da yazılım eklediniz mi? Kargoya verme süresi ne oldu?', h: '', opts: [['Eklemedik',{},''],['Ekledik, kısaldı',{},''],['Ekledik, değişmedi',{b:3},'kapasite arttı, süre değişmedi'],['Ekledik, uzadı',{b:3,r:1},'kapasite arttı, süre uzadı']] },
+  e_s2: { t: 'Pazarlama, operasyon ve müşteri hizmetleri birbirini suçluyor mu?', h: '', opts: [['Evet, düzenli',{r:3},'ekipler arası suçlama döngüsü'],['Bazen',{r:1},''],['Hayır',{},'']] },
+
+  /* ============ İNŞAAT / TAAHHÜT ============ */
+  c_pain: { t: 'Projelerde şu an en çok hangisi canınızı yakıyor?', h: '', opts: [
+    ['Projeler süreyi ve bütçeyi aşıyor', {w:2,b:1}, 'süre ve bütçe aşımı', 'c_b1'],
+    ['Şantiyede ekipler malzeme ya da onay bekliyor', {b:3}, 'şantiyede bekleme', 'c_b2'],
+    ['Yeniden yapılan iş ve hakediş kesintileri', {w:2,r:2}, 'yeniden yapılan iş', 'c_q1'],
+    ['Hakediş gecikiyor, tedarikçi ödemesi sıkışıyor', {w:2,r:1}, 'hakediş gecikmesi', 'c_c1'],
+    ['Her projede aynı sorunlar', {r:3}, 'her projede tekrarlayan sorun', 'c_r1'],
+    ['Emin değilim, genel kontrol', {}, '', 'c_g1'] ] },
+  c_b1: { t: 'Sapma en çok nereden geliyor?', h: '', opts: [['Malzeme temini',{b:2,w:1},'malzeme temini gecikmesi','c_b2'],['Taşeron koordinasyonu',{b:2,r:2},'taşeron koordinasyonu','c_b3'],['Proje değişiklikleri',{r:2,w:1},'proje değişiklikleri','c_q2'],['Bilmiyoruz',{w:2,r:1},'sapma nedeni bilinmiyor','c_g1']] },
+  c_b2: { t: 'Ekipler haftada kaç saat bekliyor?', h: '', opts: [['4 saatten az',{},''],['4–10 saat',{b:2},'haftada 4–10 saat bekleme'],['10 saatten fazla',{b:3},'haftada 10+ saat bekleme'],['Ölçmüyoruz',{b:2},'bekleme süresi ölçülmüyor']] },
+  c_b3: { t: 'Taşeron planı haftalık yapılıyor mu?', h: '', opts: [['Evet, yazılı',{},''],['Sözlü',{b:2,r:1},'taşeron planı sözlü'],['Yapılmıyor',{b:3,r:2},'taşeron planı yok']] },
+  c_q1: { t: 'Yeniden yapılan işin ana nedeni?', h: '', opts: [['Yanlış ya da eksik proje bilgisi',{r:3},'eksik proje bilgisi','c_q2'],['İşçilik hatası',{w:2,r:1},'işçilik hatası','c_q3'],['Malzeme hatası',{w:2},'malzeme hatası','c_q3'],['Bilmiyoruz',{r:2,w:1},'yeniden yapma nedeni bilinmiyor','c_q3']] },
+  c_q2: { t: 'Proje değişiklikleri yazılı ve fiyatlandırılmış mı?', h: '', opts: [['Evet, her zaman',{},''],['Kısmen',{w:2,r:1},'değişiklikler kısmen fiyatlandırılıyor'],['Hayır',{w:3,r:2},'değişiklikler fiyatlandırılmıyor']] },
+  c_q3: { t: 'Yeniden yapma maliyeti proje bazında hesaplanıyor mu?', h: '', opts: [['Evet',{},''],['Tahmini',{w:1},'yeniden yapma maliyeti tahmini'],['Hayır',{w:2},'yeniden yapma maliyeti bilinmiyor']] },
+  c_c1: { t: 'Hakediş onayı ortalama kaç gün sürüyor?', h: '', next: 'c_c2', opts: [['15 günden az',{},''],['15–45 gün',{w:2},'hakediş onayı 15–45 gün'],['45 günden fazla',{w:3},'hakediş onayı 45+ gün'],['Çok değişken',{w:2,r:1},'hakediş süresi öngörülemiyor']] },
+  c_c2: { t: 'Metraj ve hakediş dosyası nasıl hazırlanıyor?', h: '', opts: [['Dijital, sürekli güncel',{},''],['Manuel ama düzenli',{w:1},'hakediş dosyası manuel'],['Ay sonunda, gecikmeli',{w:2,r:2},'hakediş dosyası gecikmeli']] },
+  c_r1: { t: 'Tekrarlayan sorun ne?', h: '', opts: [['Malzeme gecikmesi',{r:2,b:1},'tekrarlayan malzeme gecikmesi','c_b2'],['Taşeron sorunu',{r:2},'tekrarlayan taşeron sorunu','c_b3'],['Kalite ve yeniden yapma',{r:2,w:1},'tekrarlayan kalite sorunu','c_q1'],['Nakit sıkışması',{r:2,w:1},'tekrarlayan nakit sıkışması','c_c1']] },
+  c_r2: { t: 'Son üç projede kaç kez aynı sorun?', h: '', opts: [['Bir kez',{},''],['İki kez',{r:2},'sorun iki projede tekrarlamış'],['Üçünde de',{r:3},'sorun her projede tekrarlıyor']] },
+  c_g1: { t: 'Proje bazında kârlılık biliniyor mu?', h: '', next: 'c_b1', opts: [['Evet, proje boyunca',{},''],['Sadece bitince',{w:1},'kârlılık sadece proje sonunda biliniyor'],['Hayır',{w:3},'proje kârlılığı bilinmiyor']] },
+  c_s1: { t: 'Son 12 ayda ekip ya da ekipman eklediniz mi? Teslim süresi ne oldu?', h: '', opts: [['Eklemedik',{},''],['Ekledik, kısaldı',{},''],['Ekledik, değişmedi',{b:3},'kapasite arttı, teslim değişmedi'],['Ekledik, uzadı',{b:3,r:1},'kapasite arttı, teslim uzadı']] },
+  c_s2: { t: 'Şantiye, satın alma ve ofis birbirini suçluyor mu?', h: '', opts: [['Evet, düzenli',{r:3},'ekipler arası suçlama döngüsü'],['Bazen',{r:1},''],['Hayır',{},'']] },
+
+  /* ============ RESTORAN & KONAKLAMA ============ */
+  k_pain: { t: 'İşletmenizde şu an en çok hangisi canınızı yakıyor?', h: '', opts: [
+    ['Gıda maliyeti ve fire yüksek', {w:3}, 'gıda maliyeti / fire yüksek', 'k_f1'],
+    ['Yoğun saatte mutfak ve servis yetişmiyor, boş saatte personel fazla', {b:2,w:2}, 'personel planı dengesiz', 'k_b1'],
+    ['Personel devri yüksek, sürekli eğitim', {w:2,r:2}, 'yüksek personel devri', 'k_p1'],
+    ['Yorumlarda hep aynı şikâyet', {r:3}, 'tekrarlayan şikâyet', 'k_r1'],
+    ['Ciro iyi, kâr yok', {w:3}, 'ciro var, kâr yok', 'k_g1'],
+    ['Emin değilim, genel kontrol', {}, '', 'k_g1'] ] },
+  k_f1: { t: 'Gıda maliyeti oranınızı biliyor musunuz?', h: '', next: 'k_f2', opts: [['Evet, haftalık',{},''],['Aylık',{w:1},'gıda maliyeti sadece aylık'],['Tahmini',{w:2},'gıda maliyeti tahmini'],['Hayır',{w:3},'gıda maliyeti bilinmiyor']] },
+  k_f2: { t: 'Fire en çok nereden?', h: '', opts: [['Fazla hazırlık',{w:2},'fazla hazırlık firesi'],['Bozulma ve son kullanma',{w:2,r:1},'bozulma firesi'],['Porsiyon tutarsızlığı',{w:2,r:2},'porsiyon tutarsız'],['Bilmiyoruz',{w:2,r:2},'fire kaynağı bilinmiyor']] },
+  k_b1: { t: 'Bekleme en çok nerede?', h: '', opts: [['Mutfak çıkışı',{b:3},'mutfak çıkışı darboğazı','k_b2'],['Sipariş alma',{b:2},'sipariş alma yavaş'],['Kasa ve ödeme',{b:2},'ödeme darboğazı'],['Rezervasyon ve oturtma',{b:2,r:1},'oturtma darboğazı']] },
+  k_b2: { t: 'Yoğun saatte servis süresi kaç dakika?', h: '', opts: [['15 dakikadan az',{},''],['15–25 dakika',{b:2},'yoğun saat servisi 15–25 dk'],['25 dakikadan fazla',{b:3},'yoğun saat servisi 25+ dk'],['Ölçmüyoruz',{b:2},'servis süresi ölçülmüyor']] },
+  k_p1: { t: 'Yıllık personel devri?', h: '', next: 'k_p2', opts: [['%30\'un altında',{},''],['%30–70',{w:2,r:1},'personel devri %30–70'],['%70\'in üstünde',{w:3,r:2},'personel devri %70 üstü'],['Bilmiyoruz',{w:2,r:1},'personel devri ölçülmüyor']] },
+  k_p2: { t: 'Yeni personel kaç günde tam verimli oluyor?', h: '', opts: [['7 günden az',{},''],['7–21 gün',{w:1},'işe alışma 7–21 gün'],['21 günden fazla',{w:2,r:1},'işe alışma 21+ gün'],['Belli değil',{w:2,r:2},'işe alışma süreci tanımlı değil']] },
+  k_r1: { t: 'Tekrarlayan şikâyet ne?', h: '', opts: [['Bekleme',{r:2,b:1},'tekrarlayan bekleme şikâyeti','k_b1'],['Lezzet tutarsızlığı',{r:2,w:1},'tekrarlayan tutarsızlık şikâyeti','k_f2'],['Servis tavrı',{r:2,w:1},'tekrarlayan servis şikâyeti','k_p1'],['Temizlik',{r:2},'tekrarlayan temizlik şikâyeti','k_r2']] },
+  k_r2: { t: 'Aynı sorun son iki yılda kaç kez "çözüldü"?', h: '', opts: [['Bir kez',{},''],['İki kez',{r:2},'sorun iki kez çözülmüş'],['Üç ya da daha fazla',{r:3},'sorun üç+ kez çözülmüş']] },
+  k_g1: { t: 'Menü kalemi bazında kârlılık biliniyor mu?', h: '', next: 'k_f1', opts: [['Evet, kalem bazında',{},''],['Kategori bazında',{w:1},'kârlılık sadece kategori bazında'],['Hayır',{w:3},'menü kârlılığı bilinmiyor']] },
+  k_s1: { t: 'Son 12 ayda personel ya da alan eklediniz mi? Bekleme ne oldu?', h: '', opts: [['Eklemedik',{},''],['Ekledik, azaldı',{},''],['Ekledik, değişmedi',{b:3},'kapasite arttı, bekleme değişmedi'],['Ekledik, arttı',{b:3,r:1},'kapasite arttı, bekleme arttı']] },
+  k_s2: { t: 'Mutfak, servis ve yönetim birbirini suçluyor mu?', h: '', opts: [['Evet, düzenli',{r:3},'ekipler arası suçlama döngüsü'],['Bazen',{r:1},''],['Hayır',{},'']] },
+
+  /* ============ SAĞLIK ============ */
+  t_pain: { t: 'Kliniğinizde şu an en çok hangisi canınızı yakıyor?', h: '', opts: [
+    ['Hastalar uzun bekliyor, randevular kayıyor', {b:3}, 'hasta bekleme süresi uzun', 't_b1'],
+    ['Hekim ve cihaz kapasitesi boş kalıyor ama randevu dolu görünüyor', {b:2,w:2}, 'kapasite boş, randevu dolu', 't_b2'],
+    ['Sarf ve ilaç stoğu hem fazla hem eksik', {w:3}, 'sarf stoğu dengesiz', 't_i1'],
+    ['Fatura ve geri ödeme gecikiyor ya da reddediliyor', {w:2,r:2}, 'geri ödeme gecikmesi / reddi', 't_c1'],
+    ['Aynı hasta şikâyeti tekrar', {r:3}, 'tekrarlayan hasta şikâyeti', 't_r1'],
+    ['Emin değilim, genel kontrol', {}, '', 't_g1'] ] },
+  t_b1: { t: 'Bekleme en çok nerede?', h: '', opts: [['Kayıt ve kabul',{b:2},'kayıt darboğazı'],['Hekim öncesi',{b:3},'hekim öncesi bekleme'],['Tetkik ve sonuç',{b:3},'tetkik sonucu beklemesi','t_b3'],['Ödeme ve çıkış',{b:2,r:1},'çıkış darboğazı']] },
+  t_b2: { t: 'Randevu iptal ve gelmeme oranı?', h: '', opts: [['%10\'un altında',{},''],['%10–20',{w:2,b:1},'randevuya gelmeme %10–20'],['%20\'nin üstünde',{w:3,b:1},'randevuya gelmeme %20 üstü'],['Bilmiyoruz',{w:2},'gelmeme oranı ölçülmüyor']] },
+  t_b3: { t: 'Tetkik sonucu ortalama kaç saatte çıkıyor?', h: '', opts: [['2 saatten az',{},''],['2–24 saat',{b:2},'tetkik sonucu 2–24 saat'],['24 saatten fazla',{b:3},'tetkik sonucu 24+ saat'],['Bilmiyoruz',{b:2},'tetkik süresi ölçülmüyor']] },
+  t_i1: { t: 'Sarf ve ilaç stoğu nasıl yönetiliyor?', h: '', next: 't_i2', opts: [['Sistemle, min-max seviyeli',{},''],['Tecrübeyle',{w:2,r:1},'stok kararı tecrübeyle'],['Ay sonu sayımla',{w:2},'stok sadece ay sonu sayılıyor'],['Belli değil',{w:3,r:2},'stok süreci tanımlı değil']] },
+  t_i2: { t: 'Son kullanma nedeniyle imha oranı?', h: '', opts: [['%1\'in altında',{},''],['%1–3',{w:2},'imha oranı %1–3'],['%3\'ün üstünde',{w:3},'imha oranı %3 üstü'],['Bilmiyoruz',{w:2},'imha oranı ölçülmüyor']] },
+  t_c1: { t: 'Red ve iade nedenleri sınıflandırılıyor mu?', h: '', next: 't_c2', opts: [['Evet',{},''],['Kısmen',{r:1,w:1},'red nedenleri kısmen sınıflanıyor'],['Hayır',{r:2,w:2},'red nedenleri sınıflanmıyor']] },
+  t_c2: { t: 'Hizmetten faturaya kaç gün geçiyor?', h: '', opts: [['Aynı gün',{},''],['1–7 gün',{w:1},'faturalama 1–7 gün'],['7 günden fazla',{w:2,b:1},'faturalama 7+ gün'],['Çok değişken',{w:2,r:1},'faturalama süresi öngörülemiyor']] },
+  t_r1: { t: 'Tekrarlayan şikâyet ne?', h: '', opts: [['Bekleme',{r:2,b:1},'tekrarlayan bekleme şikâyeti','t_b1'],['İletişim ve bilgilendirme',{r:2},'tekrarlayan bilgilendirme şikâyeti','t_r2'],['Fatura',{r:2,w:1},'tekrarlayan fatura şikâyeti','t_c1'],['Randevu karışıklığı',{r:2,b:1},'tekrarlayan randevu karışıklığı','t_b2']] },
+  t_r2: { t: 'Aynı sorun son iki yılda kaç kez "çözüldü"?', h: '', opts: [['Bir kez',{},''],['İki kez',{r:2},'sorun iki kez çözülmüş'],['Üç ya da daha fazla',{r:3},'sorun üç+ kez çözülmüş']] },
+  t_g1: { t: 'Hekim ve cihaz başına doluluk biliniyor mu?', h: '', next: 't_b2', opts: [['Evet',{},''],['Tahmini',{b:1},'doluluk tahmini'],['Hayır',{b:2,w:1},'doluluk ölçülmüyor']] },
+  t_s1: { t: 'Son 12 ayda hekim, cihaz ya da personel eklediniz mi? Bekleme ne oldu?', h: '', opts: [['Eklemedik',{},''],['Ekledik, azaldı',{},''],['Ekledik, değişmedi',{b:3},'kapasite arttı, bekleme değişmedi'],['Ekledik, arttı',{b:3,r:1},'kapasite arttı, bekleme arttı']] },
+  t_s2: { t: 'Klinik ekibi, idari ekip ve hekimler birbirini suçluyor mu?', h: '', opts: [['Evet, düzenli',{r:3},'ekipler arası suçlama döngüsü'],['Bazen',{r:1},''],['Hayır',{},'']] }
+};
+
+var N2 = { en: {}, es: {} };
+N2.en = {
+  e_pain: ['What hurts most in your e-commerce business right now?', '', ['Return and cancellation rates are high','Order preparation and handover to carriers are slow','We have stock, but sellers run out and non-sellers pile up','Ad spend keeps rising, profit doesn\'t','The same customer complaint over and over','Not sure, general check-up'], ['high return / cancellation rate','long handover-to-carrier time','wrong stock mix','ad spend rising, profit flat','recurring complaint','']],
+  e_q1: ['What causes most returns?', '', ['Product doesn\'t match expectations (description, photos)','Wrong or missing items shipped','Carrier damage or delay','We don\'t know'], ['product page sets wrong expectations','wrong / missing shipments','carrier damage / delay','return reason unknown']],
+  e_q2: ['Are return reasons recorded?', '', ['Yes, categorized','As free text','No'], ['','return reasons not categorized','return reasons not recorded']],
+  e_b1: ['How many hours from order to carrier handover?', '', ['Under 24 hours','24–48 hours','Over 48 hours','We don\'t know'], ['','handover 24–48 hours','handover over 48 hours','handover time not measured']],
+  e_b2: ['Where does it get stuck most?', '', ['Picking and packing','Missing the carrier pickup cutoff','No stock, waiting for supply','Approval and payment checks'], ['picking / packing bottleneck','carrier cutoff missed','stock-out waiting','approval / payment-check waiting']],
+  e_i1: ['How are stock decisions made?', '', ['From sales data, automatically','By experience','By the supplier\'s minimum quantity','Not defined'], ['','stock decisions by experience','stock driven by supplier minimums','stock process not defined']],
+  e_i2: ['Do you know inventory turnover or your dead-stock share?', '', ['Yes','Roughly','No'], ['','inventory turnover estimated','inventory turnover unknown']],
+  e_m1: ['Do you know profit per order? (after ads, shipping and returns)', '', ['Yes, per product','Only in total','No'], ['','profit known only in total','profit per order unknown']],
+  e_m2: ['What do you do when ad costs rise?', '', ['Cut per product','Cut across the board','Keep increasing','We don\'t know'], ['','ad decisions not per product','ads increased regardless of profit','ad decision process not defined']],
+  e_r1: ['What is the recurring complaint?', '', ['Delay','Wrong item','Communication and response time','Product quality'], ['recurring delay','recurring wrong item','recurring slow response','recurring quality complaint']],
+  e_r2: ['How many times has the same problem been "solved" in the last two years?', '', ['Once','Twice','Three or more'], ['','problem solved twice','problem solved three+ times']],
+  e_g1: ['Do you know net profit per order?', 'After ads, shipping and returns.', ['Yes, per product','Only in total','No'], ['','profit known only in total','profit per order unknown']],
+  e_s1: ['Did you add warehouse space, staff or software in the last 12 months? What happened to handover time?', '', ['We didn\'t','We did; it got shorter','We did; no change','We did; it got longer'], ['','','capacity up, time unchanged','capacity up, time longer']],
+  e_s2: ['Do marketing, operations and customer service blame each other?', '', ['Yes, regularly','Sometimes','No'], ['blame loop between teams','','']],
+
+  c_pain: ['What hurts most on your projects right now?', '', ['Projects overrun schedule and budget','Crews on site wait for material or approvals','Rework and progress-payment deductions','Progress payments are late; supplier payments squeeze','The same problems on every project','Not sure, general check-up'], ['schedule and budget overrun','waiting on site','rework','late progress payments','problems recurring on every project','']],
+  c_b1: ['Where does the overrun come from most?', '', ['Material procurement','Subcontractor coordination','Design changes','We don\'t know'], ['material procurement delay','subcontractor coordination','design changes','overrun cause unknown']],
+  c_b2: ['How many hours a week do crews wait?', '', ['Under 4 hours','4–10 hours','Over 10 hours','We don\'t measure it'], ['','4–10 hours of waiting per week','10+ hours of waiting per week','waiting time not measured']],
+  c_b3: ['Is the subcontractor plan made weekly?', '', ['Yes, in writing','Verbally','Not made'], ['','subcontractor plan verbal','no subcontractor plan']],
+  c_q1: ['What is the main cause of rework?', '', ['Wrong or missing design information','Workmanship error','Material defect','We don\'t know'], ['missing design information','workmanship error','material defect','rework cause unknown']],
+  c_q2: ['Are design changes documented and priced?', '', ['Yes, always','Partly','No'], ['','changes partly priced','changes not priced']],
+  c_q3: ['Is rework cost calculated per project?', '', ['Yes','Roughly','No'], ['','rework cost estimated','rework cost unknown']],
+  c_c1: ['How many days does progress-payment approval take on average?', '', ['Under 15 days','15–45 days','Over 45 days','Highly variable'], ['','payment approval 15–45 days','payment approval 45+ days','payment timing unpredictable']],
+  c_c2: ['How are quantities and progress claims prepared?', '', ['Digital, continuously updated','Manual but regular','At month end, late'], ['','progress claims manual','progress claims late']],
+  c_r1: ['What keeps recurring?', '', ['Material delays','Subcontractor issues','Quality and rework','Cash squeeze'], ['recurring material delay','recurring subcontractor issue','recurring quality issue','recurring cash squeeze']],
+  c_r2: ['On the last three projects, how many times the same problem?', '', ['Once','Twice','On all three'], ['','problem recurred on two projects','problem recurs on every project']],
+  c_g1: ['Do you know profitability per project?', '', ['Yes, throughout the project','Only at the end','No'], ['','profitability known only at project end','project profitability unknown']],
+  c_s1: ['Did you add crews or equipment in the last 12 months? What happened to delivery time?', '', ['We didn\'t','We did; it got shorter','We did; no change','We did; it got longer'], ['','','capacity up, delivery unchanged','capacity up, delivery longer']],
+  c_s2: ['Do site, procurement and office blame each other?', '', ['Yes, regularly','Sometimes','No'], ['blame loop between teams','','']],
+
+  k_pain: ['What hurts most in your business right now?', '', ['Food cost and waste are high','Kitchen and service can\'t keep up at peak; too many staff off-peak','Staff turnover is high; constant training','Reviews keep repeating the same complaint','Good revenue, no profit','Not sure, general check-up'], ['high food cost / waste','unbalanced staffing plan','high staff turnover','recurring complaint','revenue without profit','']],
+  k_f1: ['Do you know your food cost percentage?', '', ['Yes, weekly','Monthly','Roughly','No'], ['','food cost only monthly','food cost estimated','food cost unknown']],
+  k_f2: ['Where does waste come from most?', '', ['Over-prep','Spoilage and expiry','Inconsistent portions','We don\'t know'], ['over-prep waste','spoilage waste','inconsistent portions','waste source unknown']],
+  k_b1: ['Where is the waiting worst?', '', ['Kitchen pass','Order taking','Checkout and payment','Reservations and seating'], ['kitchen-pass bottleneck','slow order taking','payment bottleneck','seating bottleneck']],
+  k_b2: ['Service time at peak, in minutes?', '', ['Under 15 minutes','15–25 minutes','Over 25 minutes','We don\'t measure it'], ['','peak service 15–25 min','peak service over 25 min','service time not measured']],
+  k_p1: ['Annual staff turnover?', '', ['Under 30%','30–70%','Over 70%','We don\'t know'], ['','staff turnover 30–70%','staff turnover over 70%','staff turnover not measured']],
+  k_p2: ['How many days until a new hire is fully productive?', '', ['Under 7 days','7–21 days','Over 21 days','Not defined'], ['','ramp-up 7–21 days','ramp-up 21+ days','onboarding process not defined']],
+  k_r1: ['What is the recurring complaint?', '', ['Waiting','Inconsistent taste','Service attitude','Cleanliness'], ['recurring waiting complaint','recurring consistency complaint','recurring service complaint','recurring cleanliness complaint']],
+  k_r2: ['How many times has the same problem been "solved" in the last two years?', '', ['Once','Twice','Three or more'], ['','problem solved twice','problem solved three+ times']],
+  k_g1: ['Do you know profitability per menu item?', '', ['Yes, per item','Per category','No'], ['','profitability only per category','menu profitability unknown']],
+  k_s1: ['Did you add staff or space in the last 12 months? What happened to waiting?', '', ['We didn\'t','We did; it dropped','We did; no change','We did; it grew'], ['','','capacity up, waiting unchanged','capacity up, waiting grew']],
+  k_s2: ['Do kitchen, service and management blame each other?', '', ['Yes, regularly','Sometimes','No'], ['blame loop between teams','','']],
+
+  t_pain: ['What hurts most in your clinic right now?', '', ['Patients wait long; appointments slip','Physician and equipment capacity sits idle while the schedule looks full','Supplies and drug stock: both too much and too little','Billing and reimbursement are late or rejected','The same patient complaint keeps recurring','Not sure, general check-up'], ['long patient waiting','capacity idle, schedule full','unbalanced supply stock','reimbursement delay / rejection','recurring patient complaint','']],
+  t_b1: ['Where is the waiting worst?', '', ['Registration and check-in','Before seeing the physician','Tests and results','Payment and discharge'], ['registration bottleneck','pre-physician waiting','test-result waiting','discharge bottleneck']],
+  t_b2: ['Appointment cancellation and no-show rate?', '', ['Under 10%','10–20%','Over 20%','We don\'t know'], ['','no-shows 10–20%','no-shows over 20%','no-show rate not measured']],
+  t_b3: ['How many hours until test results are ready, on average?', '', ['Under 2 hours','2–24 hours','Over 24 hours','We don\'t know'], ['','results in 2–24 hours','results over 24 hours','result time not measured']],
+  t_i1: ['How are supplies and drug stock managed?', '', ['In a system with min-max levels','By experience','By month-end count','Not defined'], ['','stock decisions by experience','stock counted only at month end','stock process not defined']],
+  t_i2: ['Write-off rate due to expiry?', '', ['Under 1%','1–3%','Over 3%','We don\'t know'], ['','expiry write-off 1–3%','expiry write-off over 3%','write-off rate not measured']],
+  t_c1: ['Are rejection and refund reasons categorized?', '', ['Yes','Partly','No'], ['','rejection reasons partly categorized','rejection reasons not categorized']],
+  t_c2: ['How many days from service to invoice?', '', ['Same day','1–7 days','Over 7 days','Highly variable'], ['','invoicing 1–7 days','invoicing over 7 days','invoicing time unpredictable']],
+  t_r1: ['What is the recurring complaint?', '', ['Waiting','Communication and information','Billing','Appointment mix-ups'], ['recurring waiting complaint','recurring information complaint','recurring billing complaint','recurring appointment mix-up']],
+  t_r2: ['How many times has the same problem been "solved" in the last two years?', '', ['Once','Twice','Three or more'], ['','problem solved twice','problem solved three+ times']],
+  t_g1: ['Do you know utilization per physician and per device?', '', ['Yes','Roughly','No'], ['','utilization estimated','utilization not measured']],
+  t_s1: ['Did you add physicians, equipment or staff in the last 12 months? What happened to waiting?', '', ['We didn\'t','We did; it dropped','We did; no change','We did; it grew'], ['','','capacity up, waiting unchanged','capacity up, waiting grew']],
+  t_s2: ['Do the clinical team, the admin team and physicians blame each other?', '', ['Yes, regularly','Sometimes','No'], ['blame loop between teams','','']]
+};
+N2.es = {
+  e_pain: ['¿Qué le duele más en su e-commerce ahora mismo?', '', ['Las devoluciones y cancelaciones son altas','Preparar pedidos y entregarlos al transportista es lento','Hay stock, pero lo que se vende se agota y lo que no se acumula','El gasto en publicidad sube, la ganancia no','La misma queja de clientes una y otra vez','No estoy seguro, revisión general'], ['tasa de devolución / cancelación alta','tiempo de entrega al transportista largo','mezcla de stock incorrecta','publicidad sube, ganancia plana','queja recurrente','']],
+  e_q1: ['¿Cuál es la causa principal de las devoluciones?', '', ['El producto no cumple la expectativa (descripción, fotos)','Envío de artículo equivocado o faltante','Daño o retraso del transportista','No lo sabemos'], ['la ficha de producto crea expectativas erróneas','envíos equivocados / incompletos','daño / retraso del transportista','causa de devolución desconocida']],
+  e_q2: ['¿Se registra el motivo de devolución?', '', ['Sí, clasificado','Como texto libre','No'], ['','motivos de devolución sin clasificar','motivo de devolución no registrado']],
+  e_b1: ['¿Cuántas horas pasan del pedido a la entrega al transportista?', '', ['Menos de 24 horas','24–48 horas','Más de 48 horas','No lo sabemos'], ['','entrega al transportista en 24–48 h','entrega al transportista en más de 48 h','tiempo de entrega no medido']],
+  e_b2: ['¿Dónde se atasca más?', '', ['Picking y empaque','Perder la hora de recogida del transportista','Sin stock, esperando suministro','Verificación de aprobación y pago'], ['cuello de botella en picking / empaque','hora de recogida perdida','espera por falta de stock','espera por verificación de pago']],
+  e_i1: ['¿Cómo se decide el stock?', '', ['Con datos de venta, automáticamente','Por experiencia','Por la cantidad mínima del proveedor','No está definido'], ['','decisión de stock por experiencia','stock según mínimos del proveedor','proceso de stock no definido']],
+  e_i2: ['¿Conoce la rotación de inventario o la parte de stock muerto?', '', ['Sí','Aproximadamente','No'], ['','rotación de inventario estimada','rotación de inventario desconocida']],
+  e_m1: ['¿Conoce la ganancia por pedido? (tras publicidad, envío y devoluciones)', '', ['Sí, por producto','Solo en total','No'], ['','ganancia conocida solo en total','ganancia por pedido desconocida']],
+  e_m2: ['¿Qué hace cuando sube el coste publicitario?', '', ['Recortamos por producto','Recortamos en general','Seguimos aumentando','No lo sabemos'], ['','decisión publicitaria no por producto','publicidad aumentada sin mirar la ganancia','proceso de decisión publicitaria no definido']],
+  e_r1: ['¿Cuál es la queja recurrente?', '', ['Retraso','Artículo equivocado','Comunicación y tiempo de respuesta','Calidad del producto'], ['retraso recurrente','artículo equivocado recurrente','respuesta lenta recurrente','queja de calidad recurrente']],
+  e_r2: ['¿Cuántas veces se ha "resuelto" el mismo problema en los últimos dos años?', '', ['Una','Dos','Tres o más'], ['','problema resuelto dos veces','problema resuelto tres+ veces']],
+  e_g1: ['¿Conoce la ganancia neta por pedido?', 'Tras publicidad, envío y devoluciones.', ['Sí, por producto','Solo en total','No'], ['','ganancia conocida solo en total','ganancia por pedido desconocida']],
+  e_s1: ['¿Añadió almacén, personal o software en los últimos 12 meses? ¿Qué pasó con el tiempo de entrega al transportista?', '', ['No añadimos','Sí; se acortó','Sí; sin cambio','Sí; se alargó'], ['','','capacidad arriba, tiempo sin cambio','capacidad arriba, tiempo más largo']],
+  e_s2: ['¿Marketing, operaciones y atención al cliente se culpan entre sí?', '', ['Sí, regularmente','A veces','No'], ['ciclo de culpas entre equipos','','']],
+
+  c_pain: ['¿Qué le duele más en sus proyectos ahora mismo?', '', ['Los proyectos exceden plazo y presupuesto','Las cuadrillas en obra esperan material o aprobaciones','Retrabajo y descuentos en las certificaciones','Las certificaciones se retrasan; el pago a proveedores aprieta','Los mismos problemas en cada proyecto','No estoy seguro, revisión general'], ['exceso de plazo y presupuesto','espera en obra','retrabajo','certificaciones retrasadas','problemas que se repiten en cada proyecto','']],
+  c_b1: ['¿De dónde viene más la desviación?', '', ['Suministro de material','Coordinación de subcontratistas','Cambios de proyecto','No lo sabemos'], ['retraso de suministro de material','coordinación de subcontratistas','cambios de proyecto','causa de la desviación desconocida']],
+  c_b2: ['¿Cuántas horas a la semana esperan las cuadrillas?', '', ['Menos de 4 horas','4–10 horas','Más de 10 horas','No lo medimos'], ['','4–10 horas de espera semanales','10+ horas de espera semanales','tiempo de espera no medido']],
+  c_b3: ['¿El plan de subcontratistas se hace semanalmente?', '', ['Sí, por escrito','Verbalmente','No se hace'], ['','plan de subcontratistas verbal','sin plan de subcontratistas']],
+  c_q1: ['¿Cuál es la causa principal del retrabajo?', '', ['Información de proyecto errónea o incompleta','Error de mano de obra','Defecto de material','No lo sabemos'], ['información de proyecto incompleta','error de mano de obra','defecto de material','causa del retrabajo desconocida']],
+  c_q2: ['¿Los cambios de proyecto se documentan y se valoran?', '', ['Sí, siempre','En parte','No'], ['','cambios valorados solo en parte','cambios no valorados']],
+  c_q3: ['¿El coste del retrabajo se calcula por proyecto?', '', ['Sí','Aproximadamente','No'], ['','coste del retrabajo estimado','coste del retrabajo desconocido']],
+  c_c1: ['¿Cuántos días tarda en promedio la aprobación de una certificación?', '', ['Menos de 15 días','15–45 días','Más de 45 días','Muy variable'], ['','aprobación de certificación en 15–45 días','aprobación de certificación en 45+ días','plazo de certificación impredecible']],
+  c_c2: ['¿Cómo se preparan las mediciones y certificaciones?', '', ['Digital, siempre actualizado','Manual pero regular','A fin de mes, con retraso'], ['','certificaciones manuales','certificaciones con retraso']],
+  c_r1: ['¿Qué se repite?', '', ['Retraso de material','Problemas con subcontratistas','Calidad y retrabajo','Tensión de caja'], ['retraso de material recurrente','problema de subcontratista recurrente','problema de calidad recurrente','tensión de caja recurrente']],
+  c_r2: ['En los últimos tres proyectos, ¿cuántas veces el mismo problema?', '', ['Una','Dos','En los tres'], ['','el problema se repitió en dos proyectos','el problema se repite en cada proyecto']],
+  c_g1: ['¿Conoce la rentabilidad por proyecto?', '', ['Sí, durante el proyecto','Solo al terminar','No'], ['','rentabilidad conocida solo al final','rentabilidad por proyecto desconocida']],
+  c_s1: ['¿Añadió cuadrillas o equipo en los últimos 12 meses? ¿Qué pasó con el plazo de entrega?', '', ['No añadimos','Sí; se acortó','Sí; sin cambio','Sí; se alargó'], ['','','capacidad arriba, plazo sin cambio','capacidad arriba, plazo más largo']],
+  c_s2: ['¿Obra, compras y oficina se culpan entre sí?', '', ['Sí, regularmente','A veces','No'], ['ciclo de culpas entre equipos','','']],
+
+  k_pain: ['¿Qué le duele más en su negocio ahora mismo?', '', ['El coste de alimentos y la merma son altos','Cocina y servicio no dan abasto en hora punta; sobra personal fuera de ella','La rotación de personal es alta; formación constante','Las reseñas repiten la misma queja','Buenos ingresos, sin ganancia','No estoy seguro, revisión general'], ['coste de alimentos / merma alto','plan de personal desequilibrado','alta rotación de personal','queja recurrente','ingresos sin ganancia','']],
+  k_f1: ['¿Conoce su porcentaje de coste de alimentos?', '', ['Sí, semanal','Mensual','Aproximado','No'], ['','coste de alimentos solo mensual','coste de alimentos estimado','coste de alimentos desconocido']],
+  k_f2: ['¿De dónde viene más la merma?', '', ['Exceso de preparación','Deterioro y caducidad','Porciones inconsistentes','No lo sabemos'], ['merma por exceso de preparación','merma por deterioro','porciones inconsistentes','origen de la merma desconocido']],
+  k_b1: ['¿Dónde es peor la espera?', '', ['Salida de cocina','Toma de pedidos','Caja y pago','Reservas y asignación de mesas'], ['cuello de botella en salida de cocina','toma de pedidos lenta','cuello de botella en el pago','cuello de botella en mesas']],
+  k_b2: ['¿Tiempo de servicio en hora punta, en minutos?', '', ['Menos de 15 minutos','15–25 minutos','Más de 25 minutos','No lo medimos'], ['','servicio en hora punta 15–25 min','servicio en hora punta más de 25 min','tiempo de servicio no medido']],
+  k_p1: ['¿Rotación anual de personal?', '', ['Menos del 30%','30–70%','Más del 70%','No lo sabemos'], ['','rotación de personal 30–70%','rotación de personal superior al 70%','rotación de personal no medida']],
+  k_p2: ['¿Cuántos días tarda un nuevo empleado en ser plenamente productivo?', '', ['Menos de 7 días','7–21 días','Más de 21 días','No está definido'], ['','adaptación 7–21 días','adaptación 21+ días','proceso de incorporación no definido']],
+  k_r1: ['¿Cuál es la queja recurrente?', '', ['Espera','Sabor inconsistente','Actitud del servicio','Limpieza'], ['queja de espera recurrente','queja de inconsistencia recurrente','queja de servicio recurrente','queja de limpieza recurrente']],
+  k_r2: ['¿Cuántas veces se ha "resuelto" el mismo problema en los últimos dos años?', '', ['Una','Dos','Tres o más'], ['','problema resuelto dos veces','problema resuelto tres+ veces']],
+  k_g1: ['¿Conoce la rentabilidad por plato del menú?', '', ['Sí, por plato','Por categoría','No'], ['','rentabilidad solo por categoría','rentabilidad del menú desconocida']],
+  k_s1: ['¿Añadió personal o espacio en los últimos 12 meses? ¿Qué pasó con la espera?', '', ['No añadimos','Sí; bajó','Sí; sin cambio','Sí; aumentó'], ['','','capacidad arriba, espera sin cambio','capacidad arriba, espera en aumento']],
+  k_s2: ['¿Cocina, servicio y gerencia se culpan entre sí?', '', ['Sí, regularmente','A veces','No'], ['ciclo de culpas entre equipos','','']],
+
+  t_pain: ['¿Qué le duele más en su clínica ahora mismo?', '', ['Los pacientes esperan mucho; las citas se desplazan','La capacidad de médicos y equipos queda ociosa aunque la agenda parece llena','Stock de insumos y medicamentos: sobra y falta a la vez','La facturación y el reembolso se retrasan o se rechazan','La misma queja de pacientes se repite','No estoy seguro, revisión general'], ['espera larga de pacientes','capacidad ociosa, agenda llena','stock de insumos desequilibrado','retraso / rechazo de reembolso','queja de pacientes recurrente','']],
+  t_b1: ['¿Dónde es peor la espera?', '', ['Registro y admisión','Antes de ver al médico','Pruebas y resultados','Pago y alta'], ['cuello de botella en registro','espera previa al médico','espera de resultados','cuello de botella en el alta']],
+  t_b2: ['¿Tasa de cancelación e inasistencia a citas?', '', ['Menos del 10%','10–20%','Más del 20%','No lo sabemos'], ['','inasistencia 10–20%','inasistencia superior al 20%','tasa de inasistencia no medida']],
+  t_b3: ['¿Cuántas horas tardan los resultados de pruebas en promedio?', '', ['Menos de 2 horas','2–24 horas','Más de 24 horas','No lo sabemos'], ['','resultados en 2–24 horas','resultados en más de 24 horas','tiempo de resultados no medido']],
+  t_i1: ['¿Cómo se gestiona el stock de insumos y medicamentos?', '', ['En un sistema con niveles mín-máx','Por experiencia','Con recuento a fin de mes','No está definido'], ['','decisión de stock por experiencia','stock contado solo a fin de mes','proceso de stock no definido']],
+  t_i2: ['¿Tasa de descarte por caducidad?', '', ['Menos del 1%','1–3%','Más del 3%','No lo sabemos'], ['','descarte por caducidad 1–3%','descarte por caducidad superior al 3%','tasa de descarte no medida']],
+  t_c1: ['¿Se clasifican los motivos de rechazo y devolución?', '', ['Sí','En parte','No'], ['','motivos de rechazo clasificados en parte','motivos de rechazo sin clasificar']],
+  t_c2: ['¿Cuántos días pasan del servicio a la factura?', '', ['El mismo día','1–7 días','Más de 7 días','Muy variable'], ['','facturación en 1–7 días','facturación en más de 7 días','plazo de facturación impredecible']],
+  t_r1: ['¿Cuál es la queja recurrente?', '', ['Espera','Comunicación e información','Facturación','Confusión de citas'], ['queja de espera recurrente','queja de información recurrente','queja de facturación recurrente','confusión de citas recurrente']],
+  t_r2: ['¿Cuántas veces se ha "resuelto" el mismo problema en los últimos dos años?', '', ['Una','Dos','Tres o más'], ['','problema resuelto dos veces','problema resuelto tres+ veces']],
+  t_g1: ['¿Conoce la ocupación por médico y por equipo?', '', ['Sí','Aproximadamente','No'], ['','ocupación estimada','ocupación no medida']],
+  t_s1: ['¿Añadió médicos, equipos o personal en los últimos 12 meses? ¿Qué pasó con la espera?', '', ['No añadimos','Sí; bajó','Sí; sin cambio','Sí; aumentó'], ['','','capacidad arriba, espera sin cambio','capacidad arriba, espera en aumento']],
+  t_s2: ['¿El equipo clínico, el administrativo y los médicos se culpan entre sí?', '', ['Sí, regularmente','A veces','No'], ['ciclo de culpas entre equipos','','']]
+};
+
+/* ===================== SEKTÖRE ÖZEL SONUÇ OKUMASI ===================== */
+/* READ[lang][sektörKodu][w|b|r] */
+var READ = {
+  tr: {
+    m: { w: 'Üretimde israf üç yerde saklanır: rutinleşmiş mesai, "güvenlik" adı verilen stok ve kimsenin saymadığı yeniden işleme. Röntgen her birini istasyon bazında dolara çevirir; çoğu zaman en büyük kalem sanılan değil, görünmeyen olur.',
+         b: 'Üretimde darboğaz nadiren en pahalı makinedir; çoğu zaman önünde en uzun kuyruk biriken istasyon ya da bir onay adımıdır. Onu bulmadan alınan her makine, kuyruğu başka yere taşır.',
+         r: 'Aynı arıza, aynı hata, aynı gecikme farklı görünse de üretimde genellikle tek bir köke iner: tanımsız bir standart, ölçülmeyen bir parametre ya da eksik bir devir. Kök bulunmadan her çözüm geçicidir.' },
+    l: { w: 'Depoda israf yarı dolu tırlarda, iki kez dokunulan palette ve yer kaplayan ölü stokta yaşar. Röntgen bunları sipariş başına maliyete çevirir; doluluk oranı tek başına yılda bir tır filosu eder.',
+         b: 'Lojistikte darboğaz genellikle rampa değil, rampaya gelene kadar geçilen evrak ve onay adımlarıdır. Kuyruğun nerede biriktiğini bulmadan eklenen her araç ve raf, bekleyen araç sayısını artırır.',
+         r: 'Her hafta tekrarlayan gecikme ve hata farklı vardiyalarda farklı isimlerle görünür; kökü çoğu zaman tek bir tanımsız süreçtir. Kök bulunmadan personel ya da araç değişimi sonucu değiştirmez.' },
+    d: { w: 'Distribütörlükte israfın iki büyük adresi: satmayan stok ve geç gelen tahsilat. İkisi de kâr değil nakit yer; röntgen ürün ve müşteri bazında hangisinin ne kadar nakit bağladığını gösterir.',
+         b: 'Dağıtımda darboğaz siparişten sevke geçen günlerde saklanır: çoğu zaman toplama ya da onay-fatura adımı. Bulunmadan büyütülen depo ve filo, bekleyen siparişi bekleyen kamyona çevirir.',
+         r: 'Aynı müşteri sorunu geç teslimat, yanlış ürün ve fatura hatası olarak üç ayrı yerde görünür; genellikle tek bir kökü vardır: tanımsız bir sipariş-onay süreci. Kök bulunmadan müşteri kaybı devam eder.' },
+    e: { w: 'E-ticarette israf iade, yanlış gönderim ve kârsız reklamda yaşar. Sipariş başına kârı bilmeden yapılan her kampanya, ciroyu büyütürken kârı eritebilir; röntgen ürün bazında hangi siparişin para kaybettirdiğini gösterir.',
+         b: 'E-ticarette darboğaz çoğu zaman paketleme masası ya da kargo alım saatidir. Bulunmadan eklenen depo ve personel, aynı saatte aynı kuyruğu üretir.',
+         r: 'Tekrarlayan iade ve şikâyet farklı ürünlerde görünse de kökü genellikle tektir: ürün sayfası, stok kararı ya da yanıt süreci. Kök bulunmadan her kampanya aynı iadeyi yeniden satın alır.' },
+    c: { w: 'İnşaatta israf yeniden yapılan işte, fiyatlandırılmayan değişikliklerde ve bekleyen hakedişte birikir. Proje bazında hesaplanmadığında kâr ancak iş bitince görünür; röntgen bunu iş sürerken dolara çevirir.',
+         b: 'Şantiyede darboğaz nadiren ekip sayısıdır; çoğu zaman malzeme onayı ya da taşeron koordinasyonudur. Bulunmadan eklenen ekip, bekleyen ekip sayısını artırır.',
+         r: 'Her projede tekrarlayan sorun farklı şantiyelerde farklı görünür ama kökü tektir: eksik proje bilgisi, sözlü planlama ya da tanımsız değişiklik süreci. Kök bulunmadan sonraki proje de aynı sapmayı yaşar.' },
+    k: { w: 'Restoranda israf gıda maliyetinde, fazla hazırlıkta ve tutarsız porsiyonda gizlenir; menü kalemi bazında kârlılık bilinmeden ciro büyür, kâr büyümez. Röntgen kalem bazında hangi tabağın para kaybettirdiğini gösterir.',
+         b: 'Servis darboğazı genellikle mutfak çıkışı ya da oturtma anıdır; personel eklemek kuyruğu değil bekleyen personeli artırır. Önce hangi dakikada neyin tıkandığını bulmak gerekir.',
+         r: 'Yorumlardaki aynı şikâyet farklı vardiyalarda farklı görünür; kökü genellikle tanımsız bir standart ya da eğitim sürecidir. Kök bulunmadan personel değişimi şikâyeti değiştirmez.' },
+    t: { w: 'Klinikte israf son kullanma imhasında, gelmeyen randevuda ve reddedilen faturada birikir. Röntgen bunların her birini yıllık dolara çevirir; çoğu zaman en büyük kalem randevu boşluğudur.',
+         b: 'Klinikte darboğaz hekim değil, hekimden önceki ve sonraki adımlardır: kayıt, tetkik sonucu, çıkış. Bulunmadan eklenen hekim, bekleme odasını büyütür.',
+         r: 'Aynı hasta şikâyeti bekleme, bilgilendirme ve fatura olarak üç yerde görünür; kökü genellikle tek bir tanımsız akıştır. Kök bulunmadan her düzeltme başka bir masaya taşınır.' },
+    h: { w: 'Hizmet işinde israf faturalanmayan saatte ve kapsam dışı yapılan işte yaşar; proje bazında kârlılık bilinmeden hangi müşterinin para kaybettirdiği görülmez. Röntgen saat bazında bunu gösterir.',
+         b: 'Hizmette darboğaz çoğu zaman bir kişi ya da müşteri onayıdır. Bulunmadan alınan eleman, o kişinin ya da onayın önündeki kuyruğu değiştirmez.',
+         r: 'Tekrarlayan revizyon ve şikâyet farklı projelerde farklı görünür; kökü genellikle iş tanımının baştan yanlış kurulmasıdır. Kök bulunmadan her proje aynı revizyon döngüsüne girer.' },
+    p: { w: 'Perakendede israf tükenen en çok satanda, satmayan stokta ve sayım farkında saklanır. Ürün bazında marj bilinmeden hangi rafın para kaybettirdiği görülmez; röntgen bunu mağaza ve ürün bazında gösterir.',
+         b: 'Mağazada darboğaz yoğun saatteki kasa ve reyondur; saatlik veriyle planlanmayan vardiya, boş saatte fazla, dolu saatte eksik personel üretir. Önce hangi saatte neyin tıkandığını bulmak gerekir.',
+         r: 'Mağazalar arası fark ve her hafta tekrarlayan sorun farklı görünse de kökü genellikle tektir: tanımsız ikmal ya da vardiya süreci. Kök bulunmadan müdür değişimi sonucu değiştirmez.' },
+    s: { w: 'SaaS\'ta israf destek maliyetinde, uzun onboarding\'de ve erken churn\'de yaşar; müşteri başına destek maliyeti bilinmeden hangi segmentin para kaybettirdiği görülmez. Röntgen bunu gösterir.',
+         b: 'Ürün ekibinde darboğaz çoğu zaman QA, öncelik kararı ya da tek bir geliştiricidir. Bulunmadan büyütülen ekip, aynı kuyruğa daha çok iş ekler.',
+         r: 'Tekrarlayan olay ve aynı 5 destek konusu farklı müşterilerde farklı görünür; kökü genellikle postmortem yapılmayan tek bir hatadır. Kök bulunmadan her sürüm aynı olayı geri getirir.' },
+    g: { w: 'İsraf gider tablosunda kendi adıyla görünmez; rutinleşmiş maliyet olarak görünür. Röntgen bunları kalem kalem dolara çevirir.',
+         b: 'Sistemin hızını en yavaş halka belirler; darboğaz bulunmadan yapılan yatırım çıktıyı değil kuyruğu büyütür.',
+         r: 'Tekrarlayan sorun yanlış katmanda çözülmüş sorundur; kök bulunmadan her çözüm geçicidir.' }
+  },
+  en: {
+    m: { w: 'In a plant, waste hides in three places: overtime that became routine, inventory called "safety stock", and rework nobody counts. The X-ray converts each into dollars by station; the biggest line is usually the one you can\'t see, not the one you suspect.',
+         b: 'The bottleneck in a plant is rarely the most expensive machine; it\'s usually the station with the longest queue in front of it, or an approval step. Every machine bought before finding it only moves the queue.',
+         r: 'The same breakdown, defect or delay may look different, but in a plant it usually traces to one root: an undefined standard, an unmeasured parameter or a missing handover. Until the root is found, every fix is temporary.' },
+    l: { w: 'In a warehouse, waste lives in half-empty trucks, pallets touched twice and dead stock taking up space. The X-ray converts these into cost per order; fill rate alone can be worth a truck a year.',
+         b: 'In logistics the bottleneck is usually not the dock but the paperwork and approvals before it. Every truck and rack added before finding the queue only adds waiting trucks.',
+         r: 'The delay and error that recur every week show up under different names in different shifts; the root is usually one undefined process. Changing staff or vehicles won\'t change the outcome until it\'s found.' },
+    d: { w: 'In distribution, waste has two big addresses: stock that doesn\'t sell and collections that come late. Both eat cash, not just profit; the X-ray shows which products and customers tie up how much.',
+         b: 'In distribution the bottleneck hides in the days between order and shipment, usually picking or the approval-invoicing step. Warehouse and fleet added before finding it turn waiting orders into waiting trucks.',
+         r: 'The same customer problem appears as late delivery, wrong item and invoice error in three places; it usually has one root: an undefined order-approval process. Customer loss continues until it\'s found.' },
+    e: { w: 'In e-commerce, waste lives in returns, wrong shipments and unprofitable ads. Every campaign run without knowing profit per order can grow revenue while melting profit; the X-ray shows which orders lose money, per product.',
+         b: 'In e-commerce the bottleneck is usually the packing table or the carrier cutoff. Warehouse and staff added before finding it produce the same queue at the same hour.',
+         r: 'Recurring returns and complaints look different across products but usually share one root: the product page, the stock decision or the response process. Until it\'s found, every campaign buys the same return again.' },
+    c: { w: 'In construction, waste accumulates in rework, unpriced changes and waiting progress payments. Without per-project accounting, profit only appears when the job is done; the X-ray converts it into dollars while the job is running.',
+         b: 'On site the bottleneck is rarely crew size; it\'s usually material approval or subcontractor coordination. Crews added before finding it only add waiting crews.',
+         r: 'The problem that recurs on every project looks different on each site but has one root: missing design information, verbal planning or an undefined change process. The next project repeats the overrun until it\'s found.' },
+    k: { w: 'In a restaurant, waste hides in food cost, over-prep and inconsistent portions; without per-item profitability, revenue grows and profit doesn\'t. The X-ray shows which plate loses money.',
+         b: 'The service bottleneck is usually the kitchen pass or the seating moment; adding staff adds waiting staff, not throughput. First find which minute jams what.',
+         r: 'The same complaint in reviews looks different across shifts; its root is usually an undefined standard or training process. Changing staff won\'t change the complaint until it\'s found.' },
+    t: { w: 'In a clinic, waste accumulates in expiry write-offs, no-shows and rejected claims. The X-ray converts each into annual dollars; the biggest line is often the empty appointment slot.',
+         b: 'In a clinic the bottleneck is not the physician but the steps before and after: registration, results, discharge. Physicians added before finding it enlarge the waiting room.',
+         r: 'The same patient complaint appears as waiting, information and billing in three places; the root is usually one undefined flow. Every fix moves to another desk until it\'s found.' },
+    h: { w: 'In a service business, waste lives in unbillable hours and out-of-scope work; without per-project profitability you can\'t see which client loses money. The X-ray shows it by the hour.',
+         b: 'In services the bottleneck is usually one person or the client\'s approval. A hire made before finding it doesn\'t change the queue in front of that person or that approval.',
+         r: 'Recurring revisions and complaints look different across projects; the root is usually a brief set up wrong from the start. Every project enters the same revision loop until it\'s found.' },
+    p: { w: 'In retail, waste hides in the best-seller that runs out, stock that doesn\'t sell and count discrepancies. Without per-product margin you can\'t see which shelf loses money; the X-ray shows it by store and product.',
+         b: 'In a store the bottleneck is the checkout and the floor at peak; shifts not planned on hourly data produce too many staff off-peak and too few at peak. First find which hour jams what.',
+         r: 'The gap between stores and the weekly recurring problem look different but usually share one root: an undefined replenishment or shift process. Changing managers won\'t change the outcome until it\'s found.' },
+    s: { w: 'In SaaS, waste lives in support cost, long onboarding and early churn; without support cost per customer you can\'t see which segment loses money. The X-ray shows it.',
+         b: 'In a product team the bottleneck is usually QA, the prioritization decision or a single developer. A team grown before finding it adds more work to the same queue.',
+         r: 'Recurring incidents and the same five support topics look different across customers; the root is usually one bug never given a postmortem. Every release brings the same incident back until it\'s found.' },
+    g: { w: 'Waste never appears under its own name in the P&L; it appears as routine cost. The X-ray converts it into dollars line by line.',
+         b: 'The slowest link sets the system\'s speed; investment made before finding the bottleneck grows the queue, not the output.',
+         r: 'A recurring problem is a problem solved at the wrong layer; every fix is temporary until the root is found.' }
+  },
+  es: {
+    m: { w: 'En planta, el desperdicio se esconde en tres lugares: horas extra convertidas en rutina, inventario llamado "de seguridad" y retrabajo que nadie cuenta. La radiografía convierte cada uno en dólares por estación; la mayor partida suele ser la que no se ve, no la que se sospecha.',
+         b: 'El cuello de botella en planta rara vez es la máquina más cara; suele ser la estación con la cola más larga delante, o un paso de aprobación. Cada máquina comprada antes de encontrarlo solo mueve la cola.',
+         r: 'La misma avería, defecto o retraso puede parecer distinto, pero en planta suele llevar a una sola raíz: un estándar no definido, un parámetro no medido o un relevo que falta. Hasta encontrarla, toda solución es temporal.' },
+    l: { w: 'En almacén, el desperdicio vive en camiones medio vacíos, pallets tocados dos veces y stock muerto que ocupa espacio. La radiografía lo convierte en coste por pedido; la ocupación sola puede valer un camión al año.',
+         b: 'En logística el cuello de botella no suele ser el muelle, sino los documentos y aprobaciones previos. Cada camión y estantería añadidos antes de encontrar la cola solo añaden camiones en espera.',
+         r: 'El retraso y el error que se repiten cada semana aparecen con distintos nombres en distintos turnos; la raíz suele ser un único proceso no definido. Cambiar personal o vehículos no cambia el resultado hasta encontrarla.' },
+    d: { w: 'En distribución, el desperdicio tiene dos grandes direcciones: el stock que no se vende y el cobro que llega tarde. Ambos se comen la caja, no solo la ganancia; la radiografía muestra qué productos y clientes inmovilizan cuánto.',
+         b: 'En distribución el cuello de botella se esconde en los días entre pedido y despacho, normalmente el picking o el paso de aprobación-facturación. Almacén y flota añadidos antes de encontrarlo convierten pedidos en espera en camiones en espera.',
+         r: 'El mismo problema de cliente aparece como entrega tardía, artículo equivocado y error de factura en tres lugares; suele tener una raíz: un proceso de aprobación de pedidos no definido. La pérdida de clientes sigue hasta encontrarla.' },
+    e: { w: 'En e-commerce, el desperdicio vive en devoluciones, envíos equivocados y publicidad sin ganancia. Cada campaña hecha sin conocer la ganancia por pedido puede subir ingresos y derretir la ganancia; la radiografía muestra qué pedidos pierden dinero, por producto.',
+         b: 'En e-commerce el cuello de botella suele ser la mesa de empaque o la hora de recogida del transportista. Almacén y personal añadidos antes de encontrarlo producen la misma cola a la misma hora.',
+         r: 'Las devoluciones y quejas recurrentes parecen distintas entre productos pero suelen compartir una raíz: la ficha de producto, la decisión de stock o el proceso de respuesta. Hasta encontrarla, cada campaña vuelve a comprar la misma devolución.' },
+    c: { w: 'En construcción, el desperdicio se acumula en retrabajo, cambios no valorados y certificaciones en espera. Sin contabilidad por proyecto la ganancia solo aparece al terminar; la radiografía la convierte en dólares con la obra en marcha.',
+         b: 'En obra el cuello de botella rara vez es el número de cuadrillas; suele ser la aprobación de material o la coordinación de subcontratistas. Cuadrillas añadidas antes de encontrarlo solo añaden cuadrillas en espera.',
+         r: 'El problema que se repite en cada proyecto parece distinto en cada obra pero tiene una raíz: información de proyecto incompleta, planificación verbal o un proceso de cambios no definido. El siguiente proyecto repite la desviación hasta encontrarla.' },
+    k: { w: 'En un restaurante, el desperdicio se esconde en el coste de alimentos, el exceso de preparación y las porciones inconsistentes; sin rentabilidad por plato, los ingresos crecen y la ganancia no. La radiografía muestra qué plato pierde dinero.',
+         b: 'El cuello de botella del servicio suele ser la salida de cocina o el momento de sentar; añadir personal añade personal en espera, no capacidad. Primero hay que encontrar qué minuto atasca qué.',
+         r: 'La misma queja en las reseñas parece distinta entre turnos; su raíz suele ser un estándar o un proceso de formación no definido. Cambiar personal no cambia la queja hasta encontrarla.' },
+    t: { w: 'En una clínica, el desperdicio se acumula en descartes por caducidad, inasistencias y facturas rechazadas. La radiografía convierte cada uno en dólares anuales; la mayor partida suele ser la cita vacía.',
+         b: 'En una clínica el cuello de botella no es el médico, sino los pasos antes y después: registro, resultados, alta. Médicos añadidos antes de encontrarlo agrandan la sala de espera.',
+         r: 'La misma queja de pacientes aparece como espera, información y facturación en tres lugares; la raíz suele ser un único flujo no definido. Cada corrección pasa a otra mesa hasta encontrarla.' },
+    h: { w: 'En un negocio de servicios, el desperdicio vive en horas no facturables y trabajo fuera de alcance; sin rentabilidad por proyecto no se ve qué cliente pierde dinero. La radiografía lo muestra por hora.',
+         b: 'En servicios el cuello de botella suele ser una persona o la aprobación del cliente. Una contratación hecha antes de encontrarlo no cambia la cola delante de esa persona o esa aprobación.',
+         r: 'Las revisiones y quejas recurrentes parecen distintas entre proyectos; la raíz suele ser un brief mal planteado desde el inicio. Cada proyecto entra en el mismo ciclo de revisiones hasta encontrarla.' },
+    p: { w: 'En retail, el desperdicio se esconde en el más vendido que se agota, el stock que no se vende y las diferencias de inventario. Sin margen por producto no se ve qué estante pierde dinero; la radiografía lo muestra por tienda y producto.',
+         b: 'En tienda el cuello de botella es la caja y el piso en hora punta; los turnos no planificados con datos por hora producen exceso de personal fuera de punta y falta en punta. Primero hay que encontrar qué hora atasca qué.',
+         r: 'La diferencia entre tiendas y el problema semanal recurrente parecen distintos pero suelen compartir una raíz: un proceso de reposición o de turnos no definido. Cambiar gerentes no cambia el resultado hasta encontrarla.' },
+    s: { w: 'En SaaS, el desperdicio vive en el coste de soporte, el onboarding largo y el churn temprano; sin coste de soporte por cliente no se ve qué segmento pierde dinero. La radiografía lo muestra.',
+         b: 'En un equipo de producto el cuello de botella suele ser QA, la decisión de prioridad o un solo desarrollador. Un equipo ampliado antes de encontrarlo añade más trabajo a la misma cola.',
+         r: 'Los incidentes recurrentes y los mismos cinco temas de soporte parecen distintos entre clientes; la raíz suele ser un único bug sin postmortem. Cada release trae de vuelta el mismo incidente hasta encontrarla.' },
+    g: { w: 'El desperdicio nunca aparece con su nombre en el estado de resultados; aparece como coste rutinario. La radiografía lo convierte en dólares línea por línea.',
+         b: 'El eslabón más lento marca la velocidad del sistema; la inversión hecha antes de encontrar el cuello de botella agranda la cola, no la producción.',
+         r: 'Un problema recurrente es un problema resuelto en la capa equivocada; toda solución es temporal hasta encontrar la raíz.' }
+  }
+};
+
+/* ===================== KADEMEDE NE VAR + NASIL İLERLER ===================== */
+var DELIV = {
+  tr: { xray: ['7+1 israf kategorisinin operasyonunuzda nerede oluştuğu ve yıllık kaça mal olduğu, dolar cinsinden','Önce hangisine dokunmanız gerektiği: etkiye göre sıralı, ilk üçü işaretli','Her rakamın kaynağı ve varsayımı yazılı'],
+        'xray-toc': ['Hızlı Röntgen\'in tamamı','Sipariş girişinden teslimata akış haritası ve sistemi tutan tek kısıt','O kısıtta kaybettiğiniz çıktının yıllık karşılığı','Kısıtı büyütmeden ondan daha fazla iş geçirmenin ilk adımları'],
+        full: ['Röntgen + Darboğaz\'ın tamamı','Seçilen bir problem için kanıt zinciriyle kök neden','Bu kökün başka hangi belirtileri ürettiği','90 günlük aksiyon planı: ne, kim, hangi hafta, neyle ölçülür'],
+        transformation: ['Departman bazında israf, darboğaz ve kök neden taraması','12 aylık, sıralı yol haritası','Kapsam yazılı olarak birlikte belirlenir; fiyat kapsamdan sonra'] ,
+        steps: ['Yazılı sohbet, ~15 dakika. Operasyonunuzu kendi cümlelerinizle anlatırsınız.','Kapsam yazılı olarak netleşir; ödeme ondan sonra alınır.','İnsan uzman doğrular, yapay zeka tarar, 7 iş gününde imzalı rapor.'],
+        delivH: 'Raporda ne var', stepsH: 'Nasıl ilerler', readH: 'Sektörünüzde bu ne anlama geliyor', profH: 'Profiliniz', scoreH: 'Üç teşhisin sinyal gücü', print: 'Yazdır / PDF', tags: { w:'İSRAF', b:'DARBOĞAZ', r:'KÖK NEDEN' } },
+  en: { xray: ['Where each of the 7+1 waste categories occurs in your operation and what it costs per year, in dollars','What to touch first: ranked by impact, top three flagged','The source and assumption behind every number, in writing'],
+        'xray-toc': ['Everything in the Quick X-Ray','A flow map from order entry to delivery and the single constraint holding the system','The annual value of the output you lose at that constraint','First moves to get more through the constraint before spending on it'],
+        full: ['Everything in X-Ray + Bottleneck','The root cause of one chosen problem, with the evidence chain','Which other symptoms that root produces','A 90-day action plan: what, who, which week, measured by what'],
+        transformation: ['Waste, bottleneck and root-cause scan by department','A sequenced 12-month roadmap','Scope defined together in writing; price follows scope'],
+        steps: ['Written conversation, ~15 minutes. You describe your operation in your own words.','Scope is confirmed in writing; payment is taken only after that.','A human expert validates, AI scans, signed report in 7 business days.'],
+        delivH: 'What\'s in the report', stepsH: 'How it proceeds', readH: 'What this means in your sector', profH: 'Your profile', scoreH: 'Signal strength across the three diagnostics', print: 'Print / PDF', tags: { w:'WASTE', b:'BOTTLENECK', r:'ROOT CAUSE' } },
+  es: { xray: ['Dónde ocurre cada una de las 7+1 categorías de desperdicio en su operación y cuánto cuesta al año, en dólares','Qué tocar primero: ordenado por impacto, los tres principales marcados','La fuente y el supuesto de cada cifra, por escrito'],
+        'xray-toc': ['Todo lo de la Radiografía Rápida','Un mapa del flujo desde el pedido hasta la entrega y la única restricción que sostiene el sistema','El valor anual de la producción que pierde en esa restricción','Primeros pasos para pasar más trabajo por la restricción antes de invertir en ella'],
+        full: ['Todo lo de Radiografía + Cuello de Botella','La causa raíz de un problema elegido, con la cadena de evidencia','Qué otros síntomas produce esa raíz','Un plan de acción de 90 días: qué, quién, qué semana, medido con qué'],
+        transformation: ['Escaneo de desperdicio, cuello de botella y causa raíz por departamento','Una hoja de ruta secuenciada de 12 meses','Alcance definido en conjunto por escrito; el precio sigue al alcance'],
+        steps: ['Conversación escrita, ~15 minutos. Describe su operación con sus propias palabras.','El alcance se confirma por escrito; el pago se cobra solo después.','Un experto humano valida, la IA escanea, informe firmado en 7 días hábiles.'],
+        delivH: 'Qué contiene el informe', stepsH: 'Cómo continúa', readH: 'Qué significa esto en su sector', profH: 'Su perfil', scoreH: 'Fuerza de la señal en los tres diagnósticos', print: 'Imprimir / PDF', tags: { w:'DESPERDICIO', b:'CUELLO DE BOTELLA', r:'CAUSA RAÍZ' } }
+};
+
+for (var _k in Q2) Q[_k] = Q2[_k];
+
 /* Sektör tanımı: acı sorusu, ortak sorular, puan liderine göre ek sondaj */
 var SECT = [
-  { name:'Üretim',        pain:'m_pain', shared:['m_s1','m_s2'], probe:{ w:['m_i2','m_q2c'], b:['m_b2d','m_b2a'], r:['m_r2','m_q2b'] } },
-  { name:'Lojistik',      pain:'l_pain', shared:['l_s1','l_s2'], probe:{ w:['l_i2','l_f1'],  b:['l_b2c','l_g1'],  r:['l_r2','l_q3'] } },
-  { name:'Distribütörlük',pain:'d_pain', shared:['d_s1','d_s2'], probe:{ w:['d_i1','d_c1'],  b:['d_b1','d_b2'],   r:['d_r2','d_c2'] } },
-  { name:'Hizmet',        pain:'h_pain', shared:['h_s1','h_s2'], probe:{ w:['h_u1','h_u2'],  b:['h_b2b','h_b2c'], r:['h_r2','h_q1'] } },
-  { name:'Perakende',     pain:'p_pain', shared:['p_s1','p_s2'], probe:{ w:['p_i2','p_q1'],  b:['p_b1','p_b2'],   r:['p_r2','p_r1'] } },
-  { name:'SaaS',          pain:'s_pain', shared:['s_s1','s_s2'], probe:{ w:['s_o1','s_g1'],  b:['s_d1','s_b2'],   r:['s_r2','s_c1'] } },
-  { name:'Genel',         pain:'g_pain', shared:['g_s1','g_s2'], probe:{ w:['g_w1','g_w2'],  b:['g_b1','g_b2'],   r:['g_r1','g_r2'] } }
+  { code:'m', pain:'m_pain', shared:['m_s1','m_s2'], probe:{ w:['m_i2','m_q2c'], b:['m_b2d','m_b2a'], r:['m_r2','m_q2b'] } },
+  { code:'l', pain:'l_pain', shared:['l_s1','l_s2'], probe:{ w:['l_i2','l_f1'],  b:['l_b2c','l_g1'],  r:['l_r2','l_q3'] } },
+  { code:'d', pain:'d_pain', shared:['d_s1','d_s2'], probe:{ w:['d_i1','d_c1'],  b:['d_b1','d_b2'],   r:['d_r2','d_c2'] } },
+  { code:'e', pain:'e_pain', shared:['e_s1','e_s2'], probe:{ w:['e_i2','e_m1'],  b:['e_b1','e_b2'],   r:['e_r2','e_q2'] } },
+  { code:'p', pain:'p_pain', shared:['p_s1','p_s2'], probe:{ w:['p_i2','p_q1'],  b:['p_b1','p_b2'],   r:['p_r2','p_r1'] } },
+  { code:'h', pain:'h_pain', shared:['h_s1','h_s2'], probe:{ w:['h_u1','h_u2'],  b:['h_b2b','h_b2c'], r:['h_r2','h_q1'] } },
+  { code:'c', pain:'c_pain', shared:['c_s1','c_s2'], probe:{ w:['c_q3','c_c1'],  b:['c_b2','c_b3'],   r:['c_r2','c_q2'] } },
+  { code:'k', pain:'k_pain', shared:['k_s1','k_s2'], probe:{ w:['k_f1','k_f2'],  b:['k_b2','k_b1'],   r:['k_r2','k_p2'] } },
+  { code:'t', pain:'t_pain', shared:['t_s1','t_s2'], probe:{ w:['t_i2','t_c2'],  b:['t_b3','t_b2'],   r:['t_r2','t_c1'] } },
+  { code:'s', pain:'s_pain', shared:['s_s1','s_s2'], probe:{ w:['s_o1','s_g1'],  b:['s_d1','s_b2'],   r:['s_r2','s_c1'] } },
+  { code:'g', pain:'g_pain', shared:['g_s1','g_s2'], probe:{ w:['g_w1','g_w2'],  b:['g_b1','g_b2'],   r:['g_r1','g_r2'] } }
 ];
 /* N[lang][id] = [question, hint, [option labels], [signal texts]] — aligned with the TR tree */
 var N = { en: {}, es: {} };
 
 N.en = {
-  sector: ['Which sector are you in?', 'The wording and content of the questions depend on this.', ['Manufacturing','Logistics / Warehousing','Distribution / Wholesale','Services (agency, engineering, maintenance, clinic…)','Retail','SaaS / Digital','Other'], []],
+  sector: ['Which sector are you in?', 'The wording and content of the questions depend on this.', ['Manufacturing','Logistics / Warehousing','Distribution / Wholesale','E-commerce','Retail','Services / Agency','Construction / Contracting','Restaurant / Hospitality','Healthcare / Clinic','SaaS / Digital','Other'], []],
   size: ['How many employees do you have?', '', ['1–10','11–50','51–250','250+'], []],
   revenue: ['Which band is your annual revenue in?', 'Our guarantee ($15,000 in annual leakage) isn\'t meaningful at every scale; we ask so we can route you honestly.', ['Under $500K','$500K – $2M','$2M – $10M','Over $10M'], []],
   tried: ['What have you already tried for this?', '', ['Nothing','Worked on it internally','Hired a consultant','Installed software / ERP'], ['no intervention so far','internal attempt didn\'t resolve it','consultant engagement didn\'t resolve it','software installed, problem remained']],
@@ -465,7 +858,7 @@ N.en = {
 };
 
 N.es = {
-  sector: ['¿En qué sector está?', 'El lenguaje y el contenido de las preguntas dependen de esto.', ['Manufactura','Logística / Almacén','Distribución / Mayorista','Servicios (agencia, ingeniería, mantenimiento, clínica…)','Retail','SaaS / Digital','Otro'], []],
+  sector: ['¿En qué sector está?', 'El lenguaje y el contenido de las preguntas dependen de esto.', ['Manufactura','Logística / Almacén','Distribución / Mayorista','E-commerce','Retail','Servicios / Agencia','Construcción / Contratación','Restaurante / Hostelería','Salud / Clínica','SaaS / Digital','Otro'], []],
   size: ['¿Cuántos empleados tiene?', '', ['1–10','11–50','51–250','250+'], []],
   revenue: ['¿En qué rango está su facturación anual?', 'Nuestra garantía ($15.000 de fuga anual) no tiene sentido en toda escala; lo preguntamos para orientarle con honestidad.', ['Menos de $500K','$500K – $2M','$2M – $10M','Más de $10M'], []],
   tried: ['¿Qué ha intentado ya para esto?', '', ['Nada','Lo trabajamos internamente','Contratamos un consultor','Instalamos software / ERP'], ['sin intervención previa','el intento interno no lo resolvió','la consultoría no lo resolvió','software instalado, problema persiste']],
@@ -577,16 +970,34 @@ N.es = {
   g_s2: ['¿Qué parte de su mañana es apagar incendios?', '', ['Menos del 10%','10–30%','Más del 30%'], ['','','más de un tercio de la mañana apagando incendios']]
 };
 
+
+var ICONS = [
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 21V9l5 3V9l5 3V9l5 3v9H3z"/><path d="M7 21v-4h3v4M14 21v-4h3v4M6 9V4h3v5"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M2 7h11v9H2zM13 10h5l3 3v3h-8z"/><circle cx="6" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 12h8v9H3zM13 12h8v9h-8zM8 3h8v9H8z"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 4h3l2.5 11h10L21 8H7"/><circle cx="10" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 10l1.5-5h15L21 10M3 10a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0M5 10v10h14V10M10 20v-5h4v5"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 8h18v12H3zM9 8V5h6v3M3 13h18"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 21h18M5 21V11l7-4 7 4v10M9 21v-6h6v6"/><path d="M12 7V3l6 2"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 15h16l-1 5H5zM4 15a8 8 0 0116 0"/><path d="M12 7V4"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 8h5V3h6v5h5v6h-5v5H9v-5H4z"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 18a4 4 0 01-.6-7.95A6 6 0 0118 9a4.5 4.5 0 01-.5 9H7z"/><path d="M9 14l2 2-2 2M13 18h3"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>'
+];
+
+for (var _k2 in N2.en) N.en[_k2] = N2.en[_k2];
+for (var _k3 in N2.es) N.es[_k3] = N2.es[_k3];
+
 /* ===================== ARAYÜZ METİNLERİ ===================== */
-var HUMAN_NOTE = true; /* false → "sonucu e-postama gönder" moduna döner (insan emeği yok) */
+var HUMAN_NOTE = false; /* false → "sonucu e-postama gönder" moduna döner (insan emeği yok) */
 var UI = {
   tr: { title:'GembaX — Ücretsiz Ön Tarama', meta:'ÜCRETSİZ ÖN TARAMA · ~3 DK', iLayer:'Ücretsiz Ön Tarama', iTitle:'On soru. <em>Hangi teşhis</em> sizin için, neden.',
     iHint:'Sorular sektörünüze ve cevaplarınıza göre dallanır. Sonunda hangi teşhisle başlamanız gerektiğini, hangi sinyallere dayanarak söylediğimizi ve fiyatını görürsünüz.',
-    facts:['10 SORU','~3 DAKİKA','KAYIT YOK','RAKAM VERMEZ · YÖNLENDİRİR'], iBtn:'Taramayı Başlat →',
+    facts:['10 SORU','~3 DAKİKA','KAYIT YOK','DOLAR RAKAMI VERMEZ · YÖN GÖSTERİR'], iBtn:'Taramayı Başlat →',
     iFine:'Bu tarama dolar rakamı üretmez. Rakam, insan uzman doğrulaması olmadan verilmez; onu teşhis raporunda alırsınız.',
     iPriv:'GİZLİLİK · Cevaplarınız tarayıcınızda kalır; e-posta bırakmadıkça bize ulaşmaz. Kayıt yok, satış yok, üçüncü tarafla paylaşım yok.',
     back:'← Geri', next:'Devam →', auto:'SEÇİNCE OTOMATİK İLERLER', kbd:'1–9 tuşlarıyla seçebilirsiniz · Enter: devam · Backspace: geri',
-    layers:{ profile:'Profil', close:'Kapanış', signal:'Sinyal' },
+    layers:{ profile:'Profil', close:'Kapanış', signal:'Sinyal' }, pTitle:'Önce sizi tanıyalım.', pHint:'Üç seçim, tek ekran. Sorular buna göre şekillenir.', low:'AZ', high:'ÇOK',
     names:{ w:'İsraf Röntgeni', b:'Darboğaz Tespiti', r:'Kök Neden Analizi' },
     why:{ w:'Bu sinyaller tipik olarak ölçülmemiş israf deseni: her kalem tek başına meşru görünüyor, toplamı kârı yiyor. Önce nerede ve kaça mal olduğunu görmek gerekiyor.',
           b:'Bu kombinasyon Kısıtlar Teorisi\'nin imzası: sistemin hızını en yavaş halka belirliyor, yatırım o halkanın dışına gidiyor. Önce kısıtı bulmak gerekiyor.',
@@ -594,11 +1005,11 @@ var UI = {
     dont:{ w:'Kaçağın nerede olduğunu görmeden genel maliyet kesintisine gitmeyin; çoğu zaman kesilen şey israf değil, değer olur.',
            b:'Kısıtı bulmadan yeni makine, vardiya ya da eleman almayın. Darboğazın dışına giden yatırım çıktıyı artırmaz, yığını büyütür.',
            r:'Aynı sorunu üçüncü kez aynı yöntemle çözmeyin. İki denemeyi boşa çıkaran şey çözümün kendisi değil, çözdüğü katmandı.' },
-    tiers:{ xray:['Hızlı Röntgen','İsraf X-Ray: 7+1 kategoride nerede, yıllık kaça mal oluyor, önce neye dokunulacak.','$500','TEK SEFERLİK · 7 İŞ GÜNÜ'],
-            'xray-toc':['Röntgen + Darboğaz','İsraf X-Ray + Kısıtlar Teorisi ile darboğaz tespiti ve kaybedilen çıktının hesabı.','$900','TEK SEFERLİK · 7 İŞ GÜNÜ'],
-            full:['Tam Teşhis','İsraf X-Ray + Darboğaz (TOC) + bir problem için kök neden analizi ve 90 günlük plan.','$1.500','TEK SEFERLİK · 7 İŞ GÜNÜ'],
+    tiers:{ xray:['Hızlı Röntgen','İsraf Röntgeni: 7+1 kategoride nerede, yıllık kaça mal oluyor, önce neye dokunulacak.','$500','TEK SEFERLİK · 7 İŞ GÜNÜ'],
+            'xray-toc':['Röntgen + Darboğaz','İsraf Röntgeni + Kısıtlar Teorisi ile darboğaz tespiti ve kaybedilen çıktının hesabı.','$900','TEK SEFERLİK · 7 İŞ GÜNÜ'],
+            full:['Tam Teşhis','İsraf Röntgeni + Darboğaz (TOC) + bir problem için kök neden analizi ve 90 günlük plan.','$1.500','TEK SEFERLİK · 7 İŞ GÜNÜ'],
             transformation:['Dönüşüm','Şirket geneli teşhis + 12 aylık yol haritası. Kapsam yazılı olarak birlikte belirlenir.','Teklif','KAPSAMA GÖRE'] },
-    rLabel:'Cevaplarınıza göre · Teşhis Pusulası', startWith:' ile başlayın.', alsoStrong:' sinyali de güçlü.', sigH:'Bunu söyleten sinyaller', dontH:'Teşhisten önce şunu yapmayın',
+    rLabel:'Cevaplarınıza göre · Sonuç', recTag:'ÖNERİLEN KADEME', recNote:'Ön tarama yön gösterir; kesin kapsam ve fiyat, insan uzman cevaplarınızı okuduktan sonra yazılı olarak teyit edilir.', startWith:' ile başlayın.', alsoStrong:' sinyali de güçlü.', sigH:'Cevaplarınızdaki sinyaller', dontH:'Teşhisten önce şunu yapmayın',
     honest:'Bu bir ön yönlendirmedir; "size özel" değil, cevaplarınıza göredir. Dolar rakamı, insan uzman doğrulaması olmadan verilmez. Ödeme, kapsam yazılı olarak netleşene kadar alınmaz. $15.000 yıllık kaçak gösteremezsek rapor ücretsizdir.',
     go:'Teşhise geç →', noteBtn:'48 saatte 1 sayfalık uzman notu (ücretsiz)', mailBtn:'Sonucu e-postama gönder',
     noteHint:'Cevaplarınızı insan uzman okur, 48 saat içinde bir sayfalık yazılı not gönderir. Otomatik değildir; bu yüzden haftalık kontenjanlıdır.',
@@ -616,7 +1027,7 @@ var UI = {
     iFine:'This scan does not produce dollar figures. No number is given without human expert validation; you get that in the diagnostic report.',
     iPriv:'PRIVACY · Your answers stay in your browser; nothing reaches us unless you leave an email. No sign-up, no selling, no sharing with third parties.',
     back:'← Back', next:'Continue →', auto:'ADVANCES AUTOMATICALLY ON SELECTION', kbd:'Use keys 1–9 to select · Enter: continue · Backspace: back',
-    layers:{ profile:'Profile', close:'Closing', signal:'Signal' },
+    layers:{ profile:'Profile', close:'Closing', signal:'Signal' }, pTitle:'First, a quick profile.', pHint:'Three picks, one screen. The questions adapt to this.', low:'LOW', high:'HIGH',
     names:{ w:'Waste X-Ray', b:'Bottleneck Detection', r:'Root Cause Analysis' },
     why:{ w:'These signals are the typical pattern of unmeasured waste: every line looks legitimate on its own, and the total eats the profit. First you need to see where it is and what it costs.',
           b:'This combination is the signature of the Theory of Constraints: the slowest link sets the system\'s speed, and investment keeps going outside that link. First you need to find the constraint.',
@@ -628,7 +1039,7 @@ var UI = {
             'xray-toc':['X-Ray + Bottleneck','Waste X-Ray plus bottleneck detection with the Theory of Constraints and the cost of lost output.','$900','ONE-TIME · 7 BUSINESS DAYS'],
             full:['Full Diagnosis','Waste X-Ray + Bottleneck (TOC) + root cause analysis for one problem and a 90-day plan.','$1,500','ONE-TIME · 7 BUSINESS DAYS'],
             transformation:['Transformation','Company-wide diagnosis + 12-month roadmap. Scope defined together, in writing.','Quote','BY SCOPE'] },
-    rLabel:'Based on your answers · Diagnostic Compass', startWith:': start here.', alsoStrong:' The signal is also strong for ', sigH:'The signals behind this', dontH:'Before the diagnosis, don\'t do this',
+    rLabel:'Based on your answers · Result', recTag:'RECOMMENDED TIER', recNote:'The pre-scan points the way; the final scope and price are confirmed in writing after a human expert reads your answers.', startWith:': start here.', alsoStrong:' The signal is also strong for ', sigH:'The signals behind this', dontH:'Before the diagnosis, don\'t do this',
     honest:'This is a preliminary routing; not "tailored to you", but based on your answers. No dollar figure is given without human expert validation. No payment is taken until the scope is confirmed in writing. If we can\'t demonstrate $15,000 in annual leakage, the report is free.',
     go:'Go to the diagnosis →', noteBtn:'One-page expert note within 48 hours (free)', mailBtn:'Email me this result',
     noteHint:'A human expert reads your answers and sends a one-page written note within 48 hours. It isn\'t automated, which is why there\'s a weekly quota.',
@@ -646,7 +1057,7 @@ var UI = {
     iFine:'Este escaneo no produce cifras en dólares. Ninguna cifra se da sin validación de un experto humano; la recibe en el informe de diagnóstico.',
     iPriv:'PRIVACIDAD · Sus respuestas se quedan en su navegador; nada nos llega salvo que deje un correo. Sin registro, sin venta, sin compartir con terceros.',
     back:'← Atrás', next:'Continuar →', auto:'AVANZA AUTOMÁTICAMENTE AL SELECCIONAR', kbd:'Teclas 1–9 para seleccionar · Enter: continuar · Retroceso: atrás',
-    layers:{ profile:'Perfil', close:'Cierre', signal:'Señal' },
+    layers:{ profile:'Perfil', close:'Cierre', signal:'Señal' }, pTitle:'Primero, un perfil rápido.', pHint:'Tres elecciones, una pantalla. Las preguntas se adaptan a esto.', low:'BAJO', high:'ALTO',
     names:{ w:'Radiografía del Desperdicio', b:'Detección de Cuellos de Botella', r:'Análisis de Causa Raíz' },
     why:{ w:'Estas señales son el patrón típico del desperdicio no medido: cada línea parece legítima por sí sola y el total se come la ganancia. Primero hay que ver dónde está y cuánto cuesta.',
           b:'Esta combinación es la firma de la Teoría de Restricciones: el eslabón más lento marca la velocidad del sistema y la inversión sigue yendo fuera de ese eslabón. Primero hay que encontrar la restricción.',
@@ -658,7 +1069,7 @@ var UI = {
             'xray-toc':['Radiografía + Cuello de Botella','Radiografía del Desperdicio más detección del cuello de botella con la Teoría de Restricciones y el coste de la producción perdida.','$900','PAGO ÚNICO · 7 DÍAS HÁBILES'],
             full:['Diagnóstico Completo','Radiografía + Cuello de Botella (TOC) + análisis de causa raíz para un problema y plan de 90 días.','$1.500','PAGO ÚNICO · 7 DÍAS HÁBILES'],
             transformation:['Transformación','Diagnóstico de toda la empresa + hoja de ruta de 12 meses. Alcance definido en conjunto, por escrito.','Cotización','SEGÚN ALCANCE'] },
-    rLabel:'Según sus respuestas · Brújula de Diagnóstico', startWith:': empiece aquí.', alsoStrong:' La señal también es fuerte para ', sigH:'Las señales detrás de esto', dontH:'Antes del diagnóstico, no haga esto',
+    rLabel:'Según sus respuestas · Resultado', recTag:'NIVEL RECOMENDADO', recNote:'El pre-escaneo orienta; el alcance y el precio definitivos se confirman por escrito después de que un experto humano lea sus respuestas.', startWith:': empiece aquí.', alsoStrong:' La señal también es fuerte para ', sigH:'Las señales detrás de esto', dontH:'Antes del diagnóstico, no haga esto',
     honest:'Esta es una orientación preliminar; no es "a su medida", se basa en sus respuestas. Ninguna cifra en dólares se da sin validación de un experto humano. No se cobra hasta confirmar el alcance por escrito. Si no podemos demostrar $15.000 de fuga anual, el informe es gratis.',
     go:'Ir al diagnóstico →', noteBtn:'Nota de experto de una página en 48 horas (gratis)', mailBtn:'Enviarme este resultado por correo',
     noteHint:'Un experto humano lee sus respuestas y envía una nota escrita de una página en 48 horas. No es automático; por eso hay un cupo semanal.',
@@ -670,7 +1081,7 @@ var UI = {
     lowP:'Por debajo de $500K de facturación no podemos ofrecer con honestidad nuestra garantía de $15.000 de fuga anual; el precio del diagnóstico sería alto respecto a lo que encontraríamos. No significa que su negocio sea pequeño; significa que nuestro producto no está diseñado para esta escala.',
     lowSig:'Señales que aun así aparecen en sus respuestas', lowNote:'Cuando la facturación supere los $500K, el resultado sigue siendo válido; puede volver a las mismas preguntas.', home:'Volver al inicio', byAnswers:'Según sus respuestas' }
 };
-var SECT_NAMES = { tr:['Üretim','Lojistik','Distribütörlük','Hizmet','Perakende','SaaS','Genel'], en:['Manufacturing','Logistics','Distribution','Services','Retail','SaaS','General'], es:['Manufactura','Logística','Distribución','Servicios','Retail','SaaS','General'] };
+var SECT_NAMES = { tr:['Üretim','Lojistik','Distribütörlük','E-ticaret','Perakende','Hizmet','İnşaat','Restoran & Konaklama','Sağlık','SaaS','Genel'], en:['Manufacturing','Logistics','Distribution','E-commerce','Retail','Services','Construction','Restaurant & Hospitality','Healthcare','SaaS','General'], es:['Manufactura','Logística','Distribución','E-commerce','Retail','Servicios','Construcción','Restaurante y Hostelería','Salud','SaaS','General'] };
 
 /* ===================== DİL ===================== */
 var lang = 'tr';
@@ -701,7 +1112,7 @@ document.querySelectorAll('#langSel button').forEach(function(b){ b.addEventList
 
 /* ===================== DURUM ===================== */
 var TOTAL = 10, CHAIN = 5;
-var idx = 0, asked = ['sector'], answers = {}, score = {w:0,b:0,r:0}, signals = [], sect = null, lock = false;
+var idx = 0, asked = ['profile'], answers = {}, score = {w:0,b:0,r:0}, signals = [], sect = null, lock = false;
 
 function start(){
   var intro = document.getElementById('intro'), q = document.getElementById('q');
@@ -723,32 +1134,76 @@ function transition(dir, fn){
 function cur(){ return asked[idx]; }
 function layerFor(id){
   var L = T().layers;
-  if (id === 'sector' || id === 'size' || id === 'revenue') return L.profile;
+  if (id === 'profile') return L.profile;
   if (id === 'tried') return L.close;
   return sect ? SECT_NAMES[lang][SECT.indexOf(sect)] + ' · ' + L.signal : L.signal;
 }
 function render(){
-  var id = cur(), q = Q[id], x = txt(id);
-  document.getElementById('num').textContent = (idx+1) + '/' + TOTAL;
-  document.getElementById('bar').style.width = (idx / TOTAL * 100) + '%';
+  var id = cur(), q = Q[id === 'profile' ? 'sector' : id], x = txt(id === 'profile' ? 'sector' : id);
+  document.getElementById('num').textContent = (id === 'profile' ? '1–3' : (idx+3)) + '/' + TOTAL;
+  document.getElementById('bar').style.width = ((id === 'profile' ? 0 : idx + 2) / TOTAL * 100) + '%';
+  if (id === 'profile') { renderProfile(); return; }
   document.getElementById('layer').textContent = layerFor(id);
   document.getElementById('qt').textContent = x.t;
   document.getElementById('qh').textContent = x.h;
-  var o = document.getElementById('opts'); o.innerHTML = '';
-  q.opts.forEach(function(op, i){
-    var b = document.createElement('button'); b.className = 'opt' + (q.multi ? ' multi' : ''); b.type = 'button';
-    b.innerHTML = '<span class="k">' + (i+1) + '</span><span>' + x.o(i) + '</span><span class="chk">✓</span>';
-    var a = answers[id];
-    if (q.multi ? (a && a.indexOf(i) > -1) : a === i) b.classList.add('sel');
-    b.onclick = function(){ pick(id, i, q.multi); };
-    o.appendChild(b);
-  });
+  var o = document.getElementById('opts'); buildOpts(o, id, q, x, function(i){ pick(id, i, q.multi); });
   document.getElementById('back').style.visibility = idx === 0 ? 'hidden' : 'visible';
   document.getElementById('row').classList.toggle('single', !q.multi);
   document.getElementById('autonote').style.display = q.multi ? 'none' : '';
   updateNext();
 }
-function updateNext(){ var id = cur(), q = Q[id]; document.getElementById('next').disabled = !(answers[id] != null && (!q.multi || answers[id].length)); }
+
+/* seçenek biçimi: kısa etiketler → kutucuk; sayısal aralıklar → ölçek şeridi; cümleler → liste */
+function layoutFor(q, x){
+  var n = q.opts.length, lens = 0, num = 0;
+  for (var i = 0; i < n; i++){ var l = x.o(i); lens += l.length; if (/\d|%/.test(l)) num++; }
+  if (num >= Math.ceil(n / 2) && !q.multi) return 'scale';
+  if (lens / n <= 22 && n <= 8) return 'grid';
+  return 'list';
+}
+function buildOpts(o, id, q, x, onPick){
+  var mode = layoutFor(q, x);
+  o.className = 'opts ' + mode; o.innerHTML = '';
+  q.opts.forEach(function(op, i){
+    var b = document.createElement('button'); b.type = 'button';
+    var isDk = mode === 'scale' && !/\d|%/.test(x.o(i));
+    b.className = 'opt' + (q.multi ? ' multi' : '') + (mode === 'grid' ? ' tile' : '') + (isDk ? ' dk' : '');
+    var ico = (id === 'sector' && mode === 'grid') ? '<span class="ico">' + ICONS[i] + '</span>' : '';
+    b.innerHTML = ico + '<span class="k">' + (i+1) + '</span><span>' + x.o(i) + '</span><span class="chk">✓</span>';
+    var a = answers[id];
+    if (q.multi ? (a && a.indexOf(i) > -1) : a === i) b.classList.add('sel');
+    b.onclick = function(){ onPick(i); };
+    o.appendChild(b);
+  });
+  if (mode === 'scale'){ var h = document.createElement('div'); h.className = 'scale-hint'; h.innerHTML = '<span>' + T().low + '</span><span>' + T().high + '</span>'; o.appendChild(h); }
+}
+function renderProfile(){
+  var u = T();
+  document.getElementById('layer').textContent = u.layers.profile;
+  document.getElementById('qt').textContent = u.pTitle;
+  document.getElementById('qh').textContent = u.pHint;
+  var o = document.getElementById('opts'); o.className = 'opts'; o.innerHTML = '';
+  ['sector','size','revenue'].forEach(function(pid){
+    var g = document.createElement('div'); g.className = 'pgroup' + (answers[pid] != null ? ' done' : '');
+    var x = txt(pid);
+    g.innerHTML = '<div class="pl"><span class="dot"></span>' + x.t + '</div>';
+    var box = document.createElement('div');
+    buildOpts(box, pid, Q[pid], x, function(i){
+      if (lock) return; answers[pid] = i;
+      var btns = box.querySelectorAll('.opt'); for (var k = 0; k < btns.length; k++) btns[k].classList.toggle('sel', k === i);
+      g.classList.add('done'); updateNext();
+      if (answers.sector != null && answers.size != null && answers.revenue != null && !lock){ lock = true; setTimeout(function(){ lock = false; next(); }, 420); }
+    });
+    g.appendChild(box); o.appendChild(g);
+  });
+  document.getElementById('back').style.visibility = 'hidden';
+  document.getElementById('row').classList.remove('single');
+  document.getElementById('autonote').style.display = 'none';
+  updateNext();
+}
+function updateNext(){ var id = cur();
+  if (id === 'profile'){ document.getElementById('next').disabled = !(answers.sector != null && answers.size != null && answers.revenue != null); return; }
+  var q = Q[id]; document.getElementById('next').disabled = !(answers[id] != null && (!q.multi || answers[id].length)); }
 function pick(id, i, multi){
   if (lock) return;
   var btns = document.querySelectorAll('#opts .opt');
@@ -759,7 +1214,7 @@ function pick(id, i, multi){
 }
 function tally(){
   score = {w:0,b:0,r:0};
-  asked.slice(0, idx+1).forEach(function(id){ var a = answers[id]; if (a == null) return; var q = Q[id];
+  asked.slice(0, idx+1).forEach(function(id){ if (id === 'profile') return; var a = answers[id]; if (a == null) return; var q = Q[id];
     (q.multi ? a : [a]).forEach(function(i){ var s = q.opts[i][1] || {}; score.w += s.w||0; score.b += s.b||0; score.r += s.r||0; }); });
 }
 function leader(){ tally(); return ['w','b','r'].sort(function(a,b){ return score[b]-score[a]; })[0]; }
@@ -767,7 +1222,7 @@ function chooseNext(){
   var id = cur(), q = Q[id], a = answers[id], cand = [];
   if (!q.multi && q.opts[a] && q.opts[a][3]) cand.push(q.opts[a][3]);
   if (q.next) cand.push(q.next);
-  var chainCount = asked.filter(function(x){ return ['sector','size','revenue','tried'].indexOf(x) < 0 && x !== sect.pain; }).length;
+  var chainCount = asked.filter(function(x){ return ['profile','tried'].indexOf(x) < 0 && x !== sect.pain; }).length;
   if (chainCount >= CHAIN) return 'tried';
   sect.shared.forEach(function(x){ cand.push(x); });
   var L = leader(); sect.probe[L].forEach(function(x){ cand.push(x); });
@@ -776,11 +1231,9 @@ function chooseNext(){
   return 'tried';
 }
 function next(){
-  var id = cur(); if (answers[id] == null) return;
-  var nid;
-  if (id === 'sector') { sect = SECT[answers.sector]; nid = 'size'; }
-  else if (id === 'size') nid = 'revenue';
-  else if (id === 'revenue') nid = sect.pain;
+  var id = cur(), nid;
+  if (id === 'profile') { if (answers.sector == null || answers.size == null || answers.revenue == null) return; sect = SECT[answers.sector]; nid = sect.pain; }
+  else if (answers[id] == null) return;
   else if (id === 'tried') { finish(); return; }
   else nid = chooseNext();
   transition('fwd', function(){ asked = asked.slice(0, idx+1); asked.push(nid); idx++; render(); });
@@ -788,6 +1241,7 @@ function next(){
 function back(){ if (idx > 0) transition('back', function(){ idx--; render(); }); }
 document.addEventListener('keydown', function(e){
   if (document.getElementById('q').classList.contains('hidden')) return;
+  if (cur() === 'profile'){ if (e.key === 'Enter') next(); return; }
   var q = Q[cur()];
   if (e.key >= '1' && e.key <= '9' && q.opts[e.key-1]) pick(cur(), e.key-1, q.multi);
   if (e.key === 'Enter') next();
@@ -797,17 +1251,18 @@ document.addEventListener('keydown', function(e){
 /* ===================== SONUÇ ===================== */
 function finish(){
   tally(); signals = [];
-  asked.forEach(function(id){ var q = Q[id], a = answers[id]; if (a == null) return; var x = txt(id);
+  asked.forEach(function(id){ if (id === 'profile') return; var q = Q[id], a = answers[id]; if (a == null) return; var x = txt(id);
     (q.multi ? a : [a]).forEach(function(i){ var s = q.opts[i][1] || {}; var wt = (s.w||0)+(s.b||0)+(s.r||0); var sig = x.s(i);
-      if (sig && id !== sect.pain && id !== 'tried') signals.push({t: sig, wt: wt}); }); });
+      var tag = (s.w||0) >= (s.b||0) && (s.w||0) >= (s.r||0) ? 'w' : (s.b||0) >= (s.r||0) ? 'b' : 'r';
+      if (sig && id !== sect.pain && id !== 'tried') signals.push({t: sig, wt: wt, tag: tag}); }); });
   var u = T(), tried = txt('tried').s(answers.tried);
   var rev = answers.revenue, size = answers.size;
   var ranked = ['w','b','r'].sort(function(a,b){ return score[b]-score[a]; });
   var prim = ranked[0], sec = ranked[1], max = score[prim] || 1;
   var secStrong = score[sec] >= 0.6 * max && score[sec] >= 4;
   signals.sort(function(a,b){ return b.wt-a.wt; });
-  var seen = {}, top = [];
-  signals.forEach(function(s){ if (!seen[s.t] && top.length < 3){ seen[s.t] = 1; top.push(s.t); } });
+  var seen = {}, top = [], topT = [];
+  signals.forEach(function(s){ if (!seen[s.t] && top.length < 4){ seen[s.t] = 1; top.push(s.t); topT.push(s.tag); } });
   var code;
   if (size === 3 && score.w >= 5 && score.b >= 5 && score.r >= 5) code = 'transformation';
   else if (prim === 'r' || (sec === 'r' && secStrong)) code = 'full';
@@ -823,12 +1278,24 @@ function finish(){
   } else {
     var head = lang === 'tr' ? u.names[prim] + u.startWith + (secStrong ? ' ' + u.names[sec] + u.alsoStrong : '')
                              : u.names[prim] + u.startWith + (secStrong ? u.alsoStrong + u.names[sec] + '.' : '');
+    var D = DELIV[lang], RD = READ[lang][sect.code] || READ[lang].g;
+    var tot = Math.max(1, score.w + score.b + score.r);
+    function pct(k){ return Math.round(score[k] / tot * 100); }
     html += '<div class="res-label">' + sname + ' · ' + u.rLabel + '</div><h1>' + head + '</h1><p class="why">' + u.why[prim] + '</p>';
-    html += '<div class="card"><h3>' + u.sigH + '</h3><ul>' + top.map(function(t){ return '<li>' + cap(t) + '</li>'; }).join('') + (tried ? '<li>' + cap(tried) + '</li>' : '') + '</ul></div>';
+    html += '<div class="chips"><span>' + txt('sector').o(answers.sector) + '</span><span>' + txt('size').o(answers.size) + '</span><span>' + txt('revenue').o(answers.revenue) + '</span>' + (tried ? '<span>' + cap(tried) + '</span>' : '') + '</div>';
+    html += '<div class="card"><h3>' + D.scoreH + '</h3><div class="bars">' + ['w','b','r'].map(function(k){ return '<div class="bar-row' + (k === prim ? ' lead' : '') + '"><span class="bl">' + D.tags[k] + '</span><span class="bt"><i data-w="' + pct(k) + '"></i></span><span class="bv">' + pct(k) + '%</span></div>'; }).join('') + '</div></div>';
+    html += '<div class="card read"><h3>' + D.readH + '</h3><p>' + RD[prim] + '</p></div>';
+    html += '<div class="card"><h3>' + u.sigH + '</h3><ul>' + top.map(function(t, i){ return '<li>' + cap(t) + '<span class="sig-tag">' + D.tags[topT[i]] + '</span></li>'; }).join('') + '</ul></div>';
     html += '<div class="card warn"><h3>' + u.dontH + '</h3><p>' + u.dont[prim] + '</p></div>';
-    html += '<div class="card tier"><div><div class="name">' + tier[0] + '</div><div class="scope">' + tier[1] + '</div></div><div class="price">' + tier[2] + '<small>' + tier[3] + '</small></div></div>';
+    /* devir paketi: intake bu bilgiyi okur, aynı soruları tekrar sormaz */
+    var packet = { v: 1, lang: lang, sector: answers.sector, size: answers.size, revenue: answers.revenue, sc: sect.code, tier: code, price: tier[2],
+                   score: score, signals: top.slice(0, 3), tried: answers.tried, answers: answers, asked: asked, ts: new Date().toISOString() };
+    var psEnc = ''; try { psEnc = btoa(unescape(encodeURIComponent(JSON.stringify(packet)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); localStorage.setItem('gembax-prescan', JSON.stringify(packet)); } catch (e) {}
+    html += '<div class="card tier"><div><div class="rec">' + u.recTag + '</div><div class="name">' + tier[0] + '</div><div class="scope">' + tier[1] + '</div></div><div class="price">' + tier[2] + '<small>' + tier[3] + '</small></div><div class="recnote">' + u.recNote + '</div></div>';
+    html += '<div class="card"><h3>' + D.delivH + '</h3><ul>' + D[code].map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+    html += '<div class="card"><h3>' + D.stepsH + '</h3><div class="steps3">' + D.steps.map(function(t, i){ return '<div><b>0' + (i+1) + '</b>' + t + '</div>'; }).join('') + '</div></div>';
     html += '<p class="honest">' + u.honest + '</p>';
-    html += '<div class="ctas"><a class="btn-start go" href="/intake-welcome?tier=' + code + '&lang=' + lang + '">' + u.go + '</a><button class="btn-ghost" id="emBtn">' + (HUMAN_NOTE ? u.noteBtn : u.mailBtn) + '</button></div>';
+    html += '<div class="ctas"><a class="btn-start go" href="/intake-welcome?tier=' + code + '&lang=' + lang + (psEnc ? '&ps=' + psEnc : '') + '">' + u.go + '</a><button class="btn-ghost" id="emBtn">' + (HUMAN_NOTE ? u.noteBtn : u.mailBtn) + '</button><button class="btn-print" onclick="window.print()">' + D.print + '</button></div>';
     html += '<div class="email" id="em"><p class="hint" style="margin-bottom:0.6rem">' + (HUMAN_NOTE ? u.noteHint : u.mailHint) + '</p>'
           + '<input type="email" id="emAddr" placeholder="' + u.email + '"><input type="text" placeholder="' + u.company + '">'
           + '<label class="consent"><input type="checkbox" id="consent"><span>' + u.consent + '</span></label>'
@@ -839,6 +1306,7 @@ function finish(){
   setTimeout(function(){
     qb.classList.add('hidden'); qb.classList.remove('out-fwd');
     var r = document.getElementById('res'); r.innerHTML = html; r.classList.remove('hidden'); r.classList.add('fade');
+    setTimeout(function(){ document.querySelectorAll('.bar-row .bt i').forEach(function(i){ i.style.width = i.dataset.w + '%'; }); }, 60);
     var eb = document.getElementById('emBtn'); if (eb) eb.addEventListener('click', function(){ document.getElementById('em').classList.add('on'); eb.style.display = 'none'; });
     var c = document.getElementById('consent'), sb = document.getElementById('sendBtn'), ea = document.getElementById('emAddr');
     function chk(){ if (sb) sb.disabled = !(c && c.checked && ea && /.+@.+\..+/.test(ea.value)); }
