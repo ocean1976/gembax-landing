@@ -1,655 +1,382 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pricing — GembaX</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title id="ttl">Fiyatlandırma — GembaX</title>
+<meta name="description" content="GembaX fiyatlandırma: dört kademe, tek ilke. Ödeme kapsam yazılı netleşince; $15.000 yıllık kaçak gösteremezsek rapor ücretsiz.">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..900&family=Inter:wght@300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Base */
-    --bg-primary: #FAF9F6;
-    --bg-secondary: #FFFFFF;
-    --bg-card: #F4F2EE;
-    --text-primary: #1B2A4A;
-    --text-secondary: #4A5568;
-    --text-muted: #8fa093;
-
-    /* Green (Aşama 1) */
-    --accent: #2D5016;
-    --accent-dark: #1e3f0f;
-    --accent-light: #3d6b22;
-    --accent-glow: rgba(45, 80, 22, 0.08);
-    --accent-glow-strong: rgba(45, 80, 22, 0.15);
-
-    /* Maroon (Aşama 2) */
-    --maroon: #6E1414;
-    --maroon-dark: #5C0F0F;
-    --maroon-light: #8B1A1A;
-    --maroon-glow: rgba(110, 20, 20, 0.08);
-    --maroon-glow-strong: rgba(110, 20, 20, 0.15);
-
-    /* Borders */
-    --border: rgba(0,0,0,0.08);
-    --border-accent: rgba(45, 80, 22, 0.25);
-    --border-maroon: rgba(110, 20, 20, 0.25);
-
-    /* Fonts */
-    --font-body: 'Instrument Sans', sans-serif;
-    --font-mono: 'Space Mono', monospace;
+    --bg: #FAF9F6; --bg2: #FFFFFF; --card: #F4F2EE; --navy: #1B2A4A; --text2: #4A5568; --muted: #8fa093;
+    --green: #2D5016; --green-dark: #1e3f0f; --green-bright: #4ade80; --red: #FF1525; --border: rgba(0,0,0,0.08);
+    --dark-bg: #1A1916; --cream: #F5F0E8; --mit-gray: #838D95; --cream-faint: #55514A;
+    --head: 'Inter Tight', sans-serif; --body: 'Inter', sans-serif; --mono: 'Space Mono', monospace;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--font-body);
-    background-color: var(--bg-primary);
-    background-image:
-      linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
-    background-size: 28px 28px;
-    color: var(--text-primary); line-height: 1.4;
-    -webkit-font-smoothing: antialiased;
-  }
-  ::selection { background: var(--accent); color: #fff; }
+  body { font-family: var(--body); color: var(--navy); background-color: var(--bg);
+    background-image: linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
+    background-size: 28px 28px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  em { font-style: normal; color: var(--red); }
 
-  /* TOP ANNOUNCEMENT BAR */
-  .top-announcement-bar {
-    background: var(--accent);
-    color: var(--bg-primary);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-align: center;
-    padding: 0.35rem 1rem;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid var(--accent-dark);
-  }
+  /* ruler + nav (index ile aynı dil) */
+  .ruler { position: fixed; top: 0; left: 0; right: 0; height: 20px; z-index: 101; background: var(--dark-bg); border-bottom: 1px solid rgba(245,240,232,0.14); transition: background .35s, border-color .35s; }
+  .ruler canvas { display: block; width: 100%; height: 100%; }
+  .ruler.light { background: rgba(250,249,246,0.92); border-bottom-color: var(--border); }
+  nav { position: fixed; top: 20px; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 3rem; border-bottom: 1px solid rgba(245,240,232,0.08); transition: background .35s, border-color .35s; }
+  .logo { font-family: var(--mono); font-weight: 700; font-size: 1.15rem; color: var(--cream); text-decoration: none; }
+  .logo span { color: var(--green-bright); }
+  .nav-links { display: flex; gap: 1.6rem; align-items: center; }
+  .nav-links a { color: #B9B2A4; text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+  .nav-cta { background: var(--red); color: var(--dark-bg) !important; padding: 0.55rem 1.2rem; border-radius: 8px; font-weight: 700; }
+  .lang { display: flex; gap: 0.3rem; }
+  .lang button { font-family: var(--mono); font-size: 0.72rem; background: transparent; border: 1px solid rgba(245,240,232,0.3); border-radius: 6px; padding: 0.3rem 0.5rem; cursor: pointer; color: #B9B2A4; }
+  .lang button.on { background: var(--cream); color: var(--dark-bg); border-color: var(--cream); }
+  nav.light { background: rgba(250,249,246,0.88); backdrop-filter: blur(10px); border-bottom-color: var(--border); }
+  nav.light .logo { color: var(--navy); } nav.light .logo span { color: var(--green); }
+  nav.light .nav-links a { color: var(--text2); }
+  nav.light .lang button { color: var(--text2); border-color: var(--border); background: var(--bg2); }
+  nav.light .lang button.on { background: var(--navy); color: #fff; border-color: var(--navy); }
 
-  /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.4rem 2rem;
-    background: rgba(250,249,246,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .logo { text-decoration: none; display: flex; align-items: baseline; gap: 0.4rem; }
-  .logo-main { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
-  .logo-x { color: var(--accent); }
-  .logo-sub { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
-  .nav-right { display: flex; align-items: center; gap: 1rem; }
-  .nav-back {
-    font-size: 0.78rem; color: var(--text-secondary); text-decoration: none;
-    display: flex; align-items: center; gap: 0.2rem; transition: color 0.2s;
-  }
-  .nav-back:hover { color: var(--accent); }
-  .lang-switch { display: flex; gap: 0.05rem; }
-  .lang-switch button {
-    background: transparent; border: none; cursor: pointer;
-    font-family: var(--font-mono); font-size: 0.62rem;
-    color: var(--text-muted); padding: 0.15rem 0.35rem;
-    border-radius: 4px; transition: all 0.2s;
-    letter-spacing: 0.05em;
-  }
-  .lang-switch button:hover { color: var(--accent); }
-  .lang-switch button.active { color: var(--accent); background: var(--accent-glow); }
+  /* koyu başlık bandı */
+  .band { background-color: var(--dark-bg); background-image: linear-gradient(rgba(245,240,232,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,232,0.055) 1px, transparent 1px); background-size: 28px 28px; color: var(--cream); padding: 9.5rem 3rem 4rem; }
+  .band-in { max-width: 1200px; margin: 0 auto; }
+  .crumb { font-size: 0.82rem; color: #8C867A; margin-bottom: 1.4rem; }
+  .crumb span { color: var(--cream); } .crumb i { font-style: normal; color: var(--green-bright); margin: 0 0.5rem; }
+  .band h1 { font-family: var(--head); font-weight: 900; font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: 1.02; letter-spacing: -0.02em; color: var(--red); }
+  .band h2 { font-family: var(--head); font-weight: 700; font-size: clamp(1.5rem, 2.8vw, 2.3rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--mit-gray); margin-top: 0.5rem; max-width: 30ch; }
+  .band .facts { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+  .band .facts span { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; padding: 0.4rem 0.75rem; border: 1px solid rgba(245,240,232,0.25); border-radius: 100px; color: #B9B2A4; }
 
-  /* HERO */
-  .pricing-hero {
-    text-align: center;
-    padding: 1.2rem 1.5rem 0.8rem;
-    max-width: 760px; margin: 0 auto;
-  }
-  .pricing-hero h1 {
-    font-size: clamp(1.4rem, 3.5vw, 1.9rem);
-    font-weight: 700; letter-spacing: -0.03em;
-    line-height: 1.1; margin-bottom: 0.2rem;
-  }
-  .pricing-hero h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
-  .pricing-hero p {
-    color: var(--text-secondary); font-size: 0.88rem;
-    line-height: 1.5; max-width: 580px; margin: 0 auto;
-  }
+  section { max-width: 1200px; margin: 0 auto; padding: 4.5rem 3rem; }
+  .mono { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 0.6rem; }
+  h3.sec { font-family: var(--head); font-weight: 800; font-size: clamp(1.6rem, 2.6vw, 2.2rem); letter-spacing: -0.02em; margin-bottom: 0.6rem; }
+  .lead { color: var(--text2); font-size: 1.05rem; max-width: 64ch; }
 
-  /* PILOT BADGE */
-  .pilot-badge {
-    display: inline-flex; align-items: center; gap: 0.3rem;
-    background: var(--accent-glow);
-    color: var(--accent-dark);
-    font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
-    letter-spacing: 0.05em; text-transform: uppercase;
-    padding: 0.2rem 0.6rem; border-radius: 20px;
-    margin-bottom: 0.4rem;
-    border: 1px solid var(--border-accent);
-  }
-  .pilot-badge::before {
-    content: '●'; color: var(--accent); font-size: 0.6rem; animation: pulse 2s infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+  /* kademe kartları */
+  .tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-top: 2.2rem; }
+  .tier { background: var(--bg2); border: 1.5px solid var(--border); border-radius: 16px; padding: 1.6rem 1.4rem 1.4rem; display: flex; flex-direction: column; position: relative; }
+  .tier.deep { border-color: var(--navy); }
+  .tier .k { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; color: var(--text2); }
+  .tier .name { font-family: var(--head); font-weight: 800; font-size: 1.35rem; margin: 0.4rem 0 0.2rem; letter-spacing: -0.01em; }
+  .tier .price { font-family: var(--mono); font-weight: 700; font-size: 2rem; color: var(--navy); margin: 0.5rem 0 0.1rem; }
+  .tier .per { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 1rem; }
+  .tier .scope { color: var(--text2); font-size: 0.93rem; margin-bottom: 1rem; min-height: 3.2em; }
+  .tier ul { list-style: none; margin-bottom: 1.2rem; flex: 1; }
+  .tier li { position: relative; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text2); margin-bottom: 0.4rem; line-height: 1.45; }
+  .tier li::before { content: '→'; position: absolute; left: 0; color: var(--red); }
+  .tier li.inc { color: var(--muted); font-style: italic; }
+  .tier .who { border-left: 2px solid var(--red); padding: 0.35rem 0 0.35rem 0.8rem; font-size: 0.88rem; color: var(--navy); margin-bottom: 1.2rem; }
+  .tier .who b { display: block; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--red); margin-bottom: 0.15rem; }
+  .btn { display: inline-block; text-align: center; text-decoration: none; font-weight: 700; font-size: 0.95rem; padding: 0.85rem 1.2rem; border-radius: 10px; font-family: var(--body); cursor: pointer; border: none; }
+  .btn.red { background: var(--red); color: var(--dark-bg); }
+  .btn.green { background: var(--green-bright); color: var(--dark-bg); }
+  .btn.ghost { background: transparent; border: 1.5px solid var(--navy); color: var(--navy); }
+  .tier .btn { width: 100%; }
+  .tier .g { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; color: var(--green-dark); text-align: center; margin-top: 0.6rem; }
 
-  /* CARDS */
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-    max-width: 840px; margin: 0 auto;
-    padding: 0 1.2rem 1.2rem;
-  }
-  .pricing-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.2rem 1.2rem 1.2rem;
-    display: flex; flex-direction: column;
-    position: relative;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .pricing-card:hover {
-    transform: translateY(-2px);
-  }
+  .unsure { margin-top: 2rem; background: var(--bg2); border: 1.5px solid var(--green-bright); border-radius: 14px; padding: 1.4rem 1.6rem; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .unsure p { color: var(--navy); font-size: 1.02rem; max-width: 58ch; }
+  .unsure p b { font-family: var(--head); font-weight: 800; }
 
-  /* Green Tier 1 */
-  .pricing-card.green {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent), 0 4px 15px var(--accent-glow);
-  }
-  .pricing-card.green:hover {
-    box-shadow: 0 0 0 1px var(--accent), 0 8px 25px var(--accent-glow-strong);
-  }
+  /* kurallar */
+  .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2rem; }
+  .rule { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+  .rule .n { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; color: var(--red); margin-bottom: 0.5rem; }
+  .rule h4 { font-family: var(--head); font-weight: 800; font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .rule h4 mark { background: none; color: var(--red); }
+  .rule p { color: var(--text2); font-size: 0.95rem; }
+  .not { margin-top: 1.2rem; font-family: var(--mono); font-size: 0.74rem; color: var(--text2); line-height: 1.7; border-top: 1px solid var(--border); padding-top: 1rem; max-width: 70ch; }
 
-  /* Maroon Tier 2 */
-  .pricing-card.maroon {
-    border-color: var(--maroon);
-    box-shadow: 0 0 0 1px var(--maroon), 0 4px 15px var(--maroon-glow);
-  }
-  .pricing-card.maroon:hover {
-    box-shadow: 0 0 0 1px var(--maroon), 0 8px 25px var(--maroon-glow-strong);
-  }
+  /* SSS */
+  .faq { margin-top: 1.6rem; border-top: 1px solid var(--border); }
+  .q { border-bottom: 1px solid var(--border); }
+  .q .qq { width: 100%; text-align: left; background: none; border: none; font-family: var(--head); font-weight: 700; font-size: 1.08rem; color: var(--navy); padding: 1.1rem 2.2rem 1.1rem 0; cursor: pointer; position: relative; }
+  .q .qq::after { content: '+'; position: absolute; right: 0.4rem; top: 50%; transform: translateY(-50%); font-family: var(--mono); color: var(--red); font-size: 1.2rem; }
+  .q.open .qq::after { content: '–'; }
+  .q .qa { display: none; color: var(--text2); padding: 0 0 1.2rem; max-width: 70ch; font-size: 0.98rem; }
+  .q.open .qa { display: block; }
 
-  .pricing-badge {
-    position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
-    color: #fff;
-    font-family: var(--font-mono); font-size: 0.58rem; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 0.2rem 0.75rem; border-radius: 20px;
-    white-space: nowrap;
-  }
-  .pricing-badge.green { background: var(--accent); }
-  .pricing-badge.maroon { background: var(--maroon); }
+  .final { text-align: center; }
+  .final h3 { font-family: var(--head); font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 0.7rem; letter-spacing: -0.02em; }
+  .final p { color: var(--text2); max-width: 52ch; margin: 0 auto 1.6rem; }
+  .final .ctas { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
 
-  .pricing-tier {
-    font-family: var(--font-mono); font-size: 0.62rem;
-    color: var(--text-muted); letter-spacing: 0.08em;
-    text-transform: uppercase; margin-bottom: 0.2rem;
-  }
-  .pricing-name {
-    font-size: 1.15rem; font-weight: 700;
-    color: var(--text-primary); margin-bottom: 0.2rem;
-    line-height: 1.2;
-  }
-  .pricing-desc {
-    font-size: 0.82rem; color: var(--text-secondary);
-    line-height: 1.4; margin-bottom: 0.6rem;
-    min-height: 2.6rem;
-  }
-  .pricing-price {
-    margin-bottom: 0.6rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .pricing-amount {
-    font-size: 1.9rem; font-weight: 700;
-    color: var(--text-primary); letter-spacing: -0.03em;
-    line-height: 1;
-  }
-  .pricing-amount .currency { font-size: 1.1rem; font-weight: 600; vertical-align: super; }
-  .pricing-period {
-    font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;
-    font-family: var(--font-mono); letter-spacing: 0.02em;
-  }
+  footer { border-top: 1px solid var(--border); padding: 2rem 3rem; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--text2); }
+  footer a { color: var(--text2); text-decoration: none; margin-left: 1rem; }
+  footer strong span { color: var(--green); }
 
-  .pricing-features {
-    list-style: none; flex: 1; margin-bottom: 1rem;
-  }
-  .pricing-features li {
-    font-size: 0.78rem; color: var(--text-secondary);
-    padding: 0.2rem 0; padding-left: 1.2rem;
-    position: relative; line-height: 1.35;
-  }
-  .pricing-features li::before {
-    content: '✓'; position: absolute; left: 0;
-    font-weight: 700; font-size: 0.8rem; top: 0.2rem;
-  }
-  .pricing-card.green .pricing-features li::before { color: var(--accent); }
-  .pricing-card.maroon .pricing-features li::before { color: var(--maroon); }
-
-  .pricing-features li.highlight {
-    background: var(--accent-glow);
-    margin-left: -0.6rem; margin-right: -0.6rem;
-    padding-left: 1.8rem; padding-right: 0.6rem;
-    border-radius: 4px;
-    font-weight: 600; color: var(--accent-dark);
-  }
-  .pricing-features li.highlight::before { left: 0.6rem; }
-
-  .pricing-btn {
-    display: block; text-align: center;
-    padding: 0.65rem 1.2rem;
-    border-radius: 6px;
-    font-family: var(--font-body);
-    font-size: 0.85rem; font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  .pricing-btn.green {
-    background: var(--accent); color: #fff;
-    border: 1px solid var(--accent);
-  }
-  .pricing-btn.green:hover {
-    background: var(--accent-dark);
-    box-shadow: 0 4px 10px rgba(45,80,22,0.15);
-  }
-  .pricing-btn.maroon {
-    background: var(--maroon); color: #fff;
-    border: 1px solid var(--maroon);
-  }
-  .pricing-btn.maroon:hover {
-    background: var(--maroon-dark);
-    box-shadow: 0 4px 10px rgba(110,20,20,0.15);
-  }
-
-  /* GUARANTEE BAR */
-  .guarantee-bar {
-    max-width: 760px; margin: 0 auto 2.5rem;
-    text-align: center; padding: 1rem 1.5rem;
-    background: var(--accent-glow);
-    border: 1px solid var(--border-accent);
-    border-radius: 10px;
-  }
-  .guarantee-strong {
-    font-family: var(--font-mono); font-weight: 700;
-    color: var(--accent-dark); letter-spacing: 0.05em;
-    font-size: 0.85rem;
-    display: inline-block; margin-bottom: 0.2rem;
-  }
-  .guarantee-bar p {
-    font-size: 0.85rem; color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  /* FAQ */
-  .faq-section {
-    max-width: 760px; margin: 0 auto;
-    padding: 0 2rem 3rem;
-  }
-  .faq-section h2 {
-    font-size: 1.4rem; font-weight: 700;
-    text-align: center; margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-  }
-  .faq-item {
-    border-bottom: 1px solid var(--border);
-    padding: 0.9rem 0;
-  }
-  .faq-q {
-    font-size: 0.92rem; font-weight: 600;
-    color: var(--text-primary); cursor: pointer;
-    display: flex; justify-content: space-between;
-    align-items: center; gap: 1rem;
-  }
-  .faq-q::after {
-    content: '+'; font-family: var(--font-mono);
-    font-size: 1rem; color: var(--accent);
-    flex-shrink: 0; transition: transform 0.2s;
-  }
-  .faq-item.open .faq-q::after { content: '−'; }
-  .faq-a {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s;
-  }
-  .faq-item.open .faq-a {
-    max-height: 400px;
-    padding-top: 0.6rem;
-  }
-  .faq-a p {
-    font-size: 0.85rem; color: var(--text-secondary);
-    line-height: 1.55;
-  }
-  .faq-a strong { color: var(--text-primary); }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 1.2rem 2rem; background: var(--bg-secondary);
-  }
-  .footer-inner {
-    max-width: 1080px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .footer-brand { font-size: 0.78rem; color: var(--text-muted); }
-  .footer-brand strong { color: var(--text-primary); font-weight: 700; }
-  .footer-brand strong span { color: var(--accent); }
-  .footer-links { display: flex; gap: 0.8rem; }
-  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--accent); }
-
+  @media (max-width: 1100px) { .tiers { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 900px) {
-    .pricing-grid { grid-template-columns: 1fr; max-width: 420px; gap: 1.8rem; }
+    nav { padding: 1rem 1.4rem; } .nav-links a:not(.nav-cta) { display: none; }
+    .band { padding: 7.5rem 1.4rem 3rem; } section { padding: 3.5rem 1.4rem; } footer { padding: 2rem 1.4rem; }
+    .rules { grid-template-columns: 1fr; }
   }
-  @media (max-width: 600px) {
-    nav { padding: 0.6rem 1rem; }
-    .nav-right { gap: 0.6rem; }
-    .logo-sub { display: none; }
-    .pricing-hero { padding: 1.2rem 1rem 0.8rem; }
-    .pricing-grid { padding: 0 1rem 1.2rem; }
-    .guarantee-bar { margin: 0 1rem 1.5rem; padding: 0.8rem 0.6rem; }
-    footer { padding: 1rem 1rem; }
-    .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
+  @media (max-width: 600px) { .tiers { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
-<div class="top-announcement-bar" data-i18n="topBar">[ 100x ROI GUARANTEE ] If we cannot prove at least $15,000 in annual leakage, the report is FREE.</div>
-
-<nav>
-  <a href="/" class="logo">
-    <span class="logo-main">Gemba<span class="logo-x">X</span></span>
-    <span class="logo-sub" data-i18n="logoSub">X-Ray of Operational Waste</span>
-  </a>
-  <div class="nav-right">
-    <a href="/" class="nav-back">← <span data-i18n="navBack">Home</span></a>
-    <div class="lang-switch">
-      <button data-lang="en">EN</button>
-      <button data-lang="es">ES</button>
-      <button data-lang="tr">TR</button>
-    </div>
+<div class="ruler" id="ruler"><canvas id="rulerCanvas"></canvas></div>
+<nav id="topNav">
+  <a class="logo" href="index.html">Gemba<span>X</span></a>
+  <div class="nav-links">
+    <a href="index.html#gemba" data-i18n="navGemba">Gemba Nedir</a>
+    <a href="index.html#nasil" data-i18n="navMeth">Metodoloji</a>
+    <a href="pricing.html" data-i18n="navPrice">Fiyatlar</a>
+    <div class="lang" id="langSel"><button data-l="tr">TR</button><button data-l="en">EN</button><button data-l="es">ES</button></div>
+    <a href="/intake-welcome" class="nav-cta" data-i18n="navCta">Analizi Başlat</a>
   </div>
 </nav>
 
-<div class="pricing-hero">
-  <div class="pilot-badge" data-i18n="pilotBadge">Closed Pilot — Limited Spots</div>
-  <h1 data-i18n="heroH1">Tiered diagnostics. <em>Go as deep as you need.</em></h1>
-  <p data-i18n="heroP">First we find the leak. Then we diagnose why. Each stage is independent — stop wherever fits.</p>
-</div>
-
-<div class="pricing-grid">
-
-  <div class="pricing-card green">
-    <div class="pricing-badge green" data-i18n="t1Badge">Stage 1</div>
-    <div class="pricing-tier">TIER 01</div>
-    <div class="pricing-name" data-i18n="t1Name">Profit Leakage X-Ray</div>
-    <div class="pricing-desc" data-i18n="t1Desc">TIM WOODS waste map for one operational problem — monthly and annual loss quantified in dollars tactics.</div>
-    <div class="pricing-price">
-      <div class="pricing-amount"><span class="currency">$</span>150</div>
-      <div class="pricing-period" data-i18n="t1Period">100× ROI GUARANTEED • PAY AFTER DELIVERY</div>
+<div class="band">
+  <div class="band-in">
+    <div class="crumb"><span>GembaX</span><i>/</i><span data-i18n="crumb">Fiyatlandırma</span></div>
+    <h1 data-i18n="h1">Fiyatlandırma</h1>
+    <h2 data-i18n="h2">Dört kademe, tek ilke: ödeme, kapsam yazılı olarak netleştikten sonra.</h2>
+    <div class="facts" id="facts">
+      <span data-i18n="f1">7 İŞ GÜNÜ</span><span data-i18n="f2">YAZILI · İMZALI</span><span data-i18n="f3">TOPLANTI YOK</span><span data-i18n="f4">$15.000 GÖSTEREMEZSEK ÜCRETSİZ</span>
     </div>
-    <ul class="pricing-features">
-      <li data-i18n="t1f1">Single focus: one operational problem (setup, scrap, downtime, etc.)</li>
-      <li data-i18n="t1f2">TIM WOODS waste map — monthly/annual loss in $</li>
-      <li data-i18n="t1f3">Industry benchmark comparison</li>
-      <li data-i18n="t1f4">Priority action summary</li>
-      <li data-i18n="t1f5">Delivered in 7 business days, written</li>
-      <li class="highlight" data-i18n="t1f6">If less than $15,000 leakage found, the report is free</li>
-    </ul>
-    <a href="intake-welcome.html" class="pricing-btn green" data-i18n="t1Cta">Start Application →</a>
   </div>
+</div>
 
-  <div class="pricing-card maroon">
-    <div class="pricing-badge maroon" data-i18n="t2Badge">Stage 2</div>
-    <div class="pricing-tier">TIER 02</div>
-    <div class="pricing-name" data-i18n="t2Name">Root Cause + 90-Day Action Plan</div>
-    <div class="pricing-desc" data-i18n="t2Desc">Root cause analysis of the problem detected in Stage 1, plus a concrete action plan to stop the leakage.</div>
-    <div class="pricing-price">
-      <div class="pricing-amount"><span class="currency">$</span>500</div>
-      <div class="pricing-period" data-i18n="t2Period">PREPAID • OPTIONAL AFTER STAGE 1</div>
+<!-- ===== KADEMELER ===== -->
+<section id="kademeler">
+  <div class="mono" data-i18n="tLabel">Kademeler</div>
+  <h3 class="sec" data-i18n="tTitle">Her kademe bir öncekini <em>kapsar.</em></h3>
+  <p class="lead" data-i18n="tLead">Çoğu işletme Kademe 1 ile başlar; rapor, sonrakinin gerekip gerekmediğini söyler. Fiyatlar USD, tek seferlik.</p>
+
+  <div class="tiers">
+    <div class="tier">
+      <div class="k" data-i18n="k1">KADEME 1</div>
+      <div class="name" data-i18n="n1">Hızlı Röntgen</div>
+      <div class="price">$500</div>
+      <div class="per" data-i18n="per">TEK SEFERLİK · 7 İŞ GÜNÜ</div>
+      <p class="scope" data-i18n="s1">Para nereye gidiyor? 7+1 israf kategorisinin operasyonunuzda nerede oluştuğu ve yıllık kaça mal olduğu.</p>
+      <ul>
+        <li data-i18n="l1a">Her israf kaleminin yıllık maliyeti, dolar cinsinden, hesap yöntemi açık</li>
+        <li data-i18n="l1b">Önce neye dokunulacağı: etkiye göre sıralı, ilk üçü işaretli</li>
+        <li data-i18n="l1c">Her rakamın kaynağı ve varsayımı yazılı</li>
+      </ul>
+      <div class="who"><b data-i18n="whoL">Kimin için</b><span data-i18n="w1">Kârlılığınızın neden düştüğünü rakamla açıklayamıyorsanız.</span></div>
+      <a class="btn red" href="/intake-welcome?tier=xray" data-i18n="cta">Bu kademeyle başla →</a>
+      <div class="g" data-i18n="g">$15.000 GARANTİSİ DAHİL</div>
     </div>
-    <ul class="pricing-features">
-      <li data-i18n="t2f1">5 Whys + Ishikawa root cause analysis</li>
-      <li data-i18n="t2f2">MECE + Pyramid Principle (McKinsey methodology)</li>
-      <li data-i18n="t2f3">Theory of Constraints (TOC) bottleneck detection</li>
-      <li data-i18n="t2f4">30/60/90-day prioritized action plan</li>
-      <li data-i18n="t2f5">ROI projection for each action</li>
-      <li data-i18n="t2f6">Data Quality Index</li>
-      <li data-i18n="t2f7">Delivered in 14 business days, written</li>
-    </ul>
-    <a href="intake-welcome.html" class="pricing-btn maroon" data-i18n="t2Cta">Request Root Cause Analysis →</a>
+
+    <div class="tier">
+      <div class="k" data-i18n="k2">KADEME 2</div>
+      <div class="name" data-i18n="n2">Röntgen + Darboğaz</div>
+      <div class="price">$900</div>
+      <div class="per" data-i18n="per">TEK SEFERLİK · 7 İŞ GÜNÜ</div>
+      <p class="scope" data-i18n="s2">Çıktıyı ne tutuyor? Kısıtlar Teorisi ile sistemi tutan tek nokta ve orada kaybedilen çıktı.</p>
+      <ul>
+        <li class="inc" data-i18n="inc1">Hızlı Röntgen'in tamamı</li>
+        <li data-i18n="l2a">Sipariş girişinden teslimata akış haritası</li>
+        <li data-i18n="l2b">Sistemi tutan tek kısıt ve orada kaybedilen çıktının yıllık karşılığı</li>
+        <li data-i18n="l2c">Kısıtı büyütmeden ondan daha fazla iş geçirmenin ilk adımları</li>
+      </ul>
+      <div class="who"><b data-i18n="whoL">Kimin için</b><span data-i18n="w2">Kapasiteye yatırım yaptınız, teslimat süreniz kısalmadıysa.</span></div>
+      <a class="btn red" href="/intake-welcome?tier=xray-toc" data-i18n="cta">Bu kademeyle başla →</a>
+      <div class="g" data-i18n="g">$15.000 GARANTİSİ DAHİL</div>
+    </div>
+
+    <div class="tier deep">
+      <div class="k" data-i18n="k3">KADEME 3</div>
+      <div class="name" data-i18n="n3">Tam Teşhis</div>
+      <div class="price">$1.500</div>
+      <div class="per" data-i18n="per">TEK SEFERLİK · 7 İŞ GÜNÜ</div>
+      <p class="scope" data-i18n="s3">Neden geri geliyor? Seçilen bir problem için kök neden ve 90 günlük aksiyon planı.</p>
+      <ul>
+        <li class="inc" data-i18n="inc2">Röntgen + Darboğaz'ın tamamı</li>
+        <li data-i18n="l3a">Bir problem için kanıt zinciriyle ortak kök neden</li>
+        <li data-i18n="l3b">Bu kökün başka hangi belirtileri ürettiği</li>
+        <li data-i18n="l3c">90 günlük plan: ne, kim, hangi hafta, neyle ölçülür</li>
+      </ul>
+      <div class="who"><b data-i18n="whoL">Kimin için</b><span data-i18n="w3">Aynı sorun için son iki yılda iki farklı çözüm denediyseniz.</span></div>
+      <a class="btn red" href="/intake-welcome?tier=full" data-i18n="cta">Bu kademeyle başla →</a>
+      <div class="g" data-i18n="g">$15.000 GARANTİSİ DAHİL</div>
+    </div>
+
+    <div class="tier deep">
+      <div class="k" data-i18n="k4">KADEME 4</div>
+      <div class="name" data-i18n="n4">Dönüşüm</div>
+      <div class="price" data-i18n="p4">Teklif</div>
+      <div class="per" data-i18n="per4">KAPSAMA GÖRE · YAZILI</div>
+      <p class="scope" data-i18n="s4">Şirket geneli teşhis ve 12 aylık yol haritası. Kapsam yazılı olarak birlikte belirlenir; fiyat kapsamdan sonra.</p>
+      <ul>
+        <li data-i18n="l4a">Departman bazında israf, darboğaz ve kök neden taraması</li>
+        <li data-i18n="l4b">Sıralı 12 aylık yol haritası</li>
+        <li data-i18n="l4c">Her departman için stakeholder doğrulaması</li>
+      </ul>
+      <div class="who"><b data-i18n="whoL">Kimin için</b><span data-i18n="w4">Birden çok departman, 250+ çalışan ve üç sinyal birden güçlüyse.</span></div>
+      <a class="btn ghost" href="/intake-welcome?tier=transformation" data-i18n="cta4">Yazılı kapsam talebi →</a>
+      <div class="g" data-i18n="g4">UYGULAMA DEĞİL, YAZILI TEŞHİS</div>
+    </div>
   </div>
 
-</div>
-
-<div class="guarantee-bar">
-  <span class="guarantee-strong" data-i18n="gMain">100× ROI GUARANTEE</span>
-  <p data-i18n="gText">If we cannot prove at least <strong>$15,000</strong> in annual operational profit leakage in the Stage 1 analysis, the report is <strong>free</strong>. If leakage above this threshold is detected, you pay upon report delivery. Risk sits entirely with GembaX.</p>
-</div>
-
-<div class="faq-section">
-  <h2 data-i18n="faqTitle">Frequently Asked Questions</h2>
-
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq1q">How does the 100× ROI guarantee work?</div>
-    <div class="faq-a"><p data-i18n="faq1a">If the annual operational profit leakage in the Stage 1 report comes in <strong>below $15,000</strong>, the report is completely free. If we prove leakage above this threshold — with operational root causes (scrap, unplanned downtime, setup inefficiency, etc.) — a $150 invoice is issued upon delivery. Risk sits entirely with GembaX.</p></div>
+  <div class="unsure">
+    <p data-i18n="unsure"><b>Hangisi sizin için?</b> 3 dakikalık ücretsiz ön tarama söyler: on soru, sektörünüze göre dallanır, rakam vermez, kademe önerir.</p>
+    <a class="btn green" href="on-tarama.html" data-i18n="unsureBtn">Ücretsiz ön tarama · 3 dk →</a>
   </div>
+</section>
 
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq2q">What's the difference between Stage 1 and Stage 2?</div>
-    <div class="faq-a"><p data-i18n="faq2a">Stage 1 ($150) detects <strong>where and how much</strong> you are losing — like an X-ray. Stage 2 ($500) tells you <strong>why</strong> the loss is happening (root cause) and <strong>how to stop it</strong> (90-day plan). Stage 2 is optional and designed for manufacturers who want to act on Stage 1 findings.</p></div>
+<!-- ===== KURALLAR ===== -->
+<section id="kurallar">
+  <div class="mono" data-i18n="rLabel">Ödeme ve Garanti</div>
+  <h3 class="sec" data-i18n="rTitle">Sonuç vaat etmiyoruz; <em>süreç</em> vaat ediyoruz.</h3>
+  <div class="rules">
+    <div class="rule">
+      <div class="n">01</div>
+      <h4 data-i18n="r1h">Ödeme, kapsam netleşince</h4>
+      <p data-i18n="r1p">Önce yazılı intake. Cevaplarınızı insan uzman okur, kapsamı ve kademeyi yazılı teyit eder. Ödeme ancak ondan sonra alınır; ana sayfada, ön taramada ya da form başında ödeme yoktur.</p>
+    </div>
+    <div class="rule">
+      <div class="n">02</div>
+      <h4 data-i18n="r2h">En az <mark>$15.000</mark>, yoksa ücretsiz</h4>
+      <p data-i18n="r2p">Röntgen içeren üç kademede: raporda en az $15.000 yıllık kaçak gösteremezsek ücret iade edilir. Rakam, insan uzman doğrulaması olmadan yayınlanmaz.</p>
+    </div>
+    <div class="rule">
+      <div class="n">03</div>
+      <h4 data-i18n="r3h">Her şey yazılı</h4>
+      <p data-i18n="r3p">Toplantı, arama, saha ziyareti yok. Rapor imzalı ve yazılıdır; her dolar rakamının hesap yöntemi, kaynağı ve varsayımı içindedir.</p>
+    </div>
   </div>
+  <p class="not" data-i18n="not">DAHİL OLMAYAN · Uygulama ve koçluk, yerinde eğitim, yazılım kurulumu. GembaX bir teşhis hizmetidir; uygulama sizin ekibinizde kalır. "Tipik müşterimiz şu kadar kazandı" gibi bir iddiamız yoktur; her rapor kendi verisine dayanır.</p>
+</section>
 
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq3q">Which industries do you serve?</div>
-    <div class="faq-a"><p data-i18n="faq3a">We are currently in a closed pilot, focused on <strong>50–250 employee</strong> high-volume and operation-intensive factories. Sector-specific questions and benchmark data are prepared for these verticals. Other sectors are welcome to apply after the pilot.</p></div>
+<!-- ===== SSS ===== -->
+<section id="sss">
+  <div class="mono" data-i18n="qLabel">Sık Sorulanlar</div>
+  <h3 class="sec" data-i18n="qTitle">Sormadan önce <em>bilin.</em></h3>
+  <div class="faq">
+    <div class="q"><button class="qq" data-i18n="q1">Garanti tam olarak nasıl çalışıyor?</button><div class="qa"><p data-i18n="a1">Kapsam yazılı teyit edilir, ödeme alınır, çalışma başlar. Rapor teslim edildiğinde gösterilen yıllık kaçak $15.000'ın altındaysa ücret iade edilir. Eşiğin üstündeyse rapor sizindir; ekstra ödeme yoktur. Kaçak rakamı sizin verdiğiniz girdilerden ve ekibinizin teyidinden türetilir; uydurulmaz.</p></div></div>
+    <div class="q"><button class="qq" data-i18n="q2">Hangi kademeyi seçeceğimi bilmiyorum.</button><div class="qa"><p data-i18n="a2">Ücretsiz ön tarama üç dakikada söyler. Emin olsanız bile Kademe 1 güvenli başlangıçtır: rapor, darboğaz ya da kök neden çalışmasının gerekip gerekmediğini kendisi söyler. Üçünü birden almak gerekmez.</p></div></div>
+    <div class="q"><button class="qq" data-i18n="q3">Seçtiğim kademe sonradan değişebilir mi?</button><div class="qa"><p data-i18n="a3">Evet, iki yönde de. Intake cevaplarınızı okuyan uzman, seçtiğiniz kademenin fazla ya da eksik olduğunu görürse yazılı olarak önerir; siz onaylamadan kapsam değişmez, ödeme alınmaz.</p></div></div>
+    <div class="q"><button class="qq" data-i18n="q4">Rakamlar nereden geliyor?</button><div class="qa"><p data-i18n="a4">Sizin yazılı cevaplarınızdan, gerekirse operasyon ve finans sorumlunuzdan alınan kısa teyitlerden ve kamuya açık sektör verilerinden. Yapay zeka tarar; insan uzman her girdiyi doğrular ve raporu imzalar. Doğrulanmamış rakam rapora girmez.</p></div></div>
+    <div class="q"><button class="qq" data-i18n="q5">Toplantı ya da saha ziyareti var mı?</button><div class="qa"><p data-i18n="a5">Hayır. Intake yazılı sohbettir (~15 dakika); ikinci dokunuş yine yazılı, planlı bir sohbet oturumudur (~30 dakika). Takviminize tek toplantı düşmez. Bu sadelik fiyatın bu seviyede kalmasının nedenidir.</p></div></div>
+    <div class="q"><button class="qq" data-i18n="q6">Süre ne zaman başlar?</button><div class="qa"><p data-i18n="a6">Kapsam yazılı teyit edilip ödeme alındığında. Üç teşhis kademesinde 7 iş günü; Dönüşüm'de süre kapsamla birlikte yazılı belirlenir.</p></div></div>
+    <div class="q"><button class="qq" data-i18n="q7">Dönüşüm kademesi uygulama mı içeriyor?</button><div class="qa"><p data-i18n="a7">Hayır. Şirket geneli yazılı teşhis ve 12 aylık sıralı yol haritasıdır. Uygulama, koçluk ve yerinde çalışma GembaX'in kapsamı dışındadır; yol haritası ekibinizin uygulayabileceği kadar somut yazılır.</p></div></div>
   </div>
+</section>
 
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq4q">Is my data safe?</div>
-    <div class="faq-a"><p data-i18n="faq4a">Yes. All financial and operational data is anonymized prior to analysis, never shared with third parties, and can be deleted upon request. KVKK and GDPR compliant.</p></div>
+<section class="final">
+  <div class="mono" data-i18n="fLabel">Başlangıç</div>
+  <h3 data-i18n="fTitle">Sorunun nerede olduğunu biliyor musunuz, yoksa <em>bir yerde olduğunu mu?</em></h3>
+  <p data-i18n="fP">Yedi iş günü sonra elinizde yazılı, imzalı cevap olur.</p>
+  <div class="ctas">
+    <a class="btn red" href="/intake-welcome" data-i18n="fBtn">Analizi Başlat →</a>
+    <a class="btn green" href="on-tarama.html" data-i18n="fBtn2">Ücretsiz ön tarama · 3 dk →</a>
   </div>
-
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq5q">Is the entire process written?</div>
-    <div class="faq-a"><p data-i18n="faq5a">Yes. To avoid disrupting your operations, all intake and delivery flows are handled through written forms and secure data folders. A 15-minute Turkish confirmation call after report delivery is available on request — optional.</p></div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq6q">Does Stage 2 also have a financial guarantee?</div>
-    <div class="faq-a"><p data-i18n="faq6a">No. The financial risk sits with GembaX in Stage 1 (100× ROI guarantee). Stage 2 is a <b>prepaid methodological delivery</b> — root cause analysis, action plan, and on-site execution depend on the client's discipline. A <b>Data Quality Index</b> is always included in the Stage 2 report; the confidence level of the analysis is transparent.</p></div>
-  </div>
-</div>
+</section>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand"><strong>Gemba<span>X</span></strong> — <span data-i18n="footerTag">X-Ray of Operational Waste</span></div>
-    <div class="footer-links">
-      <a href="/terms-and-conditions" data-i18n="footerTerms">Terms</a>
-      <a href="/privacy" data-i18n="footerPrivacy">Privacy</a>
-      <a href="/refund" data-i18n="footerRefund">Refund</a>
-      <a href="mailto:murat@gembax.ai" data-i18n="footerContact">Contact</a>
-    </div>
-  </div>
+  <div><strong>Gemba<span>X</span></strong> — <span data-i18n="footBrand">Operasyonel israfın röntgeni</span></div>
+  <div><a href="terms-and-conditions.html" data-i18n="ftTerms">Koşullar</a><a href="privacy.html" data-i18n="ftPriv">Gizlilik</a><a href="refund.html" data-i18n="ftRefund">İade</a><a href="https://moresight.io" data-i18n="ftMs">AI Değer Hizalama · MoreSight</a></div>
 </footer>
 
 <script>
-  const translations = {
-    en: {
-      topBar: "[ 100x ROI GUARANTEE ] If we cannot prove at least $15,000 in annual leakage, the report is FREE.",
-      logoSub: "X-Ray of Operational Waste",
-      navBack: "Home",
-      pilotBadge: "Closed Pilot — Limited Spots",
-      heroH1: 'Tiered diagnostics. <em>Go as deep as you need.</em>',
-      heroP: "First we find the leak. Then we diagnose why. Each stage is independent — stop wherever fits.",
-      t1Badge: "Stage 1",
-      t1Name: "Profit Leakage X-Ray",
-      t1Desc: "TIM WOODS waste map for one operational problem — monthly and annual loss quantified in dollars.",
-      t1Period: "100× ROI GUARANTEED • PAY AFTER DELIVERY",
-      t1f1: "Single focus: one operational problem (setup, scrap, downtime, etc.)",
-      t1f2: "TIM WOODS waste map — monthly/annual loss in $",
-      t1f3: "Industry benchmark comparison",
-      t1f4: "Priority action summary",
-      t1f5: "Delivered in 7 business days, written",
-      t1f6: "If less than $15,000 leakage found, the report is free",
-      t1Cta: "Start Application →",
-      t2Badge: "Stage 2",
-      t2Name: "Root Cause + 90-Day Action Plan",
-      t2Desc: "Root cause analysis of the problem detected in Stage 1, plus a concrete action plan to stop the leakage.",
-      t2Period: "PREPAID • OPTIONAL AFTER STAGE 1",
-      t2f1: "5 Whys + Ishikawa root cause analysis",
-      t2f2: "MECE + Pyramid Principle (McKinsey methodology)",
-      t2f3: "Theory of Constraints (TOC) bottleneck detection",
-      t2f4: "30/60/90-day prioritized action plan",
-      t2f5: "ROI projection for each action",
-      t2f6: "Data Quality Index",
-      t2f7: "Delivered in 14 business days, written",
-      t2Cta: "Request Root Cause Analysis →",
-      gMain: "100× ROI GUARANTEE",
-      gText: "If we cannot prove at least <strong>$15,000</strong> in annual operational profit leakage in the Stage 1 analysis, the report is <strong>free</strong>. If leakage above this threshold is detected, you pay upon report delivery. Risk sits entirely with GembaX.",
-      faqTitle: "Frequently Asked Questions",
-      faq1q: "How does the 100× ROI guarantee work?",
-      faq1a: "If the annual operational profit leakage in the Stage 1 report comes in <strong>below $15,000</strong>, the report is completely free. If we prove leakage above this threshold — with operational root causes (scrap, unplanned downtime, setup inefficiency, etc.) — a $150 invoice is issued upon delivery. Risk sits entirely with GembaX.",
-      faq2q: "What's the difference between Stage 1 and Stage 2?",
-      faq2a: "Stage 1 ($150) detects <strong>where and how much</strong> you are losing — like an X-ray. Stage 2 ($500) tells you <strong>why</strong> the loss is happening (root cause) and <strong>how to stop it</strong> (90-day plan). Stage 2 is optional and designed for manufacturers who want to act on Stage 1 findings.",
-      faq3q: "Which industries do you serve?",
-      faq3a: "We are currently in a closed pilot, focused on <strong>50–250 employee</strong> high-volume and operation-intensive factories. Sector-specific questions and benchmark data are prepared for these verticals. Other sectors are welcome to apply after the pilot.",
-      faq4q: "Is my data safe?",
-      faq4a: 'Yes. All financial and operational data is anonymized prior to analysis, never shared with third parties, and can be deleted upon request. KVKK and GDPR compliant.',
-      faq5q: "Is the entire process written?",
-      faq5a: "Yes. To avoid disrupting your operations, all intake and delivery flows are handled through written forms and secure data folders. A 15-minute Turkish confirmation call after report delivery is available on request — optional.",
-      faq6q: "Does Stage 2 also have a financial guarantee?",
-      faq6a: "No. The financial risk sits with GembaX in Stage 1 (100× ROI guarantee). Stage 2 is a <b>prepaid methodological delivery</b> — root cause analysis, action plan, and on-site execution depend on the client's discipline. A <b>Data Quality Index</b> is always included in the Stage 2 report; the confidence level of the analysis is transparent.",
-      footerTag: "X-Ray of Operational Waste",
-      footerTerms: "Terms",
-      footerPrivacy: "Privacy",
-      footerRefund: "Refund",
-      footerContact: "Contact"
-    },
-    es: {
-      topBar: "[ ¡GARANTÍA DE 100x ROI! ] Si no demostramos al menos $15,000 en pérdidas operativas anuales, el costo del análisis es $0.",
-      logoSub: "Radiografía del Desperdicio Operativo",
-      navBack: "Inicio",
-      pilotBadge: "Piloto Cerrado — Cupos Limitados",
-      heroH1: "Diagnóstico por fases. <em>Profundice solo lo que necesite.</em>",
-      heroP: "Primero localizamos la fuga de ganancias. Luego diagnosticamos la causa raíz. Cada etapa es independiente: deténgase donde prefiera.",
-      t1Badge: "Fase 1",
-      t1Name: "Radiografía de Fugas de Ganancias",
-      t1Desc: "Mapeo de desperdicios TIM WOODS para un problema operativo específico, cuantificando la pérdida mensual y anual en dólares.",
-      t1Period: "100× ROI GARANTIZADO • PAGO CONTRA ENTREGA",
-      t1f1: "Un solo enfoque: un problema operativo específico (setup, merma, inactividad, etc.)",
-      t1f2: "Mapeo de desperdicios TIM WOODS — pérdida mensual/anual en $",
-      t1f3: "Comparación de benchmark con la industria",
-      t1f4: "Resumen de acciones prioritarias",
-      t1f5: "Entrega por escrito en 7 días hábiles",
-      t1f6: "Gratis si se detecta una fuga menor a $15,000",
-      t1Cta: "Iniciar Solicitud →",
-      t2Badge: "Fase 2",
-      t2Name: "Causa Raíz + Plan de Acción de 90 Días",
-      t2Desc: "Análisis de causa raíz del problema detectado en la Fase 1, junto con un plan de acción concreto para detener la fuga de dinero.",
-      t2Period: "PREPAGO • OPCIONAL TRAS LA FASE 1",
-      t2f1: "Análisis de causa raíz con 5 Porqués + Ishikawa",
-      t2f2: "Metodología estructurada MECE + Pyramid Principle (McKinsey)",
-      t2f3: "Detección de cuellos de botella mediante Teoría de Restricciones (TOC)",
-      t2f4: "Plan de acción priorizado de 30/60/90 días",
-      t2f5: "Proyección de ROI para cada acción recomendada",
-      t2f6: "Índice de Calidad de Datos (Data Quality Index)",
-      t2f7: "Entrega por escrito en 14 días hábiles",
-      t2Cta: "Solicitar Análisis de Causa Raíz →",
-      gMain: "GARANTÍA DE 100× ROI",
-      gText: "Si no logramos demostrar al menos <strong>$15,000</strong> en pérdidas de ganancias operativas anuales en el análisis de la Fase 1, el informe es <strong>gratuito</strong>. Si se detecta una fuga por encima de este umbral, usted paga al momento de la entrega del informe. El riesgo corre en su totalidad por cuenta de GembaX.",
-      faqTitle: "Preguntas Frecuentes",
-      faq1q: "¿Cómo funciona la garantía de 100× ROI?",
-      faq1a: "Si la pérdida operativa anual demostrada en el informe de la Fase 1 es <strong>menor a $15,000</strong>, el informe es completamente gratuito. Si demostramos con datos y causas operativas (mermas, paradas no planificadas, ineficiencia de setup, etc.) una fuga superior a este umbral, se emitirá una factura de $150 al entregar el informe. El riesgo es 100% de GembaX.",
-      faq2q: "¿Cuál es la diferencia entre la Fase 1 y la Fase 2?",
-      faq2a: "La Fase 1 ($150) detecta <strong>dónde y cuánto</strong> está perdiendo, como una radiografía. La Fase 2 ($500) le dice <strong>por qué</strong> ocurre esa pérdida (causa raíz) y <strong>cómo detenerla</strong> (plan de 90 días). La Fase 2 es opcional y está diseñada para fabricantes que desean actuar sobre los hallazgos de la Fase 1.",
-      faq3q: "¿A qué sectores se dirigen?",
-      faq3a: "Actualmente estamos en un período piloto cerrado, enfocado en fábricas de alta producción e intensivas en operaciones con un volumen de <strong>50 a 250 empleados</strong>. Se han preparado preguntas específicas y datos de benchmark para estos sectores de la industria.",
-      faq4q: "¿Son seguros mis datos?",
-      faq4a: "Sí. Todos los datos financieros y operativos se anonimizan antes del análisis, nunca se comparten con terceros y puede solicitar su eliminación en cualquier momento. El proceso cumple plenamente con las normativas de protección de datos (KVKK / GDPR).",
-      faq5q: "¿El proceso es completamente por escrito?",
-      faq5a: "Sí. Para evitar interrumpir sus operaciones en planta, todo el flujo de recopilación de datos y entrega se maneja de forma asíncrona a través de formularios escritos y carpetas de datos seguras. De forma opcional, tras la entrega del informe se puede programar una breve llamada de confirmación de 15 minutos.",
-      faq6q: "¿La Fase 2 también tiene una garantía financiera?",
-      faq6a: "No. El riesgo financiero lo asume GembaX en la Fase 1 (garantía de 100× ROI). La Fase 2 es una <strong>entrega metodológica prepagada</strong>; el análisis de causa raíz, el plan de acción y su ejecución en planta dependen de la disciplina del cliente. Siempre se incluye un <strong>Índice de Calidad de Datos</strong> (Data Quality Index) en el informe de la Fase 2 para que el nivel de confianza del análisis sea transparente.",
-      footerTag: "Radiografía del Desperdicio Operativo",
-      footerTerms: "Términos",
-      footerPrivacy: "Privacidad",
-      footerRefund: "Reembolso",
-      footerContact: "Contacto"
-    },
-    tr: {
-      topBar: "[ 100x ROI GARANTİSİ ] Yıllık minimum $15,000 operasyonel kâr kaçağı kanıtlayamazsak analiz ücreti $0.",
-      logoSub: "Operasyonel İsrafın Röntgeni",
-      navBack: "Ana Sayfa",
-      pilotBadge: "Kapalı Pilot — Sınırlı Kontenjan",
-      heroH1: 'Aşamalı teşhis. <em>İhtiyacınız kadar derinleşin.</em>',
-      heroP: "Önce kaçağı buluyoruz. Sonra niçin kaçtığını çözüyoruz. Her aşama bağımsız — istediğiniz noktada durabilirsiniz.",
-      t1Badge: "Aşama 1",
-      t1Name: "Kâr Kaçağı Röntgeni",
-      t1Desc: "Tek bir operasyonel problem için TIM WOODS israf haritası — dolar cinsinden aylık ve yıllık kayıp büyüklüğü.",
-      t1Period: "100× ROI GARANTİLİ • SONRADAN ÖDEME",
-      t1f1: "Tek odak: bir operasyonel problem (setup, fire, duruş vb.)",
-      t1f2: "TIM WOODS israf haritası — $ cinsinden aylık/yıllık kayıp",
-      t1f3: "Sektör benchmark karşılaştırması",
-      t1f4: "Öncelik aksiyon özeti",
-      t1f5: "7 iş gününde yazılı teslim",
-      t1f6: "$15,000 altı kaçak bulunamazsa ücretsiz",
-      t1Cta: "Başvuruyu Başlat →",
-      t2Badge: "Aşama 2",
-      t2Name: "Kök Neden + 90 Gün Aksiyon Planı",
-      t2Desc: "Aşama 1'de tespit edilen problemin kök neden analizi ve kaçağı durduracak somut eylem planı.",
-      t2Period: "ÖN ÖDEMELİ • AŞAMA 1 SONRASI OPSİYONEL",
-      t2f1: "5 Whys + Ishikawa kök neden analizi",
-      t2f2: "MECE + Pyramid Principle (McKinsey metodolojisi)",
-      t2f3: "Kısıtlar Teorisi (TOC) darboğaz tespiti",
-      t2f4: "30/60/90 günlük öncelikli aksiyon planı",
-      t2f5: "Her aksiyon için ROI projeksiyonu",
-      t2f6: "Veri Güven Skoru (Data Quality Index)",
-      t2f7: "14 iş gününde yazılı teslim",
-      t2Cta: "Kök Neden Analizi Talep Et →",
-      gMain: "100× ROI GARANTİSİ",
-      gText: "Aşama 1 analizinde yıllık minimum <strong>$15,000</strong> değerinde operasyonel kâr kaçağı kanıtlayamazsak rapor <strong>ücretsizdir</strong>. Sınırın üzerinde kaçak tespit ettiğimizde rapor tesliminde ödeme yaparsınız. Risk tamamen GembaX'tedir.",
-      faqTitle: "Sıkça Sorulan Sorular",
-      faq1q: "100× ROI garantisi nasıl çalışıyor?",
-      faq1a: "Aşama 1 raporunda yıllık operasyonel kâr kaçağı <strong>$15,000'ın altında</strong> çıkarsa rapor tamamen ücretsizdir. Bu sınırın üzerinde bir kaçak operasyonel kök nedenleriyle (fire, plansız duruş, setup verimsizliği vb.) kanıt göstererek tespit edersek rapor tesliminde $150 fatura kesilir. Risk tamamen GembaX'tedir.",
-      faq2q: "Aşama 1 ve Aşama 2 arasındaki fark nedir?",
-      faq2a: "Aşama 1 ($150) <strong>nerede ve ne kadar</strong> kaybettiğinizi tespit eder — bir röntgen gibi. Aşama 2 ($500) ise <strong>niçin</strong> kaybettiğinizi (kök neden) ve <strong>nasıl durduracağınızı</strong> (90 günlük plan) verir. Aşama 2 opsiyoneldir; Aşama 1 raporunu beğenip devam etmek isteyen üreticiler için tasarlanmıştır.",
-      faq3q: "Hangi sektörlerde çalışıyorsunuz?",
-      faq3a: "Şu anda kapalı pilot dönemindeyiz ve odağımız <strong>50–250 çalışan</strong> hacimli imalat ve operasyon yoğun fabrikalardır. Bu üreticiler için sektörel sorular ve benchmark verisi hazırlanmıştır. Diğer sektörler için pilot sonrası başvuru kabul ediyoruz.",
-      faq4q: "Verilerim güvende mi?",
-      faq4a: 'Evet. Tüm finansal ve operasyonel veriler analiz öncesi anonimleştirilir, üçüncü taraflarla paylaşılmaz ve dilediğiniz an silinişini talep edebilirsiniz. KVKK ve GDPR uyumlu süreç.',
-      faq5q: "Süreç tamamen yazılı mı?",
-      faq5a: "Evet. Operasyonunuzu bölmemek adına tüm intake ve teslimat süreci yazılı formlar ve güvenli veri klasörleri üzerinden yürütülür. Yalnızca rapor tesliminden sonra dilerseniz 15 dakikalık bir Türkçe teyit görüşmesi yapılabilir — opsiyoneldir.",
-      faq6q: "Aşama 2'nin de finansal garantisi var mı?",
-      faq6a: "Hayır. Aşama 1'de risk tamamen GembaX'tedir (100× ROI garantisi). Aşama 2 ise <strong>ön ödemeli</strong> bir metodolojik teslimattır — kök neden analizi, eylem planı ve sahada uygulanması müşterinin disiplinine bağlıdır. Aşama 2 raporu içinde her zaman bir <strong>Veri Güven Skoru</strong> (Data Quality Index) yer alır; analizin doğruluk payı şeffaftır.",
-      footerTag: "Operasyonel İsrafın Röntgeni",
-      footerTerms: "Şartlar",
-      footerPrivacy: "Gizlilik",
-      footerRefund: "İade",
-      footerContact: "İletişim"
-    }
-  };
-
-  function applyLang(lang) {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.dataset.i18n;
-      if (translations[lang] && translations[lang][key]) {
-        el.innerHTML = translations[lang][key];
-      }
-    });
-    document.documentElement.lang = lang;
-    document.title = (lang === 'tr' ? 'Fiyatlar' : (lang === 'es' ? 'Precios' : 'Pricing')) + ' — GembaX';
-    localStorage.setItem('gembax-lang', lang);
-    document.querySelectorAll('.lang-switch button').forEach(b => {
-      b.classList.toggle('active', b.dataset.lang === lang);
-    });
+(function(){
+  /* ---------- ruler + nav mode ---------- */
+  var rc = document.getElementById('rulerCanvas'), rul = document.getElementById('ruler'), nav = document.getElementById('topNav'), band = document.querySelector('.band');
+  function drawRuler(light){
+    var dpr = Math.min(window.devicePixelRatio||1, 2), W = window.innerWidth, H = 20;
+    rc.width = W*dpr; rc.height = H*dpr; var x = rc.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
+    var ink = light ? 'rgba(27,42,74,' : 'rgba(245,240,232,'; x.font = "8px 'Space Mono', monospace";
+    for (var px = 0; px <= W; px += 10){ var major = px % 100 === 0, mid = px % 50 === 0, h = major ? 12 : mid ? 8 : 4;
+      x.fillStyle = ink + (major ? '0.75' : mid ? '0.5' : '0.28') + ')'; x.fillRect(px, H - h, 1, h);
+      if (major && px > 0){ x.fillStyle = ink + '0.55)'; x.fillText(String(px/10), px + 3, 8); } }
   }
+  var lightNow = false;
+  function onScroll(){ var light = window.scrollY > (band ? band.offsetHeight - 90 : 300); if (light !== lightNow){ lightNow = light; nav.classList.toggle('light', light); rul.classList.toggle('light', light); drawRuler(light); } }
+  window.addEventListener('scroll', onScroll, {passive:true}); window.addEventListener('resize', function(){ drawRuler(lightNow); });
+  drawRuler(false); onScroll();
+  document.querySelectorAll('.q .qq').forEach(function(b){ b.addEventListener('click', function(){ b.parentElement.classList.toggle('open'); }); });
 
-  document.querySelectorAll('.lang-switch button').forEach(btn => {
-    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
-  });
+  /* ---------- i18n ---------- */
+  var T = { tr: {} };
+  document.querySelectorAll('[data-i18n]').forEach(function(el){ var k = el.dataset.i18n; if (!(k in T.tr)) T.tr[k] = el.innerHTML; });
+  T.tr.title = 'Fiyatlandırma — GembaX';
+  T.en = { title: 'Pricing — GembaX', navGemba: 'What Is Gemba', navMeth: 'Methodology', navPrice: 'Pricing', navCta: 'Start Analysis', crumb: 'Pricing',
+    h1: 'Pricing', h2: 'Four tiers, one principle: payment only after the scope is confirmed in writing.',
+    f1: '7 BUSINESS DAYS', f2: 'WRITTEN · SIGNED', f3: 'NO MEETINGS', f4: 'FREE IF WE CAN\'T SHOW $15,000',
+    tLabel: 'Tiers', tTitle: 'Each tier includes the <em>one before it.</em>', tLead: 'Most businesses start with Tier 1; the report tells you whether the next one is needed. Prices in USD, one-time.',
+    k1: 'TIER 1', k2: 'TIER 2', k3: 'TIER 3', k4: 'TIER 4', n1: 'Quick X-Ray', n2: 'X-Ray + Bottleneck', n3: 'Full Diagnosis', n4: 'Transformation', p4: 'Quote',
+    per: 'ONE-TIME · 7 BUSINESS DAYS', per4: 'BY SCOPE · WRITTEN',
+    s1: 'Where does the money go? Where each of the 7+1 waste categories occurs in your operation and what it costs per year.',
+    s2: 'What holds output back? The single point holding the system, via the Theory of Constraints, and the output lost there.',
+    s3: 'Why does it keep coming back? The root cause of one chosen problem and a 90-day action plan.',
+    s4: 'Company-wide diagnosis and a 12-month roadmap. Scope defined together in writing; price follows scope.',
+    l1a: 'The annual cost of every waste line, in dollars, method shown', l1b: 'What to touch first: ranked by impact, top three flagged', l1c: 'The source and assumption behind every number, in writing',
+    inc1: 'Everything in the Quick X-Ray', l2a: 'A flow map from order entry to delivery', l2b: 'The single constraint holding the system and the annual value of output lost there', l2c: 'First moves to get more through the constraint before spending on it',
+    inc2: 'Everything in X-Ray + Bottleneck', l3a: 'The common root cause of one problem, with the evidence chain', l3b: 'Which other symptoms that root produces', l3c: 'A 90-day plan: what, who, which week, measured by what',
+    l4a: 'Waste, bottleneck and root-cause scan by department', l4b: 'A sequenced 12-month roadmap', l4c: 'Stakeholder validation for every department',
+    whoL: 'Who it\'s for', w1: 'If you can\'t explain in numbers why profitability dropped.', w2: 'If you invested in capacity and delivery times didn\'t shrink.', w3: 'If you\'ve tried two different fixes for the same problem in two years.', w4: 'Multiple departments, 250+ employees and all three signals strong.',
+    cta: 'Start with this tier →', cta4: 'Request written scope →', g: '$15,000 GUARANTEE INCLUDED', g4: 'WRITTEN DIAGNOSIS, NOT IMPLEMENTATION',
+    unsure: '<b>Which one is for you?</b> The 3-minute free pre-scan tells you: ten questions, branched by your sector, no numbers, a recommended tier.', unsureBtn: 'Free pre-scan · 3 min →',
+    rLabel: 'Payment & Guarantee', rTitle: 'We don\'t promise outcomes; we promise <em>process.</em>',
+    r1h: 'Payment once scope is confirmed', r1p: 'Written intake first. A human expert reads your answers and confirms scope and tier in writing. Payment is taken only after that; there is no payment on the home page, in the pre-scan or at the start of the form.',
+    r2h: 'At least <mark>$15,000</mark>, or it\'s free', r2p: 'On the three X-Ray tiers: if the report can\'t show at least $15,000 in annual leakage, the fee is refunded. No number is published without human expert validation.',
+    r3h: 'Everything in writing', r3p: 'No meetings, calls or site visits. The report is written and signed; the calculation method, source and assumption behind every dollar figure are inside it.',
+    not: 'NOT INCLUDED · Implementation and coaching, on-site training, software setup. GembaX is a diagnostic service; implementation stays with your team. We make no "our typical client saved X" claims; every report stands on its own data.',
+    qLabel: 'FAQ', qTitle: 'Know before <em>you ask.</em>',
+    q1: 'How exactly does the guarantee work?', a1: 'Scope is confirmed in writing, payment is taken, work begins. If the annual leakage shown when the report is delivered is below $15,000, the fee is refunded. Above the threshold, the report is yours; there is no extra charge. The leakage figure is derived from your inputs and your team\'s confirmation; it is never invented.',
+    q2: 'I don\'t know which tier to choose.', a2: 'The free pre-scan tells you in three minutes. Even if you\'re sure, Tier 1 is the safe start: the report itself says whether bottleneck or root-cause work is needed. You don\'t need all three.',
+    q3: 'Can my tier change later?', a3: 'Yes, in either direction. If the expert reading your intake sees that the tier you chose is too much or too little, they recommend a change in writing; scope doesn\'t change and no payment is taken until you approve.',
+    q4: 'Where do the numbers come from?', a4: 'From your written answers, short confirmations from your operations and finance leads when needed, and public sector data. AI scans; a human expert validates every input and signs the report. No unvalidated number enters the report.',
+    q5: 'Are there meetings or site visits?', a5: 'No. Intake is a written conversation (~15 minutes); the second touch is another written, scheduled session (~30 minutes). Not a single meeting lands on your calendar. That simplicity is why the price stays at this level.',
+    q6: 'When does the clock start?', a6: 'When scope is confirmed in writing and payment is received. 7 business days for the three diagnostic tiers; for Transformation the timeline is set in writing with the scope.',
+    q7: 'Does the Transformation tier include implementation?', a7: 'No. It is a written company-wide diagnosis with a sequenced 12-month roadmap. Implementation, coaching and on-site work are outside GembaX\'s scope; the roadmap is written concretely enough for your team to execute.',
+    fLabel: 'Getting Started', fTitle: 'Do you know where the problem is, or only <em>that it\'s somewhere?</em>', fP: 'Seven business days later you hold a written, signed answer.', fBtn: 'Start Analysis →', fBtn2: 'Free pre-scan · 3 min →',
+    footBrand: 'The X-ray of operational waste', ftTerms: 'Terms', ftPriv: 'Privacy', ftRefund: 'Refunds', ftMs: 'AI Value Alignment · MoreSight' };
+  T.es = { title: 'Precios — GembaX', navGemba: 'Qué es Gemba', navMeth: 'Metodología', navPrice: 'Precios', navCta: 'Iniciar Análisis', crumb: 'Precios',
+    h1: 'Precios', h2: 'Cuatro niveles, un principio: el pago, solo después de confirmar el alcance por escrito.',
+    f1: '7 DÍAS HÁBILES', f2: 'ESCRITO · FIRMADO', f3: 'SIN REUNIONES', f4: 'GRATIS SI NO MOSTRAMOS $15.000',
+    tLabel: 'Niveles', tTitle: 'Cada nivel incluye <em>el anterior.</em>', tLead: 'La mayoría de las empresas empieza con el Nivel 1; el informe dice si hace falta el siguiente. Precios en USD, pago único.',
+    k1: 'NIVEL 1', k2: 'NIVEL 2', k3: 'NIVEL 3', k4: 'NIVEL 4', n1: 'Radiografía Rápida', n2: 'Radiografía + Cuello de Botella', n3: 'Diagnóstico Completo', n4: 'Transformación', p4: 'Cotización',
+    per: 'PAGO ÚNICO · 7 DÍAS HÁBILES', per4: 'SEGÚN ALCANCE · ESCRITO',
+    s1: '¿Adónde va el dinero? Dónde ocurre cada una de las 7+1 categorías de desperdicio en su operación y cuánto cuesta al año.',
+    s2: '¿Qué frena la producción? El único punto que sostiene el sistema, según la Teoría de Restricciones, y la producción perdida allí.',
+    s3: '¿Por qué vuelve? La causa raíz de un problema elegido y un plan de acción de 90 días.',
+    s4: 'Diagnóstico de toda la empresa y hoja de ruta de 12 meses. Alcance definido en conjunto por escrito; el precio sigue al alcance.',
+    l1a: 'El coste anual de cada partida de desperdicio, en dólares, con el método a la vista', l1b: 'Qué tocar primero: ordenado por impacto, los tres principales marcados', l1c: 'La fuente y el supuesto de cada cifra, por escrito',
+    inc1: 'Todo lo de la Radiografía Rápida', l2a: 'Un mapa del flujo desde el pedido hasta la entrega', l2b: 'La única restricción que sostiene el sistema y el valor anual de la producción perdida allí', l2c: 'Primeros pasos para pasar más trabajo por la restricción antes de invertir en ella',
+    inc2: 'Todo lo de Radiografía + Cuello de Botella', l3a: 'La causa raíz común de un problema, con cadena de evidencia', l3b: 'Qué otros síntomas produce esa raíz', l3c: 'Un plan de 90 días: qué, quién, qué semana, medido con qué',
+    l4a: 'Escaneo de desperdicio, cuello de botella y causa raíz por departamento', l4b: 'Una hoja de ruta secuenciada de 12 meses', l4c: 'Validación con responsables de cada departamento',
+    whoL: 'Para quién', w1: 'Si no puede explicar con números por qué cayó la rentabilidad.', w2: 'Si invirtió en capacidad y los plazos de entrega no se acortaron.', w3: 'Si probó dos soluciones distintas para el mismo problema en dos años.', w4: 'Varios departamentos, 250+ empleados y las tres señales fuertes.',
+    cta: 'Empezar con este nivel →', cta4: 'Solicitar alcance por escrito →', g: 'GARANTÍA DE $15.000 INCLUIDA', g4: 'DIAGNÓSTICO ESCRITO, NO IMPLEMENTACIÓN',
+    unsure: '<b>¿Cuál es para usted?</b> El pre-escaneo gratuito de 3 minutos se lo dice: diez preguntas, ramificadas por sector, sin cifras, con un nivel recomendado.', unsureBtn: 'Pre-escaneo gratuito · 3 min →',
+    rLabel: 'Pago y Garantía', rTitle: 'No prometemos resultados; prometemos <em>proceso.</em>',
+    r1h: 'El pago, cuando el alcance esté claro', r1p: 'Primero el intake escrito. Un experto humano lee sus respuestas y confirma alcance y nivel por escrito. El pago se cobra solo después; no hay pago en la portada, en el pre-escaneo ni al inicio del formulario.',
+    r2h: 'Al menos <mark>$15.000</mark>, o es gratis', r2p: 'En los tres niveles con Radiografía: si el informe no puede mostrar al menos $15.000 de fuga anual, se reembolsa el importe. Ninguna cifra se publica sin validación de un experto humano.',
+    r3h: 'Todo por escrito', r3p: 'Sin reuniones, llamadas ni visitas. El informe es escrito y firmado; el método de cálculo, la fuente y el supuesto de cada cifra en dólares están dentro.',
+    not: 'NO INCLUIDO · Implementación y coaching, formación in situ, instalación de software. GembaX es un servicio de diagnóstico; la implementación queda en su equipo. No afirmamos "nuestro cliente típico ahorró X"; cada informe se sostiene en sus propios datos.',
+    qLabel: 'Preguntas frecuentes', qTitle: 'Sépalo antes de <em>preguntar.</em>',
+    q1: '¿Cómo funciona exactamente la garantía?', a1: 'Se confirma el alcance por escrito, se cobra, empieza el trabajo. Si la fuga anual mostrada al entregar el informe está por debajo de $15.000, se reembolsa el importe. Por encima del umbral, el informe es suyo; no hay cargo extra. La cifra de fuga se deriva de sus datos y de la confirmación de su equipo; nunca se inventa.',
+    q2: 'No sé qué nivel elegir.', a2: 'El pre-escaneo gratuito se lo dice en tres minutos. Aunque esté seguro, el Nivel 1 es el inicio seguro: el propio informe dice si hace falta trabajo de cuello de botella o de causa raíz. No necesita los tres.',
+    q3: '¿Puede cambiar mi nivel después?', a3: 'Sí, en ambas direcciones. Si el experto que lee su intake ve que el nivel elegido es excesivo o insuficiente, propone el cambio por escrito; el alcance no cambia y no se cobra hasta que usted apruebe.',
+    q4: '¿De dónde salen las cifras?', a4: 'De sus respuestas escritas, de breves confirmaciones de sus responsables de operaciones y finanzas cuando hace falta, y de datos sectoriales públicos. La IA escanea; un experto humano valida cada dato y firma el informe. Ninguna cifra sin validar entra al informe.',
+    q5: '¿Hay reuniones o visitas?', a5: 'No. El intake es una conversación escrita (~15 minutos); el segundo contacto es otra sesión escrita y programada (~30 minutos). Ni una sola reunión cae en su calendario. Esa sencillez es lo que mantiene el precio en este nivel.',
+    q6: '¿Cuándo empieza a contar el plazo?', a6: 'Cuando el alcance se confirma por escrito y se recibe el pago. 7 días hábiles en los tres niveles de diagnóstico; en Transformación, el plazo se fija por escrito junto con el alcance.',
+    q7: '¿El nivel Transformación incluye implementación?', a7: 'No. Es un diagnóstico escrito de toda la empresa con una hoja de ruta secuenciada de 12 meses. La implementación, el coaching y el trabajo en sitio quedan fuera del alcance de GembaX; la hoja de ruta se escribe lo bastante concreta para que su equipo la ejecute.',
+    fLabel: 'Para Empezar', fTitle: '¿Sabe dónde está el problema, o solo <em>que está en algún lugar?</em>', fP: 'Siete días hábiles después tiene en sus manos una respuesta escrita y firmada.', fBtn: 'Iniciar Análisis →', fBtn2: 'Pre-escaneo gratuito · 3 min →',
+    footBrand: 'La radiografía del desperdicio operacional', ftTerms: 'Términos', ftPriv: 'Privacidad', ftRefund: 'Reembolsos', ftMs: 'Alineación de Valor de IA · MoreSight' };
 
-  const saved = localStorage.getItem('gembax-lang') || 'en';
-  applyLang(saved);
+  var lang = 'tr';
+  function detect(){ var p = new URLSearchParams(location.search).get('lang'); if (p && T[p]) return p; try { var s = localStorage.getItem('gembax-lang'); if (s && T[s]) return s; } catch(e){} var b = (navigator.language||'en').slice(0,2).toLowerCase(); return T[b] ? b : 'en'; }
+  function apply(l){
+    lang = l; var t = T[l]; document.documentElement.lang = l; document.getElementById('ttl').textContent = t.title;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){ var k = el.dataset.i18n; if (t[k] != null) el.innerHTML = t[k]; });
+    document.querySelectorAll('#langSel button').forEach(function(b){ b.classList.toggle('on', b.dataset.l === l); });
+    document.querySelectorAll('a[href*="intake-welcome"], a[href*="on-tarama"], a[href*="index.html"]').forEach(function(a){
+      var h = a.getAttribute('href').replace(/([?&])lang=[a-z]{2}(&|$)/, '$1').replace(/[?&]$/, '');
+      a.setAttribute('href', h + (h.indexOf('?') > -1 ? '&' : '?') + 'lang=' + l);
+    });
+    try { localStorage.setItem('gembax-lang', l); } catch(e){}
+  }
+  document.querySelectorAll('#langSel button').forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.l); }); });
+  apply(detect());
+})();
 </script>
-
 </body>
 </html>
