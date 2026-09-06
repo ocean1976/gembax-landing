@@ -592,8 +592,11 @@
 
   var W = 0, H = 0, dots = [], FN = 0;
   /* küme renkleri: Bekleme, Stok, Taşıma, Hatalar, Aşırı Üretim, Hareket, Aşırı İşlem, Atıl Yetenek */
+  var RCOL = [[124,58,237],[13,148,136],[37,99,235],[190,24,93]];   /* kök neden dalları: mor, teal, mavi, magenta */
+  var CLROT = [0.00028,-0.00022,0.00034,-0.00019,0.00025,-0.00031,0.00021,-0.00027]; /* rad/ms */
+  var reArr = 0;
   var CLCOL = [[214,96,20],[124,58,237],[13,148,136],[220,38,38],[37,99,235],[22,163,74],[190,24,93],[120,72,160]];
-  var CL = [[0.26,0.22,0.11,42],[0.72,0.18,0.10,36],[0.12,0.55,0.075,22],[0.46,0.48,0.085,28],[0.84,0.45,0.07,20],[0.26,0.82,0.06,15],[0.58,0.80,0.065,17],[0.87,0.80,0.052,11]];
+  var CL = [[0.26,0.22,0.11,66],[0.72,0.18,0.10,56],[0.12,0.55,0.075,36],[0.46,0.48,0.085,44],[0.84,0.45,0.07,32],[0.26,0.82,0.06,24],[0.58,0.80,0.065,28],[0.87,0.80,0.052,18]];
   var mk = { hero: null, waste: null, flow: null, root: null };
   var mode = 'hero', rootStart = 0, flowStart = 0, wasteStart = 0;
   var clAcc = [], clCnt = [];
@@ -606,7 +609,7 @@
   }
   function buildDots() {
     var N = Math.max(800, Math.min(3200, Math.round(W * H / 470)));
-    FN = Math.min(280, Math.round(N * 0.24));
+    FN = Math.min(380, Math.round(N * 0.32));
     dots = [];
     for (var i = 0; i < N; i++) {
       dots.push({
@@ -617,7 +620,7 @@
         base: Math.random() < 0.3 ? SAGE : NAVY,
         cl: -1, offA: Math.random() * 6.283, offR: Math.sqrt(Math.random()),
         lane: rand(-1, 1), p0: Math.random(), agent: -1, rv: 0, hit: false,
-        big: Math.random() < 0.06, ns: 0
+        big: Math.random() < 0.06, ns: 0, fx: 0, fy: 0, fe: 0, fp: 0, tail: 0
       });
     }
     for (var j = 0; j < dots.length; j++) dots[j].ns = dots[j].big ? rand(2.2, 3.2) : rand(0.7, 1.2);
@@ -712,6 +715,11 @@
     var rFade = rDis ? Math.max(0, 1 - rdt * 1.6) : 1;
 
     for (var ci = 0; ci < CL.length; ci++) { clAcc[ci] = 0; clCnt[ci] = 0; }
+    if (mode === 'waste' && now - wasteStart > 3000 && now - reArr > 700) {        /* sürekli yeni sinyal gelişi */
+      reArr = now;
+      for (var tries = 0; tries < 6; tries++) { var cand = dots[Math.floor(Math.random() * FN)];
+        if (cand && cand.cl >= 0 && cand.t > 0.98) { cand.t = 0.02; cand.hx = rand(0, W); cand.hy = rand(0, H); break; } }
+    }
 
     for (var i = 0; i < dots.length; i++) {
       var d = dots[i];
@@ -736,13 +744,19 @@
           if (d.cl >= 0) {
             var c = CL[d.cl];
             var ccx = R.left + c[0] * R.width, ccy = R.top + c[1] * R.height;
-            var cr = c[2] * Math.min(R.width, R.height) * 1.55;
-            tx = ccx + Math.cos(d.offA + now * 0.0004) * d.offR * cr;
-            ty = ccy + Math.sin(d.offA + now * 0.0004) * d.offR * cr;
-            fc = CLCOL[d.cl]; fa = 0.75;
+            var breathe = 1 + 0.06 * Math.sin(now * 0.0011 + d.cl * 1.3);           /* küme nefes alıyor */
+            var cr = c[2] * Math.min(R.width, R.height) * 1.55 * breathe;
+            var rot = now * CLROT[d.cl];                                              /* her küme kendi yönünde döner */
+            var wob = 1 + 0.10 * Math.sin(now * 0.0023 + d.offA * 4);                 /* yörünge dalgalanması */
+            tx = ccx + Math.cos(d.offA + rot) * d.offR * cr * wob;
+            ty = ccy + Math.sin(d.offA + rot) * d.offR * cr * wob;
+            fc = CLCOL[d.cl]; fa = 0.62 + 0.25 * d.offR;                            /* dış halka daha parlak */
             clAcc[d.cl] += e; clCnt[d.cl]++;
+            d.fx = x; d.fy = y;
           } else if (mode === 'flow' && d.eng) {
-            var p = (d.p0 + (now - flowStart) * 0.000045) % 1;
+            var spd = 0.000045 * (0.85 + 0.3 * (d.lane + 1) / 2);              /* şeritlere göre hız farkı */
+            var p = (d.p0 + (now - flowStart) * spd) % 1;
+            d.fp = p;
             var fx, heatq = 0;
             if (p < 0.30) fx = lerp(0.0, 0.50, p / 0.30);
             else if (p < 0.76) { fx = lerp(0.50, 0.60, (p - 0.30) / 0.46); heatq = 1; }
@@ -752,6 +766,7 @@
             tx = R.left + fx * R.width;
             ty = R.top + R.height * 0.55 + d.lane * laneAmp * R.height;
             fc = p >= 0.81 ? GREEN : mix(NAVY, OCHRE, heatq); fa = 0.48 + 0.37 * heatq;
+            d.tail = heatq ? 0 : (p >= 0.81 ? 14 : 8);                            /* kuyrukta iz yok, akışta iz var */
             var edge = Math.min(p / 0.04, (1 - p) / 0.04, 1);
             fa *= Math.max(0.12, edge);
           } else if (d.agent >= 0 && mode === 'root') {
@@ -763,14 +778,20 @@
             var B = nodePos(Lc + 1, Math.floor(d.agent / Math.pow(2, Lc + 1)), R);
             tx = lerp(A.x, B.x, e2); ty = lerp(A.y, B.y, e2);
             var atRoot = Lc === 4 && e2 > 0.95;
-            fc = atRoot ? GREEN : OCHRE; fa = (atRoot ? 0.85 : 0.65) * rFade;
+            var bc = RCOL[Math.floor(d.agent / 8) % 4];
+            fc = atRoot ? GREEN : (Lc === 4 ? mix(bc, GREEN, e2) : bc); fa = (atRoot ? 0.85 : 0.65) * rFade;
           }
           x = lerp(ax, tx, e); y = lerp(ay, ty, e);
+          if (d.cl >= 0) { d.fx = x; d.fy = y; d.fe = e; }
           col = mix(d.base, fc, e); alpha = lerp(0.20, fa, e); arc = e > 0.3;
         }
       }
       d.heat *= 0.96;
       if (d.heat > 0.02) { col = mix(col, OCHRE, d.heat); alpha = Math.min(0.9, alpha + 0.55 * d.heat); }
+      if (mode === 'flow' && d.eng && d.tail && d.t > 0.9) {
+        ctx.strokeStyle = rgba(col, alpha * 0.35); ctx.lineWidth = sz * 0.9;
+        ctx.beginPath(); ctx.moveTo(x - d.tail, y); ctx.lineTo(x, y); ctx.stroke();
+      }
       ctx.fillStyle = rgba(col, alpha * (mode === 'calm' ? 0.8 : 1));
       if (arc || onDark) { ctx.beginPath(); ctx.arc(x, y, sz, 0, 6.283); ctx.fill(); }
       else ctx.fillRect(x, y, sz, sz);
@@ -791,6 +812,21 @@
       ctx.fillText(rn0, W - ctx.measureText(rn0).width - 16, H - 14);
     }
     if (mode === 'waste' && R) {
+      /* küme içi bağlantı çizgileri: yakın noktalar arasında ince ağ */
+      ctx.lineWidth = 0.8;
+      for (var ci3 = 0; ci3 < CL.length; ci3++) {
+        var members = [];
+        for (var mi = 0; mi < FN; mi++) { var md = dots[mi]; if (md.cl === ci3 && md.fe > 0.6) members.push(md); }
+        var thr = CL[ci3][2] * Math.min(R.width, R.height) * 0.9;
+        ctx.strokeStyle = rgba(CLCOL[ci3], 0.16);
+        for (var a1 = 0; a1 < members.length; a1++) {
+          var m1 = members[a1];
+          for (var a2 = a1 + 1; a2 < Math.min(members.length, a1 + 4); a2++) {
+            var m2 = members[a2], ddx = m1.fx - m2.fx, ddy = m1.fy - m2.fy;
+            if (ddx * ddx + ddy * ddy < thr * thr) { ctx.beginPath(); ctx.moveTo(m1.fx, m1.fy); ctx.lineTo(m2.fx, m2.fy); ctx.stroke(); }
+          }
+        }
+      }
       var labels = V().scan.clusters;
       for (var c2 = 0; c2 < CL.length; c2++) {
         var ratio = clCnt[c2] ? clAcc[c2] / clCnt[c2] : 0;
@@ -822,7 +858,9 @@
         ctx.font = "9px 'Space Mono', monospace"; ctx.fillStyle = rgba(NAVY, 0.42);
         var lbl = V().flow.gate + ' ' + (g3 + 1);
         ctx.fillText(lbl, gxp - ctx.measureText(lbl).width / 2, R.top + 18);
-        if (isC) chip(R, V().flow.constraint, gxp, R.top + R.height - 30, 0.75 + 0.25 * Math.sin(now * 0.004), MAROON);
+        if (isC) {
+          chip(R, V().flow.constraint, gxp, R.top + R.height - 30, 0.75 + 0.25 * Math.sin(now * 0.004), MAROON);
+        }
       }
       statusAt(R.left + 4, R.top + 14, (now - flowStart) < 3000 ? V().flow.s1 : V().flow.s2);
       repAt(R);
@@ -832,8 +870,9 @@
       ctx.font = "9px 'Space Mono', monospace";
       for (var L = 0; L < 5; L++) {
         var my = (nodePos(L, 0, R).y + nodePos(L + 1, 0, R).y) / 2;
-        ctx.fillStyle = rgba(NAVY, (lvlF > L ? 0.45 : 0.15) * rFade);
-        ctx.fillText(RT.why + ' ' + (L + 1), R.left + 2, my + 3);
+        var active = Math.floor(lvlF) === L && lvlF < 5;
+        ctx.fillStyle = active ? rgba(OCHRE, 0.9 * rFade) : rgba(NAVY, (lvlF > L ? 0.45 : 0.15) * rFade);
+        ctx.fillText((active ? '▸ ' : '') + RT.why + ' ' + (L + 1), R.left + 2, my + 3);
       }
       ctx.lineWidth = 1;
       var segDone = Math.min(Math.floor(lvlF), 5);
@@ -841,11 +880,23 @@
         for (var sg = 0; sg < segDone; sg++) {
           var P1 = nodePos(sg, Math.floor(a2 / Math.pow(2, sg)), R);
           var P2 = nodePos(sg + 1, Math.floor(a2 / Math.pow(2, sg + 1)), R);
-          ctx.strokeStyle = rgba(NAVY, 0.14 * rFade);
+          ctx.strokeStyle = rgba(sg === 4 ? GREEN : RCOL[Math.floor(a2 / 8) % 4], 0.18 * rFade);
           ctx.beginPath(); ctx.moveTo(P1.x, P1.y); ctx.lineTo(P2.x, P2.y); ctx.stroke();
         }
       }
       var conv = Math.max(0, Math.min(1, (lvlF - 4.4) / 0.6));
+      if (conv > 0.9 && rFade > 0) {                                                  /* köke doğru akan sinyal darbeleri */
+        var ph2 = (now % 1400) / 1400;
+        for (var L3 = 0; L3 < 5; L3++) {
+          var cnt = [32,16,8,4,2][L3];
+          for (var j3 = 0; j3 < cnt; j3 += (L3 < 2 ? 2 : 1)) {
+            var P1 = nodePos(L3, j3, R), P2 = nodePos(L3 + 1, Math.floor(j3 / 2), R);
+            var pp = (ph2 + L3 * 0.2) % 1;
+            ctx.fillStyle = rgba(L3 === 4 ? GREEN : RCOL[Math.floor(j3 * Math.pow(2, L3) / 8) % 4], 0.4 * rFade * (1 - Math.abs(pp - 0.5) * 0.6));
+            ctx.beginPath(); ctx.arc(lerp(P1.x, P2.x, pp), lerp(P1.y, P2.y, pp), 1.6, 0, 6.283); ctx.fill();
+          }
+        }
+      }
       if (conv > 0) {
         var rnp = nodePos(5, 0, R);
         var rg2 = ctx.createRadialGradient(rnp.x, rnp.y, 0, rnp.x, rnp.y, 26);
