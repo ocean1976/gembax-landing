@@ -120,7 +120,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.2rem;
-    max-width: 640px;
+    max-width: 760px;
   }
   .card-option {
     background: var(--bg-secondary);
@@ -155,6 +155,7 @@
     letter-spacing: 0.05em;
   }
   .card-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
+  .card-rec { position: absolute; top: -0.65rem; left: 1rem; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; background: var(--accent); color: #fff; padding: 0.25rem 0.55rem; border-radius: 100px; }
   .card-option.maroon.selected {
     border-color: var(--maroon);
     background: var(--maroon-glow);
@@ -1258,28 +1259,42 @@
     <div class="question-step" data-step="A1" data-section="A">
       <div class="question-meta"><span class="required" data-i18n="meta_req_0">A1 · ZORUNLU</span></div>
       <h2 class="question-title" data-i18n="t_q0">Hangi paketle <em>başlamak istiyorsunuz?</em></h2>
-      <p class="question-help" data-i18n="h_a1">Aşama 1 önerilen başlangıçtır. Problem netleşmişse Aşama 2'ye doğrudan girebilirsiniz — bir sonraki adımda problemi tanımlamanız istenecek.</p>
+      <p class="question-help" data-i18n="h_a1">Çoğu işletme Kademe 1 ile başlar. Ön taramadan geldiyseniz önerilen kademe seçili gelir. Kesin kapsam ve fiyat, cevaplarınız okunduktan sonra yazılı teyit edilir; ödeme ondan sonra alınır.</p>
       <div class="cards" id="A1cards">
-        <div class="card-option" data-value="asama1" onclick="selectCard(this, 'A1cards', 'A1')">
-          <div class="card-tier" data-i18n="a1_card1_tier">AŞAMA 1</div>
-          <div class="card-name" data-i18n="a1_card1_name">İsraf Röntgeni</div>
-          <div class="card-price">$150</div>
-          <div class="card-meta" data-i18n="a1_card1_meta">7 GÜN · 100× ROI GARANTİLİ</div>
-          <div class="card-desc" data-i18n="a1_card1_desc">TIM WOODS israf haritası — tek bir operasyonel problem için aylık/yıllık kayıp büyüklüğü, $ cinsinden.</div>
-        </div>
-        <div class="card-option maroon" data-value="asama2" onclick="selectCard(this, 'A1cards', 'A1')">
-          <div class="card-tier" data-i18n="a1_card2_tier">AŞAMA 2</div>
-          <div class="card-name" data-i18n="a1_card2_name">Kök Neden + 90 Gün Aksiyon Planı</div>
+        <div class="card-option" data-value="xray" onclick="selectCard(this, 'A1cards', 'A1')">
+          <div class="card-tier" data-i18n="a1_c1_tier">KADEME 1</div>
+          <div class="card-name" data-i18n="a1_c1_name">Hızlı Röntgen</div>
           <div class="card-price">$500</div>
-          <div class="card-meta" data-i18n="a1_card2_meta">14 GÜN · ÖN ÖDEMELİ</div>
-          <div class="card-desc" data-i18n="a1_card2_desc">5 Whys + Ishikawa kök neden analizi, Theory of Constraints darboğaz tespiti, 30/60/90 günlük plan.</div>
+          <div class="card-meta" data-i18n="a1_c1_meta">7 İŞ GÜNÜ · YAZILI · İMZALI</div>
+          <div class="card-desc" data-i18n="a1_c1_desc">İsraf Röntgeni: 7+1 israf kategorisi nerede oluşuyor, yıllık kaça mal oluyor, önce neye dokunulacak.</div>
+        </div>
+        <div class="card-option" data-value="xray-toc" onclick="selectCard(this, 'A1cards', 'A1')">
+          <div class="card-tier" data-i18n="a1_c2_tier">KADEME 2</div>
+          <div class="card-name" data-i18n="a1_c2_name">Röntgen + Darboğaz</div>
+          <div class="card-price">$900</div>
+          <div class="card-meta" data-i18n="a1_c2_meta">7 İŞ GÜNÜ · YAZILI · İMZALI</div>
+          <div class="card-desc" data-i18n="a1_c2_desc">Röntgen'in tamamı + Kısıtlar Teorisi ile sistemi tutan tek darboğaz ve orada kaybedilen çıktının yıllık karşılığı.</div>
+        </div>
+        <div class="card-option maroon" data-value="full" onclick="selectCard(this, 'A1cards', 'A1')">
+          <div class="card-tier" data-i18n="a1_c3_tier">KADEME 3</div>
+          <div class="card-name" data-i18n="a1_c3_name">Tam Teşhis</div>
+          <div class="card-price">$1.500</div>
+          <div class="card-meta" data-i18n="a1_c3_meta">7 İŞ GÜNÜ · YAZILI · İMZALI</div>
+          <div class="card-desc" data-i18n="a1_c3_desc">Röntgen + Darboğaz'ın tamamı + bir problem için kanıt zinciriyle kök neden ve 90 günlük aksiyon planı. Bir sonraki adımda problemi tanımlamanız istenecek.</div>
+        </div>
+        <div class="card-option maroon" data-value="transformation" onclick="selectCard(this, 'A1cards', 'A1')">
+          <div class="card-tier" data-i18n="a1_c4_tier">KADEME 4</div>
+          <div class="card-name" data-i18n="a1_c4_name">Dönüşüm</div>
+          <div class="card-price" data-i18n="a1_c4_price">Teklif</div>
+          <div class="card-meta" data-i18n="a1_c4_meta">KAPSAMA GÖRE · YAZILI</div>
+          <div class="card-desc" data-i18n="a1_c4_desc">Departman bazında israf, darboğaz ve kök neden taraması + 12 aylık yol haritası. Kapsam yazılı olarak birlikte belirlenir; fiyat kapsamdan sonra.</div>
         </div>
       </div>
     </div>
 
     <!-- A2: (Koşullu) Aşama 2 problem tanımı -->
     <!-- A2a: Problem ne? -->
-    <div class="question-step" data-step="A2a" data-section="A" data-condition="A1=asama2" style="display:none;">
+    <div class="question-step" data-step="A2a" data-section="A" data-condition="A1=full" style="display:none;">
       <div class="question-meta">
         <span class="required" data-i18n="meta_req_1">A2 · 1/5 · ZORUNLU</span>
       </div>
@@ -1300,7 +1315,7 @@
     </div>
 
     <!-- A2b: Nerede? -->
-    <div class="question-step" data-step="A2b" data-section="A" data-condition="A1=asama2" style="display:none;">
+    <div class="question-step" data-step="A2b" data-section="A" data-condition="A1=full" style="display:none;">
       <div class="question-meta">
         <span class="required" data-i18n="meta_req_2">A2 · 2/5 · ZORUNLU</span>
       </div>
@@ -1320,7 +1335,7 @@
     </div>
 
     <!-- A2c: Ne sıklıkta? -->
-    <div class="question-step" data-step="A2c" data-section="A" data-condition="A1=asama2" style="display:none;">
+    <div class="question-step" data-step="A2c" data-section="A" data-condition="A1=full" style="display:none;">
       <div class="question-meta">
         <span class="required" data-i18n="meta_req_3">A2 · 3/5 · ZORUNLU</span>
       </div>
@@ -1337,7 +1352,7 @@
     </div>
 
     <!-- A2d: Tahmini etki? -->
-    <div class="question-step" data-step="A2d" data-section="A" data-condition="A1=asama2" style="display:none;">
+    <div class="question-step" data-step="A2d" data-section="A" data-condition="A1=full" style="display:none;">
       <div class="question-meta">
         <span class="required" data-i18n="meta_req_4">A2 · 4/5 · ZORUNLU</span>
       </div>
@@ -1358,7 +1373,7 @@
     </div>
 
     <!-- A2e: Daha önce ne denediniz? -->
-    <div class="question-step" data-step="A2e" data-section="A" data-condition="A1=asama2" style="display:none;">
+    <div class="question-step" data-step="A2e" data-section="A" data-condition="A1=full" style="display:none;">
       <div class="question-meta">
         <span class="required" data-i18n="meta_req_5">A2 · 5/5 · ZORUNLU</span>
       </div>
@@ -2228,7 +2243,7 @@
   function isStepVisible(step) {
     if (!step.condition) return true;
     // condition formats:
-    //   "A1=asama2"  (single value match)
+    //   "A1=full"  (single value match; "A1=full|transformation" = OR)
     //   "B3.includes(uretim)"  (array contains value)
     //   "B3.hasAny"  (array has at least one value)
     if (step.condition.endsWith('.hasAny')) {
@@ -2244,7 +2259,7 @@
       return false;
     }
     const [key, val] = step.condition.split('=');
-    return answers[key] === val;
+    return val.split('|').indexOf(answers[key]) > -1;
   }
 
   function showStep(idx) {
@@ -2382,7 +2397,7 @@
       't_q32': 'Analize <em>ne zaman</em> başlamak istiyorsunuz?',
       't_q33': 'Bütçe onayı <em>kimde?</em>',
       't_q34': 'Eklemek istediğiniz <em>bir not?</em>',
-      'h_a1': 'Aşama 1 önerilen başlangıçtır. Problem netleşmişse Aşama 2\'ye doğrudan girebilirsiniz — bir sonraki adımda problemi tanımlamanız istenecek.',
+      'h_a1': 'Çoğu işletme Kademe 1 ile başlar. Ön taramadan geldiyseniz önerilen kademe seçili gelir. Kesin kapsam ve fiyat, cevaplarınız okunduktan sonra yazılı teyit edilir; ödeme ondan sonra alınır.',
       'h_a2a': 'Hangi hat, makine, süreç veya lokasyon? Spesifik olabildiğince yardımcı olur.',
       'h_a2b': 'Sıklık problemin önceliğini ve etkisini hesaplamamıza yarar.',
       'h_a2c': 'Yıllık $ veya kapasite/zaman cinsinden tahmin. Tam sayı bilmiyorsanız "kabaca" bir aralık girin.',
@@ -2422,14 +2437,15 @@
       'submitted_tag': 'BAŞVURU GÖNDERİLDİ',
       'submitted_counter': 'Gönderildi',
       'btn_next_submit': 'Başvuruyu Gönder ↓',
-      'a1_card1_tier': 'AŞAMA 1',
-      'a1_card1_name': 'İsraf Röntgeni',
-      'a1_card1_meta': '7 GÜN · 100× ROI GARANTİLİ',
-      'a1_card1_desc': 'TIM WOODS israf haritası — tek bir operasyonel problem için aylık/yıllık kayıp büyüklüğü, $ cinsinden.',
-      'a1_card2_tier': 'AŞAMA 2',
-      'a1_card2_name': 'Kök Neden + 90 Gün Aksiyon Planı',
-      'a1_card2_meta': '14 GÜN · ÖN ÖDEMELİ',
-      'a1_card2_desc': '5 Whys + Ishikawa kök neden analizi, Theory of Constraints darboğaz tespiti, 30/60/90 günlük plan.',
+      'a1_c1_tier': 'KADEME 1', 'a1_c1_name': 'Hızlı Röntgen', 'a1_c1_meta': '7 İŞ GÜNÜ · YAZILI · İMZALI',
+      'a1_c1_desc': 'İsraf Röntgeni: 7+1 israf kategorisi nerede oluşuyor, yıllık kaça mal oluyor, önce neye dokunulacak.',
+      'a1_c2_tier': 'KADEME 2', 'a1_c2_name': 'Röntgen + Darboğaz', 'a1_c2_meta': '7 İŞ GÜNÜ · YAZILI · İMZALI',
+      'a1_c2_desc': 'Röntgen\'in tamamı + Kısıtlar Teorisi ile sistemi tutan tek darboğaz ve orada kaybedilen çıktının yıllık karşılığı.',
+      'a1_c3_tier': 'KADEME 3', 'a1_c3_name': 'Tam Teşhis', 'a1_c3_meta': '7 İŞ GÜNÜ · YAZILI · İMZALI',
+      'a1_c3_desc': 'Röntgen + Darboğaz\'ın tamamı + bir problem için kanıt zinciriyle kök neden ve 90 günlük aksiyon planı. Bir sonraki adımda problemi tanımlamanız istenecek.',
+      'a1_c4_tier': 'KADEME 4', 'a1_c4_name': 'Dönüşüm', 'a1_c4_price': 'Teklif', 'a1_c4_meta': 'KAPSAMA GÖRE · YAZILI',
+      'a1_c4_desc': 'Departman bazında israf, darboğaz ve kök neden taraması + 12 aylık yol haritası. Kapsam yazılı olarak birlikte belirlenir; fiyat kapsamdan sonra.',
+      'a1_rec': 'ÖN TARAMANIZDAN ÖNERİLDİ',
       'meta_req_0': 'A1 · ZORUNLU',
       'meta_req_1': 'A2 · 1/5 · ZORUNLU',
       'meta_req_2': 'A2 · 2/5 · ZORUNLU',
@@ -2691,14 +2707,15 @@
       'submitted_tag': 'APPLICATION SUBMITTED',
       'submitted_counter': 'Submitted',
       'btn_next_submit': 'Submit Application ↓',
-      'a1_card1_tier': 'STAGE 1',
-      'a1_card1_name': 'Waste X-Ray',
-      'a1_card1_meta': '7 DAYS · 100× ROI GUARANTEED',
-      'a1_card1_desc': 'TIM WOODS waste map — monthly/yearly loss size in $ for a single operational problem.',
-      'a1_card2_tier': 'STAGE 2',
-      'a1_card2_name': 'Root Cause + 90-Day Action Plan',
-      'a1_card2_meta': '14 DAYS · PREPAID',
-      'a1_card2_desc': '5 Whys + Ishikawa root cause analysis, Theory of Constraints bottleneck detection, 30/60/90-day plan.',
+      'a1_c1_tier': 'TIER 1', 'a1_c1_name': 'Quick X-Ray', 'a1_c1_meta': '7 BUSINESS DAYS · WRITTEN · SIGNED',
+      'a1_c1_desc': 'Waste X-Ray: where each of the 7+1 waste categories occurs, what it costs per year, what to touch first.',
+      'a1_c2_tier': 'TIER 2', 'a1_c2_name': 'X-Ray + Bottleneck', 'a1_c2_meta': '7 BUSINESS DAYS · WRITTEN · SIGNED',
+      'a1_c2_desc': 'Everything in the X-Ray + the single constraint holding the system (Theory of Constraints) and the annual value of output lost there.',
+      'a1_c3_tier': 'TIER 3', 'a1_c3_name': 'Full Diagnosis', 'a1_c3_meta': '7 BUSINESS DAYS · WRITTEN · SIGNED',
+      'a1_c3_desc': 'Everything in X-Ray + Bottleneck + the root cause of one problem with the evidence chain and a 90-day action plan. You will be asked to define the problem next.',
+      'a1_c4_tier': 'TIER 4', 'a1_c4_name': 'Transformation', 'a1_c4_price': 'Quote', 'a1_c4_meta': 'BY SCOPE · WRITTEN',
+      'a1_c4_desc': 'Waste, bottleneck and root-cause scan by department + a 12-month roadmap. Scope defined together in writing; price follows scope.',
+      'a1_rec': 'RECOMMENDED BY YOUR PRE-SCAN',
       'meta_req_0': 'A1 · REQUIRED',
       'meta_req_1': 'A2 · 1/5 · REQUIRED',
       'meta_req_2': 'A2 · 2/5 · REQUIRED',
@@ -2792,7 +2809,7 @@
       'c4a_people_desc': 'Workers, coordination, departments',
       'c4a_finance_name': 'Finance &amp; Supply',
       'c4a_finance_desc': 'Cash, stock, raw materials, tax / regulation',
-      'h_a1': 'Stage 1 is the recommended start. If the problem is well-defined, you can jump directly to Stage 2 — you will be asked to describe the problem next.',
+      'h_a1': 'Most businesses start with Tier 1. If you came from the pre-scan, the recommended tier is pre-selected. Final scope and price are confirmed in writing after your answers are read; payment is taken only after that.',
       'h_a2a': 'Which line, machine, process, or location? The more specific, the better.',
       'h_a2b': 'Frequency helps us calculate priority and impact.',
       'h_a2c': 'Estimate in annual $ or capacity/time. If you do not know exactly, give a rough range.',
@@ -2980,14 +2997,15 @@
       'submitted_tag': 'SOLICITUD ENVIADA',
       'submitted_counter': 'Enviado',
       'btn_next_submit': 'Enviar Solicitud ↓',
-      'a1_card1_tier': 'ETAPA 1',
-      'a1_card1_name': 'Radiografía del Desperdicio',
-      'a1_card1_meta': '7 DÍAS · 100× ROI GARANTIZADO',
-      'a1_card1_desc': 'Mapa de desperdicio TIM WOODS — tamaño de pérdida mensual/anual en $ para un problema operacional.',
-      'a1_card2_tier': 'ETAPA 2',
-      'a1_card2_name': 'Causa Raíz + Plan de Acción de 90 Días',
-      'a1_card2_meta': '14 DÍAS · PREPAGO',
-      'a1_card2_desc': 'Análisis 5 Whys + Ishikawa de causa raíz, detección de cuellos de botella (Theory of Constraints), plan 30/60/90 días.',
+      'a1_c1_tier': 'NIVEL 1', 'a1_c1_name': 'Radiografía Rápida', 'a1_c1_meta': '7 DÍAS HÁBILES · ESCRITO · FIRMADO',
+      'a1_c1_desc': 'Radiografía del Desperdicio: dónde ocurre cada una de las 7+1 categorías, cuánto cuesta al año, qué tocar primero.',
+      'a1_c2_tier': 'NIVEL 2', 'a1_c2_name': 'Radiografía + Cuello de Botella', 'a1_c2_meta': '7 DÍAS HÁBILES · ESCRITO · FIRMADO',
+      'a1_c2_desc': 'Todo lo de la Radiografía + la única restricción que sostiene el sistema (Teoría de Restricciones) y el valor anual de la producción perdida allí.',
+      'a1_c3_tier': 'NIVEL 3', 'a1_c3_name': 'Diagnóstico Completo', 'a1_c3_meta': '7 DÍAS HÁBILES · ESCRITO · FIRMADO',
+      'a1_c3_desc': 'Todo lo de Radiografía + Cuello de Botella + la causa raíz de un problema con cadena de evidencia y plan de acción de 90 días. Se le pedirá definir el problema a continuación.',
+      'a1_c4_tier': 'NIVEL 4', 'a1_c4_name': 'Transformación', 'a1_c4_price': 'Cotización', 'a1_c4_meta': 'SEGÚN ALCANCE · ESCRITO',
+      'a1_c4_desc': 'Escaneo de desperdicio, cuello de botella y causa raíz por departamento + hoja de ruta de 12 meses. Alcance definido en conjunto por escrito; el precio sigue al alcance.',
+      'a1_rec': 'RECOMENDADO POR SU PRE-ESCANEO',
       'meta_req_0': 'A1 · OBLIGATORIO',
       'meta_req_1': 'A2 · 1/5 · OBLIGATORIO',
       'meta_req_2': 'A2 · 2/5 · OBLIGATORIO',
@@ -3081,7 +3099,7 @@
       'c4a_people_desc': 'Trabajadores, coordinación, departamentos',
       'c4a_finance_name': 'Finanzas y Suministro',
       'c4a_finance_desc': 'Efectivo, stock, materias primas, impuestos / regulación',
-      'h_a1': 'La Etapa 1 es el inicio recomendado. Si el problema está claro, puedes ir directamente a la Etapa 2 — se te pedirá describirlo en el siguiente paso.',
+      'h_a1': 'La mayoría de las empresas empieza con el Nivel 1. Si viene del pre-escaneo, el nivel recomendado aparece preseleccionado. El alcance y el precio definitivos se confirman por escrito tras leer sus respuestas; el pago se cobra solo después.',
       'h_a2a': '¿Qué línea, máquina, proceso o ubicación? Cuanto más específico, mejor.',
       'h_a2b': 'La frecuencia nos ayuda a calcular prioridad e impacto.',
       'h_a2c': 'Estimación en $ anuales o capacidad/tiempo. Si no sabes exactamente, da un rango aproximado.',
@@ -3551,9 +3569,8 @@
     if (!summary) return;
 
     const company = answers.B1 || '—';
-    const pkg = answers.A1 === 'asama1' ? 'Aşama 1 — İsraf Röntgeni ($150)'
-              : answers.A1 === 'asama2' ? 'Aşama 2 — Kök Neden + 90 Gün Plan ($500)'
-              : '—';
+    const PKG = { 'xray': 'Hızlı Röntgen ($500)', 'xray-toc': 'Röntgen + Darboğaz ($900)', 'full': 'Tam Teşhis ($1.500)', 'transformation': 'Dönüşüm (teklif)' };
+    const pkg = PKG[answers.A1] || '—';
     const name = answers.G1 ? (answers.G1.name || '—') : '—';
     const email = answers.G2 || '—';
     const ref = 'GBX-' + Date.now().toString().slice(-8);
@@ -6628,5 +6645,21 @@
   });
 </script>
 
+
+<script>
+  /* Ön tarama devir paketi: önerilen kademeyi seçili getir */
+  window.addEventListener('load', function(){
+    var tier = null;
+    try { tier = new URLSearchParams(location.search).get('tier'); } catch(e){}
+    if (!tier) { try { var ps = JSON.parse(localStorage.getItem('gembax-prescan') || 'null'); if (ps && ps.tier) tier = ps.tier; } catch(e){} }
+    if (!tier) return;
+    var card = document.querySelector('#A1cards .card-option[data-value="' + tier + '"]');
+    if (!card) return;
+    if (typeof selectCard === 'function') selectCard(card, 'A1cards', 'A1');
+    var lang = (document.documentElement.lang || 'tr').toUpperCase();
+    var label = (typeof T !== 'undefined' && T[lang] && T[lang].a1_rec) ? T[lang].a1_rec : 'ÖN TARAMANIZDAN ÖNERİLDİ';
+    var b = document.createElement('div'); b.className = 'card-rec'; b.textContent = label; card.appendChild(b);
+  });
+</script>
 </body>
 </html>
