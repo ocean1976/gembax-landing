@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Başvuru Formu — Bölüm A + B — GembaX</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..900&family=Inter:wght@300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-primary: #FAF9F6;
@@ -22,7 +22,8 @@
     --maroon-glow: rgba(110, 20, 20, 0.08);
     --border: rgba(0,0,0,0.08);
     --border-accent: rgba(45, 80, 22, 0.25);
-    --font-body: 'Instrument Sans', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-head: 'Inter Tight', 'Inter', sans-serif;
     --font-mono: 'Space Mono', monospace;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -50,8 +51,9 @@
     border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
   }
-  .logo { display: flex; align-items: baseline; gap: 0.5rem; text-decoration: none; }
-  .logo-main { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
+  .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+  .logo::before { content: ''; display: inline-block; width: 1.15em; height: 1.15em; font-size: 1.45rem; background: var(--accent); flex: none; }
+  .logo-main { font-family: var(--font-mono); font-size: 1.45rem; font-weight: 700; color: var(--text-primary); letter-spacing: 0; }
   .logo-x { color: var(--accent); }
   .logo-sub { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
   .nav-meta {
@@ -104,6 +106,7 @@
     margin-left: 0.4rem; font-style: italic;
   }
   .question-title {
+    font-family: var(--font-head);
     font-size: clamp(1.4rem, 3vw, 1.85rem);
     font-weight: 700; letter-spacing: -0.02em;
     line-height: 1.25; margin-bottom: 0.5rem;
@@ -147,8 +150,8 @@
     color: var(--text-muted); letter-spacing: 0.1em;
     text-transform: uppercase; margin-bottom: 0.3rem;
   }
-  .card-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.25; }
-  .card-price { font-size: 1.7rem; font-weight: 700; color: var(--accent); margin-bottom: 0.3rem; line-height: 1; }
+  .card-name { font-family: var(--font-head); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.25; }
+  .card-price { font-family: var(--font-head); font-size: 1.7rem; font-weight: 700; color: var(--accent); margin-bottom: 0.3rem; line-height: 1; }
   .card-meta {
     font-family: var(--font-mono); font-size: 0.7rem;
     color: var(--text-muted); margin-bottom: 0.7rem;
@@ -678,6 +681,7 @@
     stroke-width: 2.5;
   }
   .submitted h2 {
+    font-family: var(--font-head);
     font-size: 1.7rem; font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
@@ -1173,7 +1177,7 @@
     border: 1px solid var(--border-accent);
     margin-bottom: 1rem;
   }
-  .section-intro h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+  .section-intro h2 { font-family: var(--font-head); font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
   .section-intro p { color: var(--text-secondary); font-size: 0.95rem; max-width: 480px; margin: 0 auto; }
 
   /* COMPLETION (last step) */
@@ -1185,7 +1189,7 @@
     padding: 3rem 2rem;
     animation: slideIn 0.35s ease;
   }
-  .completion h2 { font-size: 1.6rem; color: var(--accent); margin-bottom: 0.8rem; font-weight: 700; }
+  .completion h2 { font-family: var(--font-head); font-size: 1.6rem; color: var(--accent); margin-bottom: 0.8rem; font-weight: 700; }
   .completion p { color: var(--text-secondary); margin-bottom: 0.6rem; }
   .completion .summary-box {
     text-align: left;
