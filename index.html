@@ -246,9 +246,9 @@
   .index-note strong { color: var(--text-primary); }
 
   /* ===== 3–5. Teşhis satırları ===== */
-  .diag { display: grid; grid-template-columns: 1fr 1.15fr; gap: 3.5rem; align-items: center; padding: 4.5rem 3rem; scroll-margin-top: 5rem; }
+  .diag { display: grid; grid-template-columns: 1fr 1.35fr; gap: 3.5rem; align-items: center; padding: 4.5rem 3rem; scroll-margin-top: 5rem; }
   .diag.alt .viz-space { order: -1; }
-  .viz-space { aspect-ratio: 4 / 3; min-height: 300px; max-height: 440px; width: 100%; }
+  .viz-space { aspect-ratio: 4 / 3; min-height: 360px; max-height: 560px; width: 100%; }
   .diag .num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.08em; }
   .diag h2 { font-size: clamp(1.6rem, 2.5vw, 2.15rem); font-weight: 700; line-height: 1.22; letter-spacing: -0.015em; margin: 0.7rem 0 1.1rem; }
   .diag .body { color: var(--text-secondary); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1.4rem; }
@@ -354,7 +354,7 @@
     .index-strip, .steps { grid-template-columns: 1fr; }
     .diag, .diag.alt { grid-template-columns: 1fr; gap: 1.6rem; }
     .diag.alt .viz-space { order: 0; }
-    .viz-space { aspect-ratio: 5 / 4; min-height: 240px; }
+    .viz-space { aspect-ratio: 5 / 4; min-height: 280px; }
     .guarantee { grid-template-columns: 1fr; padding: 1.6rem; }
     footer { padding: 2rem 1.4rem; }
   }
@@ -395,7 +395,7 @@
       <h1 class="dark-title">Operasyonel İsrafın Röntgeni</h1>
       <h2 class="dark-sub">Değer üretmeyen her şey israf. Görünmeyen kayıpların size kaça mal olduğunu keşfedin.</h2>
     </div>
-    <p class="dark-para"><strong>Gemba<span>X</span></strong>, kuruluşunuzda değer yaratan süreçleri inceler, israf sinyallerini yakalar ve sorunların kök nedenlerini analiz eder. GembaX genel bir sohbet botu değildir. Uzman bilgisi ve saha deneyimiyle kurulan özgün teşhis iş akışı, her vakayı üç bakış açısı, yedi analiz merceği ve geniş bir skill kütüphanesiyle inceler; her bulguyu doktoralı uzman doğrular ve imzalar. Sonuç: danışmanlık kalitesinde bir teşhis, haftalar değil günler içinde teslim edilir. Daha erişilebilir, daha etkin, daha hızlı.</p>
+    <p class="dark-para"><strong>Gemba<span>X</span></strong>, kuruluşunuzda değer yaratan süreçleri inceler, israf sinyallerini yakalar ve sorunların kök nedenlerini analiz eder. GembaX genel bir sohbet botu değildir. Uzman bilgisi ve saha deneyimiyle kurulan yapay zekâ destekli özgün teşhis iş akışı, her vakayı üç bakış açısı, yedi analiz merceği ve geniş bir skill kütüphanesiyle inceler; her bulguyu doktoralı uzman doğrular ve imzalar. Sonuç: danışmanlık kalitesinde bir teşhis, haftalar değil günler içinde teslim edilir. Daha erişilebilir, daha etkin, daha hızlı.</p>
     <div class="dark-list">
       <p>Operasyonunuza müşterinizin gözünden bakıyor, hangi işlerin gerçekten değer yarattığını belirliyoruz.</p>
       <ul>
@@ -608,14 +608,14 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   function buildDots() {
-    var N = Math.max(800, Math.min(3200, Math.round(W * H / 470)));
+    var N = Math.max(1200, Math.min(5200, Math.round(W * H / 290)));
     FN = Math.min(380, Math.round(N * 0.32));
     dots = [];
     for (var i = 0; i < N; i++) {
       dots.push({
         hx: rand(0, W), hy: rand(0, H),
         dp: Math.random() * 6.283, ds: rand(0.0002, 0.00055), dr: rand(4, 14),
-        size: i < FN ? rand(1.7, 2.7) : rand(1.0, 1.9),
+        size: i < FN ? rand(1.3, 2.0) : rand(0.7, 1.4),
         form: i < FN, eng: false, t: 0, heat: 0,
         base: Math.random() < 0.3 ? SAGE : NAVY,
         cl: -1, offA: Math.random() * 6.283, offR: Math.sqrt(Math.random()),
@@ -1028,7 +1028,7 @@
     rail: 'Operational Diagnostics', crumb: '<span>GembaX</span><i>/</i>Operational Diagnostics',
     title: 'The X-Ray of Operational Waste',
     sub: 'Everything that doesn\'t create value is waste. Discover what the losses you can\'t see are costing you.',
-    para: '<strong>Gemba<span>X</span></strong> examines the processes that create value in your organization, captures waste signals and analyzes the root causes behind its problems. GembaX is not a generic chatbot. A proprietary diagnostic workflow built on expert knowledge and field experience examines every case through three perspectives, seven analytical lenses and an extensive skill library; every finding is verified and signed by a PhD-level expert. The result: a consulting-grade diagnosis delivered in days, not weeks. More accessible, more effective, faster.',
+    para: '<strong>Gemba<span>X</span></strong> examines the processes that create value in your organization, captures waste signals and analyzes the root causes behind its problems. GembaX is not a generic chatbot. An AI-assisted proprietary diagnostic workflow built on expert knowledge and field experience examines every case through three perspectives, seven analytical lenses and an extensive skill library; every finding is verified and signed by a PhD-level expert. The result: a consulting-grade diagnosis delivered in days, not weeks. More accessible, more effective, faster.',
     listIntro: 'We look at your operation through your customer\'s eyes and identify which work truly creates value.',
     listItems: [
       '<strong>Waste X-Ray:</strong> We surface the work that burns time and resources, and calculate what those losses cost you in dollars.',
@@ -1073,7 +1073,7 @@
     rail: 'Diagnóstico Operacional', crumb: '<span>GembaX</span><i>/</i>Diagnóstico Operacional',
     title: 'La Radiografía del Desperdicio Operacional',
     sub: 'Todo lo que no crea valor es desperdicio. Descubra cuánto le cuestan las pérdidas que no ve.',
-    para: '<strong>Gemba<span>X</span></strong> examina los procesos que crean valor en su organización, capta las señales de desperdicio y analiza las causas raíz de sus problemas. GembaX no es un chatbot genérico. Un flujo de diagnóstico propio, construido sobre conocimiento experto y experiencia de campo, examina cada caso con tres perspectivas, siete lentes analíticas y una amplia biblioteca de skills; cada hallazgo es verificado y firmado por un experto con doctorado. El resultado: un diagnóstico de calidad consultora entregado en días, no en semanas. Más accesible, más eficaz, más rápido.',
+    para: '<strong>Gemba<span>X</span></strong> examina los procesos que crean valor en su organización, capta las señales de desperdicio y analiza las causas raíz de sus problemas. GembaX no es un chatbot genérico. Un flujo de diagnóstico propio asistido por IA, construido sobre conocimiento experto y experiencia de campo, examina cada caso con tres perspectivas, siete lentes analíticas y una amplia biblioteca de skills; cada hallazgo es verificado y firmado por un experto con doctorado. El resultado: un diagnóstico de calidad consultora entregado en días, no en semanas. Más accesible, más eficaz, más rápido.',
     listIntro: 'Miramos su operación con los ojos de su cliente e identificamos qué trabajo crea valor de verdad.',
     listItems: [
       '<strong>Radiografía del Desperdicio:</strong> Sacamos a la luz el trabajo que consume tiempo y recursos, y calculamos cuánto le cuestan esas pérdidas en dólares.',
