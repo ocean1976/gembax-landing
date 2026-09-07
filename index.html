@@ -161,7 +161,7 @@
   .dark-head .u { color: inherit; text-decoration: underline; text-decoration-color: rgba(163,156,142,0.4); text-decoration-thickness: 2px; text-underline-offset: 0.14em; transition: text-decoration-color .2s; }
   .dark-head .u:hover { text-decoration-color: var(--orange); }
   .dark-head .w { color: #FFFFFF; }
-  .dark-main { padding-top: 6.5rem; padding-bottom: 4rem; }
+  .dark-main { padding-top: 5.2rem; padding-bottom: 3rem; }
   .dark-crumb { margin-bottom: 1.2rem; }
   .dark-square { margin-bottom: 1.4rem; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; color: var(--dark-bg); }
   .dark-actions { margin-top: 1.6rem; }
@@ -175,13 +175,13 @@
   .dark-para strong { color: #FFFFFF; font-weight: 700; }
   .dark-para strong span { color: var(--green-bright); }
   .dark-para + .dark-para { margin-top: 0.9rem; }
-  .dark-list { max-width: var(--text-w); margin-top: 1.3rem; font-family: var(--font-inter); font-size: clamp(0.9rem, min(1.15vw, 1.9vh), 1.1rem); line-height: 1.5; color: var(--mit-gray); font-weight: 350; }
+  .dark-list { max-width: var(--text-w); margin-top: 2.2rem; font-family: var(--font-inter); font-size: clamp(0.9rem, min(1.15vw, 1.9vh), 1.1rem); line-height: 1.5; color: var(--mit-gray); font-weight: 350; }
   .dark-list p { margin-bottom: 0.6rem; font-weight: 350; }
   .dark-list li strong { font-weight: 350; color: var(--green-bright); }
   .dark-list ul { list-style: none; }
   .dark-list li { position: relative; padding-left: 1.4rem; margin-bottom: 0.35rem; font-weight: 350; }
   .dark-list li::before { content: '→'; position: absolute; left: 0; color: var(--mit-red); }
-  .dark-actions { margin-top: 2.6rem; display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+  .dark-actions { margin-top: 1.8rem; display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
   .dark-btn { font-family: var(--font-inter); font-weight: 700; font-size: 0.95rem; text-decoration: none; color: var(--dark-bg); background: var(--orange); padding: 0.95rem 1.7rem; border-radius: 4px; transition: transform .15s, filter .15s; }
   .dark-btn:hover { transform: translateY(-1px); filter: brightness(1.06); }
   .dark-btn.green { background: var(--green-bright); }
@@ -392,9 +392,13 @@
     <div class="dark-square">GX</div>
     <div class="dark-headline">
       <h1 class="dark-title">Operasyonel İsrafın Röntgeni</h1>
-      <h2 class="dark-sub"><span>Değer üretmeyen her şey israf.</span><span>Görünmeyen kayıpların size kaça mal olduğunu keşfedin.</span></h2>
+      <h2 class="dark-sub">Değer üretmeyen her şey israf. Görünmeyen kayıpların size kaça mal olduğunu keşfedin.</h2>
     </div>
     <p class="dark-para"><strong>Gemba<span>X</span></strong>, kuruluşunuzda değer yaratan süreçleri inceler, israf sinyallerini yakalar ve sorunların kök nedenlerini analiz eder. GembaX genel bir sohbet botu değildir. Uzman bilgisi ve saha deneyimiyle kurulan özgün teşhis iş akışı, her vakayı üç bakış açısı, yedi analiz merceği ve geniş bir skill kütüphanesiyle inceler; her bulguyu doktoralı uzman doğrular ve imzalar. Sonuç: danışmanlık kalitesinde bir teşhis, haftalar değil günler içinde teslim edilir. Daha erişilebilir, daha etkin, daha hızlı.</p>
+    <div class="dark-actions">
+      <a href="/intake-welcome" class="dark-btn">Analizi Başlat →</a>
+      <a href="on-tarama.html" class="dark-btn green">Ücretsiz ön tarama · 3 dk →</a>
+    </div>
     <div class="dark-list">
       <p>Operasyonunuza müşterinizin gözünden bakıyor, hangi işlerin gerçekten değer yarattığını belirliyoruz.</p>
       <ul>
@@ -403,10 +407,6 @@
         <li><strong>Kök neden analizi ve 90 günlük aksiyon planı:</strong> Sorunların neden tekrarlandığını belirliyor, çözüm için hangi adımları hangi sırayla atmanız gerektiğini gösteriyoruz.</li>
         <li><strong>Günler içinde, erişilebilir bütçeyle:</strong> Aylarca süren danışmanlığa gerek kalmadan, kayıplarınızı ve iyileştirme önceliklerinizi netleştiriyoruz.</li>
       </ul>
-    </div>
-    <div class="dark-actions">
-      <a href="/intake-welcome" class="dark-btn">Analizi Başlat →</a>
-      <a href="on-tarama.html" class="dark-btn green">Ücretsiz ön tarama · 3 dk →</a>
     </div>
   </div>
   <div class="dark-scroll">KAYDIR</div>
@@ -1006,7 +1006,7 @@
       else { var el = document.querySelector(k[1]); if (el) o[k[0]] = el.innerHTML; }
     });
     o.viz = window.__VIZ; o.htmlLang = 'tr';
-    o.sub = '<span>Değer üretmeyen her şey israf.</span><span>Görünmeyen kayıpların size kaça mal olduğunu keşfedin.</span>';
+    o.sub = 'Değer üretmeyen her şey israf. Görünmeyen kayıpların size kaça mal olduğunu keşfedin.';
     return o;
   }
   var VIZ_EN = { rep: "REPRESENTATIVE VISUALIZATION",
