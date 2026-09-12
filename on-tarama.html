@@ -171,8 +171,8 @@ header{position:sticky;top:0;z-index:20;background:rgba(250,249,246,0.9);backdro
   <div class="hd">
     <div class="avatar">GX</div>
     <div>
-      <div class="hname">GembaX Asistan</div>
-      <div class="hstat"><span class="dot"></span>Çevrimiçi · Ücretsiz ön tarama</div>
+      <div class="hname" id="hName">GembaX Asistan</div>
+      <div class="hstat"><span class="dot"></span><span id="hStat">Çevrimiçi · Ücretsiz ön tarama</span></div>
     </div>
     <div class="hprog">
       <div class="hnum" id="pnum">&nbsp;</div>
@@ -1080,6 +1080,7 @@ var LXA = {
   intro1:'Merhaba, ben GembaX asistanı. İşletmenizde görünmeyen israfın, darboğazın ve tekrarlayan sorunların sinyallerini tararım.',
   intro2:'11 kısa soru soracağım, yaklaşık 3 dakika sürer. Kayıt gerekmez; sonunda hangi teşhisle başlamanız gerektiğini ve nedenini görürsünüz.',
   note:'Not: GembaX genel bir sohbet botu değildir; uzman bilgisi ve saha deneyimiyle kurulan yapay zekâ destekli bir teşhis iş akışıdır. Her bulguyu doktoralı uzman doğrular ve imzalar.',
+  hName:'GembaX Asistan', hStat:'Çevrimiçi · Ücretsiz ön tarama', docTitle:'GembaX · Ücretsiz Ön Tarama',
   startBtn:'Başlayalım →', startEcho:'Başlayalım',
   acks:['Anladım.','Not ettim.','Tamam.','Peki, devam edelim.','Kaydettim.'],
   pain2T:'Peki ikinci sırada hangisi geliyor?', pain2H:'Birinciden sonra en çok rahatsız eden.', pain2None:'Belirgin bir ikincisi yok',
@@ -1114,6 +1115,7 @@ var LXA = {
   intro1:'Hello, I am the GembaX assistant. I scan for the signals of hidden waste, bottlenecks and recurring problems in your business.',
   intro2:'I will ask 11 short questions, about 3 minutes. No sign-up needed; at the end you will see which diagnostic to start with and why.',
   note:'Note: GembaX is not a generic chatbot; it is an AI-powered diagnostic workflow built on expert knowledge and field experience. Every finding is verified and signed by a PhD-level expert.',
+  hName:'GembaX Assistant', hStat:'Online · Free pre-scan', docTitle:'GembaX · Free Pre-Scan',
   startBtn:'Let\'s start →', startEcho:'Let\'s start',
   acks:['Got it.','Noted.','Okay.','Alright, let\'s continue.','Recorded.'],
   pain2T:'And which one comes second?', pain2H:'The one that hurts most after the first.', pain2None:'No clear second issue',
@@ -1148,6 +1150,7 @@ var LXA = {
   intro1:'Hola, soy el asistente de GembaX. Escaneo las señales de desperdicio oculto, cuellos de botella y problemas recurrentes en su empresa.',
   intro2:'Haré 11 preguntas cortas, unos 3 minutos. Sin registro; al final verá con qué diagnóstico empezar y por qué.',
   note:'Nota: GembaX no es un chatbot genérico; es un flujo de diagnóstico impulsado por IA, construido sobre conocimiento experto y experiencia de campo. Cada hallazgo es verificado y firmado por un experto con doctorado.',
+  hName:'Asistente GembaX', hStat:'En línea · Pre-escaneo gratis', docTitle:'GembaX · Pre-Escaneo Gratuito',
   startBtn:'Empecemos →', startEcho:'Empecemos',
   acks:['Entendido.','Anotado.','Bien.','De acuerdo, sigamos.','Registrado.'],
   pain2T:'¿Y cuál viene en segundo lugar?', pain2H:'Lo que más molesta después del primero.', pain2None:'No hay un segundo claro',
@@ -1180,6 +1183,11 @@ var LXA = {
  }
 };
 var L = LXA[lang];
+try {
+  document.title = L.docTitle;
+  document.getElementById('hName').textContent = L.hName;
+  document.getElementById('hStat').textContent = L.hStat;
+} catch(e){}
 var ACKS = ['Anladım.','Not ettim.','Tamam.','Peki, devam edelim.','Kaydettim.'];
 var STEPS = [
   '<strong>İnceleme ve teklif:</strong> Doktoralı uzman analistimiz tarama cevaplarınızı inceler; kapsam ve net fiyat 24 saat içinde yazılı gelir.',
