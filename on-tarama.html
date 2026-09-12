@@ -2,199 +2,190 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="ttl">GembaX — Ücretsiz Ön Tarama</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..900&family=Inter:wght@300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GembaX · Ücretsiz Ön Tarama</title>
+<meta name="description" content="8 soruluk ücretsiz operasyonel ön tarama. İsraf, darboğaz ve kök neden sinyallerinizi görün.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #FAF9F6; --bg2: #FFFFFF; --card: #F4F2EE; --navy: #1B2A4A; --text2: #4A5568; --muted: #8fa093;
-    --green: #2D5016; --green-dark: #1e3f0f; --red: #FF1525; --border: rgba(0,0,0,0.08);
-    --head: 'Inter Tight', sans-serif; --body: 'Inter', sans-serif; --mono: 'Space Mono', monospace;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: var(--body); color: var(--navy); background-color: var(--bg);
-    background-image: linear-gradient(rgba(45,80,22,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(45,80,22,0.06) 1px, transparent 1px);
-    background-size: 28px 28px; line-height: 1.55; -webkit-font-smoothing: antialiased; min-height: 100vh; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 2.5rem; background: rgba(250,249,246,0.88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
-  .logo { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; color: var(--navy); text-decoration: none; }
-  .logo span { color: var(--green); }
-  .nav-meta { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text2); }
+:root{
+  --bg:#FAF9F6; --bg2:#FFFFFF; --card:#F4F2EE; --navy:#1B2A4A; --text2:#4A5568; --muted:#8fa093;
+  --green:#2D5016; --green-dark:#1e3f0f; --green-soft:#EAF2E4; --red:#FF1525;
+  --border:rgba(0,0,0,0.08); --border2:rgba(27,42,74,0.14);
+  --head:'Inter Tight',sans-serif; --body:'Inter',sans-serif; --mono:'Space Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--body);color:var(--navy);background-color:var(--bg);
+  background-image:linear-gradient(rgba(45,80,22,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(45,80,22,0.06) 1px,transparent 1px);
+  background-size:28px 28px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;}
 
-  .wrap { max-width: 760px; margin: 0 auto; padding: 7.5rem 1.5rem 4rem; }
-  .progress { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.2rem; }
-  .progress .bar { flex: 1; height: 3px; background: rgba(27,42,74,0.1); border-radius: 2px; overflow: hidden; }
-  .progress .bar i { display: block; height: 100%; background: var(--red); width: 0; transition: width .35s ease; }
-  .progress .n { font-family: var(--mono); font-size: 0.75rem; color: var(--text2); min-width: 4ch; text-align: right; }
-  .layer { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 0.8rem; }
-  h1 { font-family: var(--head); font-weight: 800; font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.7rem; }
-  .hint { color: var(--text2); font-size: 1rem; margin-bottom: 1.8rem; }
-  .opts { display: grid; gap: 0.6rem; }
-  .opt { text-align: left; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 12px; padding: 1rem 1.15rem; font-family: var(--body); font-size: 1rem; color: var(--navy); cursor: pointer; display: flex; align-items: center; gap: 0.9rem; transition: border-color .15s, transform .15s; }
-  .opt:hover { border-color: var(--navy); transform: translateX(3px); }
-  .opt.sel { border-color: var(--green); background: rgba(45,80,22,0.05); }
-  .opt .k { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); min-width: 1.4rem; }
-  .opt.multi::before { content: ''; width: 16px; height: 16px; border: 1.5px solid var(--navy); border-radius: 4px; flex: none; }
-  .opt.multi.sel::before { background: var(--green); border-color: var(--green); }
-  .row { display: flex; justify-content: space-between; align-items: center; margin-top: 1.6rem; }
-  .btn-back { background: none; border: none; font-family: var(--body); color: var(--text2); cursor: pointer; font-size: 0.95rem; }
-  .btn-next { background: var(--navy); color: #fff; border: none; border-radius: 10px; padding: 0.85rem 1.5rem; font-family: var(--body); font-weight: 600; font-size: 0.95rem; cursor: pointer; }
-  .btn-next[disabled] { opacity: 0.35; cursor: default; }
-  .kbd { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-top: 1.2rem; }
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:20;background:rgba(250,249,246,0.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);}
+.hd{max-width:760px;margin:0 auto;padding:0.7rem 1.2rem;display:flex;align-items:center;gap:0.8rem;}
+.avatar{width:40px;height:40px;border-radius:12px;background:#4ade80;
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:0.9rem;color:#1A1916;flex:none;box-shadow:0 4px 14px rgba(74,222,128,0.3);}
+.hname{font-family:var(--head);font-weight:700;font-size:1rem;line-height:1.2;}
+.hstat{font-family:var(--mono);font-size:0.66rem;color:var(--text2);display:flex;align-items:center;gap:0.35rem;}
+.dot{width:7px;height:7px;border-radius:50%;background:#3fa34d;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hprog{margin-left:auto;text-align:right;}
+.hnum{font-family:var(--mono);font-size:0.72rem;color:var(--text2);}
+.hbar{width:96px;height:4px;background:rgba(27,42,74,0.1);border-radius:2px;margin-top:5px;overflow:hidden;}
+.hbar i{display:block;height:100%;width:0;background:var(--red);border-radius:2px;transition:width .4s ease;}
 
-  /* intro */
-  .intro h1 { font-size: clamp(2rem, 4vw, 3rem); }
-  .intro h1 em { font-style: normal; color: var(--red); }
-  .intro .facts { display: flex; gap: 1.2rem; flex-wrap: wrap; margin: 1.4rem 0 2rem; }
-  .intro .facts span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; padding: 0.45rem 0.8rem; border: 1px solid var(--border); border-radius: 100px; background: var(--bg2); }
-  .btn-start { background: #4ade80; color: #1A1916; text-decoration: none; padding: 1rem 1.8rem; border-radius: 10px; font-weight: 700; display: inline-block; border: none; font-family: var(--body); font-size: 1rem; cursor: pointer; box-shadow: 0 8px 22px rgba(74,222,128,0.28); }
-  .btn-start.go { background: #FF1525; box-shadow: 0 8px 22px rgba(255,21,37,0.28); }
-  .fine { color: var(--text2); font-size: 0.9rem; margin-top: 1rem; max-width: 56ch; }
+/* ── CHAT ── */
+#chat{max-width:760px;margin:0 auto;padding:1.4rem 1.2rem 5rem;display:flex;flex-direction:column;gap:0.65rem;}
+.msg{max-width:88%;padding:0.85rem 1.1rem;border-radius:16px;font-size:1rem;line-height:1.6;
+  animation:pop .28s ease both;word-wrap:break-word;}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg,.optblock,.card,.chips,.sysline{scroll-margin-top:76px;}
+.bot{align-self:flex-start;background:var(--bg2);border:1px solid var(--border2);border-bottom-left-radius:5px;
+  box-shadow:0 1px 3px rgba(27,42,74,0.05);}
+.bot.small{font-size:0.86rem;color:var(--text2);padding:0.5rem 0.9rem;box-shadow:none;background:var(--card);}
+.bot .hint{display:block;margin-top:0.4rem;font-size:0.84rem;color:var(--text2);font-weight:400;}
+.bot.q{background:#EEF1F7;border-left:3px solid var(--navy);font-weight:600;font-size:1.05rem;}
+.user{align-self:flex-end;background:var(--navy);color:#fff;border-bottom-right-radius:5px;font-weight:500;}
+.sysline{align-self:center;font-family:var(--mono);font-size:0.68rem;color:var(--red);letter-spacing:0.1em;padding:0.4rem 0;text-transform:uppercase;}
 
-  /* result */
-  .res-label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--red); margin-bottom: 0.6rem; }
-  .res h1 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); }
-  .res .why { font-size: 1.08rem; color: var(--navy); margin: 1rem 0 1.6rem; max-width: 62ch; }
-  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem 1.5rem; margin-bottom: 1rem; }
-  .card h3 { font-family: var(--head); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.7rem; }
-  .card ul { list-style: none; }
-  .card li { position: relative; padding-left: 1.4rem; color: var(--text2); margin-bottom: 0.45rem; }
-  .card li::before { content: '→'; position: absolute; left: 0; color: var(--red); }
-  .card.warn { border-left: 3px solid var(--red); }
-  .card.warn p { color: var(--navy); }
-  .tier { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; border: 1.5px solid var(--green); }
-  .tier .name { font-family: var(--head); font-weight: 800; font-size: 1.25rem; }
-  .tier .rec { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--green-dark); margin-bottom: 0.3rem; }
-  .tier .recnote { grid-column: 1 / -1; font-size: 0.85rem; color: var(--text2); border-top: 1px solid var(--border); padding-top: 0.7rem; margin-top: 0.2rem; }
-  .tier .scope { color: var(--text2); font-size: 0.95rem; margin-top: 0.2rem; }
-  .tier .price { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--green-dark); text-align: right; }
-  .tier .price small { display: block; font-size: 0.68rem; font-weight: 400; color: var(--text2); letter-spacing: 0.06em; }
-  .honest { font-family: var(--mono); font-size: 0.74rem; color: var(--text2); border-top: 1px solid var(--border); padding-top: 0.9rem; margin: 1.2rem 0 1.6rem; line-height: 1.6; }
-  .ctas { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-  .btn-ghost { color: var(--green-dark); text-decoration: none; padding: 0.95rem 1.4rem; border-radius: 10px; font-weight: 600; border: 1.5px solid rgba(45,80,22,0.3); background: transparent; font-family: var(--body); font-size: 0.95rem; cursor: pointer; }
-  .email { margin-top: 1.4rem; display: none; }
-  .email.on { display: block; }
-  .email input { width: 100%; padding: 0.9rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: var(--body); font-size: 1rem; margin-bottom: 0.6rem; background: var(--bg2); }
-  .quota { font-family: var(--mono); font-size: 0.72rem; color: var(--text2); margin-top: 0.5rem; }
-  .thanks { display: none; padding: 1rem 1.2rem; background: rgba(45,80,22,0.06); border-radius: 10px; color: var(--green-dark); font-weight: 500; }
-  .hidden { display: none; }
-  .fade { animation: fade .3s ease; }
-  /* soru kartı geçişleri */
-  #q { transition: opacity .26s ease, transform .26s ease; will-change: opacity, transform; }
-  #q.out-fwd { opacity: 0; transform: translateX(-22px); }
-  #q.out-back { opacity: 0; transform: translateX(22px); }
-  #q.pre-fwd { opacity: 0; transform: translateX(22px); transition: none; }
-  #q.pre-back { opacity: 0; transform: translateX(-22px); transition: none; }
-  /* seçenekler */
-  .opt { min-height: 54px; position: relative; padding-right: 2.8rem; transition: border-color .15s, background .15s, transform .12s; user-select: none; -webkit-tap-highlight-color: transparent; }
-  .opt:active { transform: scale(0.99); }
-  .opt .chk { position: absolute; right: 1rem; top: 50%; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; background: var(--green); color: #fff; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.6); transition: opacity .18s, transform .18s; }
-  .opt.sel .chk { opacity: 1; transform: scale(1); }
-  .opt.sel { border-color: var(--green); background: rgba(45,80,22,0.06); }
-  .opt.multi::before { content: ''; width: 16px; height: 16px; border: 1.5px solid var(--navy); border-radius: 4px; flex: none; transition: background .15s, border-color .15s; }
-  .opt.multi.sel::before { background: var(--green); border-color: var(--green); }
-  .opt.multi .chk { display: none; }
-  .hint:empty { display: none; }
-  .row.single .btn-next { display: none; }
-  .autonote { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
-  .kbd { display: none; }
-  @media (hover: hover) { .kbd { display: block; } .opt:hover { border-color: var(--navy); transform: translateX(3px); } }
-  .progress .bar i { transition: width .45s cubic-bezier(.2,.8,.2,1); }
-  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-  @media (max-width: 600px) { nav { padding: 1rem 1.2rem; } .wrap { padding: 6rem 1.1rem 3rem; } .tier { grid-template-columns: 1fr; } .tier .price { text-align: left; } }
+/* typing */
+.typing{align-self:flex-start;background:var(--bg2);border:1px solid var(--border2);border-radius:16px;border-bottom-left-radius:5px;
+  padding:0.9rem 1.1rem;display:flex;gap:5px;}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:tp 1.1s infinite;}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes tp{0%,60%,100%{transform:none;opacity:.4}30%{transform:translateY(-5px);opacity:1}}
 
+/* ── INLINE OPTIONS (sohbet akışının içinde) ── */
+.optblock{align-self:stretch;animation:pop .3s ease both;padding-left:0.2rem;}
+.opt-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
+.opt-hint{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.08em;color:var(--text2);text-transform:uppercase;}
+.undo{color:var(--text2);background:none;border:none;font-family:var(--mono);font-size:0.66rem;cursor:pointer;text-decoration:underline;padding:0;}
+.undo:hover{color:var(--navy);}
+.opts{display:flex;flex-direction:column;gap:0.45rem;}
+.opts.grid,.opts.scale,.opts.tiles{flex-direction:row;flex-wrap:wrap;align-items:stretch;}
+.opt{background:var(--bg2);border:1.5px solid var(--border2);color:var(--navy);border-radius:13px;
+  padding:0.7rem 0.9rem;font-family:var(--body);font-size:0.98rem;text-align:left;cursor:pointer;
+  transition:border-color .15s, background .15s, transform .1s;line-height:1.45;
+  box-shadow:0 1px 2px rgba(27,42,74,0.04);display:flex;align-items:center;gap:0.75rem;}
+.opt .k{font-family:var(--mono);font-size:0.72rem;color:var(--text2);background:rgba(27,42,74,0.07);
+  min-width:24px;height:24px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex:none;transition:background .15s,color .15s;}
+.opt:hover .k{background:var(--green);color:#fff;}
+.opt .lbl{flex:1;}
+.opt .radio{width:16px;height:16px;border:1.5px solid var(--border2);border-radius:50%;flex:none;margin-left:auto;transition:border-color .15s,background .15s;}
+.opt:hover .radio{border-color:var(--green);}
+.opt:active .radio{background:var(--green);border-color:var(--green);}
+.opts .opt:nth-child(even){background:var(--card);}
+.opt:hover{border-color:var(--navy);background:var(--bg2);transform:translateX(3px);}
+.opt:active{transform:translateX(3px) scale(0.99);}
+.opts.grid .opt,.opts.scale .opt{flex:0 0 calc(50% - 0.25rem);text-align:left;padding:0.65rem 0.75rem;font-size:0.92rem;}
+.opts.grid.g3 .opt{flex:0 0 calc(33.33% - 0.32rem);}
+@media(max-width:560px){.opts.grid .opt{flex:0 0 100%;}.opts.grid.g3 .opt{flex:0 0 calc(50% - 0.25rem);}}
+.opts.scale .opt{font-family:var(--mono);font-size:0.84rem;}
+.opts.tiles .opt{flex:1 1 calc(33.33% - 0.45rem);flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.3rem;padding:0.75rem 0.4rem;font-size:0.88rem;min-height:64px;}
+.opts.tiles .opt .radio{display:none;}
+.opts.tiles .opt .lbl{flex:none;line-height:1.3;}
+.opts.tiles .opt .k{min-width:20px;height:20px;font-size:0.64rem;}
+.opts.tiles.secgrid .opt .k{display:none;}
+.opt .ico{width:24px;height:24px;color:var(--navy);opacity:0.8;display:inline-flex;}
+.opt .ico svg{width:100%;height:100%;}
+.opts.tiles .opt:hover .ico{color:var(--green);opacity:1;}
+@media(max-width:560px){.opts.tiles .opt{flex:1 1 calc(50% - 0.45rem);}}
+.opt.cta{border-color:#4ade80;background:#4ade80;color:#1A1916;font-weight:700;text-align:center;font-size:1rem;box-shadow:0 8px 22px rgba(74,222,128,0.28);flex:0 0 auto;align-self:flex-start;padding:0.85rem 1.6rem;border-radius:99px;}
+.opt.cta:hover{background:#3fd074;transform:none;}
+.opt.ghost{color:var(--text2);text-align:center;font-size:0.88rem;background:transparent;box-shadow:none;flex:0 0 auto;align-self:flex-start;padding:0.8rem 1.2rem;border-radius:99px;}
+.opts.chiprow{flex-direction:row;flex-wrap:wrap;align-items:center;gap:0.55rem;}
 
-  /* ===== seçenek biçimleri ===== */
-  .opts.grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.7rem; }
-  .opt.tile { flex-direction: column; align-items: flex-start; gap: 0.55rem; min-height: 96px; padding: 1rem 1rem 0.9rem; padding-right: 1rem; }
-  .opt.tile .ico { width: 26px; height: 26px; color: var(--navy); opacity: 0.8; }
-  .opt.tile .ico svg { width: 100%; height: 100%; }
-  .opt.tile.sel .ico { color: var(--green); opacity: 1; }
-  .opt.tile .k { display: none; }
-  .opt.tile .chk { right: 0.7rem; top: 0.7rem; margin-top: 0; }
-  .opts.scale { display: flex; gap: 0.45rem; flex-wrap: wrap; }
-  .opts.scale .opt { flex: 1 1 0; min-width: 84px; justify-content: center; text-align: center; padding: 1rem 0.5rem; min-height: 62px; font-weight: 600; padding-right: 0.5rem; }
-  .opts.scale .opt .k { display: none; }
-  .opts.scale .opt .chk { position: static; margin: 0 0 0 0.35rem; width: 16px; height: 16px; font-size: 0.6rem; }
-  .opts.scale .opt.dk { flex: 1 1 100%; font-weight: 400; color: var(--text2); background: transparent; border-style: dashed; min-height: 48px; }
-  .scale-hint { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.66rem; color: var(--muted); margin: 0.35rem 0.2rem 0; letter-spacing: 0.06em; }
-  /* profil ekranı */
-  .pgroup { margin-bottom: 1.6rem; }
-  .pgroup .pl { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2); margin-bottom: 0.6rem; display: flex; gap: 0.5rem; align-items: center; }
-  .pgroup .pl .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); }
-  .pgroup.done .pl .dot { background: var(--green); }
-  .pgroup .opts.grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-  .pgroup .opt.tile { min-height: 82px; }
-  @media (max-width: 600px) { .opts.grid, .pgroup .opts.grid { grid-template-columns: 1fr 1fr; } .opt.tile { min-height: 80px; } }
+/* ── CARDS ── */
+.card{align-self:stretch;background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:1.1rem 1.2rem;
+  animation:pop .3s ease both;box-shadow:0 1px 3px rgba(27,42,74,0.05);}
+.card h3{font-size:0.72rem;font-family:var(--mono);color:var(--text2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.75rem;}
+.card ul{list-style:none;}
+.card li{font-size:0.92rem;padding:0.4rem 0;border-bottom:1px dashed var(--border);display:flex;gap:0.5rem;align-items:baseline;line-height:1.55;}
+.card li .sig-tag{margin-left:auto;}
+.card li:last-child{border-bottom:none;}
+.card p{font-size:0.92rem;line-height:1.65;}
+.sig-tag{font-family:var(--mono);font-size:0.62rem;color:var(--green);white-space:nowrap;}
+.bar-row{display:grid;grid-template-columns:112px 1fr 46px;gap:0.6rem;align-items:center;margin-bottom:0.65rem;}
+.bar-row:last-child{margin-bottom:0;}
+.bar-row.lead{background:rgba(45,80,22,0.07);border-radius:10px;padding:0.45rem 0.5rem;margin:0 -0.5rem 0.65rem;}
+.bl{font-family:var(--mono);font-size:0.68rem;color:var(--text2);line-height:1.3;}
+.bl b{display:block;font-size:0.7rem;}
+.bl.cw b{color:#B45309;}.bl.cb b{color:#B91C1C;}.bl.cr b{color:#0F766E;}
+.leadchip{display:inline-block;font-size:0.56rem;background:var(--navy);color:#fff;border-radius:5px;padding:0.1rem 0.3rem;margin-top:0.15rem;letter-spacing:0.05em;}
+.bt{height:12px;background:rgba(27,42,74,0.08);border-radius:6px;overflow:hidden;}
+.bt i{display:block;height:100%;width:0;transition:width .8s ease;border-radius:6px;}
+.bt i.cw{background:linear-gradient(90deg,#D97706,#F59E0B);}
+.bt i.cb{background:linear-gradient(90deg,#B91C1C,#EF4444);}
+.bt i.cr{background:linear-gradient(90deg,#0F766E,#14B8A6);}
+.bv{font-family:var(--mono);font-size:0.8rem;font-weight:700;text-align:right;}
+.leg{font-size:0.76rem;color:var(--text2);margin-top:0.8rem;border-top:1px dashed var(--border2);padding-top:0.65rem;line-height:1.6;}
+.card.warn{border-color:rgba(255,21,37,0.25);}
+.card.warn h3{color:var(--red);}
+.card.tier{border:1.5px solid var(--green);background:linear-gradient(160deg,#FFFFFF,#F2F6EC);}
+.tier .rec{font-family:var(--mono);font-size:0.64rem;color:var(--red);letter-spacing:0.12em;}
+.tier .name{font-family:var(--head);font-size:1.35rem;font-weight:700;margin:0.3rem 0 0.35rem;}
+.tier .scope{font-size:0.9rem;color:var(--text2);line-height:1.55;}
+.tier .price{font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--green);margin-top:0.75rem;}
+.tier .price small{display:block;font-size:0.62rem;color:var(--text2);font-weight:400;margin-top:0.25rem;letter-spacing:0.08em;}
+.tier .recnote{font-size:0.8rem;color:var(--text2);border-top:1px dashed var(--border2);margin-top:0.85rem;padding-top:0.75rem;line-height:1.6;}
+.chips{display:flex;flex-wrap:wrap;gap:0.4rem;align-self:flex-start;max-width:92%;}
+.chips span{font-family:var(--mono);font-size:0.66rem;background:var(--card);border:1px solid var(--border2);border-radius:99px;padding:0.3rem 0.75rem;color:var(--text2);}
 
-  /* ===== sonuç sayfası ===== */
-  .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.4rem 0 1.2rem; }
-  .chips span { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.05em; padding: 0.35rem 0.65rem; border: 1px solid var(--border); border-radius: 100px; background: var(--bg2); color: var(--text2); }
-  .bars { display: grid; gap: 0.55rem; }
-  .bar-row { display: grid; grid-template-columns: 120px 1fr 44px; gap: 0.7rem; align-items: center; font-size: 0.85rem; }
-  .bar-row .bl { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; color: var(--text2); }
-  .bar-row .bt { height: 8px; background: rgba(27,42,74,0.08); border-radius: 4px; overflow: hidden; }
-  .bar-row .bt i { display: block; height: 100%; background: var(--navy); border-radius: 4px; width: 0; transition: width .8s cubic-bezier(.2,.8,.2,1); }
-  .bar-row.lead .bt i { background: var(--red); }
-  .bar-row .bv { font-family: var(--mono); font-size: 0.7rem; color: var(--text2); text-align: right; }
-  .sig-tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; padding: 0.15rem 0.4rem; border-radius: 3px; background: rgba(27,42,74,0.08); color: var(--navy); margin-left: 0.5rem; vertical-align: middle; }
-  .card.read { border-left: 3px solid var(--navy); }
-  .card.read p { color: var(--navy); font-size: 1.02rem; line-height: 1.65; }
-  .steps3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
-  .steps3 div { background: var(--card); border-radius: 10px; padding: 0.9rem 1rem; font-size: 0.9rem; color: var(--text2); }
-  .steps3 b { display: block; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; color: var(--red); margin-bottom: 0.35rem; }
-  .btn-print { background: transparent; border: 1.5px solid var(--border); color: var(--text2); padding: 0.95rem 1.2rem; border-radius: 10px; font-family: var(--body); font-size: 0.95rem; cursor: pointer; }
-  @media (max-width: 600px) { .steps3 { grid-template-columns: 1fr; } .bar-row { grid-template-columns: 96px 1fr 40px; } }
-  @media print { nav, .ctas, .email, .lang, .btn-print { display: none !important; } body { background: #fff; } .wrap { padding-top: 1rem; } }
-  .consent { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.88rem; color: var(--text2); margin: 0.6rem 0 0.9rem; line-height: 1.45; }
-  .consent input { margin-top: 0.25rem; width: 16px; height: 16px; flex: none; accent-color: var(--green); }
-  .consent a { color: var(--green-dark); }
-  .privacy { font-family: var(--mono); font-size: 0.72rem; color: var(--text2); border-top: 1px solid var(--border); padding-top: 0.8rem; margin-top: 1.2rem; line-height: 1.6; max-width: 62ch; }
-  .lang { display: flex; gap: 0.3rem; }
-  .lang button { font-family: var(--mono); font-size: 0.72rem; background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem 0.5rem; cursor: pointer; color: var(--text2); }
-  .lang button.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+/* ── FORM (inline) ── */
+.fform{display:flex;flex-direction:column;gap:0.55rem;background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:1rem;}
+.fform input[type=text],.fform input[type=email]{background:var(--bg);border:1.5px solid var(--border2);border-radius:12px;
+  padding:0.8rem 1rem;color:var(--navy);font-family:var(--body);font-size:0.98rem;width:100%;outline:none;transition:border-color .15s;}
+.fform input:focus{border-color:var(--green);}
+.fform input.ok{border-color:var(--green);background:#fff;}
+.consent{display:flex;gap:0.55rem;align-items:flex-start;font-size:0.76rem;color:var(--text2);line-height:1.55;padding:0.15rem 0.1rem;}
+.consent input{margin-top:2px;width:15px;height:15px;flex:none;accent-color:var(--green);}
+.consent a{color:var(--green);}
+.ferr{display:none;color:var(--red);font-size:0.76rem;margin-top:-0.2rem;padding-left:0.3rem;}
+.ferr.on{display:block;}
+.fnote{font-size:0.72rem;color:var(--text2);text-align:center;margin-top:0.1rem;}
+.nda{border:1px solid var(--border2);border-radius:12px;background:var(--card);overflow:hidden;}
+.nda-head{display:flex;align-items:center;gap:0.5rem;padding:0.65rem 0.85rem;cursor:pointer;font-size:0.82rem;color:var(--navy);font-weight:600;user-select:none;}
+.nda-head svg{width:15px;height:15px;stroke:var(--green);stroke-width:2;fill:none;flex:none;}
+.nda-head .arr{margin-left:auto;color:var(--text2);font-size:0.75rem;transition:transform .2s;}
+.nda.open .arr{transform:rotate(180deg);}
+.nda-body{display:none;padding:0 0.9rem 0.8rem;font-size:0.78rem;color:var(--text2);line-height:1.6;}
+.nda.open .nda-body{display:block;}
+.nda-body ol{padding-left:1.1rem;margin-top:0.2rem;}
+.nda-body li{margin-bottom:0.2rem;}
+.sendbtn{background:#4ade80;color:#1A1916;border:none;border-radius:12px;padding:0.9rem;font-family:var(--body);
+  font-weight:700;font-size:1rem;cursor:pointer;transition:background .15s;box-shadow:0 6px 18px rgba(74,222,128,0.25);}
+.sendbtn:hover{background:#3fd074;}
+.sendbtn:disabled{opacity:0.35;cursor:default;}
+.hidden{display:none !important;}
+@media(max-width:600px){
+  .msg{max-width:94%;}
+  #chat{padding:1.1rem 0.9rem 4rem;}
+}
 </style>
 </head>
 <body>
-<nav>
-  <a class="logo" href="index.html" id="logoLink">Gemba<span>X</span></a>
-  <div style="display:flex;gap:1.2rem;align-items:center">
-    <div class="nav-meta" id="navMeta"></div>
-    <div class="lang" id="langSel"><button data-l="tr">TR</button><button data-l="en">EN</button><button data-l="es">ES</button></div>
-  </div>
-</nav>
 
-<div class="wrap">
-  <div id="intro" class="intro fade">
-    <div class="layer" id="iLayer"></div>
-    <h1 id="iTitle"></h1>
-    <p class="hint" id="iHint"></p>
-    <div class="facts" id="iFacts"></div>
-    <button class="btn-start" onclick="start()" id="iBtn"></button>
-    <p class="fine" id="iFine"></p>
-    <p class="privacy" id="iPriv"></p>
-  </div>
-
-  <div id="q" class="hidden">
-    <div class="progress"><div class="bar"><i id="bar"></i></div><div class="n" id="num">1/10</div></div>
-    <div class="layer" id="layer"></div>
-    <h1 id="qt"></h1>
-    <p class="hint" id="qh"></p>
-    <div class="opts" id="opts"></div>
-    <div class="row" id="row">
-      <button class="btn-back" id="back" onclick="back()"></button>
-      <span class="autonote" id="autonote"></span>
-      <button class="btn-next" id="next" onclick="next()" disabled></button>
+<header>
+  <div class="hd">
+    <div class="avatar">GX</div>
+    <div>
+      <div class="hname">GembaX Asistan</div>
+      <div class="hstat"><span class="dot"></span>Çevrimiçi · Ücretsiz ön tarama</div>
     </div>
-    <div class="kbd" id="kbd"></div>
+    <div class="hprog">
+      <div class="hnum" id="pnum">&nbsp;</div>
+      <div class="hbar"><i id="pbar"></i></div>
+    </div>
   </div>
+</header>
 
-  <div id="res" class="res hidden"></div>
-</div>
+<div id="chat"></div>
 
 <script>
 var Q = {
-  sector:  { t: 'Hangi sektördesiniz?', h: 'Soruların dili ve içeriği buna göre değişir.', opts: [['Üretim'],['Lojistik / Depo'],['Distribütörlük / Toptan'],['E-ticaret'],['Perakende'],['Hizmet / Ajans'],['İnşaat / Taahhüt'],['Restoran / Konaklama'],['Sağlık / Klinik'],['SaaS / Dijital'],['Diğer']] },
+  sector:  { t: 'Hangi sektördesiniz?', h: 'Soruların dili ve içeriği buna göre değişir.', opts: [['Üretim'],['Lojistik / Depo'],['Distribütörlük / Toptan'],['E-ticaret'],['Perakende'],['Hizmet / Ajans'],['İnşaat / Taahhüt'],['Restoran / Konaklama'],['Sağlık / Klinik'],['SaaS / Dijital'],['Eğitim / Danışmanlık'],['Diğer']] },
   size:    { t: 'Kaç çalışanınız var?', h: '', opts: [['1–10'],['11–50'],['51–250'],['250+']] },
   revenue: { t: 'Yıllık cironuz hangi bantta?', h: 'Garantimiz ($15.000 yıllık kaçak) her ölçekte anlamlı değil; dürüst yönlendirme için soruyoruz.', opts: [['$500K altı'],['$500K – $2M'],['$2M – $10M'],['$10M üstü']] },
   tried:   { t: 'Bu konuda daha önce ne denediniz?', h: '', opts: [['Hiçbir şey',{},'daha önce müdahale edilmemiş'],['İç ekiple çalıştık',{},'iç ekip denemesi sonuç vermemiş'],['Danışman aldık',{},'danışman denemesi sonuç vermemiş'],['Yazılım / ERP kurduk',{},'yazılım kurulmuş, sorun kalmış']] },
@@ -382,8 +373,6 @@ var Q = {
   g_s1: { t: 'Son 12 ayda kapasiteye yatırım yaptınız mı? Sonuç?', h: '', opts: [['Yapmadık',{},''],['Yaptık, iyileşti',{},''],['Yaptık, değişmedi',{b:3},'kapasite arttı, sonuç değişmedi'],['Yaptık, kötüleşti',{b:3,r:1},'kapasite arttı, sonuç kötüleşti']] },
   g_s2: { t: 'Sabahınızın ne kadarı yangın söndürme?', h: '', opts: [['%10\'dan az',{},''],['%10–30',{r:1},''],['%30\'dan fazla',{r:3},'sabahın üçte birinden fazlası yangın söndürme']] }
 };
-
-/* ===================== YENİ SEKTÖRLER (TR ağaç) ===================== */
 var Q2 = {
   /* ============ E-TİCARET ============ */
   e_pain: { t: 'E-ticarette şu an en çok hangisi canınızı yakıyor?', h: '', opts: [
@@ -474,7 +463,161 @@ var Q2 = {
   t_s1: { t: 'Son 12 ayda hekim, cihaz ya da personel eklediniz mi? Bekleme ne oldu?', h: '', opts: [['Eklemedik',{},''],['Ekledik, azaldı',{},''],['Ekledik, değişmedi',{b:3},'kapasite arttı, bekleme değişmedi'],['Ekledik, arttı',{b:3,r:1},'kapasite arttı, bekleme arttı']] },
   t_s2: { t: 'Klinik ekibi, idari ekip ve hekimler birbirini suçluyor mu?', h: '', opts: [['Evet, düzenli',{r:3},'ekipler arası suçlama döngüsü'],['Bazen',{r:1},''],['Hayır',{},'']] }
 };
-
+var READ = {
+  tr: {
+    m: { w: 'Üretimde israf üç yerde saklanır: rutinleşmiş mesai, "güvenlik" adı verilen stok ve kimsenin saymadığı yeniden işleme. Röntgen her birini istasyon bazında dolara çevirir; çoğu zaman en büyük kalem sanılan değil, görünmeyen olur.',
+         b: 'Üretimde darboğaz nadiren en pahalı makinedir; çoğu zaman önünde en uzun kuyruk biriken istasyon ya da bir onay adımıdır. Onu bulmadan alınan her makine, kuyruğu başka yere taşır.',
+         r: 'Aynı arıza, aynı hata, aynı gecikme farklı görünse de üretimde genellikle tek bir köke iner: tanımsız bir standart, ölçülmeyen bir parametre ya da eksik bir devir. Kök bulunmadan her çözüm geçicidir.' },
+    l: { w: 'Depoda israf yarı dolu tırlarda, iki kez dokunulan palette ve yer kaplayan ölü stokta yaşar. Röntgen bunları sipariş başına maliyete çevirir; doluluk oranı tek başına yılda bir tır filosu eder.',
+         b: 'Lojistikte darboğaz genellikle rampa değil, rampaya gelene kadar geçilen evrak ve onay adımlarıdır. Kuyruğun nerede biriktiğini bulmadan eklenen her araç ve raf, bekleyen araç sayısını artırır.',
+         r: 'Her hafta tekrarlayan gecikme ve hata farklı vardiyalarda farklı isimlerle görünür; kökü çoğu zaman tek bir tanımsız süreçtir. Kök bulunmadan personel ya da araç değişimi sonucu değiştirmez.' },
+    d: { w: 'Distribütörlükte israfın iki büyük adresi: satmayan stok ve geç gelen tahsilat. İkisi de kâr değil nakit yer; röntgen ürün ve müşteri bazında hangisinin ne kadar nakit bağladığını gösterir.',
+         b: 'Dağıtımda darboğaz siparişten sevke geçen günlerde saklanır: çoğu zaman toplama ya da onay-fatura adımı. Bulunmadan büyütülen depo ve filo, bekleyen siparişi bekleyen kamyona çevirir.',
+         r: 'Aynı müşteri sorunu geç teslimat, yanlış ürün ve fatura hatası olarak üç ayrı yerde görünür; genellikle tek bir kökü vardır: tanımsız bir sipariş-onay süreci. Kök bulunmadan müşteri kaybı devam eder.' },
+    e: { w: 'E-ticarette israf iade, yanlış gönderim ve kârsız reklamda yaşar. Sipariş başına kârı bilmeden yapılan her kampanya, ciroyu büyütürken kârı eritebilir; röntgen ürün bazında hangi siparişin para kaybettirdiğini gösterir.',
+         b: 'E-ticarette darboğaz çoğu zaman paketleme masası ya da kargo alım saatidir. Bulunmadan eklenen depo ve personel, aynı saatte aynı kuyruğu üretir.',
+         r: 'Tekrarlayan iade ve şikâyet farklı ürünlerde görünse de kökü genellikle tektir: ürün sayfası, stok kararı ya da yanıt süreci. Kök bulunmadan her kampanya aynı iadeyi yeniden satın alır.' },
+    c: { w: 'İnşaatta israf yeniden yapılan işte, fiyatlandırılmayan değişikliklerde ve bekleyen hakedişte birikir. Proje bazında hesaplanmadığında kâr ancak iş bitince görünür; röntgen bunu iş sürerken dolara çevirir.',
+         b: 'Şantiyede darboğaz nadiren ekip sayısıdır; çoğu zaman malzeme onayı ya da taşeron koordinasyonudur. Bulunmadan eklenen ekip, bekleyen ekip sayısını artırır.',
+         r: 'Her projede tekrarlayan sorun farklı şantiyelerde farklı görünür ama kökü tektir: eksik proje bilgisi, sözlü planlama ya da tanımsız değişiklik süreci. Kök bulunmadan sonraki proje de aynı sapmayı yaşar.' },
+    k: { w: 'Restoranda israf gıda maliyetinde, fazla hazırlıkta ve tutarsız porsiyonda gizlenir; menü kalemi bazında kârlılık bilinmeden ciro büyür, kâr büyümez. Röntgen kalem bazında hangi tabağın para kaybettirdiğini gösterir.',
+         b: 'Servis darboğazı genellikle mutfak çıkışı ya da oturtma anıdır; personel eklemek kuyruğu değil bekleyen personeli artırır. Önce hangi dakikada neyin tıkandığını bulmak gerekir.',
+         r: 'Yorumlardaki aynı şikâyet farklı vardiyalarda farklı görünür; kökü genellikle tanımsız bir standart ya da eğitim sürecidir. Kök bulunmadan personel değişimi şikâyeti değiştirmez.' },
+    t: { w: 'Klinikte israf son kullanma imhasında, gelmeyen randevuda ve reddedilen faturada birikir. Röntgen bunların her birini yıllık dolara çevirir; çoğu zaman en büyük kalem randevu boşluğudur.',
+         b: 'Klinikte darboğaz hekim değil, hekimden önceki ve sonraki adımlardır: kayıt, tetkik sonucu, çıkış. Bulunmadan eklenen hekim, bekleme odasını büyütür.',
+         r: 'Aynı hasta şikâyeti bekleme, bilgilendirme ve fatura olarak üç yerde görünür; kökü genellikle tek bir tanımsız akıştır. Kök bulunmadan her düzeltme başka bir masaya taşınır.' },
+    h: { w: 'Hizmet işinde israf faturalanmayan saatte ve kapsam dışı yapılan işte yaşar; proje bazında kârlılık bilinmeden hangi müşterinin para kaybettirdiği görülmez. Röntgen saat bazında bunu gösterir.',
+         b: 'Hizmette darboğaz çoğu zaman bir kişi ya da müşteri onayıdır. Bulunmadan alınan eleman, o kişinin ya da onayın önündeki kuyruğu değiştirmez.',
+         r: 'Tekrarlayan revizyon ve şikâyet farklı projelerde farklı görünür; kökü genellikle iş tanımının baştan yanlış kurulmasıdır. Kök bulunmadan her proje aynı revizyon döngüsüne girer.' },
+    p: { w: 'Perakendede israf tükenen en çok satanda, satmayan stokta ve sayım farkında saklanır. Ürün bazında marj bilinmeden hangi rafın para kaybettirdiği görülmez; röntgen bunu mağaza ve ürün bazında gösterir.',
+         b: 'Mağazada darboğaz yoğun saatteki kasa ve reyondur; saatlik veriyle planlanmayan vardiya, boş saatte fazla, dolu saatte eksik personel üretir. Önce hangi saatte neyin tıkandığını bulmak gerekir.',
+         r: 'Mağazalar arası fark ve her hafta tekrarlayan sorun farklı görünse de kökü genellikle tektir: tanımsız ikmal ya da vardiya süreci. Kök bulunmadan müdür değişimi sonucu değiştirmez.' },
+    s: { w: 'SaaS\'ta israf destek maliyetinde, uzun onboarding\'de ve erken churn\'de yaşar; müşteri başına destek maliyeti bilinmeden hangi segmentin para kaybettirdiği görülmez. Röntgen bunu gösterir.',
+         b: 'Ürün ekibinde darboğaz çoğu zaman QA, öncelik kararı ya da tek bir geliştiricidir. Bulunmadan büyütülen ekip, aynı kuyruğa daha çok iş ekler.',
+         r: 'Tekrarlayan olay ve aynı 5 destek konusu farklı müşterilerde farklı görünür; kökü genellikle postmortem yapılmayan tek bir hatadır. Kök bulunmadan her sürüm aynı olayı geri getirir.' },
+    g: { w: 'İsraf gider tablosunda kendi adıyla görünmez; rutinleşmiş maliyet olarak görünür. Röntgen bunları kalem kalem dolara çevirir.',
+         b: 'Sistemin hızını en yavaş halka belirler; darboğaz bulunmadan yapılan yatırım çıktıyı değil kuyruğu büyütür.',
+         r: 'Tekrarlayan sorun yanlış katmanda çözülmüş sorundur; kök bulunmadan her çözüm geçicidir.' }
+  },
+  en: {
+    m: { w: 'In a plant, waste hides in three places: overtime that became routine, inventory called "safety stock", and rework nobody counts. The X-ray converts each into dollars by station; the biggest line is usually the one you can\'t see, not the one you suspect.',
+         b: 'The bottleneck in a plant is rarely the most expensive machine; it\'s usually the station with the longest queue in front of it, or an approval step. Every machine bought before finding it only moves the queue.',
+         r: 'The same breakdown, defect or delay may look different, but in a plant it usually traces to one root: an undefined standard, an unmeasured parameter or a missing handover. Until the root is found, every fix is temporary.' },
+    l: { w: 'In a warehouse, waste lives in half-empty trucks, pallets touched twice and dead stock taking up space. The X-ray converts these into cost per order; fill rate alone can be worth a truck a year.',
+         b: 'In logistics the bottleneck is usually not the dock but the paperwork and approvals before it. Every truck and rack added before finding the queue only adds waiting trucks.',
+         r: 'The delay and error that recur every week show up under different names in different shifts; the root is usually one undefined process. Changing staff or vehicles won\'t change the outcome until it\'s found.' },
+    d: { w: 'In distribution, waste has two big addresses: stock that doesn\'t sell and collections that come late. Both eat cash, not just profit; the X-ray shows which products and customers tie up how much.',
+         b: 'In distribution the bottleneck hides in the days between order and shipment, usually picking or the approval-invoicing step. Warehouse and fleet added before finding it turn waiting orders into waiting trucks.',
+         r: 'The same customer problem appears as late delivery, wrong item and invoice error in three places; it usually has one root: an undefined order-approval process. Customer loss continues until it\'s found.' },
+    e: { w: 'In e-commerce, waste lives in returns, wrong shipments and unprofitable ads. Every campaign run without knowing profit per order can grow revenue while melting profit; the X-ray shows which orders lose money, per product.',
+         b: 'In e-commerce the bottleneck is usually the packing table or the carrier cutoff. Warehouse and staff added before finding it produce the same queue at the same hour.',
+         r: 'Recurring returns and complaints look different across products but usually share one root: the product page, the stock decision or the response process. Until it\'s found, every campaign buys the same return again.' },
+    c: { w: 'In construction, waste accumulates in rework, unpriced changes and waiting progress payments. Without per-project accounting, profit only appears when the job is done; the X-ray converts it into dollars while the job is running.',
+         b: 'On site the bottleneck is rarely crew size; it\'s usually material approval or subcontractor coordination. Crews added before finding it only add waiting crews.',
+         r: 'The problem that recurs on every project looks different on each site but has one root: missing design information, verbal planning or an undefined change process. The next project repeats the overrun until it\'s found.' },
+    k: { w: 'In a restaurant, waste hides in food cost, over-prep and inconsistent portions; without per-item profitability, revenue grows and profit doesn\'t. The X-ray shows which plate loses money.',
+         b: 'The service bottleneck is usually the kitchen pass or the seating moment; adding staff adds waiting staff, not throughput. First find which minute jams what.',
+         r: 'The same complaint in reviews looks different across shifts; its root is usually an undefined standard or training process. Changing staff won\'t change the complaint until it\'s found.' },
+    t: { w: 'In a clinic, waste accumulates in expiry write-offs, no-shows and rejected claims. The X-ray converts each into annual dollars; the biggest line is often the empty appointment slot.',
+         b: 'In a clinic the bottleneck is not the physician but the steps before and after: registration, results, discharge. Physicians added before finding it enlarge the waiting room.',
+         r: 'The same patient complaint appears as waiting, information and billing in three places; the root is usually one undefined flow. Every fix moves to another desk until it\'s found.' },
+    h: { w: 'In a service business, waste lives in unbillable hours and out-of-scope work; without per-project profitability you can\'t see which client loses money. The X-ray shows it by the hour.',
+         b: 'In services the bottleneck is usually one person or the client\'s approval. A hire made before finding it doesn\'t change the queue in front of that person or that approval.',
+         r: 'Recurring revisions and complaints look different across projects; the root is usually a brief set up wrong from the start. Every project enters the same revision loop until it\'s found.' },
+    p: { w: 'In retail, waste hides in the best-seller that runs out, stock that doesn\'t sell and count discrepancies. Without per-product margin you can\'t see which shelf loses money; the X-ray shows it by store and product.',
+         b: 'In a store the bottleneck is the checkout and the floor at peak; shifts not planned on hourly data produce too many staff off-peak and too few at peak. First find which hour jams what.',
+         r: 'The gap between stores and the weekly recurring problem look different but usually share one root: an undefined replenishment or shift process. Changing managers won\'t change the outcome until it\'s found.' },
+    s: { w: 'In SaaS, waste lives in support cost, long onboarding and early churn; without support cost per customer you can\'t see which segment loses money. The X-ray shows it.',
+         b: 'In a product team the bottleneck is usually QA, the prioritization decision or a single developer. A team grown before finding it adds more work to the same queue.',
+         r: 'Recurring incidents and the same five support topics look different across customers; the root is usually one bug never given a postmortem. Every release brings the same incident back until it\'s found.' },
+    g: { w: 'Waste never appears under its own name in the P&L; it appears as routine cost. The X-ray converts it into dollars line by line.',
+         b: 'The slowest link sets the system\'s speed; investment made before finding the bottleneck grows the queue, not the output.',
+         r: 'A recurring problem is a problem solved at the wrong layer; every fix is temporary until the root is found.' }
+  },
+  es: {
+    m: { w: 'En planta, el desperdicio se esconde en tres lugares: horas extra convertidas en rutina, inventario llamado "de seguridad" y retrabajo que nadie cuenta. La radiografía convierte cada uno en dólares por estación; la mayor partida suele ser la que no se ve, no la que se sospecha.',
+         b: 'El cuello de botella en planta rara vez es la máquina más cara; suele ser la estación con la cola más larga delante, o un paso de aprobación. Cada máquina comprada antes de encontrarlo solo mueve la cola.',
+         r: 'La misma avería, defecto o retraso puede parecer distinto, pero en planta suele llevar a una sola raíz: un estándar no definido, un parámetro no medido o un relevo que falta. Hasta encontrarla, toda solución es temporal.' },
+    l: { w: 'En almacén, el desperdicio vive en camiones medio vacíos, pallets tocados dos veces y stock muerto que ocupa espacio. La radiografía lo convierte en coste por pedido; la ocupación sola puede valer un camión al año.',
+         b: 'En logística el cuello de botella no suele ser el muelle, sino los documentos y aprobaciones previos. Cada camión y estantería añadidos antes de encontrar la cola solo añaden camiones en espera.',
+         r: 'El retraso y el error que se repiten cada semana aparecen con distintos nombres en distintos turnos; la raíz suele ser un único proceso no definido. Cambiar personal o vehículos no cambia el resultado hasta encontrarla.' },
+    d: { w: 'En distribución, el desperdicio tiene dos grandes direcciones: el stock que no se vende y el cobro que llega tarde. Ambos se comen la caja, no solo la ganancia; la radiografía muestra qué productos y clientes inmovilizan cuánto.',
+         b: 'En distribución el cuello de botella se esconde en los días entre pedido y despacho, normalmente el picking o el paso de aprobación-facturación. Almacén y flota añadidos antes de encontrarlo convierten pedidos en espera en camiones en espera.',
+         r: 'El mismo problema de cliente aparece como entrega tardía, artículo equivocado y error de factura en tres lugares; suele tener una raíz: un proceso de aprobación de pedidos no definido. La pérdida de clientes sigue hasta encontrarla.' },
+    e: { w: 'En e-commerce, el desperdicio vive en devoluciones, envíos equivocados y publicidad sin ganancia. Cada campaña hecha sin conocer la ganancia por pedido puede subir ingresos y derretir la ganancia; la radiografía muestra qué pedidos pierden dinero, por producto.',
+         b: 'En e-commerce el cuello de botella suele ser la mesa de empaque o la hora de recogida del transportista. Almacén y personal añadidos antes de encontrarlo producen la misma cola a la misma hora.',
+         r: 'Las devoluciones y quejas recurrentes parecen distintas entre productos pero suelen compartir una raíz: la ficha de producto, la decisión de stock o el proceso de respuesta. Hasta encontrarla, cada campaña vuelve a comprar la misma devolución.' },
+    c: { w: 'En construcción, el desperdicio se acumula en retrabajo, cambios no valorados y certificaciones en espera. Sin contabilidad por proyecto la ganancia solo aparece al terminar; la radiografía la convierte en dólares con la obra en marcha.',
+         b: 'En obra el cuello de botella rara vez es el número de cuadrillas; suele ser la aprobación de material o la coordinación de subcontratistas. Cuadrillas añadidas antes de encontrarlo solo añaden cuadrillas en espera.',
+         r: 'El problema que se repite en cada proyecto parece distinto en cada obra pero tiene una raíz: información de proyecto incompleta, planificación verbal o un proceso de cambios no definido. El siguiente proyecto repite la desviación hasta encontrarla.' },
+    k: { w: 'En un restaurante, el desperdicio se esconde en el coste de alimentos, el exceso de preparación y las porciones inconsistentes; sin rentabilidad por plato, los ingresos crecen y la ganancia no. La radiografía muestra qué plato pierde dinero.',
+         b: 'El cuello de botella del servicio suele ser la salida de cocina o el momento de sentar; añadir personal añade personal en espera, no capacidad. Primero hay que encontrar qué minuto atasca qué.',
+         r: 'La misma queja en las reseñas parece distinta entre turnos; su raíz suele ser un estándar o un proceso de formación no definido. Cambiar personal no cambia la queja hasta encontrarla.' },
+    t: { w: 'En una clínica, el desperdicio se acumula en descartes por caducidad, inasistencias y facturas rechazadas. La radiografía convierte cada uno en dólares anuales; la mayor partida suele ser la cita vacía.',
+         b: 'En una clínica el cuello de botella no es el médico, sino los pasos antes y después: registro, resultados, alta. Médicos añadidos antes de encontrarlo agrandan la sala de espera.',
+         r: 'La misma queja de pacientes aparece como espera, información y facturación en tres lugares; la raíz suele ser un único flujo no definido. Cada corrección pasa a otra mesa hasta encontrarla.' },
+    h: { w: 'En un negocio de servicios, el desperdicio vive en horas no facturables y trabajo fuera de alcance; sin rentabilidad por proyecto no se ve qué cliente pierde dinero. La radiografía lo muestra por hora.',
+         b: 'En servicios el cuello de botella suele ser una persona o la aprobación del cliente. Una contratación hecha antes de encontrarlo no cambia la cola delante de esa persona o esa aprobación.',
+         r: 'Las revisiones y quejas recurrentes parecen distintas entre proyectos; la raíz suele ser un brief mal planteado desde el inicio. Cada proyecto entra en el mismo ciclo de revisiones hasta encontrarla.' },
+    p: { w: 'En retail, el desperdicio se esconde en el más vendido que se agota, el stock que no se vende y las diferencias de inventario. Sin margen por producto no se ve qué estante pierde dinero; la radiografía lo muestra por tienda y producto.',
+         b: 'En tienda el cuello de botella es la caja y el piso en hora punta; los turnos no planificados con datos por hora producen exceso de personal fuera de punta y falta en punta. Primero hay que encontrar qué hora atasca qué.',
+         r: 'La diferencia entre tiendas y el problema semanal recurrente parecen distintos pero suelen compartir una raíz: un proceso de reposición o de turnos no definido. Cambiar gerentes no cambia el resultado hasta encontrarla.' },
+    s: { w: 'En SaaS, el desperdicio vive en el coste de soporte, el onboarding largo y el churn temprano; sin coste de soporte por cliente no se ve qué segmento pierde dinero. La radiografía lo muestra.',
+         b: 'En un equipo de producto el cuello de botella suele ser QA, la decisión de prioridad o un solo desarrollador. Un equipo ampliado antes de encontrarlo añade más trabajo a la misma cola.',
+         r: 'Los incidentes recurrentes y los mismos cinco temas de soporte parecen distintos entre clientes; la raíz suele ser un único bug sin postmortem. Cada release trae de vuelta el mismo incidente hasta encontrarla.' },
+    g: { w: 'El desperdicio nunca aparece con su nombre en el estado de resultados; aparece como coste rutinario. La radiografía lo convierte en dólares línea por línea.',
+         b: 'El eslabón más lento marca la velocidad del sistema; la inversión hecha antes de encontrar el cuello de botella agranda la cola, no la producción.',
+         r: 'Un problema recurrente es un problema resuelto en la capa equivocada; toda solución es temporal hasta encontrar la raíz.' }
+  }
+};
+var SECT = [
+  { code:'m', pain:'m_pain', shared:['m_s1','m_s2'], probe:{ w:['m_i2','m_q2c'], b:['m_b2d','m_b2a'], r:['m_r2','m_q2b'] } },
+  { code:'l', pain:'l_pain', shared:['l_s1','l_s2'], probe:{ w:['l_i2','l_f1'],  b:['l_b2c','l_g1'],  r:['l_r2','l_q3'] } },
+  { code:'d', pain:'d_pain', shared:['d_s1','d_s2'], probe:{ w:['d_i1','d_c1'],  b:['d_b1','d_b2'],   r:['d_r2','d_c2'] } },
+  { code:'e', pain:'e_pain', shared:['e_s1','e_s2'], probe:{ w:['e_i2','e_m1'],  b:['e_b1','e_b2'],   r:['e_r2','e_q2'] } },
+  { code:'p', pain:'p_pain', shared:['p_s1','p_s2'], probe:{ w:['p_i2','p_q1'],  b:['p_b1','p_b2'],   r:['p_r2','p_r1'] } },
+  { code:'h', pain:'h_pain', shared:['h_s1','h_s2'], probe:{ w:['h_u1','h_u2'],  b:['h_b2b','h_b2c'], r:['h_r2','h_q1'] } },
+  { code:'c', pain:'c_pain', shared:['c_s1','c_s2'], probe:{ w:['c_q3','c_c1'],  b:['c_b2','c_b3'],   r:['c_r2','c_q2'] } },
+  { code:'k', pain:'k_pain', shared:['k_s1','k_s2'], probe:{ w:['k_f1','k_f2'],  b:['k_b2','k_b1'],   r:['k_r2','k_p2'] } },
+  { code:'t', pain:'t_pain', shared:['t_s1','t_s2'], probe:{ w:['t_i2','t_c2'],  b:['t_b3','t_b2'],   r:['t_r2','t_c1'] } },
+  { code:'s', pain:'s_pain', shared:['s_s1','s_s2'], probe:{ w:['s_o1','s_g1'],  b:['s_d1','s_b2'],   r:['s_r2','s_c1'] } },
+  { code:'h', pain:'h_pain', shared:['h_s1','h_s2'], probe:{ w:['h_u1','h_u2'],  b:['h_b2b','h_b2c'], r:['h_r2','h_q1'] } },
+  { code:'g', pain:'g_pain', shared:['g_s1','g_s2'], probe:{ w:['g_w1','g_w2'],  b:['g_b1','g_b2'],   r:['g_r1','g_r2'] } }
+];
+var ICONS = [
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 21V9l5 3V9l5 3V9l5 3v9H3z"/><path d="M7 21v-4h3v4M14 21v-4h3v4M6 9V4h3v5"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M2 7h11v9H2zM13 10h5l3 3v3h-8z"/><circle cx="6" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 12h8v9H3zM13 12h8v9h-8zM8 3h8v9H8z"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 4h3l2.5 11h10L21 8H7"/><circle cx="10" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 10l1.5-5h15L21 10M3 10a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0M5 10v10h14V10M10 20v-5h4v5"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 8h18v12H3zM9 8V5h6v3M3 13h18"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 21h18M5 21V11l7-4 7 4v10M9 21v-6h6v6"/><path d="M12 7V3l6 2"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 15h16l-1 5H5zM4 15a8 8 0 0116 0"/><path d="M12 7V4"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 8h5V3h6v5h5v6h-5v5H9v-5H4z"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 18a4 4 0 01-.6-7.95A6 6 0 0118 9a4.5 4.5 0 01-.5 9H7z"/><path d="M9 14l2 2-2 2M13 18h3"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M22 9L12 4 2 9l10 5 10-5z"/><path d="M6 11.5V16c0 1.66 2.69 3 6 3s6-1.34 6-3v-4.5"/><path d="M22 9v5"/></svg>',
+ '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>'
+];
+var DELIV = {
+  tr: { xray: ['7+1 israf kategorisinin operasyonunuzda nerede oluştuğu ve yıllık kaça mal olduğu, dolar cinsinden','Önce hangisine dokunmanız gerektiği: etkiye göre sıralı, ilk üçü işaretli','Her rakamın kaynağı ve varsayımı yazılı'],
+        'xray-toc': ['Hızlı Röntgen\'in tamamı','Sipariş girişinden teslimata akış haritası ve sistemi tutan tek kısıt','O kısıtta kaybettiğiniz çıktının yıllık karşılığı','Kısıtı büyütmeden ondan daha fazla iş geçirmenin ilk adımları'],
+        full: ['Röntgen + Darboğaz\'ın tamamı','Seçilen bir problem için kanıt zinciriyle kök neden','Bu kökün başka hangi belirtileri ürettiği','90 günlük aksiyon planı: ne, kim, hangi hafta, neyle ölçülür'],
+        transformation: ['Departman bazında israf, darboğaz ve kök neden taraması','12 aylık, sıralı yol haritası','Kapsam yazılı olarak birlikte belirlenir; fiyat kapsamdan sonra'] ,
+        steps: ['Yazılı sohbet, ~15 dakika. Operasyonunuzu kendi cümlelerinizle anlatırsınız.','Kapsam yazılı olarak netleşir; ödeme ondan sonra alınır.','İnsan uzman doğrular, yapay zeka tarar, 7 iş gününde imzalı rapor.'],
+        delivH: 'Raporda ne var', stepsH: 'Nasıl ilerler', readH: 'Sektörünüzde bu ne anlama geliyor', profH: 'Profiliniz', scoreH: 'Üç teşhisin sinyal gücü', print: 'Yazdır / PDF', tags: { w:'İSRAF', b:'DARBOĞAZ', r:'KÖK NEDEN' } },
+  en: { xray: ['Where each of the 7+1 waste categories occurs in your operation and what it costs per year, in dollars','What to touch first: ranked by impact, top three flagged','The source and assumption behind every number, in writing'],
+        'xray-toc': ['Everything in the Quick X-Ray','A flow map from order entry to delivery and the single constraint holding the system','The annual value of the output you lose at that constraint','First moves to get more through the constraint before spending on it'],
+        full: ['Everything in X-Ray + Bottleneck','The root cause of one chosen problem, with the evidence chain','Which other symptoms that root produces','A 90-day action plan: what, who, which week, measured by what'],
+        transformation: ['Waste, bottleneck and root-cause scan by department','A sequenced 12-month roadmap','Scope defined together in writing; price follows scope'],
+        steps: ['Written conversation, ~15 minutes. You describe your operation in your own words.','Scope is confirmed in writing; payment is taken only after that.','A human expert validates, AI scans, signed report in 7 business days.'],
+        delivH: 'What\'s in the report', stepsH: 'How it proceeds', readH: 'What this means in your sector', profH: 'Your profile', scoreH: 'Signal strength across the three diagnostics', print: 'Print / PDF', tags: { w:'WASTE', b:'BOTTLENECK', r:'ROOT CAUSE' } },
+  es: { xray: ['Dónde ocurre cada una de las 7+1 categorías de desperdicio en su operación y cuánto cuesta al año, en dólares','Qué tocar primero: ordenado por impacto, los tres principales marcados','La fuente y el supuesto de cada cifra, por escrito'],
+        'xray-toc': ['Todo lo de la Radiografía Rápida','Un mapa del flujo desde el pedido hasta la entrega y la única restricción que sostiene el sistema','El valor anual de la producción que pierde en esa restricción','Primeros pasos para pasar más trabajo por la restricción antes de invertir en ella'],
+        full: ['Todo lo de Radiografía + Cuello de Botella','La causa raíz de un problema elegido, con la cadena de evidencia','Qué otros síntomas produce esa raíz','Un plan de acción de 90 días: qué, quién, qué semana, medido con qué'],
+        transformation: ['Escaneo de desperdicio, cuello de botella y causa raíz por departamento','Una hoja de ruta secuenciada de 12 meses','Alcance definido en conjunto por escrito; el precio sigue al alcance'],
+        steps: ['Conversación escrita, ~15 minutos. Describe su operación con sus propias palabras.','El alcance se confirma por escrito; el pago se cobra solo después.','Un experto humano valida, la IA escanea, informe firmado en 7 días hábiles.'],
+        delivH: 'Qué contiene el informe', stepsH: 'Cómo continúa', readH: 'Qué significa esto en su sector', profH: 'Su perfil', scoreH: 'Fuerza de la señal en los tres diagnósticos', print: 'Imprimir / PDF', tags: { w:'DESPERDICIO', b:'CUELLO DE BOTELLA', r:'CAUSA RAÍZ' } }
+};
 var N2 = { en: {}, es: {} };
 N2.en = {
   e_pain: ['What hurts most in your e-commerce business right now?', '', ['Return and cancellation rates are high','Order preparation and handover to carriers are slow','We have stock, but sellers run out and non-sellers pile up','Ad spend keeps rising, profit doesn\'t','The same customer complaint over and over','Not sure, general check-up'], ['high return / cancellation rate','long handover-to-carrier time','wrong stock mix','ad spend rising, profit flat','recurring complaint','']],
@@ -592,160 +735,10 @@ N2.es = {
   t_s1: ['¿Añadió médicos, equipos o personal en los últimos 12 meses? ¿Qué pasó con la espera?', '', ['No añadimos','Sí; bajó','Sí; sin cambio','Sí; aumentó'], ['','','capacidad arriba, espera sin cambio','capacidad arriba, espera en aumento']],
   t_s2: ['¿El equipo clínico, el administrativo y los médicos se culpan entre sí?', '', ['Sí, regularmente','A veces','No'], ['ciclo de culpas entre equipos','','']]
 };
-
-/* ===================== SEKTÖRE ÖZEL SONUÇ OKUMASI ===================== */
-/* READ[lang][sektörKodu][w|b|r] */
-var READ = {
-  tr: {
-    m: { w: 'Üretimde israf üç yerde saklanır: rutinleşmiş mesai, "güvenlik" adı verilen stok ve kimsenin saymadığı yeniden işleme. Röntgen her birini istasyon bazında dolara çevirir; çoğu zaman en büyük kalem sanılan değil, görünmeyen olur.',
-         b: 'Üretimde darboğaz nadiren en pahalı makinedir; çoğu zaman önünde en uzun kuyruk biriken istasyon ya da bir onay adımıdır. Onu bulmadan alınan her makine, kuyruğu başka yere taşır.',
-         r: 'Aynı arıza, aynı hata, aynı gecikme farklı görünse de üretimde genellikle tek bir köke iner: tanımsız bir standart, ölçülmeyen bir parametre ya da eksik bir devir. Kök bulunmadan her çözüm geçicidir.' },
-    l: { w: 'Depoda israf yarı dolu tırlarda, iki kez dokunulan palette ve yer kaplayan ölü stokta yaşar. Röntgen bunları sipariş başına maliyete çevirir; doluluk oranı tek başına yılda bir tır filosu eder.',
-         b: 'Lojistikte darboğaz genellikle rampa değil, rampaya gelene kadar geçilen evrak ve onay adımlarıdır. Kuyruğun nerede biriktiğini bulmadan eklenen her araç ve raf, bekleyen araç sayısını artırır.',
-         r: 'Her hafta tekrarlayan gecikme ve hata farklı vardiyalarda farklı isimlerle görünür; kökü çoğu zaman tek bir tanımsız süreçtir. Kök bulunmadan personel ya da araç değişimi sonucu değiştirmez.' },
-    d: { w: 'Distribütörlükte israfın iki büyük adresi: satmayan stok ve geç gelen tahsilat. İkisi de kâr değil nakit yer; röntgen ürün ve müşteri bazında hangisinin ne kadar nakit bağladığını gösterir.',
-         b: 'Dağıtımda darboğaz siparişten sevke geçen günlerde saklanır: çoğu zaman toplama ya da onay-fatura adımı. Bulunmadan büyütülen depo ve filo, bekleyen siparişi bekleyen kamyona çevirir.',
-         r: 'Aynı müşteri sorunu geç teslimat, yanlış ürün ve fatura hatası olarak üç ayrı yerde görünür; genellikle tek bir kökü vardır: tanımsız bir sipariş-onay süreci. Kök bulunmadan müşteri kaybı devam eder.' },
-    e: { w: 'E-ticarette israf iade, yanlış gönderim ve kârsız reklamda yaşar. Sipariş başına kârı bilmeden yapılan her kampanya, ciroyu büyütürken kârı eritebilir; röntgen ürün bazında hangi siparişin para kaybettirdiğini gösterir.',
-         b: 'E-ticarette darboğaz çoğu zaman paketleme masası ya da kargo alım saatidir. Bulunmadan eklenen depo ve personel, aynı saatte aynı kuyruğu üretir.',
-         r: 'Tekrarlayan iade ve şikâyet farklı ürünlerde görünse de kökü genellikle tektir: ürün sayfası, stok kararı ya da yanıt süreci. Kök bulunmadan her kampanya aynı iadeyi yeniden satın alır.' },
-    c: { w: 'İnşaatta israf yeniden yapılan işte, fiyatlandırılmayan değişikliklerde ve bekleyen hakedişte birikir. Proje bazında hesaplanmadığında kâr ancak iş bitince görünür; röntgen bunu iş sürerken dolara çevirir.',
-         b: 'Şantiyede darboğaz nadiren ekip sayısıdır; çoğu zaman malzeme onayı ya da taşeron koordinasyonudur. Bulunmadan eklenen ekip, bekleyen ekip sayısını artırır.',
-         r: 'Her projede tekrarlayan sorun farklı şantiyelerde farklı görünür ama kökü tektir: eksik proje bilgisi, sözlü planlama ya da tanımsız değişiklik süreci. Kök bulunmadan sonraki proje de aynı sapmayı yaşar.' },
-    k: { w: 'Restoranda israf gıda maliyetinde, fazla hazırlıkta ve tutarsız porsiyonda gizlenir; menü kalemi bazında kârlılık bilinmeden ciro büyür, kâr büyümez. Röntgen kalem bazında hangi tabağın para kaybettirdiğini gösterir.',
-         b: 'Servis darboğazı genellikle mutfak çıkışı ya da oturtma anıdır; personel eklemek kuyruğu değil bekleyen personeli artırır. Önce hangi dakikada neyin tıkandığını bulmak gerekir.',
-         r: 'Yorumlardaki aynı şikâyet farklı vardiyalarda farklı görünür; kökü genellikle tanımsız bir standart ya da eğitim sürecidir. Kök bulunmadan personel değişimi şikâyeti değiştirmez.' },
-    t: { w: 'Klinikte israf son kullanma imhasında, gelmeyen randevuda ve reddedilen faturada birikir. Röntgen bunların her birini yıllık dolara çevirir; çoğu zaman en büyük kalem randevu boşluğudur.',
-         b: 'Klinikte darboğaz hekim değil, hekimden önceki ve sonraki adımlardır: kayıt, tetkik sonucu, çıkış. Bulunmadan eklenen hekim, bekleme odasını büyütür.',
-         r: 'Aynı hasta şikâyeti bekleme, bilgilendirme ve fatura olarak üç yerde görünür; kökü genellikle tek bir tanımsız akıştır. Kök bulunmadan her düzeltme başka bir masaya taşınır.' },
-    h: { w: 'Hizmet işinde israf faturalanmayan saatte ve kapsam dışı yapılan işte yaşar; proje bazında kârlılık bilinmeden hangi müşterinin para kaybettirdiği görülmez. Röntgen saat bazında bunu gösterir.',
-         b: 'Hizmette darboğaz çoğu zaman bir kişi ya da müşteri onayıdır. Bulunmadan alınan eleman, o kişinin ya da onayın önündeki kuyruğu değiştirmez.',
-         r: 'Tekrarlayan revizyon ve şikâyet farklı projelerde farklı görünür; kökü genellikle iş tanımının baştan yanlış kurulmasıdır. Kök bulunmadan her proje aynı revizyon döngüsüne girer.' },
-    p: { w: 'Perakendede israf tükenen en çok satanda, satmayan stokta ve sayım farkında saklanır. Ürün bazında marj bilinmeden hangi rafın para kaybettirdiği görülmez; röntgen bunu mağaza ve ürün bazında gösterir.',
-         b: 'Mağazada darboğaz yoğun saatteki kasa ve reyondur; saatlik veriyle planlanmayan vardiya, boş saatte fazla, dolu saatte eksik personel üretir. Önce hangi saatte neyin tıkandığını bulmak gerekir.',
-         r: 'Mağazalar arası fark ve her hafta tekrarlayan sorun farklı görünse de kökü genellikle tektir: tanımsız ikmal ya da vardiya süreci. Kök bulunmadan müdür değişimi sonucu değiştirmez.' },
-    s: { w: 'SaaS\'ta israf destek maliyetinde, uzun onboarding\'de ve erken churn\'de yaşar; müşteri başına destek maliyeti bilinmeden hangi segmentin para kaybettirdiği görülmez. Röntgen bunu gösterir.',
-         b: 'Ürün ekibinde darboğaz çoğu zaman QA, öncelik kararı ya da tek bir geliştiricidir. Bulunmadan büyütülen ekip, aynı kuyruğa daha çok iş ekler.',
-         r: 'Tekrarlayan olay ve aynı 5 destek konusu farklı müşterilerde farklı görünür; kökü genellikle postmortem yapılmayan tek bir hatadır. Kök bulunmadan her sürüm aynı olayı geri getirir.' },
-    g: { w: 'İsraf gider tablosunda kendi adıyla görünmez; rutinleşmiş maliyet olarak görünür. Röntgen bunları kalem kalem dolara çevirir.',
-         b: 'Sistemin hızını en yavaş halka belirler; darboğaz bulunmadan yapılan yatırım çıktıyı değil kuyruğu büyütür.',
-         r: 'Tekrarlayan sorun yanlış katmanda çözülmüş sorundur; kök bulunmadan her çözüm geçicidir.' }
-  },
-  en: {
-    m: { w: 'In a plant, waste hides in three places: overtime that became routine, inventory called "safety stock", and rework nobody counts. The X-ray converts each into dollars by station; the biggest line is usually the one you can\'t see, not the one you suspect.',
-         b: 'The bottleneck in a plant is rarely the most expensive machine; it\'s usually the station with the longest queue in front of it, or an approval step. Every machine bought before finding it only moves the queue.',
-         r: 'The same breakdown, defect or delay may look different, but in a plant it usually traces to one root: an undefined standard, an unmeasured parameter or a missing handover. Until the root is found, every fix is temporary.' },
-    l: { w: 'In a warehouse, waste lives in half-empty trucks, pallets touched twice and dead stock taking up space. The X-ray converts these into cost per order; fill rate alone can be worth a truck a year.',
-         b: 'In logistics the bottleneck is usually not the dock but the paperwork and approvals before it. Every truck and rack added before finding the queue only adds waiting trucks.',
-         r: 'The delay and error that recur every week show up under different names in different shifts; the root is usually one undefined process. Changing staff or vehicles won\'t change the outcome until it\'s found.' },
-    d: { w: 'In distribution, waste has two big addresses: stock that doesn\'t sell and collections that come late. Both eat cash, not just profit; the X-ray shows which products and customers tie up how much.',
-         b: 'In distribution the bottleneck hides in the days between order and shipment, usually picking or the approval-invoicing step. Warehouse and fleet added before finding it turn waiting orders into waiting trucks.',
-         r: 'The same customer problem appears as late delivery, wrong item and invoice error in three places; it usually has one root: an undefined order-approval process. Customer loss continues until it\'s found.' },
-    e: { w: 'In e-commerce, waste lives in returns, wrong shipments and unprofitable ads. Every campaign run without knowing profit per order can grow revenue while melting profit; the X-ray shows which orders lose money, per product.',
-         b: 'In e-commerce the bottleneck is usually the packing table or the carrier cutoff. Warehouse and staff added before finding it produce the same queue at the same hour.',
-         r: 'Recurring returns and complaints look different across products but usually share one root: the product page, the stock decision or the response process. Until it\'s found, every campaign buys the same return again.' },
-    c: { w: 'In construction, waste accumulates in rework, unpriced changes and waiting progress payments. Without per-project accounting, profit only appears when the job is done; the X-ray converts it into dollars while the job is running.',
-         b: 'On site the bottleneck is rarely crew size; it\'s usually material approval or subcontractor coordination. Crews added before finding it only add waiting crews.',
-         r: 'The problem that recurs on every project looks different on each site but has one root: missing design information, verbal planning or an undefined change process. The next project repeats the overrun until it\'s found.' },
-    k: { w: 'In a restaurant, waste hides in food cost, over-prep and inconsistent portions; without per-item profitability, revenue grows and profit doesn\'t. The X-ray shows which plate loses money.',
-         b: 'The service bottleneck is usually the kitchen pass or the seating moment; adding staff adds waiting staff, not throughput. First find which minute jams what.',
-         r: 'The same complaint in reviews looks different across shifts; its root is usually an undefined standard or training process. Changing staff won\'t change the complaint until it\'s found.' },
-    t: { w: 'In a clinic, waste accumulates in expiry write-offs, no-shows and rejected claims. The X-ray converts each into annual dollars; the biggest line is often the empty appointment slot.',
-         b: 'In a clinic the bottleneck is not the physician but the steps before and after: registration, results, discharge. Physicians added before finding it enlarge the waiting room.',
-         r: 'The same patient complaint appears as waiting, information and billing in three places; the root is usually one undefined flow. Every fix moves to another desk until it\'s found.' },
-    h: { w: 'In a service business, waste lives in unbillable hours and out-of-scope work; without per-project profitability you can\'t see which client loses money. The X-ray shows it by the hour.',
-         b: 'In services the bottleneck is usually one person or the client\'s approval. A hire made before finding it doesn\'t change the queue in front of that person or that approval.',
-         r: 'Recurring revisions and complaints look different across projects; the root is usually a brief set up wrong from the start. Every project enters the same revision loop until it\'s found.' },
-    p: { w: 'In retail, waste hides in the best-seller that runs out, stock that doesn\'t sell and count discrepancies. Without per-product margin you can\'t see which shelf loses money; the X-ray shows it by store and product.',
-         b: 'In a store the bottleneck is the checkout and the floor at peak; shifts not planned on hourly data produce too many staff off-peak and too few at peak. First find which hour jams what.',
-         r: 'The gap between stores and the weekly recurring problem look different but usually share one root: an undefined replenishment or shift process. Changing managers won\'t change the outcome until it\'s found.' },
-    s: { w: 'In SaaS, waste lives in support cost, long onboarding and early churn; without support cost per customer you can\'t see which segment loses money. The X-ray shows it.',
-         b: 'In a product team the bottleneck is usually QA, the prioritization decision or a single developer. A team grown before finding it adds more work to the same queue.',
-         r: 'Recurring incidents and the same five support topics look different across customers; the root is usually one bug never given a postmortem. Every release brings the same incident back until it\'s found.' },
-    g: { w: 'Waste never appears under its own name in the P&L; it appears as routine cost. The X-ray converts it into dollars line by line.',
-         b: 'The slowest link sets the system\'s speed; investment made before finding the bottleneck grows the queue, not the output.',
-         r: 'A recurring problem is a problem solved at the wrong layer; every fix is temporary until the root is found.' }
-  },
-  es: {
-    m: { w: 'En planta, el desperdicio se esconde en tres lugares: horas extra convertidas en rutina, inventario llamado "de seguridad" y retrabajo que nadie cuenta. La radiografía convierte cada uno en dólares por estación; la mayor partida suele ser la que no se ve, no la que se sospecha.',
-         b: 'El cuello de botella en planta rara vez es la máquina más cara; suele ser la estación con la cola más larga delante, o un paso de aprobación. Cada máquina comprada antes de encontrarlo solo mueve la cola.',
-         r: 'La misma avería, defecto o retraso puede parecer distinto, pero en planta suele llevar a una sola raíz: un estándar no definido, un parámetro no medido o un relevo que falta. Hasta encontrarla, toda solución es temporal.' },
-    l: { w: 'En almacén, el desperdicio vive en camiones medio vacíos, pallets tocados dos veces y stock muerto que ocupa espacio. La radiografía lo convierte en coste por pedido; la ocupación sola puede valer un camión al año.',
-         b: 'En logística el cuello de botella no suele ser el muelle, sino los documentos y aprobaciones previos. Cada camión y estantería añadidos antes de encontrar la cola solo añaden camiones en espera.',
-         r: 'El retraso y el error que se repiten cada semana aparecen con distintos nombres en distintos turnos; la raíz suele ser un único proceso no definido. Cambiar personal o vehículos no cambia el resultado hasta encontrarla.' },
-    d: { w: 'En distribución, el desperdicio tiene dos grandes direcciones: el stock que no se vende y el cobro que llega tarde. Ambos se comen la caja, no solo la ganancia; la radiografía muestra qué productos y clientes inmovilizan cuánto.',
-         b: 'En distribución el cuello de botella se esconde en los días entre pedido y despacho, normalmente el picking o el paso de aprobación-facturación. Almacén y flota añadidos antes de encontrarlo convierten pedidos en espera en camiones en espera.',
-         r: 'El mismo problema de cliente aparece como entrega tardía, artículo equivocado y error de factura en tres lugares; suele tener una raíz: un proceso de aprobación de pedidos no definido. La pérdida de clientes sigue hasta encontrarla.' },
-    e: { w: 'En e-commerce, el desperdicio vive en devoluciones, envíos equivocados y publicidad sin ganancia. Cada campaña hecha sin conocer la ganancia por pedido puede subir ingresos y derretir la ganancia; la radiografía muestra qué pedidos pierden dinero, por producto.',
-         b: 'En e-commerce el cuello de botella suele ser la mesa de empaque o la hora de recogida del transportista. Almacén y personal añadidos antes de encontrarlo producen la misma cola a la misma hora.',
-         r: 'Las devoluciones y quejas recurrentes parecen distintas entre productos pero suelen compartir una raíz: la ficha de producto, la decisión de stock o el proceso de respuesta. Hasta encontrarla, cada campaña vuelve a comprar la misma devolución.' },
-    c: { w: 'En construcción, el desperdicio se acumula en retrabajo, cambios no valorados y certificaciones en espera. Sin contabilidad por proyecto la ganancia solo aparece al terminar; la radiografía la convierte en dólares con la obra en marcha.',
-         b: 'En obra el cuello de botella rara vez es el número de cuadrillas; suele ser la aprobación de material o la coordinación de subcontratistas. Cuadrillas añadidas antes de encontrarlo solo añaden cuadrillas en espera.',
-         r: 'El problema que se repite en cada proyecto parece distinto en cada obra pero tiene una raíz: información de proyecto incompleta, planificación verbal o un proceso de cambios no definido. El siguiente proyecto repite la desviación hasta encontrarla.' },
-    k: { w: 'En un restaurante, el desperdicio se esconde en el coste de alimentos, el exceso de preparación y las porciones inconsistentes; sin rentabilidad por plato, los ingresos crecen y la ganancia no. La radiografía muestra qué plato pierde dinero.',
-         b: 'El cuello de botella del servicio suele ser la salida de cocina o el momento de sentar; añadir personal añade personal en espera, no capacidad. Primero hay que encontrar qué minuto atasca qué.',
-         r: 'La misma queja en las reseñas parece distinta entre turnos; su raíz suele ser un estándar o un proceso de formación no definido. Cambiar personal no cambia la queja hasta encontrarla.' },
-    t: { w: 'En una clínica, el desperdicio se acumula en descartes por caducidad, inasistencias y facturas rechazadas. La radiografía convierte cada uno en dólares anuales; la mayor partida suele ser la cita vacía.',
-         b: 'En una clínica el cuello de botella no es el médico, sino los pasos antes y después: registro, resultados, alta. Médicos añadidos antes de encontrarlo agrandan la sala de espera.',
-         r: 'La misma queja de pacientes aparece como espera, información y facturación en tres lugares; la raíz suele ser un único flujo no definido. Cada corrección pasa a otra mesa hasta encontrarla.' },
-    h: { w: 'En un negocio de servicios, el desperdicio vive en horas no facturables y trabajo fuera de alcance; sin rentabilidad por proyecto no se ve qué cliente pierde dinero. La radiografía lo muestra por hora.',
-         b: 'En servicios el cuello de botella suele ser una persona o la aprobación del cliente. Una contratación hecha antes de encontrarlo no cambia la cola delante de esa persona o esa aprobación.',
-         r: 'Las revisiones y quejas recurrentes parecen distintas entre proyectos; la raíz suele ser un brief mal planteado desde el inicio. Cada proyecto entra en el mismo ciclo de revisiones hasta encontrarla.' },
-    p: { w: 'En retail, el desperdicio se esconde en el más vendido que se agota, el stock que no se vende y las diferencias de inventario. Sin margen por producto no se ve qué estante pierde dinero; la radiografía lo muestra por tienda y producto.',
-         b: 'En tienda el cuello de botella es la caja y el piso en hora punta; los turnos no planificados con datos por hora producen exceso de personal fuera de punta y falta en punta. Primero hay que encontrar qué hora atasca qué.',
-         r: 'La diferencia entre tiendas y el problema semanal recurrente parecen distintos pero suelen compartir una raíz: un proceso de reposición o de turnos no definido. Cambiar gerentes no cambia el resultado hasta encontrarla.' },
-    s: { w: 'En SaaS, el desperdicio vive en el coste de soporte, el onboarding largo y el churn temprano; sin coste de soporte por cliente no se ve qué segmento pierde dinero. La radiografía lo muestra.',
-         b: 'En un equipo de producto el cuello de botella suele ser QA, la decisión de prioridad o un solo desarrollador. Un equipo ampliado antes de encontrarlo añade más trabajo a la misma cola.',
-         r: 'Los incidentes recurrentes y los mismos cinco temas de soporte parecen distintos entre clientes; la raíz suele ser un único bug sin postmortem. Cada release trae de vuelta el mismo incidente hasta encontrarla.' },
-    g: { w: 'El desperdicio nunca aparece con su nombre en el estado de resultados; aparece como coste rutinario. La radiografía lo convierte en dólares línea por línea.',
-         b: 'El eslabón más lento marca la velocidad del sistema; la inversión hecha antes de encontrar el cuello de botella agranda la cola, no la producción.',
-         r: 'Un problema recurrente es un problema resuelto en la capa equivocada; toda solución es temporal hasta encontrar la raíz.' }
-  }
-};
-
-/* ===================== KADEMEDE NE VAR + NASIL İLERLER ===================== */
-var DELIV = {
-  tr: { xray: ['7+1 israf kategorisinin operasyonunuzda nerede oluştuğu ve yıllık kaça mal olduğu, dolar cinsinden','Önce hangisine dokunmanız gerektiği: etkiye göre sıralı, ilk üçü işaretli','Her rakamın kaynağı ve varsayımı yazılı'],
-        'xray-toc': ['Hızlı Röntgen\'in tamamı','Sipariş girişinden teslimata akış haritası ve sistemi tutan tek kısıt','O kısıtta kaybettiğiniz çıktının yıllık karşılığı','Kısıtı büyütmeden ondan daha fazla iş geçirmenin ilk adımları'],
-        full: ['Röntgen + Darboğaz\'ın tamamı','Seçilen bir problem için kanıt zinciriyle kök neden','Bu kökün başka hangi belirtileri ürettiği','90 günlük aksiyon planı: ne, kim, hangi hafta, neyle ölçülür'],
-        transformation: ['Departman bazında israf, darboğaz ve kök neden taraması','12 aylık, sıralı yol haritası','Kapsam yazılı olarak birlikte belirlenir; fiyat kapsamdan sonra'] ,
-        steps: ['Yazılı sohbet, ~15 dakika. Operasyonunuzu kendi cümlelerinizle anlatırsınız.','Kapsam yazılı olarak netleşir; ödeme ondan sonra alınır.','İnsan uzman doğrular, yapay zeka tarar, 7 iş gününde imzalı rapor.'],
-        delivH: 'Raporda ne var', stepsH: 'Nasıl ilerler', readH: 'Sektörünüzde bu ne anlama geliyor', profH: 'Profiliniz', scoreH: 'Üç teşhisin sinyal gücü', print: 'Yazdır / PDF', tags: { w:'İSRAF', b:'DARBOĞAZ', r:'KÖK NEDEN' } },
-  en: { xray: ['Where each of the 7+1 waste categories occurs in your operation and what it costs per year, in dollars','What to touch first: ranked by impact, top three flagged','The source and assumption behind every number, in writing'],
-        'xray-toc': ['Everything in the Quick X-Ray','A flow map from order entry to delivery and the single constraint holding the system','The annual value of the output you lose at that constraint','First moves to get more through the constraint before spending on it'],
-        full: ['Everything in X-Ray + Bottleneck','The root cause of one chosen problem, with the evidence chain','Which other symptoms that root produces','A 90-day action plan: what, who, which week, measured by what'],
-        transformation: ['Waste, bottleneck and root-cause scan by department','A sequenced 12-month roadmap','Scope defined together in writing; price follows scope'],
-        steps: ['Written conversation, ~15 minutes. You describe your operation in your own words.','Scope is confirmed in writing; payment is taken only after that.','A human expert validates, AI scans, signed report in 7 business days.'],
-        delivH: 'What\'s in the report', stepsH: 'How it proceeds', readH: 'What this means in your sector', profH: 'Your profile', scoreH: 'Signal strength across the three diagnostics', print: 'Print / PDF', tags: { w:'WASTE', b:'BOTTLENECK', r:'ROOT CAUSE' } },
-  es: { xray: ['Dónde ocurre cada una de las 7+1 categorías de desperdicio en su operación y cuánto cuesta al año, en dólares','Qué tocar primero: ordenado por impacto, los tres principales marcados','La fuente y el supuesto de cada cifra, por escrito'],
-        'xray-toc': ['Todo lo de la Radiografía Rápida','Un mapa del flujo desde el pedido hasta la entrega y la única restricción que sostiene el sistema','El valor anual de la producción que pierde en esa restricción','Primeros pasos para pasar más trabajo por la restricción antes de invertir en ella'],
-        full: ['Todo lo de Radiografía + Cuello de Botella','La causa raíz de un problema elegido, con la cadena de evidencia','Qué otros síntomas produce esa raíz','Un plan de acción de 90 días: qué, quién, qué semana, medido con qué'],
-        transformation: ['Escaneo de desperdicio, cuello de botella y causa raíz por departamento','Una hoja de ruta secuenciada de 12 meses','Alcance definido en conjunto por escrito; el precio sigue al alcance'],
-        steps: ['Conversación escrita, ~15 minutos. Describe su operación con sus propias palabras.','El alcance se confirma por escrito; el pago se cobra solo después.','Un experto humano valida, la IA escanea, informe firmado en 7 días hábiles.'],
-        delivH: 'Qué contiene el informe', stepsH: 'Cómo continúa', readH: 'Qué significa esto en su sector', profH: 'Su perfil', scoreH: 'Fuerza de la señal en los tres diagnósticos', print: 'Imprimir / PDF', tags: { w:'DESPERDICIO', b:'CUELLO DE BOTELLA', r:'CAUSA RAÍZ' } }
-};
-
-for (var _k in Q2) Q[_k] = Q2[_k];
-
-/* Sektör tanımı: acı sorusu, ortak sorular, puan liderine göre ek sondaj */
-var SECT = [
-  { code:'m', pain:'m_pain', shared:['m_s1','m_s2'], probe:{ w:['m_i2','m_q2c'], b:['m_b2d','m_b2a'], r:['m_r2','m_q2b'] } },
-  { code:'l', pain:'l_pain', shared:['l_s1','l_s2'], probe:{ w:['l_i2','l_f1'],  b:['l_b2c','l_g1'],  r:['l_r2','l_q3'] } },
-  { code:'d', pain:'d_pain', shared:['d_s1','d_s2'], probe:{ w:['d_i1','d_c1'],  b:['d_b1','d_b2'],   r:['d_r2','d_c2'] } },
-  { code:'e', pain:'e_pain', shared:['e_s1','e_s2'], probe:{ w:['e_i2','e_m1'],  b:['e_b1','e_b2'],   r:['e_r2','e_q2'] } },
-  { code:'p', pain:'p_pain', shared:['p_s1','p_s2'], probe:{ w:['p_i2','p_q1'],  b:['p_b1','p_b2'],   r:['p_r2','p_r1'] } },
-  { code:'h', pain:'h_pain', shared:['h_s1','h_s2'], probe:{ w:['h_u1','h_u2'],  b:['h_b2b','h_b2c'], r:['h_r2','h_q1'] } },
-  { code:'c', pain:'c_pain', shared:['c_s1','c_s2'], probe:{ w:['c_q3','c_c1'],  b:['c_b2','c_b3'],   r:['c_r2','c_q2'] } },
-  { code:'k', pain:'k_pain', shared:['k_s1','k_s2'], probe:{ w:['k_f1','k_f2'],  b:['k_b2','k_b1'],   r:['k_r2','k_p2'] } },
-  { code:'t', pain:'t_pain', shared:['t_s1','t_s2'], probe:{ w:['t_i2','t_c2'],  b:['t_b3','t_b2'],   r:['t_r2','t_c1'] } },
-  { code:'s', pain:'s_pain', shared:['s_s1','s_s2'], probe:{ w:['s_o1','s_g1'],  b:['s_d1','s_b2'],   r:['s_r2','s_c1'] } },
-  { code:'g', pain:'g_pain', shared:['g_s1','g_s2'], probe:{ w:['g_w1','g_w2'],  b:['g_b1','g_b2'],   r:['g_r1','g_r2'] } }
-];
-/* N[lang][id] = [question, hint, [option labels], [signal texts]] — aligned with the TR tree */
 var N = { en: {}, es: {} };
 
 N.en = {
-  sector: ['Which sector are you in?', 'The wording and content of the questions depend on this.', ['Manufacturing','Logistics / Warehousing','Distribution / Wholesale','E-commerce','Retail','Services / Agency','Construction / Contracting','Restaurant / Hospitality','Healthcare / Clinic','SaaS / Digital','Other'], []],
+  sector: ['Which sector are you in?', 'The wording and content of the questions depend on this.', ['Manufacturing','Logistics / Warehousing','Distribution / Wholesale','E-commerce','Retail','Services / Agency','Construction / Contracting','Restaurant / Hospitality','Healthcare / Clinic','SaaS / Digital','Education / Consulting','Other'], []],
   size: ['How many employees do you have?', '', ['1–10','11–50','51–250','250+'], []],
   revenue: ['Which band is your annual revenue in?', 'Our guarantee ($15,000 in annual leakage) isn\'t meaningful at every scale; we ask so we can route you honestly.', ['Under $500K','$500K – $2M','$2M – $10M','Over $10M'], []],
   tried: ['What have you already tried for this?', '', ['Nothing','Worked on it internally','Hired a consultant','Installed software / ERP'], ['no intervention so far','internal attempt didn\'t resolve it','consultant engagement didn\'t resolve it','software installed, problem remained']],
@@ -858,7 +851,7 @@ N.en = {
 };
 
 N.es = {
-  sector: ['¿En qué sector está?', 'El lenguaje y el contenido de las preguntas dependen de esto.', ['Manufactura','Logística / Almacén','Distribución / Mayorista','E-commerce','Retail','Servicios / Agencia','Construcción / Contratación','Restaurante / Hostelería','Salud / Clínica','SaaS / Digital','Otro'], []],
+  sector: ['¿En qué sector está?', 'El lenguaje y el contenido de las preguntas dependen de esto.', ['Manufactura','Logística / Almacén','Distribución / Mayorista','E-commerce','Retail','Servicios / Agencia','Construcción / Contratación','Restaurante / Hostelería','Salud / Clínica','SaaS / Digital','Educación / Consultoría','Otro'], []],
   size: ['¿Cuántos empleados tiene?', '', ['1–10','11–50','51–250','250+'], []],
   revenue: ['¿En qué rango está su facturación anual?', 'Nuestra garantía ($15.000 de fuga anual) no tiene sentido en toda escala; lo preguntamos para orientarle con honestidad.', ['Menos de $500K','$500K – $2M','$2M – $10M','Más de $10M'], []],
   tried: ['¿Qué ha intentado ya para esto?', '', ['Nada','Lo trabajamos internamente','Contratamos un consultor','Instalamos software / ERP'], ['sin intervención previa','el intento interno no lo resolvió','la consultoría no lo resolvió','software instalado, problema persiste']],
@@ -969,27 +962,6 @@ N.es = {
   g_s1: ['¿Invirtió en capacidad en los últimos 12 meses? ¿Qué pasó?', '', ['No invertimos','Sí; mejoró','Sí; sin cambio','Sí; empeoró'], ['','','capacidad arriba, sin cambio','capacidad arriba, empeoró']],
   g_s2: ['¿Qué parte de su mañana es apagar incendios?', '', ['Menos del 10%','10–30%','Más del 30%'], ['','','más de un tercio de la mañana apagando incendios']]
 };
-
-
-var ICONS = [
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 21V9l5 3V9l5 3V9l5 3v9H3z"/><path d="M7 21v-4h3v4M14 21v-4h3v4M6 9V4h3v5"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M2 7h11v9H2zM13 10h5l3 3v3h-8z"/><circle cx="6" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 12h8v9H3zM13 12h8v9h-8zM8 3h8v9H8z"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 4h3l2.5 11h10L21 8H7"/><circle cx="10" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 10l1.5-5h15L21 10M3 10a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0M5 10v10h14V10M10 20v-5h4v5"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 8h18v12H3zM9 8V5h6v3M3 13h18"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 21h18M5 21V11l7-4 7 4v10M9 21v-6h6v6"/><path d="M12 7V3l6 2"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 15h16l-1 5H5zM4 15a8 8 0 0116 0"/><path d="M12 7V4"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 8h5V3h6v5h5v6h-5v5H9v-5H4z"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 18a4 4 0 01-.6-7.95A6 6 0 0118 9a4.5 4.5 0 01-.5 9H7z"/><path d="M9 14l2 2-2 2M13 18h3"/></svg>',
- '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>'
-];
-
-for (var _k2 in N2.en) N.en[_k2] = N2.en[_k2];
-for (var _k3 in N2.es) N.es[_k3] = N2.es[_k3];
-
-/* ===================== ARAYÜZ METİNLERİ ===================== */
-var HUMAN_NOTE = false; /* false → "sonucu e-postama gönder" moduna döner (insan emeği yok) */
 var UI = {
   tr: { title:'GembaX — Ücretsiz Ön Tarama', meta:'ÜCRETSİZ ÖN TARAMA · ~3 DK', iLayer:'Ücretsiz Ön Tarama', iTitle:'On soru. <em>Hangi teşhis</em> sizin için, neden.',
     iHint:'Sorular sektörünüze ve cevaplarınıza göre dallanır. Sonunda hangi teşhisle başlamanız gerektiğini, hangi sinyallere dayanarak söylediğimizi ve fiyatını görürsünüz.',
@@ -1005,9 +977,9 @@ var UI = {
     dont:{ w:'Kaçağın nerede olduğunu görmeden genel maliyet kesintisine gitmeyin; çoğu zaman kesilen şey israf değil, değer olur.',
            b:'Kısıtı bulmadan yeni makine, vardiya ya da eleman almayın. Darboğazın dışına giden yatırım çıktıyı artırmaz, yığını büyütür.',
            r:'Aynı sorunu üçüncü kez aynı yöntemle çözmeyin. İki denemeyi boşa çıkaran şey çözümün kendisi değil, çözdüğü katmandı.' },
-    tiers:{ xray:['Hızlı Röntgen','İsraf Röntgeni: 7+1 kategoride nerede, yıllık kaça mal oluyor, önce neye dokunulacak.','$500','TEK SEFERLİK · 7 İŞ GÜNÜ'],
-            'xray-toc':['Röntgen + Darboğaz','İsraf Röntgeni + Kısıtlar Teorisi ile darboğaz tespiti ve kaybedilen çıktının hesabı.','$900','TEK SEFERLİK · 7 İŞ GÜNÜ'],
-            full:['Tam Teşhis','İsraf Röntgeni + Darboğaz (TOC) + bir problem için kök neden analizi ve 90 günlük plan.','$1.500','TEK SEFERLİK · 7 İŞ GÜNÜ'],
+    tiers:{ xray:['Hızlı Röntgen','İsraf Röntgeni: 7+1 kategoride nerede, yıllık kaça mal oluyor, önce neye dokunulacak.','$500','TEK SEFERLİK · VERİ SONRASI 5 İŞ GÜNÜ'],
+            'xray-toc':['Röntgen + Darboğaz','İsraf Röntgeni + Kısıtlar Teorisi ile darboğaz tespiti ve kaybedilen çıktının hesabı.','$900','TEK SEFERLİK · VERİ SONRASI 5 İŞ GÜNÜ'],
+            full:['Tam Teşhis','İsraf Röntgeni + Darboğaz (TOC) + bir problem için kök neden analizi ve 90 günlük plan.','$1.500','TEK SEFERLİK · VERİ SONRASI 5 İŞ GÜNÜ'],
             transformation:['Dönüşüm','Şirket geneli teşhis + 12 aylık yol haritası. Kapsam yazılı olarak birlikte belirlenir.','Teklif','KAPSAMA GÖRE'] },
     rLabel:'Cevaplarınıza göre · Sonuç', recTag:'ÖNERİLEN KADEME', recNote:'Ön tarama yön gösterir; kesin kapsam ve fiyat, insan uzman cevaplarınızı okuduktan sonra yazılı olarak teyit edilir.', startWith:' ile başlayın.', alsoStrong:' sinyali de güçlü.', sigH:'Cevaplarınızdaki sinyaller', dontH:'Teşhisten önce şunu yapmayın',
     honest:'Bu bir ön yönlendirmedir; "size özel" değil, cevaplarınıza göredir. Dolar rakamı, insan uzman doğrulaması olmadan verilmez. Ödeme, kapsam yazılı olarak netleşene kadar alınmaz. $15.000 yıllık kaçak gösteremezsek rapor ücretsizdir.',
@@ -1035,9 +1007,9 @@ var UI = {
     dont:{ w:'Don\'t cut costs across the board before you see where the leak is; what gets cut is usually value, not waste.',
            b:'Don\'t buy a new machine, add a shift or hire before you find the constraint. Investment outside the bottleneck doesn\'t raise output; it grows the pile.',
            r:'Don\'t solve the same problem a third time with the same method. What wasted the first two attempts wasn\'t the fix; it was the layer it fixed.' },
-    tiers:{ xray:['Quick X-Ray','Waste X-Ray: where it occurs across 7+1 categories, what it costs per year, what to touch first.','$500','ONE-TIME · 7 BUSINESS DAYS'],
-            'xray-toc':['X-Ray + Bottleneck','Waste X-Ray plus bottleneck detection with the Theory of Constraints and the cost of lost output.','$900','ONE-TIME · 7 BUSINESS DAYS'],
-            full:['Full Diagnosis','Waste X-Ray + Bottleneck (TOC) + root cause analysis for one problem and a 90-day plan.','$1,500','ONE-TIME · 7 BUSINESS DAYS'],
+    tiers:{ xray:['Quick X-Ray','Waste X-Ray: where it occurs across 7+1 categories, what it costs per year, what to touch first.','$500','ONE-TIME · 5 BUSINESS DAYS AFTER DATA'],
+            'xray-toc':['X-Ray + Bottleneck','Waste X-Ray plus bottleneck detection with the Theory of Constraints and the cost of lost output.','$900','ONE-TIME · 5 BUSINESS DAYS AFTER DATA'],
+            full:['Full Diagnosis','Waste X-Ray + Bottleneck (TOC) + root cause analysis for one problem and a 90-day plan.','$1,500','ONE-TIME · 5 BUSINESS DAYS AFTER DATA'],
             transformation:['Transformation','Company-wide diagnosis + 12-month roadmap. Scope defined together, in writing.','Quote','BY SCOPE'] },
     rLabel:'Based on your answers · Result', recTag:'RECOMMENDED TIER', recNote:'The pre-scan points the way; the final scope and price are confirmed in writing after a human expert reads your answers.', startWith:': start here.', alsoStrong:' The signal is also strong for ', sigH:'The signals behind this', dontH:'Before the diagnosis, don\'t do this',
     honest:'This is a preliminary routing; not "tailored to you", but based on your answers. No dollar figure is given without human expert validation. No payment is taken until the scope is confirmed in writing. If we can\'t demonstrate $15,000 in annual leakage, the report is free.',
@@ -1065,9 +1037,9 @@ var UI = {
     dont:{ w:'No recorte costes de forma general antes de ver dónde está la fuga; lo que se recorta suele ser valor, no desperdicio.',
            b:'No compre una máquina, añada un turno ni contrate antes de encontrar la restricción. La inversión fuera del cuello de botella no aumenta la producción; agranda la pila.',
            r:'No resuelva el mismo problema por tercera vez con el mismo método. Lo que desperdició los dos primeros intentos no fue la solución, sino la capa que resolvió.' },
-    tiers:{ xray:['Radiografía Rápida','Radiografía del Desperdicio: dónde ocurre en las 7+1 categorías, cuánto cuesta al año, qué tocar primero.','$500','PAGO ÚNICO · 7 DÍAS HÁBILES'],
-            'xray-toc':['Radiografía + Cuello de Botella','Radiografía del Desperdicio más detección del cuello de botella con la Teoría de Restricciones y el coste de la producción perdida.','$900','PAGO ÚNICO · 7 DÍAS HÁBILES'],
-            full:['Diagnóstico Completo','Radiografía + Cuello de Botella (TOC) + análisis de causa raíz para un problema y plan de 90 días.','$1.500','PAGO ÚNICO · 7 DÍAS HÁBILES'],
+    tiers:{ xray:['Radiografía Rápida','Radiografía del Desperdicio: dónde ocurre en las 7+1 categorías, cuánto cuesta al año, qué tocar primero.','$500','PAGO ÚNICO · 5 DÍAS HÁBILES TRAS LOS DATOS'],
+            'xray-toc':['Radiografía + Cuello de Botella','Radiografía del Desperdicio más detección del cuello de botella con la Teoría de Restricciones y el coste de la producción perdida.','$900','PAGO ÚNICO · 5 DÍAS HÁBILES TRAS LOS DATOS'],
+            full:['Diagnóstico Completo','Radiografía + Cuello de Botella (TOC) + análisis de causa raíz para un problema y plan de 90 días.','$1.500','PAGO ÚNICO · 5 DÍAS HÁBILES TRAS LOS DATOS'],
             transformation:['Transformación','Diagnóstico de toda la empresa + hoja de ruta de 12 meses. Alcance definido en conjunto, por escrito.','Cotización','SEGÚN ALCANCE'] },
     rLabel:'Según sus respuestas · Resultado', recTag:'NIVEL RECOMENDADO', recNote:'El pre-escaneo orienta; el alcance y el precio definitivos se confirman por escrito después de que un experto humano lea sus respuestas.', startWith:': empiece aquí.', alsoStrong:' La señal también es fuerte para ', sigH:'Las señales detrás de esto', dontH:'Antes del diagnóstico, no haga esto',
     honest:'Esta es una orientación preliminar; no es "a su medida", se basa en sus respuestas. Ninguna cifra en dólares se da sin validación de un experto humano. No se cobra hasta confirmar el alcance por escrito. Si no podemos demostrar $15.000 de fuga anual, el informe es gratis.',
@@ -1081,243 +1053,535 @@ var UI = {
     lowP:'Por debajo de $500K de facturación no podemos ofrecer con honestidad nuestra garantía de $15.000 de fuga anual; el precio del diagnóstico sería alto respecto a lo que encontraríamos. No significa que su negocio sea pequeño; significa que nuestro producto no está diseñado para esta escala.',
     lowSig:'Señales que aun así aparecen en sus respuestas', lowNote:'Cuando la facturación supere los $500K, el resultado sigue siendo válido; puede volver a las mismas preguntas.', home:'Volver al inicio', byAnswers:'Según sus respuestas' }
 };
-var SECT_NAMES = { tr:['Üretim','Lojistik','Distribütörlük','E-ticaret','Perakende','Hizmet','İnşaat','Restoran & Konaklama','Sağlık','SaaS','Genel'], en:['Manufacturing','Logistics','Distribution','E-commerce','Retail','Services','Construction','Restaurant & Hospitality','Healthcare','SaaS','General'], es:['Manufactura','Logística','Distribución','E-commerce','Retail','Servicios','Construcción','Restaurante y Hostelería','Salud','SaaS','General'] };
+var SECT_NAMES = { tr:['Üretim','Lojistik','Distribütörlük','E-ticaret','Perakende','Hizmet','İnşaat','Restoran & Konaklama','Sağlık','SaaS','Eğitim & Danışmanlık','Genel'], en:['Manufacturing','Logistics','Distribution','E-commerce','Retail','Services','Construction','Restaurant & Hospitality','Healthcare','SaaS','Education & Consulting','General'], es:['Manufactura','Logística','Distribución','E-commerce','Retail','Servicios','Construcción','Restaurante y Hostelería','Salud','SaaS','Educación y Consultoría','General'] };
 
-/* ===================== DİL ===================== */
-var lang = 'tr';
-function detectLang(){
-  var p = new URLSearchParams(window.location.search).get('lang'); if (p && UI[p]) return p;
-  try { var s = localStorage.getItem('gembax-lang'); if (s && UI[s]) return s; } catch(e){}
-  var b = (navigator.language || 'en').slice(0,2).toLowerCase(); return UI[b] ? b : 'en';
-}
-function T(){ return UI[lang]; }
-function txt(id){ var q = Q[id], n = lang !== 'tr' && N[lang] && N[lang][id];
-  return { t: n ? n[0] : q.t, h: n ? n[1] : (q.h || ''), o: function(i){ return n ? n[2][i] : q.opts[i][0]; }, s: function(i){ return (n && n[3].length) ? n[3][i] : (q.opts[i][2] || ''); } }; }
-function setLang(l){
-  lang = l; try { localStorage.setItem('gembax-lang', l); } catch(e){}
-  document.documentElement.lang = l; document.getElementById('ttl').textContent = T().title;
-  document.getElementById('navMeta').textContent = T().meta;
-  document.querySelectorAll('#langSel button').forEach(function(b){ b.classList.toggle('on', b.dataset.l === l); });
-  document.getElementById('logoLink').href = 'index.html?lang=' + l;
-  var u = T();
-  document.getElementById('iLayer').textContent = u.iLayer; document.getElementById('iTitle').innerHTML = u.iTitle;
-  document.getElementById('iHint').textContent = u.iHint; document.getElementById('iBtn').textContent = u.iBtn;
-  document.getElementById('iFine').textContent = u.iFine; document.getElementById('iPriv').textContent = u.iPriv;
-  document.getElementById('iFacts').innerHTML = u.facts.map(function(f){ return '<span>' + f + '</span>'; }).join('');
-  document.getElementById('back').textContent = u.back; document.getElementById('next').textContent = u.next;
-  document.getElementById('autonote').textContent = u.auto; document.getElementById('kbd').textContent = u.kbd;
-  if (!document.getElementById('q').classList.contains('hidden')) render();
-}
-document.querySelectorAll('#langSel button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.l); }); });
+/* ═══════════ CONFIG ═══════════ */
+var CFG = {
+  WEBHOOK: '',              /* n8n webhook URL - boşsa gönderim localStorage + console'a düşer */
+  TOTAL: 11,
+  CHAIN: 7,
+  PRIVACY_URL: 'privacy.html'
+};
 
-/* ===================== DURUM ===================== */
-var TOTAL = 10, CHAIN = 5;
-var idx = 0, asked = ['profile'], answers = {}, score = {w:0,b:0,r:0}, signals = [], sect = null, lock = false;
+var QA = {}; Object.keys(Q).forEach(function(k){QA[k]=Q[k];}); Object.keys(Q2).forEach(function(k){QA[k]=Q2[k];});
+var lang = (function(){ try { var l = (new URLSearchParams(location.search).get('lang') || 'tr').toLowerCase(); return ['tr','en','es'].indexOf(l) > -1 ? l : 'tr'; } catch(e){ return 'tr'; } })();
+try { document.documentElement.lang = lang; } catch(e){}
+var U = UI[lang], DV = DELIV[lang];
+var TIERS = U.tiers, NAMES = U.names, WHY = U.why, DONT = U.dont;
+var TAGS = DV.tags || {w:'İSRAF', b:'DARBOĞAZ', r:'KÖK NEDEN'};
+var SNAMES = SECT_NAMES[lang];
+function TXT(id){ if (lang === 'tr') return null; return (N[lang] && N[lang][id]) || (N2[lang] && N2[lang][id]) || null; }
+function qT(id){ var x = TXT(id); return x ? x[0] : QA[id].t; }
+function qH(id){ var x = TXT(id); return x ? (x[1] || '') : (QA[id].h || ''); }
+function qO(id, i){ if (id === 'pain2') return QA.pain2.opts[i][0]; var x = TXT(id); return (x && x[2] && x[2][i] != null) ? x[2][i] : QA[id].opts[i][0]; }
+function qS(id, i){ var x = TXT(id); return (x && x[3] && x[3][i] != null) ? x[3][i] : (QA[id].opts[i][2] || ''); }
+var LXA = {
+ tr: {
+  intro1:'Merhaba, ben GembaX asistanı. İşletmenizde görünmeyen israfın, darboğazın ve tekrarlayan sorunların sinyallerini tararım.',
+  intro2:'11 kısa soru soracağım, yaklaşık 3 dakika sürer. Kayıt gerekmez; sonunda hangi teşhisle başlamanız gerektiğini ve nedenini görürsünüz.',
+  note:'Not: GembaX genel bir sohbet botu değildir; uzman bilgisi ve saha deneyimiyle kurulan yapay zekâ destekli bir teşhis iş akışıdır. Her bulguyu doktoralı uzman doğrular ve imzalar.',
+  startBtn:'Başlayalım →', startEcho:'Başlayalım',
+  acks:['Anladım.','Not ettim.','Tamam.','Peki, devam edelim.','Kaydettim.'],
+  pain2T:'Peki ikinci sırada hangisi geliyor?', pain2H:'Birinciden sonra en çok rahatsız eden.', pain2None:'Belirgin bir ikincisi yok',
+  touch:'Bir seçeneğe dokunun', undo:'← önceki cevabı değiştir', q:'Soru', done:'Tarama tamamlandı',
+  evalMsg:'Teşekkürler, tarama tamam. Cevaplarınızı değerlendiriyorum...',
+  legw:'ölçülmeyen para sızıntısı (fire, stok, mesai)', legb:'akışı tıkayan nokta (bekleme, gecikme)', legr:'çözülüp geri gelen sorunlar',
+  lead:'EN GÜÇLÜ SİNYAL',
+  recNote:'Ön tarama yön gösterir; kesin kapsam ve net fiyat, cevaplarınız doktoralı uzman analistimiz tarafından incelendikten sonra 24 saat içinde yazılı teyit edilir. Ödeme ondan önce alınmaz.',
+  gxH:'GembaX farkı',
+  gxP:'GembaX, kuruluşunuzda değer yaratan süreçleri inceler, israf sinyallerini yakalar ve sorunların kök nedenlerini analiz eder. GembaX genel bir sohbet botu değildir. Uzman bilgisi ve saha deneyimiyle kurulan yapay zekâ destekli özgün teşhis iş akışı, her vakayı üç bakış açısı, yedi analiz merceği ve geniş bir skill kütüphanesiyle inceler; her bulguyu doktoralı uzman doğrular ve imzalar. Sonuç: danışmanlık kalitesinde bir teşhis, haftalar değil günler içinde teslim edilir. <strong>Daha erişilebilir, daha etkin, daha hızlı.</strong>',
+  ctaAsk:'Bu konunun işletmenizde detaylı araştırılmasını ister misiniz? Başvurunuzu alayım; kapsamı ve net fiyatı 24 saat içinde yazılı olarak teyit edelim.',
+  applyChip:'Detaylı teşhis başvurusu →', mailChip:'Şimdi değil, sonucu e-postama gönder',
+  applyEcho:'Detaylı teşhis istiyorum', mailChipEcho:'Sonucu e-postama gönder',
+  applyIntro:'Birkaç kısa bilgi yeterli. Proje kişileri ve süreç detayları, ödeme sonrası hazırlanan soru setiyle birlikte netleşir; şimdi sormuyorum.',
+  formHint:'Başvuru · 1 dakika', phName:'Ad Soyad', phCo:'Şirket adı', phMail:'İş e-postanız', phWeb:'Web sitesi veya LinkedIn (opsiyonel)',
+  nErr:'Adınızı ve soyadınızı birlikte yazın (rakam olmadan, ör. Ayşe Yılmaz)', mErr:'E-posta adresinizi kontrol edin (ör. ad@sirketiniz.com)',
+  ndaH:'Paylaştıklarınız ticari sır muamelesi görür',
+  nda:['Bilgileriniz sadece sizin için yapılacak analiz amacıyla kullanılır.','3. taraflarla paylaşılmaz, satılmaz, ifşa edilmez.','Yazılı izniniz olmadan şirket adınız referans olarak yayınlanmaz.','Bilgiler 3 yıl saklanır; istediğiniz an silme talep edebilirsiniz.','Silme talebi 30 iş günü içinde işleme alınır. Yetkili: murat@gembax.ai'],
+  consent:'Yukarıdaki Gizlilik Taahhüdü\'nü (NDA) okudum; cevaplarımın ve iletişim bilgilerimin başvurumu değerlendirmek amacıyla işlenmesini kabul ediyorum. <a href="%P%" target="_blank">KVKK / Gizlilik politikası</a>',
+  sendApply:'Başvuruyu Gönder →', fnote:'Zorunlu: ad ve soyad, şirket, geçerli iş e-postası ve onay kutusu.', sending:'Gönderiliyor...',
+  appliedEcho:'%C% adına başvuru gönderildi',
+  confirm:'<strong>Başvurunuz alındı.</strong> Tarama cevaplarınız doktoralı uzman analistimiz tarafından incelenecek; kapsam ve net fiyat <strong>24 saat içinde</strong> %M% adresine yazılı olarak gelecek. Ödeme, kapsam yazılı netleşmeden alınmaz.',
+  afterH:'Bundan sonra ne olacak',
+  steps:['<strong>İnceleme ve teklif:</strong> Doktoralı uzman analistimiz tarama cevaplarınızı inceler; kapsam ve net fiyat 24 saat içinde yazılı gelir.','<strong>Onay ve ödeme:</strong> Yazılı onayınızla ödeme alınır; süreç başlar. Ödeme öncesi hiçbir yükümlülük yoktur.','<strong>Soru seti ve veri talebi:</strong> Ödeme sonrası, tespit edilen sinyallere göre işletmenize özel süreç soruları hazırlanır ve paylaşılır; gerekirse veri talebi iletilir (rapor, tablo, sistem çıktısı).','<strong>Proje kişileri:</strong> Bilgi alınacak kişiler birlikte belirlenir. Farklı kademelerden birden fazla kişiden bilgi almak analizi derinleştirir; bunu tercih ediyoruz.','<strong>Rapor:</strong> Veriler toplandıktan sonra 5 iş günü içinde analiz raporu ve kapsama göre eylem planı paylaşılır.'],
+  contact:'Sorunuz olursa her zaman yazabilirsiniz: murat@gembax.ai',
+  mailHint2:'Sonucu gönder', phMail2:'E-posta adresiniz',
+  consent2:'Sonucun e-postama gönderilmesi için verilerimin işlenmesini kabul ediyorum. <a href="%P%" target="_blank">Gizlilik politikası</a>',
+  send2:'Gönder →', mailEcho:'E-postama gönder: %M%',
+  mailDone:'Gönderildi. Gelen kutunuzu kontrol edin. Hazır olduğunuzda aynı linkten başvurabilirsiniz; sonucunuz kayıtlı kalır.'
+ },
+ en: {
+  intro1:'Hello, I am the GembaX assistant. I scan for the signals of hidden waste, bottlenecks and recurring problems in your business.',
+  intro2:'I will ask 11 short questions, about 3 minutes. No sign-up needed; at the end you will see which diagnostic to start with and why.',
+  note:'Note: GembaX is not a generic chatbot; it is an AI-powered diagnostic workflow built on expert knowledge and field experience. Every finding is verified and signed by a PhD-level expert.',
+  startBtn:'Let\'s start →', startEcho:'Let\'s start',
+  acks:['Got it.','Noted.','Okay.','Alright, let\'s continue.','Recorded.'],
+  pain2T:'And which one comes second?', pain2H:'The one that hurts most after the first.', pain2None:'No clear second issue',
+  touch:'Tap an option', undo:'← change previous answer', q:'Question', done:'Scan complete',
+  evalMsg:'Thank you, the scan is done. Evaluating your answers...',
+  legw:'unmeasured money leakage (scrap, stock, overtime)', legb:'the point that blocks flow (waiting, delays)', legr:'problems that keep coming back',
+  lead:'STRONGEST SIGNAL',
+  recNote:'The pre-scan gives direction; the final scope and exact price are confirmed in writing within 24 hours after our PhD-level analyst reviews your answers. No payment is taken before that.',
+  gxH:'The GembaX difference',
+  gxP:'GembaX examines the processes that create value in your organization, captures waste signals and analyzes the root causes of problems. GembaX is not a generic chatbot. Its AI-powered diagnostic workflow, built on expert knowledge and field experience, examines every case through three perspectives, seven analysis lenses and a broad skill library; every finding is verified and signed by a PhD-level expert. The result: a consulting-grade diagnosis delivered in days, not weeks. <strong>More accessible, more effective, faster.</strong>',
+  ctaAsk:'Would you like this investigated in depth in your business? Let me take your application; the scope and exact price will be confirmed in writing within 24 hours.',
+  applyChip:'Apply for detailed diagnosis →', mailChip:'Not now, email me the result',
+  applyEcho:'I want the detailed diagnosis', mailChipEcho:'Email me the result',
+  applyIntro:'A few short details are enough. Project contacts and process details are settled with the question set prepared after payment; I am not asking for them now.',
+  formHint:'Application · 1 minute', phName:'Full name', phCo:'Company name', phMail:'Work email', phWeb:'Website or LinkedIn (optional)',
+  nErr:'Enter your first and last name together (no digits, e.g. Jane Smith)', mErr:'Check your email address (e.g. name@yourcompany.com)',
+  ndaH:'What you share is treated as a trade secret',
+  nda:['Your information is used solely for the analysis performed for you.','It is never shared with, sold to or disclosed to third parties.','Your company name is never published as a reference without written consent.','Information is kept for 3 years; you can request deletion at any time.','Deletion requests are processed within 30 business days. Contact: murat@gembax.ai'],
+  consent:'I have read the Confidentiality Commitment (NDA) above; I consent to my answers and contact details being processed to evaluate my application. <a href="%P%" target="_blank">Privacy policy</a>',
+  sendApply:'Send Application →', fnote:'Required: full name, company, a valid work email and the consent box.', sending:'Sending...',
+  appliedEcho:'Application sent for %C%',
+  confirm:'<strong>Application received.</strong> Your scan answers will be reviewed by our PhD-level analyst; the scope and exact price will arrive in writing at %M% <strong>within 24 hours</strong>. No payment is taken before the scope is confirmed in writing.',
+  afterH:'What happens next',
+  steps:['<strong>Review and offer:</strong> Our PhD-level analyst reviews your scan answers; the scope and exact price arrive in writing within 24 hours.','<strong>Approval and payment:</strong> Payment is taken with your written approval; the process starts. No obligation before payment.','<strong>Question set and data request:</strong> After payment, process questions tailored to your signals are prepared and shared; a data request is sent if needed (reports, tables, system exports).','<strong>Project contacts:</strong> We agree together who will provide information. Input from several people at different levels deepens the analysis; we prefer it.','<strong>Report:</strong> Within 5 business days after data collection, the analysis report and, per scope, the action plan are delivered.'],
+  contact:'If you have any questions, write anytime: murat@gembax.ai',
+  mailHint2:'Send the result', phMail2:'Your email',
+  consent2:'I consent to my data being processed to email me the result. <a href="%P%" target="_blank">Privacy policy</a>',
+  send2:'Send →', mailEcho:'Email it to: %M%',
+  mailDone:'Sent. Check your inbox. When you are ready you can apply from the same link; your result stays saved.'
+ },
+ es: {
+  intro1:'Hola, soy el asistente de GembaX. Escaneo las señales de desperdicio oculto, cuellos de botella y problemas recurrentes en su empresa.',
+  intro2:'Haré 11 preguntas cortas, unos 3 minutos. Sin registro; al final verá con qué diagnóstico empezar y por qué.',
+  note:'Nota: GembaX no es un chatbot genérico; es un flujo de diagnóstico impulsado por IA, construido sobre conocimiento experto y experiencia de campo. Cada hallazgo es verificado y firmado por un experto con doctorado.',
+  startBtn:'Empecemos →', startEcho:'Empecemos',
+  acks:['Entendido.','Anotado.','Bien.','De acuerdo, sigamos.','Registrado.'],
+  pain2T:'¿Y cuál viene en segundo lugar?', pain2H:'Lo que más molesta después del primero.', pain2None:'No hay un segundo claro',
+  touch:'Toque una opción', undo:'← cambiar la respuesta anterior', q:'Pregunta', done:'Escaneo completado',
+  evalMsg:'Gracias, el escaneo terminó. Evaluando sus respuestas...',
+  legw:'fuga de dinero no medida (mermas, stock, horas extra)', legb:'el punto que bloquea el flujo (esperas, retrasos)', legr:'problemas que vuelven una y otra vez',
+  lead:'SEÑAL MÁS FUERTE',
+  recNote:'El pre-escaneo orienta; el alcance definitivo y el precio exacto se confirman por escrito en 24 horas tras la revisión de nuestro analista con doctorado. No se cobra nada antes.',
+  gxH:'La diferencia GembaX',
+  gxP:'GembaX examina los procesos que crean valor en su organización, capta señales de desperdicio y analiza las causas raíz de los problemas. GembaX no es un chatbot genérico. Su flujo de diagnóstico impulsado por IA, construido sobre conocimiento experto y experiencia de campo, examina cada caso con tres perspectivas, siete lentes de análisis y una amplia biblioteca de habilidades; cada hallazgo es verificado y firmado por un experto con doctorado. El resultado: un diagnóstico de calidad de consultoría entregado en días, no semanas. <strong>Más accesible, más eficaz, más rápido.</strong>',
+  ctaAsk:'¿Quiere que esto se investigue a fondo en su empresa? Registro su solicitud; el alcance y el precio exacto se confirman por escrito en 24 horas.',
+  applyChip:'Solicitar diagnóstico detallado →', mailChip:'Ahora no, envíenme el resultado',
+  applyEcho:'Quiero el diagnóstico detallado', mailChipEcho:'Envíenme el resultado',
+  applyIntro:'Bastan unos pocos datos. Las personas del proyecto y los detalles del proceso se definen con el cuestionario preparado tras el pago; no los pido ahora.',
+  formHint:'Solicitud · 1 minuto', phName:'Nombre y apellidos', phCo:'Nombre de la empresa', phMail:'Correo de trabajo', phWeb:'Sitio web o LinkedIn (opcional)',
+  nErr:'Escriba nombre y apellido juntos (sin números, ej. Ana García)', mErr:'Revise su correo (ej. nombre@suempresa.com)',
+  ndaH:'Lo que comparte se trata como secreto comercial',
+  nda:['Su información se usa únicamente para el análisis realizado para usted.','Nunca se comparte, vende ni divulga a terceros.','Su nombre de empresa nunca se publica como referencia sin permiso escrito.','La información se conserva 3 años; puede pedir su borrado en cualquier momento.','Las solicitudes de borrado se procesan en 30 días hábiles. Contacto: murat@gembax.ai'],
+  consent:'He leído el Compromiso de Confidencialidad (NDA); acepto que mis respuestas y datos de contacto se procesen para evaluar mi solicitud. <a href="%P%" target="_blank">Política de privacidad</a>',
+  sendApply:'Enviar Solicitud →', fnote:'Obligatorio: nombre y apellido, empresa, correo válido y la casilla de consentimiento.', sending:'Enviando...',
+  appliedEcho:'Solicitud enviada por %C%',
+  confirm:'<strong>Solicitud recibida.</strong> Nuestro analista con doctorado revisará sus respuestas; el alcance y el precio exacto llegarán por escrito a %M% <strong>en 24 horas</strong>. No se cobra nada antes de confirmar el alcance por escrito.',
+  afterH:'Qué sigue ahora',
+  steps:['<strong>Revisión y oferta:</strong> Nuestro analista con doctorado revisa sus respuestas; el alcance y el precio exacto llegan por escrito en 24 horas.','<strong>Aprobación y pago:</strong> El pago se realiza con su aprobación escrita; el proceso comienza. Sin obligación antes del pago.','<strong>Cuestionario y solicitud de datos:</strong> Tras el pago se preparan y comparten preguntas adaptadas a sus señales; si hace falta, se solicita información (informes, tablas, exportaciones).','<strong>Personas del proyecto:</strong> Definimos juntos quién aportará información. Recoger datos de varias personas en distintos niveles profundiza el análisis; lo preferimos.','<strong>Informe:</strong> En 5 días hábiles tras recopilar los datos se entrega el informe de análisis y, según el alcance, el plan de acción.'],
+  contact:'Si tiene preguntas, escriba cuando quiera: murat@gembax.ai',
+  mailHint2:'Enviar el resultado', phMail2:'Su correo',
+  consent2:'Acepto el procesamiento de mis datos para enviarme el resultado. <a href="%P%" target="_blank">Política de privacidad</a>',
+  send2:'Enviar →', mailEcho:'Enviar a mi correo: %M%',
+  mailDone:'Enviado. Revise su bandeja. Cuando quiera puede solicitar desde el mismo enlace; su resultado queda guardado.'
+ }
+};
+var L = LXA[lang];
+var ACKS = ['Anladım.','Not ettim.','Tamam.','Peki, devam edelim.','Kaydettim.'];
+var STEPS = [
+  '<strong>İnceleme ve teklif:</strong> Doktoralı uzman analistimiz tarama cevaplarınızı inceler; kapsam ve net fiyat 24 saat içinde yazılı gelir.',
+  '<strong>Onay ve ödeme:</strong> Yazılı onayınızla ödeme alınır; süreç başlar. Ödeme öncesi hiçbir yükümlülük yoktur.',
+  '<strong>Soru seti ve veri talebi:</strong> Ödeme sonrası, tespit edilen sinyallere göre işletmenize özel süreç soruları hazırlanır ve paylaşılır; gerekirse veri talebi iletilir (rapor, tablo, sistem çıktısı).',
+  '<strong>Proje kişileri:</strong> Bilgi alınacak kişiler birlikte belirlenir. Farklı kademelerden birden fazla kişiden bilgi almak analizi derinleştirir; bunu tercih ediyoruz.',
+  '<strong>Rapor:</strong> Veriler toplandıktan sonra 5 iş günü içinde analiz raporu ve kapsama göre eylem planı paylaşılır.'
+];
+
+/* ═══════════ STATE ═══════════ */
+var answers = {}, asked = [], sect = null, score = {w:0,b:0,r:0};
+var totalQ = 11, pain2Skipped = false, noScroll = false;
+var hist = [];   /* {id, nodes:[dom]} - undo için */
+var busy = false, ackIdx = 0;
+var chat = document.getElementById('chat');
+
+function scrollToEl(n, pos){ if (noScroll) return; requestAnimationFrame(function(){ try{ n.scrollIntoView({behavior:'smooth', block: pos || 'end'}); }catch(e){ window.scrollTo(0, document.body.scrollHeight); } }); }
+function el(cls, html, tag){ var d = document.createElement(tag||'div'); d.className = cls; d.innerHTML = html; chat.appendChild(d); scrollToEl(d); return d; }
+function botMsg(html, small, extra){ return el('msg bot' + (small ? ' small' : '') + (extra ? ' ' + extra : ''), html); }
+function userMsg(text){ return el('msg user', text); }
+
+function typing(ms, cb){
+  var t = el('typing','<i></i><i></i><i></i>');
+  setTimeout(function(){ t.remove(); cb(); }, ms);
+}
+function say(html, opts){
+  opts = opts || {};
+  typing(opts.delay || 650, function(){
+    var n = botMsg(html, opts.small, opts.cls);
+    if (opts.then) opts.then(n);
+  });
+}
+function setProgress(step){
+  document.getElementById('pnum').textContent = step > 0 ? L.q + ' ' + Math.min(step, totalQ) + '/' + totalQ : '';
+  document.getElementById('pbar').style.width = Math.min(100, step / totalQ * 100) + '%';
+}
+
+/* ═══════════ INLINE OPTIONS ═══════════ */
+var activeBlock = null;
+function removeActive(){ if (activeBlock){ activeBlock.remove(); activeBlock = null; } }
+function layoutFor(q){
+  var n = q.opts.length, lens = 0, num = 0;
+  for (var i = 0; i < n; i++){ var l = q.opts[i][0]; lens += l.length; if (/\d|%/.test(l)) num++; }
+  if (num >= Math.ceil(n/2)) return 'scale';
+  if (n >= 9 && lens/n <= 26) return 'tiles';
+  return 'grid';
+}
+function showOpts(q, onPick, anchor, qid){
+  removeActive();
+  var block = document.createElement('div'); block.className = 'optblock';
+  var top = document.createElement('div'); top.className = 'opt-top';
+  top.innerHTML = '<span class="opt-hint">' + L.touch + '</span>';
+  if (hist.length){
+    var u = document.createElement('button'); u.className = 'undo'; u.textContent = L.undo;
+    u.onclick = doUndo; top.appendChild(u);
+  }
+  block.appendChild(top);
+  var mode = layoutFor(q);
+  var isSector = (qid === 'sector' && mode === 'tiles');
+  var box = document.createElement('div'); box.className = 'opts ' + mode + (mode === 'grid' && q.opts.length === 3 ? ' g3' : '') + (isSector ? ' secgrid' : '');
+  q.opts.forEach(function(op, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt';
+    var lead = isSector && ICONS[i] ? '<span class="ico">' + ICONS[i] + '</span>' : '<span class="k">' + (i+1) + '</span>';
+    var lblTxt = (qid === 'pain2') ? op[0] : qO(qid, i);
+    b.innerHTML = lead + '<span class="lbl">' + lblTxt + '</span><span class="radio"></span>';
+    b.onclick = function(){ if (busy) return; onPick(i); };
+    box.appendChild(b);
+  });
+  block.appendChild(box);
+  chat.appendChild(block); activeBlock = block;
+  if (anchor) scrollToEl(anchor, 'start'); else scrollToEl(block);
+}
+function showChips(list){
+  busy = false; removeActive();
+  var block = document.createElement('div'); block.className = 'optblock';
+  var box = document.createElement('div'); box.className = 'opts chiprow';
+  list.forEach(function(c){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'opt' + (c.cta ? ' cta' : '') + (c.ghost ? ' ghost' : '');
+    b.textContent = c.label;
+    b.onclick = function(){ if (busy) return; c.fn(); };
+    box.appendChild(b);
+  });
+  block.appendChild(box);
+  chat.appendChild(block); activeBlock = block; scrollToEl(block);
+}
+function showForm(html){
+  removeActive();
+  var block = document.createElement('div'); block.className = 'optblock';
+  block.innerHTML = html;
+  chat.appendChild(block); activeBlock = block; scrollToEl(block, 'start');
+  return block;
+}
+
+/* ═══════════ FLOW ═══════════ */
+var PROFILE = ['sector'];
 
 function start(){
-  var intro = document.getElementById('intro'), q = document.getElementById('q');
-  intro.style.transition = 'opacity .22s'; intro.style.opacity = '0';
-  setTimeout(function(){ intro.classList.add('hidden'); q.classList.remove('hidden'); q.classList.add('pre-fwd'); render(); void q.offsetWidth; q.classList.remove('pre-fwd'); window.scrollTo({top:0,behavior:'smooth'}); }, 220);
-}
-function transition(dir, fn){
-  if (lock) return; lock = true;
-  var q = document.getElementById('q');
-  q.classList.add(dir === 'back' ? 'out-back' : 'out-fwd');
-  setTimeout(function(){
-    fn();
-    q.classList.remove('out-fwd','out-back'); q.classList.add(dir === 'back' ? 'pre-back' : 'pre-fwd');
-    void q.offsetWidth; q.classList.remove('pre-fwd','pre-back');
-    window.scrollTo({top:0,behavior:'smooth'});
-    setTimeout(function(){ lock = false; }, 120);
-  }, 240);
-}
-function cur(){ return asked[idx]; }
-function layerFor(id){
-  var L = T().layers;
-  if (id === 'profile') return L.profile;
-  if (id === 'tried') return L.close;
-  return sect ? SECT_NAMES[lang][SECT.indexOf(sect)] + ' · ' + L.signal : L.signal;
-}
-function render(){
-  var id = cur(), q = Q[id === 'profile' ? 'sector' : id], x = txt(id === 'profile' ? 'sector' : id);
-  document.getElementById('num').textContent = (id === 'profile' ? '1–3' : (idx+3)) + '/' + TOTAL;
-  document.getElementById('bar').style.width = ((id === 'profile' ? 0 : idx + 2) / TOTAL * 100) + '%';
-  if (id === 'profile') { renderProfile(); return; }
-  document.getElementById('layer').textContent = layerFor(id);
-  document.getElementById('qt').textContent = x.t;
-  document.getElementById('qh').textContent = x.h;
-  var o = document.getElementById('opts'); buildOpts(o, id, q, x, function(i){ pick(id, i, q.multi); });
-  document.getElementById('back').style.visibility = idx === 0 ? 'hidden' : 'visible';
-  document.getElementById('row').classList.toggle('single', !q.multi);
-  document.getElementById('autonote').style.display = q.multi ? 'none' : '';
-  updateNext();
+  say(L.intro1, {delay:500, then:function(){
+    say(L.intro2, {delay:800, then:function(){
+      say(L.note, {small:true, delay:700, then:function(){
+      showChips([{label:L.startBtn, cta:true, fn:function(){
+        removeActive(); userMsg(L.startEcho); askNext();
+      }}]);
+      }});
+    }});
+  }});
 }
 
-/* seçenek biçimi: kısa etiketler → kutucuk; sayısal aralıklar → ölçek şeridi; cümleler → liste */
-function layoutFor(q, x){
-  var n = q.opts.length, lens = 0, num = 0;
-  for (var i = 0; i < n; i++){ var l = x.o(i); lens += l.length; if (/\d|%/.test(l)) num++; }
-  if (num >= Math.ceil(n / 2) && !q.multi) return 'scale';
-  if (lens / n <= 22 && n <= 8) return 'grid';
-  return 'list';
+function isUnsureOpt(pid, i){
+  var op = QA[pid].opts[i];
+  var w = op[1] || {};
+  return i === QA[pid].opts.length - 1 && !w.w && !w.b && !w.r && !(op[2]);
 }
-function buildOpts(o, id, q, x, onPick){
-  var mode = layoutFor(q, x);
-  o.className = 'opts ' + mode; o.innerHTML = '';
-  q.opts.forEach(function(op, i){
-    var b = document.createElement('button'); b.type = 'button';
-    var isDk = mode === 'scale' && !/\d|%/.test(x.o(i));
-    b.className = 'opt' + (q.multi ? ' multi' : '') + (mode === 'grid' ? ' tile' : '') + (isDk ? ' dk' : '');
-    var ico = (id === 'sector' && mode === 'grid') ? '<span class="ico">' + ICONS[i] + '</span>' : '';
-    b.innerHTML = ico + '<span class="k">' + (i+1) + '</span><span>' + x.o(i) + '</span><span class="chk">✓</span>';
-    var a = answers[id];
-    if (q.multi ? (a && a.indexOf(i) > -1) : a === i) b.classList.add('sel');
-    b.onclick = function(){ onPick(i); };
-    o.appendChild(b);
+function buildPain2(){
+  var p = QA[sect.pain], sel = answers[sect.pain];
+  var opts = [], map = [];
+  p.opts.forEach(function(op, i){
+    if (i === sel) return;
+    if (isUnsureOpt(sect.pain, i)) return;
+    opts.push([qO(sect.pain, i), op[1] || {}, '', op[3] || '']); map.push(i);
   });
-  if (mode === 'scale'){ var h = document.createElement('div'); h.className = 'scale-hint'; h.innerHTML = '<span>' + T().low + '</span><span>' + T().high + '</span>'; o.appendChild(h); }
+  opts.push([L.pain2None, {}, '', '']); map.push(-1);
+  QA.pain2 = { t:L.pain2T, h:L.pain2H, opts:opts, map:map };
+  return QA.pain2;
 }
-function renderProfile(){
-  var u = T();
-  document.getElementById('layer').textContent = u.layers.profile;
-  document.getElementById('qt').textContent = u.pTitle;
-  document.getElementById('qh').textContent = u.pHint;
-  var o = document.getElementById('opts'); o.className = 'opts'; o.innerHTML = '';
-  ['sector','size','revenue'].forEach(function(pid){
-    var g = document.createElement('div'); g.className = 'pgroup' + (answers[pid] != null ? ' done' : '');
-    var x = txt(pid);
-    g.innerHTML = '<div class="pl"><span class="dot"></span>' + x.t + '</div>';
-    var box = document.createElement('div');
-    buildOpts(box, pid, Q[pid], x, function(i){
-      if (lock) return; answers[pid] = i;
-      var btns = box.querySelectorAll('.opt'); for (var k = 0; k < btns.length; k++) btns[k].classList.toggle('sel', k === i);
-      g.classList.add('done'); updateNext();
-      if (answers.sector != null && answers.size != null && answers.revenue != null && !lock){ lock = true; setTimeout(function(){ lock = false; next(); }, 420); }
-    });
-    g.appendChild(box); o.appendChild(g);
-  });
-  document.getElementById('back').style.visibility = 'hidden';
-  document.getElementById('row').classList.remove('single');
-  document.getElementById('autonote').style.display = 'none';
-  updateNext();
-}
-function updateNext(){ var id = cur();
-  if (id === 'profile'){ document.getElementById('next').disabled = !(answers.sector != null && answers.size != null && answers.revenue != null); return; }
-  var q = Q[id]; document.getElementById('next').disabled = !(answers[id] != null && (!q.multi || answers[id].length)); }
-function pick(id, i, multi){
-  if (lock) return;
-  var btns = document.querySelectorAll('#opts .opt');
-  if (multi){ answers[id] = answers[id] || []; var p = answers[id].indexOf(i); if (p > -1) answers[id].splice(p,1); else answers[id].push(i); btns[i].classList.toggle('sel'); updateNext(); return; }
-  answers[id] = i;
-  for (var k = 0; k < btns.length; k++) btns[k].classList.toggle('sel', k === i);
-  lock = true; setTimeout(function(){ lock = false; next(); }, 380);
+function currentQuestionId(){
+  for (var i = 0; i < PROFILE.length; i++) if (answers[PROFILE[i]] == null) return PROFILE[i];
+  if (!sect) sect = SECT[answers.sector];
+  if (answers[sect.pain] == null) return sect.pain;
+  if (asked.indexOf('pain2') < 0 && !pain2Skipped){
+    if (isUnsureOpt(sect.pain, answers[sect.pain])){ pain2Skipped = true; totalQ = 10; setProgress(asked.length); }
+    else { buildPain2(); return 'pain2'; }
+  }
+  var chainAsked = asked.filter(function(x){ return PROFILE.indexOf(x) < 0 && x !== sect.pain && x !== 'pain2' && x !== 'tried'; });
+  if (chainAsked.length >= CFG.CHAIN) return 'tried';
+  return chooseNext();
 }
 function tally(){
   score = {w:0,b:0,r:0};
-  asked.slice(0, idx+1).forEach(function(id){ if (id === 'profile') return; var a = answers[id]; if (a == null) return; var q = Q[id];
-    (q.multi ? a : [a]).forEach(function(i){ var s = q.opts[i][1] || {}; score.w += s.w||0; score.b += s.b||0; score.r += s.r||0; }); });
+  asked.forEach(function(id){
+    if (PROFILE.indexOf(id) > -1) return;
+    var a = answers[id]; if (a == null) return;
+    var f = (id === 'pain2') ? 0.5 : 1;
+    var s = (QA[id].opts[a][1]) || {};
+    score.w += (s.w||0)*f; score.b += (s.b||0)*f; score.r += (s.r||0)*f;
+  });
 }
 function leader(){ tally(); return ['w','b','r'].sort(function(a,b){ return score[b]-score[a]; })[0]; }
 function chooseNext(){
-  var id = cur(), q = Q[id], a = answers[id], cand = [];
-  if (!q.multi && q.opts[a] && q.opts[a][3]) cand.push(q.opts[a][3]);
-  if (q.next) cand.push(q.next);
-  var chainCount = asked.filter(function(x){ return ['profile','tried'].indexOf(x) < 0 && x !== sect.pain; }).length;
-  if (chainCount >= CHAIN) return 'tried';
+  var last = null;
+  for (var i = asked.length-1; i >= 0; i--){ if (PROFILE.indexOf(asked[i]) < 0){ last = asked[i]; break; } }
+  var cand = [];
+  if (last){
+    var q = QA[last], a = answers[last];
+    if (q.opts[a] && q.opts[a][3]) cand.push(q.opts[a][3]);
+    if (q.next) cand.push(q.next);
+  }
+  if (answers.pain2 != null && QA.pain2 && QA.pain2.opts[answers.pain2] && QA.pain2.opts[answers.pain2][3]) cand.push(QA.pain2.opts[answers.pain2][3]);
   sect.shared.forEach(function(x){ cand.push(x); });
   var L = leader(); sect.probe[L].forEach(function(x){ cand.push(x); });
   ['w','b','r'].forEach(function(k){ sect.probe[k].forEach(function(x){ cand.push(x); }); });
-  for (var i = 0; i < cand.length; i++) if (asked.indexOf(cand[i]) < 0 && Q[cand[i]]) return cand[i];
+  for (var j = 0; j < cand.length; j++) if (asked.indexOf(cand[j]) < 0 && QA[cand[j]]) return cand[j];
   return 'tried';
 }
-function next(){
-  var id = cur(), nid;
-  if (id === 'profile') { if (answers.sector == null || answers.size == null || answers.revenue == null) return; sect = SECT[answers.sector]; nid = sect.pain; }
-  else if (answers[id] == null) return;
-  else if (id === 'tried') { finish(); return; }
-  else nid = chooseNext();
-  transition('fwd', function(){ asked = asked.slice(0, idx+1); asked.push(nid); idx++; render(); });
-}
-function back(){ if (idx > 0) transition('back', function(){ idx--; render(); }); }
-document.addEventListener('keydown', function(e){
-  if (document.getElementById('q').classList.contains('hidden')) return;
-  if (cur() === 'profile'){ if (e.key === 'Enter') next(); return; }
-  var q = Q[cur()];
-  if (e.key >= '1' && e.key <= '9' && q.opts[e.key-1]) pick(cur(), e.key-1, q.multi);
-  if (e.key === 'Enter') next();
-  if (e.key === 'Backspace' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); back(); }
-});
 
-/* ===================== SONUÇ ===================== */
+function askNext(){
+  busy = true; removeActive();
+  var id = currentQuestionId();
+  var qDef = QA[id];
+  var tT = (id === 'pain2') ? L.pain2T : qT(id);
+  var tH = (id === 'pain2') ? L.pain2H : qH(id);
+  var title = tT + (tH ? '<span class="hint">' + tH + '</span>' : '');
+  var withAck = asked.length > 0 && asked.length % 2 === 1;
+  var ask = function(){
+    say(title, {delay: 620, cls:'q', then: function(node){
+      busy = false;
+      setProgress(asked.length + 1);
+      var record = {id: id, nodes: [node]};
+      showOpts(qDef, function(i){
+        answers[id] = i;
+        removeActive();
+        var um = userMsg((id === 'pain2') ? qDef.opts[i][0] : qO(id, i));
+        record.nodes.push(um);
+        hist.push(record);
+        asked.push(id);
+        if (id === 'tried'){ finish(); }
+        else { askNext(); }
+      }, node, id);
+    }});
+  };
+  if (withAck){
+    typing(380, function(){
+      var ackNode = botMsg(L.acks[ackIdx++ % L.acks.length], true);
+      if (hist.length) hist[hist.length-1].nodes.push(ackNode);
+      ask();
+    });
+  } else ask();
+}
+
+function doUndo(){
+  if (busy || !hist.length) return;
+  removeActive();
+  var rec = hist.pop();
+  rec.nodes.forEach(function(n){ n.remove(); });
+  var i = asked.lastIndexOf(rec.id);
+  if (i > -1) asked.splice(i, 1);
+  delete answers[rec.id];
+  if (rec.id === 'pain2' || (sect && rec.id === sect.pain)){ pain2Skipped = false; totalQ = 11; }
+  if (rec.id === 'sector'){
+    sect = null; pain2Skipped = false; totalQ = 11;
+    Object.keys(answers).forEach(function(k){ if (PROFILE.indexOf(k) < 0) delete answers[k]; });
+    asked = asked.filter(function(x){ return PROFILE.indexOf(x) > -1; });
+  }
+  setProgress(asked.length);
+  askNext();
+}
+
+/* ═══════════ RESULT ═══════════ */
+function cap(s){ return s.charAt(0).toLocaleUpperCase('tr') + s.slice(1); }
 function finish(){
-  tally(); signals = [];
-  asked.forEach(function(id){ if (id === 'profile') return; var q = Q[id], a = answers[id]; if (a == null) return; var x = txt(id);
-    (q.multi ? a : [a]).forEach(function(i){ var s = q.opts[i][1] || {}; var wt = (s.w||0)+(s.b||0)+(s.r||0); var sig = x.s(i);
-      var tag = (s.w||0) >= (s.b||0) && (s.w||0) >= (s.r||0) ? 'w' : (s.b||0) >= (s.r||0) ? 'b' : 'r';
-      if (sig && id !== sect.pain && id !== 'tried') signals.push({t: sig, wt: wt, tag: tag}); }); });
-  var u = T(), tried = txt('tried').s(answers.tried);
-  var rev = answers.revenue, size = answers.size;
-  var ranked = ['w','b','r'].sort(function(a,b){ return score[b]-score[a]; });
-  var prim = ranked[0], sec = ranked[1], max = score[prim] || 1;
-  var secStrong = score[sec] >= 0.6 * max && score[sec] >= 4;
+  busy = true; removeActive(); setProgress(totalQ);
+  document.getElementById('pnum').textContent = L.done;
+  tally();
+  var signals = [];
+  asked.forEach(function(id){
+    if (PROFILE.indexOf(id) > -1) return;
+    var q = QA[id], a = answers[id]; if (a == null) return;
+    var s = q.opts[a][1] || {}, sig = q.opts[a][2] || '';
+    var wt = (s.w||0)+(s.b||0)+(s.r||0);
+    var tag = (s.w||0) >= (s.b||0) && (s.w||0) >= (s.r||0) ? 'w' : (s.b||0) >= (s.r||0) ? 'b' : 'r';
+    if (sig && id !== sect.pain && id !== 'pain2' && id !== 'tried') signals.push({t:sig, wt:wt, tag:tag});
+  });
   signals.sort(function(a,b){ return b.wt-a.wt; });
   var seen = {}, top = [], topT = [];
-  signals.forEach(function(s){ if (!seen[s.t] && top.length < 4){ seen[s.t] = 1; top.push(s.t); topT.push(s.tag); } });
+  signals.forEach(function(s){ if (!seen[s.t] && top.length < 4){ seen[s.t]=1; top.push(s.t); topT.push(s.tag); } });
+
+  var ranked = ['w','b','r'].sort(function(a,b){ return score[b]-score[a]; });
+  var prim = ranked[0], sec = ranked[1], max = score[prim] || 1;
+  var secStrong = score[sec] >= 0.6*max && score[sec] >= 4;
   var code;
-  if (size === 3 && score.w >= 5 && score.b >= 5 && score.r >= 5) code = 'transformation';
+  if (score.w >= 6 && score.b >= 6 && score.r >= 6) code = 'transformation';
   else if (prim === 'r' || (sec === 'r' && secStrong)) code = 'full';
   else if (prim === 'b' || (prim === 'w' && sec === 'b' && secStrong)) code = 'xray-toc';
   else code = 'xray';
-  var tier = u.tiers[code], sname = SECT_NAMES[lang][SECT.indexOf(sect)];
-  var html = '';
-  if (rev === 0){
-    html += '<div class="res-label">' + sname + ' · ' + u.byAnswers + '</div><h1>' + u.lowH + '</h1><p class="why">' + u.lowP + '</p>';
-    html += '<div class="card"><h3>' + u.lowSig + '</h3><ul>' + top.map(function(t){ return '<li>' + cap(t) + '</li>'; }).join('') + '</ul></div>';
-    html += '<div class="card warn"><p>' + u.dont[prim] + '</p></div><p class="honest">' + u.lowNote + '</p>';
-    html += '<div class="ctas"><a class="btn-ghost" href="index.html?lang=' + lang + '">' + u.home + '</a></div>';
-  } else {
-    var head = lang === 'tr' ? u.names[prim] + u.startWith + (secStrong ? ' ' + u.names[sec] + u.alsoStrong : '')
-                             : u.names[prim] + u.startWith + (secStrong ? u.alsoStrong + u.names[sec] + '.' : '');
-    var D = DELIV[lang], RD = READ[lang][sect.code] || READ[lang].g;
-    var tot = Math.max(1, score.w + score.b + score.r);
-    function pct(k){ return Math.round(score[k] / tot * 100); }
-    html += '<div class="res-label">' + sname + ' · ' + u.rLabel + '</div><h1>' + head + '</h1><p class="why">' + u.why[prim] + '</p>';
-    html += '<div class="chips"><span>' + txt('sector').o(answers.sector) + '</span><span>' + txt('size').o(answers.size) + '</span><span>' + txt('revenue').o(answers.revenue) + '</span>' + (tried ? '<span>' + cap(tried) + '</span>' : '') + '</div>';
-    html += '<div class="card"><h3>' + D.scoreH + '</h3><div class="bars">' + ['w','b','r'].map(function(k){ return '<div class="bar-row' + (k === prim ? ' lead' : '') + '"><span class="bl">' + D.tags[k] + '</span><span class="bt"><i data-w="' + pct(k) + '"></i></span><span class="bv">' + pct(k) + '%</span></div>'; }).join('') + '</div></div>';
-    html += '<div class="card read"><h3>' + D.readH + '</h3><p>' + RD[prim] + '</p></div>';
-    html += '<div class="card"><h3>' + u.sigH + '</h3><ul>' + top.map(function(t, i){ return '<li>' + cap(t) + '<span class="sig-tag">' + D.tags[topT[i]] + '</span></li>'; }).join('') + '</ul></div>';
-    html += '<div class="card warn"><h3>' + u.dontH + '</h3><p>' + u.dont[prim] + '</p></div>';
-    /* devir paketi: intake bu bilgiyi okur, aynı soruları tekrar sormaz */
-    var packet = { v: 1, lang: lang, sector: answers.sector, size: answers.size, revenue: answers.revenue, sc: sect.code, tier: code, price: tier[2],
-                   score: score, signals: top.slice(0, 3), tried: answers.tried, answers: answers, asked: asked, ts: new Date().toISOString() };
-    var psEnc = ''; try { psEnc = btoa(unescape(encodeURIComponent(JSON.stringify(packet)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); localStorage.setItem('gembax-prescan', JSON.stringify(packet)); } catch (e) {}
-    html += '<div class="card tier"><div><div class="rec">' + u.recTag + '</div><div class="name">' + tier[0] + '</div><div class="scope">' + tier[1] + '</div></div><div class="price">' + tier[2] + '<small>' + tier[3] + '</small></div><div class="recnote">' + u.recNote + '</div></div>';
-    html += '<div class="card"><h3>' + D.delivH + '</h3><ul>' + D[code].map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
-    html += '<div class="card"><h3>' + D.stepsH + '</h3><div class="steps3">' + D.steps.map(function(t, i){ return '<div><b>0' + (i+1) + '</b>' + t + '</div>'; }).join('') + '</div></div>';
-    html += '<p class="honest">' + u.honest + '</p>';
-    html += '<div class="ctas"><a class="btn-start go" href="/intake-welcome?tier=' + code + '&lang=' + lang + (psEnc ? '&ps=' + psEnc : '') + '">' + u.go + '</a><button class="btn-ghost" id="emBtn">' + (HUMAN_NOTE ? u.noteBtn : u.mailBtn) + '</button><button class="btn-print" onclick="window.print()">' + D.print + '</button></div>';
-    html += '<div class="email" id="em"><p class="hint" style="margin-bottom:0.6rem">' + (HUMAN_NOTE ? u.noteHint : u.mailHint) + '</p>'
-          + '<input type="email" id="emAddr" placeholder="' + u.email + '"><input type="text" placeholder="' + u.company + '">'
-          + '<label class="consent"><input type="checkbox" id="consent"><span>' + u.consent + '</span></label>'
-          + '<button class="btn-next" id="sendBtn" disabled>' + u.send + '</button>'
-          + (HUMAN_NOTE ? '<div class="quota">' + u.quota + '</div>' : '') + '<div class="thanks" id="thx">' + (HUMAN_NOTE ? u.thanks : u.thanksMail) + '</div></div>';
-  }
-  var qb = document.getElementById('q'); qb.classList.add('out-fwd');
-  setTimeout(function(){
-    qb.classList.add('hidden'); qb.classList.remove('out-fwd');
-    var r = document.getElementById('res'); r.innerHTML = html; r.classList.remove('hidden'); r.classList.add('fade');
-    setTimeout(function(){ document.querySelectorAll('.bar-row .bt i').forEach(function(i){ i.style.width = i.dataset.w + '%'; }); }, 60);
-    var eb = document.getElementById('emBtn'); if (eb) eb.addEventListener('click', function(){ document.getElementById('em').classList.add('on'); eb.style.display = 'none'; });
-    var c = document.getElementById('consent'), sb = document.getElementById('sendBtn'), ea = document.getElementById('emAddr');
-    function chk(){ if (sb) sb.disabled = !(c && c.checked && ea && /.+@.+\..+/.test(ea.value)); }
-    if (c) c.addEventListener('change', chk); if (ea) ea.addEventListener('input', chk);
-    if (sb) sb.addEventListener('click', function(){ document.getElementById('thx').style.display = 'block'; sb.disabled = true; });
-    window.scrollTo({ top: 0, behavior: 'smooth' }); lock = false;
-  }, 240);
-}
-function cap(s){ return s.charAt(0).toLocaleUpperCase(lang) + s.slice(1); }
 
-setLang(detectLang());
+  var tier = TIERS[code];
+  var sname = SNAMES[answers.sector];
+  var tot = Math.max(1, score.w + score.b + score.r);
+  function pct(k){ return Math.round(score[k]/tot*100); }
+  var RD = (READ[lang][sect.code] || READ[lang].g);
+
+  say(L.evalMsg, {delay:600, then:function(){
+    typing(1100, function(){
+      var sl = el('sysline', sname + ' · ' + U.rLabel);
+      scrollToEl(sl, 'start');
+      noScroll = true;
+
+      var CK = {w:'cw', b:'cb', r:'cr'};
+      var bars = ['w','b','r'].map(function(k){
+        var lead = k === prim;
+        return '<div class="bar-row' + (lead?' lead':'') + '"><span class="bl ' + CK[k] + '"><b>' + TAGS[k] + '</b>' + (lead?'<span class="leadchip">' + L.lead + '</span>':'') + '</span><span class="bt"><i class="' + CK[k] + '" data-w="' + pct(k) + '"></i></span><span class="bv">' + pct(k) + '%</span></div>';
+      }).join('');
+      var leg = '<p class="leg"><b style="color:#B45309">' + TAGS.w + '</b>: ' + L.legw + ' · <b style="color:#B91C1C">' + TAGS.b + '</b>: ' + L.legb + ' · <b style="color:#0F766E">' + TAGS.r + '</b>: ' + L.legr + '</p>';
+      el('card', '<h3>' + DV.scoreH + '</h3>' + bars + leg);
+      setTimeout(function(){ document.querySelectorAll('.bt i').forEach(function(i){ i.style.width = i.dataset.w + '%'; }); }, 80);
+
+      var triedTxt = QA.tried.opts[answers.tried] != null ? qO('tried', answers.tried) : '';
+      el('chips', '<span>' + qO('sector', answers.sector) + '</span>' + (triedTxt ? '<span>' + triedTxt + '</span>' : ''));
+
+      setTimeout(function(){
+        var head = lang === 'tr' ? ('<strong>' + NAMES[prim] + '</strong>' + U.startWith + (secStrong ? ' ' + NAMES[sec] + U.alsoStrong : '')) : ('<strong>' + NAMES[prim] + '</strong>' + U.startWith + (secStrong ? ' ' + U.alsoStrong + ' ' + NAMES[sec] + '.' : ''));
+        botMsg(head + '<span class="hint">' + WHY[prim] + '</span>');
+
+        if (top.length){
+          el('card', '<h3>' + U.sigH + '</h3><ul>' + top.map(function(t,i){ return '<li>' + cap(t) + '<span class="sig-tag">' + TAGS[topT[i]] + '</span></li>'; }).join('') + '</ul>');
+        }
+        el('card warn', '<h3>' + U.dontH + '</h3><p>' + DONT[prim] + '</p>');
+        el('card', '<h3>' + DV.readH + '</h3><p>' + RD[prim] + '</p>');
+
+        el('card tier', '<div class="rec">' + U.recTag + '</div><div class="name">' + tier[0] + '</div><div class="scope">' + tier[1] + '</div><div class="price">' + tier[2] + '<small>' + tier[3] + '</small></div><div class="recnote">' + L.recNote + '</div>');
+
+        el('card', '<h3>' + DV.delivH + '</h3><ul>' + DV[code].map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul>');
+
+        el('card', '<h3>' + L.gxH + '</h3><p>' + L.gxP + '</p>');
+
+        savePacket(code, tier, top);
+
+        setTimeout(function(){
+          say(L.ctaAsk, {delay:700, then:function(){
+            showChips([
+              {label:L.applyChip, cta:true, fn:function(){ noScroll = false; removeActive(); userMsg(L.applyEcho); showApplyForm(code); }},
+              {label:L.mailChip, ghost:true, fn:function(){ noScroll = false; removeActive(); userMsg(L.mailChipEcho); showEmailForm(); }}
+            ]);
+          }});
+        }, 500);
+      }, 900);
+    });
+  }});
+}
+
+/* ═══════════ FORMS ═══════════ */
+function savePacket(code, tier, top){
+  var packet = { v:3, source:'chat-prescan', lang:lang, sector:answers.sector,
+    sc:sect.code, tier:code, price:tier[2], score:score, signals:top.slice(0,3), answers:answers, asked:asked, ts:new Date().toISOString() };
+  try { localStorage.setItem('gembax-prescan', JSON.stringify(packet)); } catch(e){}
+  return packet;
+}
+function submit(payload, cb){
+  if (CFG.WEBHOOK){
+    fetch(CFG.WEBHOOK, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
+      .then(function(){ cb(true); }).catch(function(){ cb(false); });
+  } else { console.log('GEMBAX SUBMIT (webhook tanımsız):', payload); setTimeout(function(){ cb(true); }, 600); }
+}
+
+function showApplyForm(code){
+  say(L.applyIntro, {delay:650, then:function(){
+    var block = showForm(
+      '<div class="opt-top"><span class="opt-hint">' + L.formHint + '</span></div>' +
+      '<div class="fform">' +
+      '<input type="text" id="fName" placeholder="' + L.phName + '" autocomplete="name">' +
+      '<div class="ferr" id="nErr">' + L.nErr + '</div>' +
+      '<input type="text" id="fCo" placeholder="' + L.phCo + '" autocomplete="organization">' +
+      '<input type="email" id="fMail" placeholder="' + L.phMail + '" autocomplete="email">' +
+      '<div class="ferr" id="fErr">' + L.mErr + '</div>' +
+      '<input type="text" id="fWeb" placeholder="' + L.phWeb + '" autocomplete="url">' +
+      '<div class="nda" id="ndaBox"><div class="nda-head" onclick="document.getElementById(\'ndaBox\').classList.toggle(\'open\')">' +
+      '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' +
+      '' + L.ndaH + '<span class="arr">▾</span></div>' +
+      '<div class="nda-body"><ol>' + L.nda.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</ol></div></div>' +
+      '<label class="consent"><input type="checkbox" id="fOk"><span>' + L.consent.replace('%P%', CFG.PRIVACY_URL) + '</span></label>' +
+      '<button class="sendbtn" id="fSend" disabled>' + L.sendApply + '</button>' +
+      '<div class="fnote">' + L.fnote + '</div>' +
+      '</div>');
+    var n=document.getElementById('fName'), c=document.getElementById('fCo'), m=document.getElementById('fMail'),
+        ok=document.getElementById('fOk'), sb=document.getElementById('fSend');
+    var nameRe = /^[A-Za-zÀ-ÖØ-öø-ÿĞğİıŞş]{2,}([ '\-][A-Za-zÀ-ÖØ-öø-ÿĞğİıŞş]{2,})+$/;
+    function chk(){
+      var nv = nameRe.test(n.value.trim());
+      n.classList.toggle('ok', nv);
+      document.getElementById('nErr').classList.toggle('on', n.value.trim().length > 0 && !nv);
+      c.classList.toggle('ok', c.value.trim().length >= 2);
+      var mv = /.+@.+\..+/.test(m.value); m.classList.toggle('ok', mv);
+      document.getElementById('fErr').classList.toggle('on', m.value.trim().length > 0 && !mv);
+      sb.disabled = !(nv && c.value.trim().length >= 2 && mv && ok.checked);
+    }
+    [n,c,m].forEach(function(x){ x.addEventListener('input', chk); }); ok.addEventListener('change', chk);
+    sb.onclick = function(){
+      sb.disabled = true; sb.textContent = L.sending;
+      var packet = JSON.parse(localStorage.getItem('gembax-prescan') || '{}');
+      packet.apply = { name:n.value.trim(), company:c.value.trim(), email:m.value.trim(), web:(document.getElementById('fWeb').value||'').trim(), tier:code };
+      try { localStorage.setItem('gembax-prescan', JSON.stringify(packet)); } catch(e){}
+      submit(packet, function(){
+        removeActive();
+        userMsg(L.appliedEcho.replace('%C%', c.value.trim()));
+        say(L.confirm.replace('%M%', m.value.trim()), {delay:800, then:function(){
+          typing(700, function(){
+            el('card', '<h3>' + L.afterH + '</h3><ul>' + L.steps.map(function(t, i){ return '<li><span style="font-family:var(--mono);color:var(--green);font-weight:700;margin-right:0.5rem;flex:none">0' + (i+1) + '</span><span>' + t + '</span></li>'; }).join('') + '</ul>');
+            say(L.contact, {small:true, delay:700});
+          });
+        }});
+      });
+    };
+  }});
+}
+
+function showEmailForm(){
+  var block = showForm(
+    '<div class="opt-top"><span class="opt-hint">' + L.mailHint2 + '</span></div>' +
+    '<div class="fform">' +
+    '<input type="email" id="eMail" placeholder="' + L.phMail2 + '" autocomplete="email">' +
+    '<div class="ferr" id="eErr">' + L.mErr + '</div>' +
+    '<label class="consent"><input type="checkbox" id="eOk"><span>' + L.consent2.replace('%P%', CFG.PRIVACY_URL) + '</span></label>' +
+    '<button class="sendbtn" id="eSend" disabled>' + L.send2 + '</button>' +
+    '</div>');
+  var m=document.getElementById('eMail'), ok=document.getElementById('eOk'), sb=document.getElementById('eSend');
+  function chk(){ var mv=/.+@.+\..+/.test(m.value); m.classList.toggle('ok',mv); document.getElementById('eErr').classList.toggle('on', m.value.trim().length>0 && !mv); sb.disabled=!(mv && ok.checked); }
+  m.addEventListener('input', chk); ok.addEventListener('change', chk);
+  sb.onclick = function(){
+    sb.disabled = true; sb.textContent = L.sending;
+    var packet = JSON.parse(localStorage.getItem('gembax-prescan') || '{}');
+    packet.emailOnly = { email: m.value.trim() };
+    submit(packet, function(){
+      removeActive();
+      userMsg(L.mailEcho.replace('%M%', m.value.trim()));
+      say(L.mailDone, {delay:700});
+    });
+  };
+}
+
+/* klavye: 1-9 */
+document.addEventListener('keydown', function(e){
+  if (/INPUT|TEXTAREA/.test((document.activeElement||{}).tagName||'')) return;
+  if (e.key >= '1' && e.key <= '9' && activeBlock){
+    var btns = activeBlock.querySelectorAll('.opt');
+    var i = e.key - 1; if (btns[i]) btns[i].click();
+  }
+});
+
+start();
 </script>
 </body>
 </html>
