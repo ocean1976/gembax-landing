@@ -111,7 +111,7 @@
   :root {
     --dark-bg: #1A1916;
     --cream: #F5F0E8; --cream-mid: #B9B2A4; --cream-dim: #8C867A; --cream-faint: #55514A;
-    --green-bright: #4ade80; --orange: #FF1525; --mit-red: #FF1525; --mit-gray: #838D95;
+    --green-bright: #4ade80; --orange: #FF4A3A; --mit-red: #FF4A3A; --mit-gray: #838D95;
     --font-head: 'Inter Tight', 'Inter', sans-serif; --font-inter: 'Inter', sans-serif;
   }
   body { position: relative; }
@@ -170,20 +170,20 @@
   .dark-actions { margin-top: 1.6rem; }
   .dark-title, .dark-sub { font-family: var(--font-head); font-weight: 700; font-size: clamp(2rem, min(4.9vw, 6.1vh), 4.3rem); line-height: 1.04; letter-spacing: -0.035em; }
   .dark-title { color: var(--mit-red); display: block; font-weight: 900; letter-spacing: -0.015em; margin-bottom: 0.1em; }
-  .dark-sub { color: var(--mit-gray); display: block; font-weight: 700; }
+  .dark-sub { color: #C9C4B8; display: block; font-weight: 700; }
   .dark-sub span { display: block; }
   .dark-main { --text-w: min(100%, 1115px); }
   .dark-headline { max-width: var(--text-w); }
-  .dark-para { font-family: var(--font-inter); font-weight: 400; font-size: clamp(1.15rem, min(1.65vw, 2.5vh), 1.6rem); line-height: 1.5; color: var(--mit-gray); max-width: var(--text-w); margin-top: 1.1rem; }
+  .dark-para { font-family: var(--font-inter); font-weight: 400; font-size: clamp(1.15rem, min(1.65vw, 2.5vh), 1.6rem); line-height: 1.5; color: #DFDBD2; max-width: var(--text-w); margin-top: 1.1rem; }
   .dark-para strong { color: #FFFFFF; font-weight: 700; }
   .dark-para strong span { color: var(--green-bright); }
   .dark-para + .dark-para { margin-top: 0.9rem; }
-  .dark-list { max-width: var(--text-w); margin-top: 1.1rem; font-family: var(--font-inter); font-size: clamp(0.95rem, min(1.18vw, 1.9vh), 1.12rem); line-height: 1.42; color: var(--mit-gray); font-weight: 350; }
-  .dark-list p { margin-bottom: 0.4rem; font-weight: 350; }
-  .dark-list li strong { font-weight: 350; color: var(--green-bright); }
+  .dark-list { max-width: var(--text-w); margin-top: 1.1rem; font-family: var(--font-inter); font-size: clamp(0.95rem, min(1.18vw, 1.9vh), 1.12rem); line-height: 1.42; color: #DFDBD2; font-weight: 350; }
+  .dark-list p { margin-bottom: 0.4rem; font-weight: 400; color: #DFDBD2; }
+  .dark-list li strong { font-weight: 700; color: var(--green-bright); }
   .dark-list ul { list-style: none; }
   .dark-list li { position: relative; padding-left: 1.4rem; margin-bottom: 0.25rem; font-weight: 350; }
-  .dark-list li::before { content: '→'; position: absolute; left: 0; color: var(--mit-red); }
+  .dark-list li::before { content: '→'; position: absolute; left: 0; color: var(--green-bright); }
   .dark-actions { margin-top: 1.4rem; display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
   .dark-btn { font-family: var(--font-inter); font-weight: 700; font-size: 0.95rem; text-decoration: none; color: var(--dark-bg); background: var(--orange); padding: 0.95rem 1.7rem; border-radius: 4px; transition: transform .15s, filter .15s; }
   .dark-btn:hover { transform: translateY(-1px); filter: brightness(1.06); }
@@ -338,8 +338,8 @@
   }
 
   /* CTA renk sistemi: intake = turuncu, ücretsiz ön tarama = yeşil */
-  .btn-primary { background: var(--orange); color: #1A1916; box-shadow: 0 8px 22px rgba(255,21,37,0.28); font-weight: 700; }
-  .btn-primary:hover { box-shadow: 0 12px 28px rgba(255,21,37,0.34); }
+  .btn-primary { background: var(--orange); color: #1A1916; box-shadow: 0 8px 22px rgba(255,74,58,0.28); font-weight: 700; }
+  .btn-primary:hover { box-shadow: 0 12px 28px rgba(255,74,58,0.34); }
   .final .btn-ghost, .btn-ghost.scan { background: var(--green-bright); color: #1A1916; border-color: var(--green-bright); font-weight: 700; padding: 0.95rem 1.6rem; box-shadow: 0 8px 22px rgba(74,222,128,0.25); }
   .diag .cta { border: none; background: var(--orange); color: #1A1916; font-family: var(--font-inter); font-weight: 700; font-size: 0.95rem; padding: 0.85rem 1.4rem; border-radius: 8px; }
   .diag .cta:hover { background: var(--orange); color: #1A1916; filter: brightness(1.06); }
@@ -395,7 +395,7 @@
       <h1 class="dark-title">Operasyonel İsrafın Röntgeni</h1>
       <h2 class="dark-sub">Değer üretmeyen her şey israf. Görünmeyen kayıpların size kaça mal olduğunu keşfedin.</h2>
     </div>
-    <p class="dark-para"><strong>Gemba<span>X</span></strong>, kuruluşunuzda değer yaratan süreçleri inceler, israf sinyallerini yakalar ve sorunların kök nedenlerini analiz eder. GembaX genel bir sohbet botu değildir. Uzman bilgisi ve saha deneyimiyle kurulan yapay zekâ destekli özgün teşhis iş akışı, her vakayı üç bakış açısı, yedi analiz merceği ve geniş bir skill kütüphanesiyle inceler; her bulguyu doktoralı uzman doğrular ve imzalar. Sonuç: danışmanlık kalitesinde bir teşhis, haftalar değil günler içinde teslim edilir. Daha erişilebilir, daha etkin, daha hızlı.</p>
+    <p class="dark-para"><strong>Gemba<span>X</span></strong>, kuruluşunuzda değer yaratan süreçleri inceler, israf sinyallerini yakalar ve sorunların kök nedenlerini analiz eder. GembaX genel bir sohbet botu değildir. Uzman bilgisi ve saha deneyimiyle kurulan yapay zekâ destekli özgün teşhis iş akışı, her vakayı üç bakış açısı, yedi analiz merceği ve geniş bir skill kütüphanesiyle inceler; her bulguyu doktoralı uzman doğrular ve imzalar. Sonuç: danışmanlık kalitesinde bir teşhis, haftalar değil günler içinde teslim edilir. <strong>Daha erişilebilir, daha etkin, daha hızlı.</strong></p>
     <div class="dark-list">
       <p>Operasyonunuza müşterinizin gözünden bakıyor, hangi işlerin gerçekten değer yarattığını belirliyoruz.</p>
       <ul>
@@ -1026,7 +1026,7 @@
     rail: 'Operational Diagnostics', crumb: '<span>GembaX</span><i>/</i>Operational Diagnostics',
     title: 'The X-Ray of Operational Waste',
     sub: 'Everything that doesn\'t create value is waste. Discover what the losses you can\'t see are costing you.',
-    para: '<strong>Gemba<span>X</span></strong> examines the processes that create value in your organization, captures waste signals and analyzes the root causes behind its problems. GembaX is not a generic chatbot. An AI-assisted proprietary diagnostic workflow built on expert knowledge and field experience examines every case through three perspectives, seven analytical lenses and an extensive skill library; every finding is verified and signed by a PhD-level expert. The result: a consulting-grade diagnosis delivered in days, not weeks. More accessible, more effective, faster.',
+    para: '<strong>Gemba<span>X</span></strong> examines the processes that create value in your organization, captures waste signals and analyzes the root causes behind its problems. GembaX is not a generic chatbot. An AI-assisted proprietary diagnostic workflow built on expert knowledge and field experience examines every case through three perspectives, seven analytical lenses and an extensive skill library; every finding is verified and signed by a PhD-level expert. The result: a consulting-grade diagnosis delivered in days, not weeks. <strong>More accessible, more effective, faster.</strong>',
     listIntro: 'We look at your operation through your customer\'s eyes and identify which work truly creates value.',
     listItems: [
       '<strong>Waste X-Ray:</strong> We surface the work that burns time and resources, and calculate what those losses cost you in dollars.',
@@ -1071,7 +1071,7 @@
     rail: 'Diagnóstico Operacional', crumb: '<span>GembaX</span><i>/</i>Diagnóstico Operacional',
     title: 'La Radiografía del Desperdicio Operacional',
     sub: 'Todo lo que no crea valor es desperdicio. Descubra cuánto le cuestan las pérdidas que no ve.',
-    para: '<strong>Gemba<span>X</span></strong> examina los procesos que crean valor en su organización, capta las señales de desperdicio y analiza las causas raíz de sus problemas. GembaX no es un chatbot genérico. Un flujo de diagnóstico propio asistido por IA, construido sobre conocimiento experto y experiencia de campo, examina cada caso con tres perspectivas, siete lentes analíticas y una amplia biblioteca de skills; cada hallazgo es verificado y firmado por un experto con doctorado. El resultado: un diagnóstico de calidad consultora entregado en días, no en semanas. Más accesible, más eficaz, más rápido.',
+    para: '<strong>Gemba<span>X</span></strong> examina los procesos que crean valor en su organización, capta las señales de desperdicio y analiza las causas raíz de sus problemas. GembaX no es un chatbot genérico. Un flujo de diagnóstico propio asistido por IA, construido sobre conocimiento experto y experiencia de campo, examina cada caso con tres perspectivas, siete lentes analíticas y una amplia biblioteca de skills; cada hallazgo es verificado y firmado por un experto con doctorado. El resultado: un diagnóstico de calidad consultora entregado en días, no en semanas. <strong>Más accesible, más eficaz, más rápido.</strong>',
     listIntro: 'Miramos su operación con los ojos de su cliente e identificamos qué trabajo crea valor de verdad.',
     listItems: [
       '<strong>Radiografía del Desperdicio:</strong> Sacamos a la luz el trabajo que consume tiempo y recursos, y calculamos cuánto le cuestan esas pérdidas en dólares.',
