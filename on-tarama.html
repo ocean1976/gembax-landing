@@ -59,7 +59,15 @@ header{position:sticky;top:0;z-index:20;background:rgba(250,249,246,0.9);backdro
 @keyframes tp{0%,60%,100%{transform:none;opacity:.4}30%{transform:translateY(-5px);opacity:1}}
 
 /* ── INLINE OPTIONS (sohbet akışının içinde) ── */
-.optblock{align-self:stretch;animation:pop .3s ease both;padding-left:0.2rem;}
+.optblock{align-self:stretch;animation:fadein .22s ease both;padding-left:0.2rem;transition:opacity .18s ease;}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.optblock.leaving{pointer-events:none;}
+.optblock.leaving .opt:not(.picked){opacity:.35;transition:opacity .15s ease;}
+.opt.picked{border-color:#3fa34d !important;background:#EAF6EC !important;}
+.opt.picked .radio{background:#3fa34d;border-color:#3fa34d;box-shadow:inset 0 0 0 3px #EAF6EC;}
+.opt.picked .k{background:#3fa34d;color:#fff;}
+#chatTail{height:85vh;transition:height .3s ease;}
+#chatTail.done{height:6vh;}
 .opt-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
 .opt-hint{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.08em;color:var(--text2);text-transform:uppercase;}
 .undo{color:var(--text2);background:none;border:none;font-family:var(--mono);font-size:0.66rem;cursor:pointer;text-decoration:underline;padding:0;}
@@ -68,20 +76,20 @@ header{position:sticky;top:0;z-index:20;background:rgba(250,249,246,0.9);backdro
 .opts.grid,.opts.scale,.opts.tiles{flex-direction:row;flex-wrap:wrap;align-items:stretch;}
 .opt{background:var(--bg2);border:1.5px solid var(--border2);color:var(--navy);border-radius:13px;
   padding:0.7rem 0.9rem;font-family:var(--body);font-size:0.98rem;text-align:left;cursor:pointer;
-  transition:border-color .15s, background .15s, transform .1s;line-height:1.45;
+  transition:border-color .15s, background .15s, opacity .15s;line-height:1.45;-webkit-tap-highlight-color:transparent;
   box-shadow:0 1px 2px rgba(27,42,74,0.04);display:flex;align-items:center;gap:0.75rem;}
 .opt .k{font-family:var(--mono);font-size:0.72rem;color:var(--text2);background:rgba(27,42,74,0.07);
   min-width:24px;height:24px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex:none;transition:background .15s,color .15s;}
-.opt:hover .k{background:var(--green);color:#fff;}
+@media(hover:hover){.opt:hover .k{background:var(--green);color:#fff;}}
 .opt .lbl{flex:1;}
 .opt .radio{width:16px;height:16px;border:1.5px solid var(--border2);border-radius:50%;flex:none;margin-left:auto;transition:border-color .15s,background .15s;}
-.opt:hover .radio{border-color:var(--green);}
+@media(hover:hover){.opt:hover .radio{border-color:var(--green);}}
 .opt:active .radio{background:var(--green);border-color:var(--green);}
 .opts.g3 .opt:nth-child(even),.opts.tiles .opt:nth-child(even){background:var(--card);}
 .opts.grid:not(.g3) .opt:nth-child(4n+2),.opts.grid:not(.g3) .opt:nth-child(4n+3),
 .opts.scale .opt:nth-child(4n+2),.opts.scale .opt:nth-child(4n+3){background:var(--card);}
-.opt:hover{border-color:var(--navy);background:var(--bg2);transform:translateX(3px);}
-.opt:active{transform:translateX(3px) scale(0.99);}
+@media(hover:hover){.opt:hover{border-color:var(--navy);background:var(--bg2);}}
+.opt:active{transform:none;}
 .opts.grid .opt,.opts.scale .opt{flex:0 0 calc(50% - 0.25rem);text-align:left;padding:0.65rem 0.75rem;font-size:0.92rem;}
 .opts.grid.g3 .opt{flex:0 0 calc(33.33% - 0.32rem);}
 @media(max-width:560px){.opts.grid .opt{flex:0 0 100%;}.opts.grid.g3 .opt{flex:0 0 calc(50% - 0.25rem);}}
@@ -192,6 +200,7 @@ header{position:sticky;top:0;z-index:20;background:rgba(250,249,246,0.9);backdro
 </header>
 
 <div id="chat"></div>
+<div id="chatTail" aria-hidden="true"></div>
 
 <script>
 var Q = {
@@ -524,7 +533,7 @@ var READ = {
     m: { w: 'Üretimde israf üç yerde saklanır: rutinleşmiş mesai, "güvenlik" adı verilen stok ve kimsenin saymadığı yeniden işleme. Röntgen her birini istasyon bazında dolara çevirir; çoğu zaman en büyük kalem sanılan değil, görünmeyen olur.',
          b: 'Üretimde darboğaz nadiren en pahalı makinedir; çoğu zaman önünde en uzun kuyruk biriken istasyon ya da bir onay adımıdır. Onu bulmadan alınan her makine, kuyruğu başka yere taşır.',
          r: 'Aynı arıza, aynı hata, aynı gecikme farklı görünse de üretimde genellikle tek bir köke iner: tanımsız bir standart, ölçülmeyen bir parametre ya da eksik bir devir. Kök bulunmadan her çözüm geçicidir.' },
-    l: { w: 'Depoda israf yarı dolu tırlarda, iki kez dokunulan palette ve yer kaplayan ölü stokta yaşar. Röntgen bunları sipariş başına maliyete çevirir; doluluk oranı tek başına yılda bir tır filosu eder.',
+    l: { w: 'Depoda israf yarı dolu tırlarda, iki kez dokunulan palette ve yer kaplayan ölü stokta yaşar. Röntgen bunları sipariş başına maliyete çevirir; düşük doluluk tek başına yılda ciddi bir tutara ulaşır.',
          b: 'Lojistikte darboğaz genellikle rampa değil, rampaya gelene kadar geçilen evrak ve onay adımlarıdır. Kuyruğun nerede biriktiğini bulmadan eklenen her araç ve raf, bekleyen araç sayısını artırır.',
          r: 'Her hafta tekrarlayan gecikme ve hata farklı vardiyalarda farklı isimlerle görünür; kökü çoğu zaman tek bir tanımsız süreçtir. Kök bulunmadan personel ya da araç değişimi sonucu değiştirmez.' },
     d: { w: 'Distribütörlükte israfın iki büyük adresi: satmayan stok ve geç gelen tahsilat. İkisi de kâr değil nakit yer; röntgen ürün ve müşteri bazında hangisinin ne kadar nakit bağladığını gösterir.',
@@ -548,21 +557,21 @@ var READ = {
     p: { w: 'Perakendede israf tükenen en çok satanda, satmayan stokta ve sayım farkında saklanır. Ürün bazında marj bilinmeden hangi rafın para kaybettirdiği görülmez; röntgen bunu mağaza ve ürün bazında gösterir.',
          b: 'Mağazada darboğaz yoğun saatteki kasa ve reyondur; saatlik veriyle planlanmayan vardiya, boş saatte fazla, dolu saatte eksik personel üretir. Önce hangi saatte neyin tıkandığını bulmak gerekir.',
          r: 'Mağazalar arası fark ve her hafta tekrarlayan sorun farklı görünse de kökü genellikle tektir: tanımsız ikmal ya da vardiya süreci. Kök bulunmadan müdür değişimi sonucu değiştirmez.' },
-    s: { w: 'SaaS\'ta israf destek maliyetinde, uzun onboarding\'de ve erken churn\'de yaşar; müşteri başına destek maliyeti bilinmeden hangi segmentin para kaybettirdiği görülmez. Röntgen bunu gösterir.',
-         b: 'Ürün ekibinde darboğaz çoğu zaman QA, öncelik kararı ya da tek bir geliştiricidir. Bulunmadan büyütülen ekip, aynı kuyruğa daha çok iş ekler.',
-         r: 'Tekrarlayan olay ve aynı 5 destek konusu farklı müşterilerde farklı görünür; kökü genellikle postmortem yapılmayan tek bir hatadır. Kök bulunmadan her sürüm aynı olayı geri getirir.' },
+    s: { w: 'SaaS\'ta israf destek maliyetinde, uzun müşteri kurulumunda ve erken müşteri kaybında yaşar; müşteri başına destek maliyeti bilinmeden hangi segmentin para kaybettirdiği görülmez. Röntgen bunu gösterir.',
+         b: 'Ürün ekibinde darboğaz çoğu zaman test, öncelik kararı ya da tek bir geliştiricidir. Bulunmadan büyütülen ekip, aynı kuyruğa daha çok iş ekler.',
+         r: 'Tekrarlayan olay ve aynı 5 destek konusu farklı müşterilerde farklı görünür; kökü genellikle ardından incelenmeyen tek bir hatadır. Kök bulunmadan her sürüm aynı olayı geri getirir.' },
     i: { w: "Yazılım projelerinde israf faturalanmayan ek talepte, bütçeyi aşan saatte ve teslim sonrası bitmeyen düzeltmede yaşar; proje bazında kârlılık bilinmeden hangi müşterinin para kaybettirdiği görünmez.",
          b: "Yazılım projelerinde darboğaz nadiren kod yazımıdır; çoğu zaman netleşmeyen gereksinim, müşteri kabulü ya da her şeyin üzerinden geçtiği tek bir kıdemli geliştiricidir.",
-         r: "Teslim sonrası hataların çoğu koddan değil, yazılı ve onaylı olmayan gereksinimden doğar. Kök bulunmadan her sprint aynı düzeltmeyi yeniden üretir." },
+         r: "Teslim sonrası hataların çoğu koddan değil, yazılı ve onaylı olmayan gereksinimden doğar. Kök bulunmadan her yeni sürüm aynı düzeltmeyi yeniden gerektirir." },
     f: { w: "Teknik serviste israf saha ekibinin yolda ve beklemede geçen saatinde, tekrar ziyarette ve faturaya yansımayan işçilik ile malzemede yaşar. Röntgen bunları iş emri bazında dolara çevirir.",
          b: "Serviste darboğaz çoğu zaman kişi sayısı değildir; parça, iş ataması ya da zor işleri çözebilen tek bir kişidir. Onu bulmadan alınan her eleman kuyruğu yalnızca yer değiştirir.",
          r: "Tekrarlayan arıza genellikle cihazdan değil, kaydedilmeyen kök nedenden ya da yanlış ilk teşhisten gelir. İlk seferde çözüm oranı düşükse sorun sahada değil, süreçtedir." },
     z: { w: "Tedarik zincirinde israf acil siparişte, ekspres navlunda ve yanlış yerde bekleyen stokta yaşar; toplam tedarik maliyeti bilinmeden en ucuz görünen tedarikçi çoğu zaman en pahalısıdır.",
          b: "Tedarik zincirinde darboğaz çoğu zaman tek kaynaklı bir kritik kalem, yavaş bir onay zinciri ya da tutmayan bir tahmindir. Onu bulmadan artırılan stok sorunu çözmez, yalnızca bağlanan nakdi büyütür.",
-         r: "Her hafta söndürülen tedarik yangını genellikle tek bir köke iner: ortak planın olmaması, yanlış stok kaydı ya da ölçülmeyen tedarikçi performansı. Kök bulunmadan her kriz bir sonrakinin provasıdır." },
-    g: { w: 'İsraf gider tablosunda kendi adıyla görünmez; rutinleşmiş maliyet olarak görünür. Röntgen bunları kalem kalem dolara çevirir.',
-         b: 'Sistemin hızını en yavaş halka belirler; darboğaz bulunmadan yapılan yatırım çıktıyı değil kuyruğu büyütür.',
-         r: 'Tekrarlayan sorun yanlış katmanda çözülmüş sorundur; kök bulunmadan her çözüm geçicidir.' }
+         r: "Her hafta söndürülen tedarik yangını genellikle tek bir köke iner: ortak planın olmaması, yanlış stok kaydı ya da ölçülmeyen tedarikçi performansı. Kök bulunmadan her kriz bir sonrakini hazırlar." },
+    g: { w: 'İsraf gider tablosunda kendi adıyla görünmez; alışılmış maliyetlerin içinde saklanır. Röntgen bunları kalem kalem dolara çevirir.',
+         b: 'İşin hızını en yavaş adım belirler; o adım bulunmadan yapılan yatırım işi hızlandırmaz, bekleyen işi artırır.',
+         r: 'Tekrarlayan sorun, asıl nedeni çözülmemiş sorundur; neden bulunmadan her çözüm geçicidir.' }
   },
   en: {
     m: { w: 'In a plant, waste hides in three places: overtime that became routine, inventory called "safety stock", and rework nobody counts. The X-ray converts each into dollars by station; the biggest line is usually the one you can\'t see, not the one you suspect.',
@@ -691,12 +700,12 @@ var ICONS = [
  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>'
 ];
 var DELIV = {
-  tr: { xray: ['7+1 israf kategorisinin operasyonunuzda nerede oluştuğu ve yıllık kaça mal olduğu, dolar cinsinden','Önce hangisine dokunmanız gerektiği: etkiye göre sıralı, ilk üçü işaretli','Her rakamın kaynağı ve varsayımı yazılı'],
-        'xray-toc': ['Hızlı Röntgen\'in tamamı','Sipariş girişinden teslimata akış haritası ve sistemi tutan tek kısıt','O kısıtta kaybettiğiniz çıktının yıllık karşılığı','Kısıtı büyütmeden ondan daha fazla iş geçirmenin ilk adımları'],
-        full: ['Röntgen + Darboğaz\'ın tamamı','Seçilen bir problem için kanıt zinciriyle kök neden','Bu kökün başka hangi belirtileri ürettiği','90 günlük aksiyon planı: ne, kim, hangi hafta, neyle ölçülür'],
-        transformation: ['Departman bazında israf, darboğaz ve kök neden taraması','12 aylık, sıralı yol haritası','Kapsam yazılı olarak birlikte belirlenir; fiyat kapsamdan sonra'] ,
+  tr: { xray: ['Sekiz israf türünün işletmenizde nerede görüldüğü ve yılda kaç dolara mal olduğu','Önce hangilerini ele almanız gerektiği: etkiye göre sıralı, ilk üçü işaretli','Her rakamın hangi veriye ve varsayıma dayandığı'],
+        'xray-toc': ['Hızlı Röntgen\'in tamamı','Siparişten teslimata iş akışınızın haritası ve işi en çok yavaşlatan nokta','Bu noktada kaybedilen işin yıllık tutarı','Yeni yatırım yapmadan bu noktadan daha fazla iş geçirmek için ilk adımlar'],
+        full: ['Röntgen + Darboğaz\'ın tamamı','Seçtiğiniz bir sorunun asıl nedeni ve bunu gösteren kanıtlar','Aynı nedenin başka hangi sorunlara yol açtığı','90 günlük aksiyon planı: ne, kim, hangi hafta, neyle ölçülür'],
+        transformation: ['Departman bazında kayıp, darboğaz ve asıl neden analizi','12 aylık, sıralı yol haritası','Kapsam yazılı olarak birlikte belirlenir; fiyat kapsamdan sonra'] ,
         steps: ['Yazılı sohbet, ~15 dakika. Operasyonunuzu kendi cümlelerinizle anlatırsınız.','Kapsam yazılı olarak netleşir; ödeme ondan sonra alınır.','İnsan uzman doğrular, yapay zeka tarar, 7 iş gününde imzalı rapor.'],
-        delivH: 'Raporda ne var', stepsH: 'Nasıl ilerler', readH: 'Sektörünüzde bu ne anlama geliyor', profH: 'Profiliniz', scoreH: 'Üç teşhisin sinyal gücü', print: 'Yazdır / PDF', tags: { w:'İSRAF', b:'DARBOĞAZ', r:'KÖK NEDEN' } },
+        delivH: 'Raporda ne var', stepsH: 'Nasıl ilerler', readH: 'Sektörünüzde bu ne anlama geliyor', profH: 'Profiliniz', scoreH: 'Cevaplarınıza göre üç alanın ağırlığı', print: 'Yazdır / PDF', tags: { w:'İSRAF', b:'DARBOĞAZ', r:'KÖK NEDEN' } },
   en: { xray: ['Where each of the 7+1 waste categories occurs in your operation and what it costs per year, in dollars','What to touch first: ranked by impact, top three flagged','The source and assumption behind every number, in writing'],
         'xray-toc': ['Everything in the Quick X-Ray','A flow map from order entry to delivery and the single constraint holding the system','The annual value of the output you lose at that constraint','First moves to get more through the constraint before spending on it'],
         full: ['Everything in X-Ray + Bottleneck','The root cause of one chosen problem, with the evidence chain','Which other symptoms that root produces','A 90-day action plan: what, who, which week, measured by what'],
@@ -1149,17 +1158,17 @@ var UI = {
     back:'← Geri', next:'Devam →', auto:'SEÇİNCE OTOMATİK İLERLER', kbd:'1–9 tuşlarıyla seçebilirsiniz · Enter: devam · Backspace: geri',
     layers:{ profile:'Profil', close:'Kapanış', signal:'Sinyal' }, pTitle:'Önce sizi tanıyalım.', pHint:'Üç seçim, tek ekran. Sorular buna göre şekillenir.', low:'AZ', high:'ÇOK',
     names:{ w:'İsraf Röntgeni', b:'Darboğaz Tespiti', r:'Kök Neden Analizi' },
-    why:{ w:'Bu sinyaller tipik olarak ölçülmemiş israf deseni: her kalem tek başına meşru görünüyor, toplamı kârı yiyor. Önce nerede ve kaça mal olduğunu görmek gerekiyor.',
-          b:'Bu kombinasyon Kısıtlar Teorisi\'nin imzası: sistemin hızını en yavaş halka belirliyor, yatırım o halkanın dışına gidiyor. Önce kısıtı bulmak gerekiyor.',
-          r:'Bu desen "yanlış katmanda çözülmüş sorun" deseni: belirti gidiyor, kök kalıyor, başka isimle geri geliyor. Önce ortak kökü bulmak gerekiyor.' },
-    dont:{ w:'Kaçağın nerede olduğunu görmeden genel maliyet kesintisine gitmeyin; çoğu zaman kesilen şey israf değil, değer olur.',
-           b:'Kısıtı bulmadan yeni makine, vardiya ya da eleman almayın. Darboğazın dışına giden yatırım çıktıyı artırmaz, yığını büyütür.',
-           r:'Aynı sorunu üçüncü kez aynı yöntemle çözmeyin. İki denemeyi boşa çıkaran şey çözümün kendisi değil, çözdüğü katmandı.' },
-    tiers:{ xray:['Hızlı Röntgen','İsraf Röntgeni: 7+1 kategoride nerede, yıllık kaça mal oluyor, önce neye dokunulacak.','$500','TEK SEFERLİK · VERİ SONRASI 5 İŞ GÜNÜ'],
-            'xray-toc':['Röntgen + Darboğaz','İsraf Röntgeni + Kısıtlar Teorisi ile darboğaz tespiti ve kaybedilen çıktının hesabı.','$900','TEK SEFERLİK · VERİ SONRASI 5 İŞ GÜNÜ'],
-            full:['Tam Teşhis','İsraf Röntgeni + Darboğaz (TOC) + bir problem için kök neden analizi ve 90 günlük plan.','$1.500','TEK SEFERLİK · VERİ SONRASI 5 İŞ GÜNÜ'],
-            transformation:['Dönüşüm','Şirket geneli teşhis + 12 aylık yol haritası. Kapsam yazılı olarak birlikte belirlenir.','Teklif','KAPSAMA GÖRE'] },
-    rLabel:'Cevaplarınıza göre · Sonuç', recTag:'ÖNERİLEN KADEME', recNote:'Ön tarama yön gösterir; kesin kapsam ve fiyat, insan uzman cevaplarınızı okuduktan sonra yazılı olarak teyit edilir.', startWith:' ile başlayın.', alsoStrong:' sinyali de güçlü.', sigH:'Cevaplarınızdaki sinyaller', dontH:'Teşhisten önce şunu yapmayın',
+    why:{ w:'Cevaplarınız fark edilmeyen kayıplara işaret ediyor: kalemler tek tek makul görünüyor ama toplamı kârı eritiyor. Önce kaybın nerede olduğunu ve kaça mal olduğunu görmek gerekiyor.',
+          b:'Cevaplarınız bir darboğaza işaret ediyor: işin hızını en yavaş adım belirliyor, yatırımlar ise başka yerlere gidiyor. Önce işin tıkandığı noktayı bulmak gerekiyor.',
+          r:'Cevaplarınız, çözüldü sanılıp geri gelen sorunlara işaret ediyor: belirti gidiyor, asıl neden kalıyor ve sorun başka bir biçimde geri dönüyor. Önce ortak nedeni bulmak gerekiyor.' },
+    dont:{ w:'Kaybın nerede olduğunu görmeden toptan maliyet kesintisine gitmeyin; çoğu zaman israf yerine değer yaratan işler kesilir.',
+           b:'İşin tıkandığı noktayı bulmadan yeni makine, vardiya ya da eleman eklemeyin. Yanlış yere yapılan yatırım işi hızlandırmaz, yalnızca bekleyen işi artırır.',
+           r:'Aynı sorunu üçüncü kez aynı yöntemle çözmeye çalışmayın. Önceki denemeler, çözüm kötü olduğu için değil, asıl nedene ulaşmadığı için tutmadı.' },
+    tiers:{ xray:['Hızlı Röntgen','Kayıpların nerede oluştuğu, yılda kaça mal olduğu ve önce hangisinin ele alınacağı.','$500','TEK SEFERLİK · VERİLER GELDİKTEN SONRA 5 İŞ GÜNÜ'],
+            'xray-toc':['Röntgen + Darboğaz','İsraf Röntgeni\'ne ek olarak işin tıkandığı noktanın bulunması ve bu yüzden kaybedilen işin hesabı.','$900','TEK SEFERLİK · VERİLER GELDİKTEN SONRA 5 İŞ GÜNÜ'],
+            full:['Tam Teşhis','Röntgen ve darboğaz analizine ek olarak seçtiğiniz bir sorunun asıl nedeni ve 90 günlük aksiyon planı.','$1.500','TEK SEFERLİK · VERİLER GELDİKTEN SONRA 5 İŞ GÜNÜ'],
+            transformation:['Dönüşüm','Şirket genelinde analiz ve 12 aylık yol haritası. Kapsamı yazılı olarak birlikte belirleriz.','Teklif','KAPSAMA GÖRE'] },
+    rLabel:'Cevaplarınıza göre · Sonuç', recTag:'ÖNERİLEN PAKET', recNote:'Ön tarama yön gösterir; kesin kapsam ve fiyat, insan uzman cevaplarınızı okuduktan sonra yazılı olarak teyit edilir.', startWith:' ile başlayın.', alsoStrong:' için de belirgin işaretler var.', sigH:'Cevaplarınızda öne çıkanlar', dontH:'Analizden önce bunu yapmayın',
     honest:'Bu bir ön yönlendirmedir; "size özel" değil, cevaplarınıza göredir. Dolar rakamı, insan uzman doğrulaması olmadan verilmez. Ödeme, kapsam yazılı olarak netleşene kadar alınmaz. $15.000 yıllık kaçak gösteremezsek rapor ücretsizdir.',
     go:'Teşhise geç →', noteBtn:'48 saatte 1 sayfalık uzman notu (ücretsiz)', mailBtn:'Sonucu e-postama gönder',
     noteHint:'Cevaplarınızı insan uzman okur, 48 saat içinde bir sayfalık yazılı not gönderir. Otomatik değildir; bu yüzden haftalık kontenjanlıdır.',
@@ -1258,36 +1267,36 @@ function qO(id, i){ if (id === 'pain2') return QA.pain2.opts[i][0]; var x = TXT(
 function qS(id, i){ var x = TXT(id); return (x && x[3] && x[3][i] != null) ? x[3][i] : (QA[id].opts[i][2] || ''); }
 var LXA = {
  tr: {
-  intro1:'Merhaba. Bu GembaX\'in ücretsiz ön taraması: 11 soruda işletmenizdeki görünmeyen israfın, darboğazın ve tekrarlayan sorunların sinyallerini tararım.',
-  intro2:'11 kısa soru soracağım, yaklaşık 3 dakika sürer. Kayıt gerekmez; sonunda hangi teşhisle başlamanız gerektiğini ve nedenini görürsünüz.',
-  note:'Not: GembaX genel bir sohbet botu değildir; uzman bilgisi ve saha deneyimiyle kurulan yapay zekâ destekli bir teşhis iş akışıdır. Her bulguyu doktoralı uzman doğrular ve imzalar.',
+  intro1:'Merhaba, GembaX ücretsiz ön taramasına hoş geldiniz. 11 soruyla işletmenizde gözden kaçan kayıpları, işin tıkandığı noktaları ve tekrarlayan sorunları ararım.',
+  intro2:'Yaklaşık 3 dakika sürer, kayıt gerekmez. Sonunda hangi analizle başlamanızın doğru olacağını ve nedenini görürsünüz.',
+  note:'Not: GembaX genel amaçlı bir sohbet botu değildir. Uzman bilgisi ve saha deneyimiyle hazırlanmış bir teşhis sürecidir; her bulguyu doktoralı bir uzman kontrol edip imzalar.',
   hName:'GembaX Ön Tarama', hStat:'11 soru · ~3 dk · Ücretsiz', docTitle:'GembaX · Ücretsiz Ön Tarama',
   startBtn:'Başlayalım →', startEcho:'Başlayalım',
   acks:['Anladım.','Not ettim.','Tamam.','Peki, devam edelim.','Kaydettim.'],
   pain2T:'Peki ikinci sırada hangisi geliyor?', pain2H:'Birinciden sonra en çok rahatsız eden.', pain2None:'Belirgin bir ikincisi yok',
   touch:'Bir seçeneğe dokunun', undo:'← önceki cevabı değiştir', q:'Soru', done:'Tarama tamamlandı',
   evalMsg:'Teşekkürler, tarama tamam. Cevaplarınızı değerlendiriyorum...',
-  legw:'ölçülmeyen para sızıntısı (fire, stok, mesai)', legb:'akışı tıkayan nokta (bekleme, gecikme)', legr:'çözülüp geri gelen sorunlar',
-  lead:'EN GÜÇLÜ SİNYAL',
-  recNote:'Ön tarama yön gösterir; kesin kapsam ve net fiyat, cevaplarınız doktoralı uzman analistimiz tarafından incelendikten sonra 24 saat içinde yazılı teyit edilir. Ödeme ondan önce alınmaz.',
+  legw:'fark edilmeyen maliyetler (fire, stok, mesai)', legb:'işin tıkandığı nokta (bekleme, gecikme)', legr:'çözüldü sanılıp geri gelen sorunlar',
+  lead:'EN BELİRGİN ALAN',
+  recNote:'Bu ön tarama size yön gösterir. Kesin kapsam ve fiyat, cevaplarınızı uzmanımız inceledikten sonra 24 saat içinde yazılı olarak iletilir. Ödeme bundan önce alınmaz.',
   gxH:'GembaX farkı',
   aboutH:'Analizinizi kim imzalıyor', aboutRole:'Kurucu · GembaX',
-  aboutP:'Özel sektörde ve bir kamu araştırma merkezinde yöneticilik yaptı. 20 yılı aşkın kariyeri saha uygulama mühendisliğinden mühendislik yönetimine, program yönetimi ve sistem mühendisliğinden üretim, servis operasyonları ve ürün yönetimine, bugün de danışmanlığa uzanıyor. 100 milyon doları aşan stratejik bir teknoloji portföyünü ve 400 kişiye varan servis operasyonlarını yönetti. Elektronik ve haberleşme mühendisi; işletme doktorası, MBA ve Lean Six Sigma Black Belt ile Yalın ve Kısıtlar Teorisi disiplinini veriye dayalı karar almayla birleştirir. Problemi çözmeye, sorunları kök nedenlerine kadar indirmeye, değer önerisini anlamaya, değer zincirini kurmaya ve örüntüler keşfetmeye doğuştan meraklı bir zihin. İş yaşamında yüzlerce vaka ile karşılaşma şansı yakaladı. Her GembaX raporu yapay zekâ destekli iş akışından geçer; son okuma ve imza onundur.',
-  gxP:'GembaX, kuruluşunuzda değer yaratan süreçleri inceler, israf sinyallerini yakalar ve sorunların kök nedenlerini analiz eder. GembaX genel bir sohbet botu değildir. Uzman bilgisi ve saha deneyimiyle kurulan yapay zekâ destekli özgün teşhis iş akışı, büyük danışmanlık firmalarının kullandığı hipotez odaklı, MECE yapılı problem çözme yöntemiyle çalışır; üç bakış açısı, yedi analiz merceği ve geniş bir skill kütüphanesinden seçtiğiniz analize uygun olanları uygular. Her bulguyu doktoralı uzman doğrular ve imzalar. Sonuç: kurumsal danışmanlık disiplininde bir analiz, o bütçenin küçük bir kesriyle, haftalar değil günler içinde. <strong>Daha erişilebilir, daha etkin, daha hızlı.</strong>',
-  ctaAsk:'Bu konunun işletmenizde detaylı araştırılmasını ister misiniz? Başvurunuzu alayım; kapsamı ve net fiyatı 24 saat içinde yazılı olarak teyit edelim.',
+  aboutP:'Özel sektörde ve kamu araştırma merkezinde yöneticilikler yaptı. 20 yılı aşkın kariyeri saha uygulama mühendisliğinden mühendislik yönetimine, program yönetimi ve sistem mühendisliğinden üretim, servis operasyonları ve ürün yönetimine, bugün de danışmanlığa uzanıyor. 100 milyon doları aşan stratejik bir teknoloji portföyünü ve 400 kişiye varan servis operasyonlarını yönetti. Elektronik ve haberleşme mühendisi; işletme doktorası, MBA ve Lean Six Sigma Black Belt ile Yalın ve Kısıtlar Teorisi disiplinini veriye dayalı karar almayla birleştirir. Problemi çözmeye, sorunları kök nedenlerine kadar indirmeye, değer önerisini anlamaya, değer zincirini kurmaya ve örüntüler keşfetmeye doğuştan meraklı bir zihin. İş yaşamında yüzlerce vaka ile karşılaşma şansı yakaladı. Her GembaX raporu yapay zekâ destekli iş akışından geçer; son okuma ve imza onundur.',
+  gxP:'GembaX, işletmenizde zaman ve para kaybettiren işleri bulur, işin nerede tıkandığını gösterir ve tekrarlayan sorunların asıl nedenine iner. Genel amaçlı bir sohbet botu değildir: uzman bilgisi ve saha deneyimiyle kurulmuş, yapay zekâ destekli bir teşhis sürecidir. Büyük danışmanlık firmalarının kullandığı yöntemlerle çalışır; her bulguyu doktoralı bir uzman kontrol edip imzalar. Sonuç: kurumsal danışmanlık kalitesinde bir analiz, çok daha düşük bir bütçeyle, haftalar yerine günler içinde. <strong>Daha hızlı, daha uygun, daha net.</strong>',
+  ctaAsk:'Bu konuyu işletmenizde ayrıntılı incelememizi ister misiniz? Başvurunuzu bırakın; kapsamı ve fiyatı 24 saat içinde yazılı olarak iletelim.',
   applyChip:'Detaylı teşhis başvurusu →', mailChip:'Şimdi değil, sonucu e-postama gönder',
   applyEcho:'Detaylı teşhis istiyorum', mailChipEcho:'Sonucu e-postama gönder',
-  applyIntro:'Birkaç kısa bilgi yeterli. Proje kişileri ve süreç detayları, ödeme sonrası hazırlanan soru setiyle birlikte netleşir; şimdi sormuyorum.',
+  applyIntro:'Şimdilik birkaç temel bilgi yeterli. Ekibiniz ve süreç ayrıntıları ödemeden sonra netleşir.',
   formHint:'Başvuru · 1 dakika', phName:'Ad Soyad', phCo:'Şirket adı', phMail:'İş e-postanız', phWeb:'Web sitesi veya LinkedIn (opsiyonel)',
   nErr:'Adınızı ve soyadınızı birlikte yazın (rakam olmadan, ör. Ayşe Yılmaz)', mErr:'E-posta adresinizi kontrol edin (ör. ad@sirketiniz.com)',
-  ndaH:'Paylaştıklarınız ticari sır muamelesi görür',
+  ndaH:'Paylaştığınız bilgiler gizli tutulur',
   nda:['Bilgileriniz sadece sizin için yapılacak analiz amacıyla kullanılır.','3. taraflarla paylaşılmaz, satılmaz, ifşa edilmez.','Yazılı izniniz olmadan şirket adınız referans olarak yayınlanmaz.','Bilgiler 3 yıl saklanır; istediğiniz an silme talep edebilirsiniz.','Silme talebi 30 iş günü içinde işleme alınır. Yetkili: murat@gembax.ai'],
   consent:'Yukarıdaki Gizlilik Taahhüdü\'nü (NDA) okudum; cevaplarımın ve iletişim bilgilerimin başvurumu değerlendirmek amacıyla işlenmesini kabul ediyorum. <a href="%P%" target="_blank">KVKK / Gizlilik politikası</a>',
   sendApply:'Başvuruyu Gönder →', fnote:'Zorunlu: ad ve soyad, şirket, geçerli iş e-postası ve onay kutusu.', sending:'Gönderiliyor...',
   appliedEcho:'%C% adına başvuru gönderildi',
-  confirm:'<strong>Başvurunuz alındı.</strong> Tarama cevaplarınız doktoralı uzman analistimiz tarafından incelenecek; kapsam ve net fiyat <strong>24 saat içinde</strong> %M% adresine yazılı olarak gelecek. Ödeme, kapsam yazılı netleşmeden alınmaz.',
+  confirm:'<strong>Başvurunuz alındı.</strong> Cevaplarınızı uzmanımız inceleyecek; kapsam ve fiyat <strong>24 saat içinde</strong> %M% adresine yazılı olarak gelecek. Kapsam netleşmeden ödeme alınmaz.',
   afterH:'Bundan sonra ne olacak',
-  steps:['<strong>İnceleme ve teklif:</strong> Doktoralı uzman analistimiz tarama cevaplarınızı inceler; kapsam ve net fiyat 24 saat içinde yazılı gelir.','<strong>Onay ve ödeme:</strong> Yazılı onayınızla ödeme alınır; süreç başlar. Ödeme öncesi hiçbir yükümlülük yoktur.','<strong>Soru seti ve veri talebi:</strong> Ödeme sonrası, tespit edilen sinyallere göre işletmenize özel süreç soruları hazırlanır ve paylaşılır; gerekirse veri talebi iletilir (rapor, tablo, sistem çıktısı).','<strong>Proje kişileri:</strong> Bilgi alınacak kişiler birlikte belirlenir. Farklı kademelerden birden fazla kişiden bilgi almak analizi derinleştirir; bunu tercih ediyoruz.','<strong>Rapor:</strong> Veriler toplandıktan sonra 5 iş günü içinde analiz raporu ve kapsama göre eylem planı paylaşılır.'],
+  steps:['<strong>İnceleme ve teklif:</strong> Uzmanımız cevaplarınızı inceler; kapsam ve fiyat 24 saat içinde yazılı olarak gelir.','<strong>Onay ve ödeme:</strong> Teklifi onaylarsanız ödeme alınır ve çalışma başlar. Onaydan önce hiçbir yükümlülüğünüz yoktur.','<strong>Sorular ve veriler:</strong> Ödemeden sonra işletmenize özel sorular hazırlanır. Gerekirse rapor, tablo ya da sistem çıktısı gibi veriler istenir.','<strong>Görüşülecek kişiler:</strong> Bilgi alınacak kişileri birlikte belirleriz. Farklı kademelerden birkaç kişiyle konuşmak analizi güçlendirir.','<strong>Rapor:</strong> Veriler tamamlandıktan sonra 5 iş günü içinde rapor ve kapsamına göre aksiyon planı teslim edilir.'],
   contact:'Sorunuz olursa her zaman yazabilirsiniz: murat@gembax.ai',
   mailHint2:'Sonucu gönder', phMail2:'E-posta adresiniz',
   consent2:'Sonucun e-postama gönderilmesi için verilerimin işlenmesini kabul ediyorum. <a href="%P%" target="_blank">Gizlilik politikası</a>',
@@ -1311,7 +1320,7 @@ var LXA = {
   gxH:'The GembaX difference',
   aboutH:'Who signs your diagnosis', aboutRole:'Founder · GembaX',
   aboutP:'He has held leadership roles in the private sector and at a public research center. Over 20+ years his career has run from field application engineering to engineering management, from program management and systems engineering to manufacturing, service operations and product management, and today to consulting. He led a $100M+ strategic technology portfolio and service operations of up to 400 people. An electronics and communications engineer with a PhD in Business Management, an MBA and a Lean Six Sigma Black Belt, he combines Lean and Theory of Constraints rigor with data-driven decision-making. By nature a curious mind, drawn to solving problems, tracing them to their root causes, understanding the value proposition, building the value chain and discovering patterns. His working life has given him the chance to see hundreds of cases first-hand. Every GembaX report runs through an AI-assisted workflow; the final review and signature are his.',
-  gxP:'GembaX examines the processes that create value in your organization, captures waste signals and analyzes the root causes of problems. GembaX is not a generic chatbot. Its AI-powered diagnostic workflow, built on expert knowledge and field experience, applies the hypothesis-driven, MECE-structured problem-solving method used by the major consulting firms, drawing on three perspectives, seven analysis lenses and a broad skill library as the analysis you choose requires. Every finding is verified and signed by a PhD-level expert. The result: an analysis with the discipline of corporate consulting, at a small fraction of that budget, delivered in days, not weeks. <strong>More accessible, more effective, faster.</strong>',
+  gxP:'GembaX finds the work that costs your business time and money, shows where the flow gets stuck and gets to the real cause of recurring problems. It is not a general-purpose chatbot: it is an AI-assisted diagnostic process built on expert knowledge and field experience. It uses the methods of the big consulting firms, and a PhD-level expert checks and signs every finding. The result: consulting-grade analysis at a fraction of the budget, in days instead of weeks. <strong>Faster, more affordable, clearer.</strong>',
   ctaAsk:'Would you like this investigated in depth in your business? Let me take your application; the scope and exact price will be confirmed in writing within 24 hours.',
   applyChip:'Apply for detailed diagnosis →', mailChip:'Not now, email me the result',
   applyEcho:'I want the detailed diagnosis', mailChipEcho:'Email me the result',
@@ -1349,7 +1358,7 @@ var LXA = {
   gxH:'La diferencia GembaX',
   aboutH:'Quién firma su diagnóstico', aboutRole:'Fundador · GembaX',
   aboutP:'Ha ocupado cargos directivos en el sector privado y en un centro público de investigación. En más de 20 años, su carrera ha ido de la ingeniería de aplicaciones de campo a la dirección de ingeniería, de la gestión de programas y la ingeniería de sistemas a la fabricación, las operaciones de servicio y la gestión de producto, y hoy a la consultoría. Dirigió una cartera tecnológica estratégica de más de 100 millones de dólares y operaciones de servicio de hasta 400 personas. Ingeniero en Electrónica y Comunicaciones, doctor en Administración de Empresas, MBA y Lean Six Sigma Black Belt, combina el rigor Lean y de la Teoría de Restricciones con la toma de decisiones basada en datos. Una mente curiosa por naturaleza, atraída por resolver problemas, llevarlos hasta su causa raíz, entender la propuesta de valor, construir la cadena de valor y descubrir patrones. Su vida profesional le ha dado la oportunidad de conocer cientos de casos de primera mano. Cada informe de GembaX pasa por un flujo de trabajo asistido por IA; la revisión final y la firma son suyas.',
-  gxP:'GembaX examina los procesos que crean valor en su organización, capta señales de desperdicio y analiza las causas raíz de los problemas. GembaX no es un chatbot genérico. Su flujo de diagnóstico impulsado por IA, construido sobre conocimiento experto y experiencia de campo, aplica el método de resolución de problemas basado en hipótesis y estructurado en MECE que usan las grandes consultoras, recurriendo a tres perspectivas, siete lentes de análisis y una amplia biblioteca de habilidades según lo requiera el análisis que elija. Cada hallazgo es verificado y firmado por un experto con doctorado. El resultado: un análisis con la disciplina de la consultoría corporativa, por una pequeña fracción de ese presupuesto, entregado en días, no semanas. <strong>Más accesible, más eficaz, más rápido.</strong>',
+  gxP:'GembaX encuentra el trabajo que le cuesta tiempo y dinero a su empresa, muestra dónde se atasca el flujo y llega a la causa real de los problemas que se repiten. No es un chatbot de uso general: es un proceso de diagnóstico asistido por IA, construido sobre conocimiento experto y experiencia de campo. Usa los métodos de las grandes consultoras, y un experto con doctorado revisa y firma cada hallazgo. El resultado: un análisis de nivel consultoría, por una fracción del presupuesto, en días en lugar de semanas. <strong>Más rápido, más asequible, más claro.</strong>',
   ctaAsk:'¿Quiere que esto se investigue a fondo en su empresa? Registro su solicitud; el alcance y el precio exacto se confirman por escrito en 24 horas.',
   applyChip:'Solicitar diagnóstico detallado →', mailChip:'Ahora no, envíenme el resultado',
   applyEcho:'Quiero el diagnóstico detallado', mailChipEcho:'Envíenme el resultado',
@@ -1380,21 +1389,21 @@ try {
 } catch(e){}
 var ACKS = ['Anladım.','Not ettim.','Tamam.','Peki, devam edelim.','Kaydettim.'];
 var STEPS = [
-  '<strong>İnceleme ve teklif:</strong> Doktoralı uzman analistimiz tarama cevaplarınızı inceler; kapsam ve net fiyat 24 saat içinde yazılı gelir.',
-  '<strong>Onay ve ödeme:</strong> Yazılı onayınızla ödeme alınır; süreç başlar. Ödeme öncesi hiçbir yükümlülük yoktur.',
-  '<strong>Soru seti ve veri talebi:</strong> Ödeme sonrası, tespit edilen sinyallere göre işletmenize özel süreç soruları hazırlanır ve paylaşılır; gerekirse veri talebi iletilir (rapor, tablo, sistem çıktısı).',
-  '<strong>Proje kişileri:</strong> Bilgi alınacak kişiler birlikte belirlenir. Farklı kademelerden birden fazla kişiden bilgi almak analizi derinleştirir; bunu tercih ediyoruz.',
-  '<strong>Rapor:</strong> Veriler toplandıktan sonra 5 iş günü içinde analiz raporu ve kapsama göre eylem planı paylaşılır.'
+  '<strong>İnceleme ve teklif:</strong> Uzmanımız cevaplarınızı inceler; kapsam ve fiyat 24 saat içinde yazılı olarak gelir.',
+  '<strong>Onay ve ödeme:</strong> Teklifi onaylarsanız ödeme alınır ve çalışma başlar. Onaydan önce hiçbir yükümlülüğünüz yoktur.',
+  '<strong>Sorular ve veriler:</strong> Ödemeden sonra işletmenize özel sorular hazırlanır. Gerekirse rapor, tablo ya da sistem çıktısı gibi veriler istenir.',
+  '<strong>Görüşülecek kişiler:</strong> Bilgi alınacak kişileri birlikte belirleriz. Farklı kademelerden birkaç kişiyle konuşmak analizi güçlendirir.',
+  '<strong>Rapor:</strong> Veriler tamamlandıktan sonra 5 iş günü içinde rapor ve kapsamına göre aksiyon planı teslim edilir.'
 ];
 
 /* ═══════════ STATE ═══════════ */
 var answers = {}, asked = [], sect = null, score = {w:0,b:0,r:0};
 var totalQ = 11, pain2Skipped = false, noScroll = false, curQ = null;
 var hist = [];   /* {id, nodes:[dom]} - undo için */
-var busy = false, ackIdx = 0;
+var busy = false, ackIdx = 0, holdScroll = false;
 var chat = document.getElementById('chat');
 
-function scrollToEl(n, pos){ if (noScroll) return; requestAnimationFrame(function(){ try{ n.scrollIntoView({behavior:'smooth', block: pos || 'end'}); }catch(e){ window.scrollTo(0, document.body.scrollHeight); } }); }
+function scrollToEl(n, pos, force){ if (noScroll || (holdScroll && !force)) return; requestAnimationFrame(function(){ try{ n.scrollIntoView({behavior:'smooth', block: pos || 'end'}); }catch(e){ window.scrollTo(0, document.body.scrollHeight); } }); }
 function el(cls, html, tag){ var d = document.createElement(tag||'div'); d.className = cls; d.innerHTML = html; chat.appendChild(d); scrollToEl(d); return d; }
 function botMsg(html, small, extra){ return el('msg bot' + (small ? ' small' : '') + (extra ? ' ' + extra : ''), html); }
 function userMsg(text){ return el('msg user', text); }
@@ -1444,12 +1453,12 @@ function showOpts(q, onPick, anchor, qid){
     var lead = isSector && ICONS[i] ? '<span class="ico">' + ICONS[i] + '</span>' : '<span class="k">' + (i+1) + '</span>';
     var lblTxt = (qid === 'pain2') ? op[0] : qO(qid, i);
     b.innerHTML = lead + '<span class="lbl">' + lblTxt + '</span><span class="radio"></span>';
-    b.onclick = function(){ if (busy) return; onPick(i); };
+    b.onclick = function(){ if (busy) return; busy = true; holdScroll = true; b.classList.add('picked'); block.classList.add('leaving'); setTimeout(function(){ onPick(i); }, 170); };
     box.appendChild(b);
   });
   block.appendChild(box);
   chat.appendChild(block); activeBlock = block;
-  if (anchor) scrollToEl(anchor, 'start'); else scrollToEl(block);
+  if (anchor) scrollToEl(anchor, 'start', true); else scrollToEl(block, null, true);
 }
 function showChips(list){
   busy = false; removeActive();
@@ -1563,8 +1572,10 @@ function askNext(){
   var tH = (id === 'pain2') ? L.pain2H : qH(id);
   var title = tT + (tH ? '<span class="hint">' + tH + '</span>' : '');
   var withAck = asked.length > 0 && asked.length % 2 === 1;
+  holdScroll = asked.length > 0;
   var ask = function(){
-    say(title, {delay: 620, cls:'q', then: function(node){
+    say(title, {delay: 430, cls:'q', then: function(node){
+      holdScroll = false;
       if (curQ) curQ.classList.remove('active');
       node.classList.add('active');
       curQ = node;
@@ -1584,11 +1595,11 @@ function askNext(){
     }});
   };
   if (withAck){
-    typing(380, function(){
+    setTimeout(function(){
       var ackNode = botMsg(L.acks[ackIdx++ % L.acks.length], true);
       if (hist.length) hist[hist.length-1].nodes.push(ackNode);
       ask();
-    });
+    }, 160);
   } else ask();
 }
 
@@ -1613,7 +1624,7 @@ function doUndo(){
 /* ═══════════ RESULT ═══════════ */
 function cap(s){ return s.charAt(0).toLocaleUpperCase('tr') + s.slice(1); }
 function finish(){
-  busy = true; removeActive(); setProgress(totalQ);
+  busy = true; holdScroll = false; removeActive(); setProgress(totalQ);
   if (curQ){ curQ.classList.remove('active'); curQ = null; }
   document.getElementById('pnum').textContent = L.done;
   tally();
@@ -1648,7 +1659,8 @@ function finish(){
   say(L.evalMsg, {delay:600, then:function(){
     typing(1100, function(){
       var sl = el('sysline', sname + ' · ' + U.rLabel);
-      scrollToEl(sl, 'start');
+      scrollToEl(sl, 'start', true);
+      setTimeout(function(){ var ct = document.getElementById('chatTail'); if (ct) ct.classList.add('done'); }, 900);
       noScroll = true;
 
       var CK = {w:'cw', b:'cb', r:'cr'};
