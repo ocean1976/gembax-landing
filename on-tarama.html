@@ -1060,7 +1060,7 @@ var SECT_NAMES = { tr:['Üretim','Lojistik','Distribütörlük','E-ticaret','Per
 
 /* ═══════════ CONFIG ═══════════ */
 var CFG = {
-  WEBHOOK: '',              /* n8n webhook URL - boşsa gönderim localStorage + console'a düşer */
+  WEBHOOK: 'https://formspree.io/f/mvzybjap',  /* Formspree → murat@gembax.ai. Boşsa form hata verir, sahte 'alındı' mesajı gösterilmez */
   TOTAL: 11,
   CHAIN: 7,
   PRIVACY_URL: 'privacy.html'
@@ -1112,6 +1112,7 @@ var LXA = {
   mailHint2:'Sonucu gönder', phMail2:'E-posta adresiniz',
   consent2:'Sonucun e-postama gönderilmesi için verilerimin işlenmesini kabul ediyorum. <a href="%P%" target="_blank">Gizlilik politikası</a>',
   send2:'Gönder →', mailEcho:'E-postama gönder: %M%',
+  sendErr:'Gönderim tamamlanamadı; cevaplarınız bu tarayıcıda kayıtlı. Tekrar deneyin ya da doğrudan <a href="mailto:murat@gembax.ai">murat@gembax.ai</a> adresine yazın.',
   mailDone:'Gönderildi. Gelen kutunuzu kontrol edin. Hazır olduğunuzda aynı linkten başvurabilirsiniz; sonucunuz kayıtlı kalır.'
  },
  en: {
@@ -1147,6 +1148,7 @@ var LXA = {
   mailHint2:'Send the result', phMail2:'Your email',
   consent2:'I consent to my data being processed to email me the result. <a href="%P%" target="_blank">Privacy policy</a>',
   send2:'Send →', mailEcho:'Email it to: %M%',
+  sendErr:'Sending failed; your answers are saved in this browser. Please try again or write directly to <a href="mailto:murat@gembax.ai">murat@gembax.ai</a>.',
   mailDone:'Sent. Check your inbox. When you are ready you can apply from the same link; your result stays saved.'
  },
  es: {
@@ -1182,6 +1184,7 @@ var LXA = {
   mailHint2:'Enviar el resultado', phMail2:'Su correo',
   consent2:'Acepto el procesamiento de mis datos para enviarme el resultado. <a href="%P%" target="_blank">Política de privacidad</a>',
   send2:'Enviar →', mailEcho:'Enviar a mi correo: %M%',
+  sendErr:'No se pudo enviar; sus respuestas quedan guardadas en este navegador. Inténtelo de nuevo o escriba directamente a <a href="mailto:murat@gembax.ai">murat@gembax.ai</a>.',
   mailDone:'Enviado. Revise su bandeja. Cuando quiera puede solicitar desde el mismo enlace; su resultado queda guardado.'
  }
 };
@@ -1425,14 +1428,14 @@ function finish(){
   asked.forEach(function(id){
     if (PROFILE.indexOf(id) > -1) return;
     var q = QA[id], a = answers[id]; if (a == null) return;
-    var s = q.opts[a][1] || {}, sig = q.opts[a][2] || '';
+    var s = q.opts[a][1] || {}, sig = qS(id, a), sigTR = q.opts[a][2] || '';
     var wt = (s.w||0)+(s.b||0)+(s.r||0);
     var tag = (s.w||0) >= (s.b||0) && (s.w||0) >= (s.r||0) ? 'w' : (s.b||0) >= (s.r||0) ? 'b' : 'r';
-    if (sig && id !== sect.pain && id !== 'pain2' && id !== 'tried') signals.push({t:sig, wt:wt, tag:tag});
+    if (sig && id !== sect.pain && id !== 'pain2' && id !== 'tried') signals.push({t:sig, tr:sigTR, wt:wt, tag:tag});
   });
   signals.sort(function(a,b){ return b.wt-a.wt; });
-  var seen = {}, top = [], topT = [];
-  signals.forEach(function(s){ if (!seen[s.t] && top.length < 4){ seen[s.t]=1; top.push(s.t); topT.push(s.tag); } });
+  var seen = {}, top = [], topT = [], topTR = [];
+  signals.forEach(function(s){ if (!seen[s.t] && top.length < 4){ seen[s.t]=1; top.push(s.t); topT.push(s.tag); topTR.push(s.tr); } });
 
   var ranked = ['w','b','r'].sort(function(a,b){ return score[b]-score[a]; });
   var prim = ranked[0], sec = ranked[1], max = score[prim] || 1;
@@ -1483,7 +1486,7 @@ function finish(){
 
         el('card', '<h3>' + L.gxH + '</h3><p>' + L.gxP + '</p>');
 
-        savePacket(code, tier, top);
+        savePacket(code, tier, top, topTR);
 
         setTimeout(function(){
           say(L.ctaAsk, {delay:700, then:function(){
@@ -1499,17 +1502,47 @@ function finish(){
 }
 
 /* ═══════════ FORMS ═══════════ */
-function savePacket(code, tier, top){
+function savePacket(code, tier, top, topTR){
   var packet = { v:3, source:'chat-prescan', lang:lang, sector:answers.sector,
-    sc:sect.code, tier:code, price:tier[2], score:score, signals:top.slice(0,3), answers:answers, asked:asked, ts:new Date().toISOString() };
+    sc:sect.code, tier:code, price:tier[2], score:score, signals:top.slice(0,3), signals_tr:(topTR||top).slice(0,3), answers:answers, asked:asked, ts:new Date().toISOString() };
   try { localStorage.setItem('gembax-prescan', JSON.stringify(packet)); } catch(e){}
   return packet;
 }
 function submit(payload, cb){
-  if (CFG.WEBHOOK){
-    fetch(CFG.WEBHOOK, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
-      .then(function(){ cb(true); }).catch(function(){ cb(false); });
-  } else { console.log('GEMBAX SUBMIT (webhook tanımsız):', payload); setTimeout(function(){ cb(true); }, 600); }
+  if (!CFG.WEBHOOK){ console.warn('GEMBAX SUBMIT: webhook tanımsız, gönderim YAPILMADI', payload); setTimeout(function(){ cb(false); }, 400); return; }
+  var done = false, t = setTimeout(function(){ if (!done){ done = true; cb(false); } }, 15000);
+  var ap = payload.apply || {}, eo = payload.emailOnly || {};
+  var trT = (UI.tr.tiers || {})[payload.tier] || [payload.tier || '-', '', payload.price || ''];
+  var paket = trT[0] + ' (' + (trT[2] || payload.price || '') + ')';
+  var ref = payload.ref || ('GBX-' + Date.now().toString().slice(-8)); payload.ref = ref;
+  var sc = payload.score || {};
+  var body = {
+    _subject: '[GembaX] ' + (payload.apply ? trT[0] + ' başvurusu: ' + (ap.company || '-') : 'Ön tarama, sadece e-posta: ' + (eo.email || '-')),
+    basvuran: ap.name || '',
+    email: ap.email || eo.email || '',
+    sirket: ap.company || '',
+    web: ap.web || '',
+    paket: paket,
+    tur: payload.apply ? 'basvuru' : 'sadece-eposta',
+    ref: ref,
+    lang: (payload.lang || 'tr').toUpperCase(),
+    submitted_at: new Date().toISOString(),
+    sektor: payload.sc || '',
+    skor: 'israf ' + (sc.w||0) + ' / darbogaz ' + (sc.b||0) + ' / kok neden ' + (sc.r||0),
+    sinyaller: (payload.signals_tr || payload.signals || []).join(' | '),
+    consent_meta: { consentDate: new Date().toISOString(), nda: !!payload.apply, lang: payload.lang || 'tr' },
+    tum_cevaplar: payload.answers || {},
+    paket_json: JSON.stringify(payload)
+  };
+  fetch(CFG.WEBHOOK, {method:'POST', headers:{'Content-Type':'application/json', 'Accept':'application/json'}, body:JSON.stringify(body)})
+    .then(function(r){ if (done) return; done = true; clearTimeout(t); cb(!!(r && r.ok)); })
+    .catch(function(){ if (done) return; done = true; clearTimeout(t); cb(false); });
+}
+function sendFail(sb, label){
+  sb.disabled = false; sb.textContent = label;
+  var box = sb.parentNode.querySelector('.ferr.send');
+  if (!box){ box = document.createElement('div'); box.className = 'ferr send on'; box.style.textAlign = 'center'; sb.parentNode.insertBefore(box, sb.nextSibling); }
+  box.innerHTML = L.sendErr; box.classList.add('on');
 }
 
 function showApplyForm(code){
@@ -1549,7 +1582,8 @@ function showApplyForm(code){
       var packet = JSON.parse(localStorage.getItem('gembax-prescan') || '{}');
       packet.apply = { name:n.value.trim(), company:c.value.trim(), email:m.value.trim(), web:(document.getElementById('fWeb').value||'').trim(), tier:code };
       try { localStorage.setItem('gembax-prescan', JSON.stringify(packet)); } catch(e){}
-      submit(packet, function(){
+      submit(packet, function(ok){
+        if (!ok){ sendFail(sb, L.sendApply); return; }
         removeActive();
         userMsg(L.appliedEcho.replace('%C%', c.value.trim()));
         say(L.confirm.replace('%M%', m.value.trim()), {delay:800, then:function(){
@@ -1579,7 +1613,8 @@ function showEmailForm(){
     sb.disabled = true; sb.textContent = L.sending;
     var packet = JSON.parse(localStorage.getItem('gembax-prescan') || '{}');
     packet.emailOnly = { email: m.value.trim() };
-    submit(packet, function(){
+    submit(packet, function(ok){
+      if (!ok){ sendFail(sb, L.send2); return; }
       removeActive();
       userMsg(L.mailEcho.replace('%M%', m.value.trim()));
       say(L.mailDone, {delay:700});
