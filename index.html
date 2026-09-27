@@ -703,9 +703,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   --panel-inset:14px;
   position:relative;display:flex;flex-direction:column;align-items:stretch;
   gap:12px;min-width:0;padding:15px var(--panel-inset);margin:0;
-  counter-increment:diagnostic;border:1px solid rgba(182,195,173,.19);border-radius:4px;
-  background:linear-gradient(180deg,rgba(var(--panel-accent),.035),transparent 68%),rgba(22,25,21,.93);
-  box-shadow:inset 0 1px 0 rgba(var(--panel-accent),.28);
+  counter-increment:diagnostic;border:0;border-radius:4px;
+  background:linear-gradient(180deg,rgba(var(--panel-accent),.045),transparent 68%),rgba(22,25,21,.93);
+  box-shadow:none;
   color:#b0afa2;font-size:.74rem;line-height:1.48;font-weight:400;
   transition:border-color .2s ease;
 }
@@ -722,7 +722,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   content:"";position:absolute;right:var(--panel-inset);top:20px;
   width:17px;height:1px;background:rgba(var(--panel-accent),.4);pointer-events:none;
 }
-.dark-list .diagnostic-copy { display:grid;grid-template-rows:54px 1fr;gap:0;flex:1;min-width:0; }
+.dark-list .diagnostic-copy { display:grid;grid-template-rows:44px 1fr;gap:0;flex:1;min-width:0; }
 .dark-list .diagnostic-heading { min-width:0; }
 .dark-list li strong {
   display:block;font-size:.81rem;font-weight:600;line-height:1.28;
@@ -730,7 +730,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 }
 .dark-list .diagnostic-meta { display:block;margin-top:4px;color:#8f9988;font-size:.64rem;line-height:1.3;font-weight:400;letter-spacing:.005em; }
 .dark-list li:nth-child(2) .diagnostic-meta { color:#aa9985; }
-.dark-list .diagnostic-detail { display:block;padding-top:10px;border-top:1px solid rgba(var(--panel-accent),.16);color:#aaa99e;font-size:.74rem;line-height:1.48;font-weight:400; }
+.dark-list .diagnostic-detail { display:block;padding-top:8px;border-top:1px solid rgba(var(--panel-accent),.16);color:#aaa99e;font-size:.74rem;line-height:1.48;font-weight:400; }
 .dark-actions { width:var(--text-w);margin-top:1rem;display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap; }
 .dark-actions .dark-btn { flex:none; }
 .dark-actions .actions-note { flex:1;min-width:240px; }
@@ -781,7 +781,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 }
 .signal-motion:hover { border-color:#7e9d80;color:#c5d2b5;background-color:rgba(111,155,112,.055); }
 @media(hover:hover) {
-  .dark-list li:hover { border-color:rgba(var(--panel-accent),.32); }
+  .dark-list li:hover { background:linear-gradient(180deg,rgba(var(--panel-accent),.08),transparent 68%),rgba(22,25,21,.93); }
 }
 a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);outline-offset:4px; }
 @media(min-width:901px) and (max-height:800px) {
@@ -796,7 +796,7 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   .dark-list li { --panel-inset:12px;padding:12px var(--panel-inset);gap:9px;font-size:.715rem;line-height:1.43; }
   .dark-list li::before { font-size:9px;margin:0; }
   .dark-list li::after { top:17px; }
-  .dark-list .diagnostic-copy { grid-template-rows:50px 1fr; }
+  .dark-list .diagnostic-copy { grid-template-rows:42px 1fr; }
   .dark-list li strong { font-size:.77rem;line-height:1.28;margin:0; }
   .dark-list .diagnostic-meta { font-size:.625rem;line-height:1.28;margin-top:3px; }
   .dark-list .diagnostic-detail { padding-top:8px;font-size:.715rem;line-height:1.43; }
