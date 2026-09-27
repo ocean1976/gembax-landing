@@ -172,6 +172,21 @@ header{position:sticky;top:0;z-index:20;background:rgba(250,249,246,0.9);backdro
 .nda.open .nda-body{display:block;}
 .nda-body ol{padding-left:1.1rem;margin-top:0.2rem;}
 .nda-body li{margin-bottom:0.2rem;}
+.apform{gap:0.5rem;padding:1.2rem 1.1rem;}
+.fhead{display:flex;flex-direction:column;gap:0.2rem;padding-bottom:0.75rem;margin-bottom:0.15rem;border-bottom:1px solid var(--border2);}
+.fhead b{font-size:1.05rem;color:var(--navy);}
+.fhead span{font-size:0.8rem;color:var(--text2);line-height:1.5;}
+.fsec{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-top:0.55rem;}
+.flabel{font-size:0.86rem;font-weight:600;color:var(--navy);margin-top:0.2rem;}
+.flabel small{font-weight:400;color:var(--text2);font-size:0.74rem;}
+.chipset{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.fchip{background:var(--bg);border:1.5px solid var(--border2);border-radius:99px;padding:0.5rem 0.9rem;font-family:var(--body);font-size:0.86rem;color:var(--navy);cursor:pointer;transition:border-color .15s,background .15s;-webkit-tap-highlight-color:transparent;}
+@media(hover:hover){.fchip:hover{border-color:var(--navy);}}
+.fchip.on{background:#EAF6EC;border-color:#3fa34d;color:#1f5f2a;font-weight:600;}
+.fwarn{display:none;font-size:0.76rem;line-height:1.5;color:#8a5a12;background:#FFF6E5;border:1px solid #F1D9A8;border-radius:10px;padding:0.55rem 0.75rem;}
+.fwarn.on{display:block;}
+.fform textarea{background:var(--bg);border:1.5px solid var(--border2);border-radius:12px;padding:0.75rem 1rem;color:var(--navy);font-family:var(--body);font-size:0.95rem;width:100%;outline:none;resize:vertical;min-height:3.2rem;line-height:1.45;transition:border-color .15s;}
+.fform textarea:focus{border-color:var(--green);}
 .sendbtn{background:#4ade80;color:#1A1916;border:none;border-radius:12px;padding:0.9rem;font-family:var(--body);
   font-weight:700;font-size:1rem;cursor:pointer;transition:background .15s;box-shadow:0 6px 18px rgba(74,222,128,0.25);}
 .sendbtn:hover{background:#3fd074;}
@@ -1286,13 +1301,13 @@ var LXA = {
   ctaAsk:'Bu konuyu işletmenizde ayrıntılı incelememizi ister misiniz? Başvurunuzu bırakın; kapsamı ve fiyatı 24 saat içinde yazılı olarak iletelim.',
   applyChip:'Detaylı teşhis başvurusu →', mailChip:'Şimdi değil, sonucu e-postama gönder',
   applyEcho:'Detaylı teşhis istiyorum', mailChipEcho:'Sonucu e-postama gönder',
-  applyIntro:'Şimdilik birkaç temel bilgi yeterli. Ekibiniz ve süreç ayrıntıları ödemeden sonra netleşir.',
-  formHint:'Başvuru · 1 dakika', phName:'Ad Soyad', phCo:'Şirket adı', phMail:'İş e-postanız', phWeb:'Web sitesi veya LinkedIn (opsiyonel)',
+  applyIntro:'Teşekkürler. Son adım iletişim bilgileriniz; ekibiniz ve süreç ayrıntıları ödemeden sonra netleşir.',
+  formHint:'Başvuru formu · 1 dakika', phName:'Ad Soyad', phCo:'Şirket adı', phMail:'İş e-postanız', phWeb:'Web sitesi veya LinkedIn (opsiyonel)',
   nErr:'Adınızı ve soyadınızı birlikte yazın (rakam olmadan, ör. Ayşe Yılmaz)', mErr:'E-posta adresinizi kontrol edin (ör. ad@sirketiniz.com)',
   ndaH:'Paylaştığınız bilgiler gizli tutulur',
   nda:['Bilgileriniz sadece sizin için yapılacak analiz amacıyla kullanılır.','3. taraflarla paylaşılmaz, satılmaz, ifşa edilmez.','Yazılı izniniz olmadan şirket adınız referans olarak yayınlanmaz.','Bilgiler 3 yıl saklanır; istediğiniz an silme talep edebilirsiniz.','Silme talebi 30 iş günü içinde işleme alınır. Yetkili: murat@gembax.ai'],
   consent:'Yukarıdaki Gizlilik Taahhüdü\'nü (NDA) okudum; cevaplarımın ve iletişim bilgilerimin başvurumu değerlendirmek amacıyla işlenmesini kabul ediyorum. <a href="%P%" target="_blank">KVKK / Gizlilik politikası</a>',
-  sendApply:'Başvuruyu Gönder →', fnote:'Zorunlu: ad ve soyad, şirket, geçerli iş e-postası ve onay kutusu.', sending:'Gönderiliyor...',
+  sendApply:'Başvuruyu Gönder →', fnote:'Zorunlu: rol, çalışan sayısı, ciro aralığı, ad soyad, şirket, iş e-postası ve onay kutusu.', sending:'Gönderiliyor...',
   appliedEcho:'%C% adına başvuru gönderildi',
   confirm:'<strong>Başvurunuz alındı.</strong> Cevaplarınızı uzmanımız inceleyecek; kapsam ve fiyat <strong>24 saat içinde</strong> %M% adresine yazılı olarak gelecek. Kapsam netleşmeden ödeme alınmaz.',
   afterH:'Bundan sonra ne olacak',
@@ -1324,13 +1339,13 @@ var LXA = {
   ctaAsk:'Would you like this investigated in depth in your business? Let me take your application; the scope and exact price will be confirmed in writing within 24 hours.',
   applyChip:'Apply for detailed diagnosis →', mailChip:'Not now, email me the result',
   applyEcho:'I want the detailed diagnosis', mailChipEcho:'Email me the result',
-  applyIntro:'A few short details are enough. Project contacts and process details are settled with the question set prepared after payment; I am not asking for them now.',
-  formHint:'Application · 1 minute', phName:'Full name', phCo:'Company name', phMail:'Work email', phWeb:'Website or LinkedIn (optional)',
+  applyIntro:'Thank you. The last step is your contact details; your team and process details are settled after payment.',
+  formHint:'Application form · 1 minute', phName:'Full name', phCo:'Company name', phMail:'Work email', phWeb:'Website or LinkedIn (optional)',
   nErr:'Enter your first and last name together (no digits, e.g. Jane Smith)', mErr:'Check your email address (e.g. name@yourcompany.com)',
   ndaH:'What you share is treated as a trade secret',
   nda:['Your information is used solely for the analysis performed for you.','It is never shared with, sold to or disclosed to third parties.','Your company name is never published as a reference without written consent.','Information is kept for 3 years; you can request deletion at any time.','Deletion requests are processed within 30 business days. Contact: murat@gembax.ai'],
   consent:'I have read the Confidentiality Commitment (NDA) above; I consent to my answers and contact details being processed to evaluate my application. <a href="%P%" target="_blank">Privacy policy</a>',
-  sendApply:'Send Application →', fnote:'Required: full name, company, a valid work email and the consent box.', sending:'Sending...',
+  sendApply:'Send Application →', fnote:'Required: role, employees, revenue range, full name, company, work email and the consent box.', sending:'Sending...',
   appliedEcho:'Application sent for %C%',
   confirm:'<strong>Application received.</strong> Your scan answers will be reviewed by our PhD-level analyst; the scope and exact price will arrive in writing at %M% <strong>within 24 hours</strong>. No payment is taken before the scope is confirmed in writing.',
   afterH:'What happens next',
@@ -1362,13 +1377,13 @@ var LXA = {
   ctaAsk:'¿Quiere que esto se investigue a fondo en su empresa? Registro su solicitud; el alcance y el precio exacto se confirman por escrito en 24 horas.',
   applyChip:'Solicitar diagnóstico detallado →', mailChip:'Ahora no, envíenme el resultado',
   applyEcho:'Quiero el diagnóstico detallado', mailChipEcho:'Envíenme el resultado',
-  applyIntro:'Bastan unos pocos datos. Las personas del proyecto y los detalles del proceso se definen con el cuestionario preparado tras el pago; no los pido ahora.',
-  formHint:'Solicitud · 1 minuto', phName:'Nombre y apellidos', phCo:'Nombre de la empresa', phMail:'Correo de trabajo', phWeb:'Sitio web o LinkedIn (opcional)',
+  applyIntro:'Gracias. El último paso son sus datos de contacto; su equipo y los detalles del proceso se definen tras el pago.',
+  formHint:'Formulario de solicitud · 1 minuto', phName:'Nombre y apellidos', phCo:'Nombre de la empresa', phMail:'Correo de trabajo', phWeb:'Sitio web o LinkedIn (opcional)',
   nErr:'Escriba nombre y apellido juntos (sin números, ej. Ana García)', mErr:'Revise su correo (ej. nombre@suempresa.com)',
   ndaH:'Lo que comparte se trata como secreto comercial',
   nda:['Su información se usa únicamente para el análisis realizado para usted.','Nunca se comparte, vende ni divulga a terceros.','Su nombre de empresa nunca se publica como referencia sin permiso escrito.','La información se conserva 3 años; puede pedir su borrado en cualquier momento.','Las solicitudes de borrado se procesan en 30 días hábiles. Contacto: murat@gembax.ai'],
   consent:'He leído el Compromiso de Confidencialidad (NDA); acepto que mis respuestas y datos de contacto se procesen para evaluar mi solicitud. <a href="%P%" target="_blank">Política de privacidad</a>',
-  sendApply:'Enviar Solicitud →', fnote:'Obligatorio: nombre y apellido, empresa, correo válido y la casilla de consentimiento.', sending:'Enviando...',
+  sendApply:'Enviar Solicitud →', fnote:'Obligatorio: rol, empleados, facturación, nombre y apellido, empresa, correo y la casilla de consentimiento.', sending:'Enviando...',
   appliedEcho:'Solicitud enviada por %C%',
   confirm:'<strong>Solicitud recibida.</strong> Nuestro analista con doctorado revisará sus respuestas; el alcance y el precio exacto llegarán por escrito a %M% <strong>en 24 horas</strong>. No se cobra nada antes de confirmar el alcance por escrito.',
   afterH:'Qué sigue ahora',
@@ -1439,7 +1454,7 @@ function showOpts(q, onPick, anchor, qid){
   var block = document.createElement('div'); block.className = 'optblock';
   var top = document.createElement('div'); top.className = 'opt-top';
   top.innerHTML = '<span class="opt-hint">' + L.touch + '</span>';
-  if (hist.length){
+  if (hist.length && !q.raw){
     var u = document.createElement('button'); u.className = 'undo'; u.textContent = L.undo;
     u.onclick = doUndo; top.appendChild(u);
   }
@@ -1451,7 +1466,7 @@ function showOpts(q, onPick, anchor, qid){
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'opt';
     var lead = isSector && ICONS[i] ? '<span class="ico">' + ICONS[i] + '</span>' : '<span class="k">' + (i+1) + '</span>';
-    var lblTxt = (qid === 'pain2') ? op[0] : qO(qid, i);
+    var lblTxt = (qid === 'pain2' || q.raw) ? op[0] : qO(qid, i);
     b.innerHTML = lead + '<span class="lbl">' + lblTxt + '</span><span class="radio"></span>';
     b.onclick = function(){ if (busy) return; busy = true; holdScroll = true; b.classList.add('picked'); block.classList.add('leaving'); setTimeout(function(){ onPick(i); }, 170); };
     box.appendChild(b);
@@ -1729,6 +1744,10 @@ function submit(payload, cb){
     email: ap.email || eo.email || '',
     sirket: ap.company || '',
     web: ap.web || '',
+    rol: ap.role || '',
+    calisan: ap.employees || '',
+    ciro: ap.revenue || '',
+    sorun_ozeti: ap.note || '',
     paket: paket,
     tur: payload.apply ? 'basvuru' : 'sadece-eposta',
     ref: ref,
@@ -1764,11 +1783,50 @@ function sendFail(sb, label){
   box.innerHTML = L.sendErr; box.classList.add('on');
 }
 
+/* ═══════════ BAŞVURU ÖNCESİ KISA PROFİL (4 soru) ═══════════ */
+var APQ = {
+  tr:{ role:{t:'Şirketteki rolünüz nedir?', o:['Sahip / Genel müdür','Operasyon veya üretim yöneticisi','Finans yöneticisi','Diğer']},
+       emp:{t:'Şirketinizde kaç kişi çalışıyor?', o:['1–20','21–50','51–200','201–500','500+']},
+       rev:{t:'Yıllık ciro aralığınız nedir?', h:'Kapsamı ve garantinin uygunluğunu değerlendirmek için. Bu bilgi kimseyle paylaşılmaz.', o:['500 bin $ altı','0,5–2 milyon $','2–10 milyon $','10 milyon $ üstü','Belirtmek istemiyorum'],
+            low:'Not: 500 bin $ altı cirolarda 15.000 $ kayıp garantisini her zaman veremeyebiliriz. Başvurunuzu yine değerlendiririz; teklifte bunu açıkça belirtiriz.'},
+       note:{t:'Son olarak, sorunu bir cümleyle anlatır mısınız?', h:'İsteğe bağlı. Kendi cümlenizle yazmanız analizi hızlandırır.', ph:'Örn. Siparişler 6 aydır gecikiyor.', go:'Devam →', skip:'Geç', skipEcho:'Şimdilik geçiyorum'} },
+  en:{ role:{t:'What is your role in the company?', o:['Owner / Managing director','Operations or production manager','Finance manager','Other']},
+       emp:{t:'How many people work at your company?', o:['1–20','21–50','51–200','201–500','500+']},
+       rev:{t:'What is your annual revenue range?', h:'To assess the scope and whether the guarantee applies. This is never shared.', o:['Under $500K','$0.5–2M','$2–10M','Over $10M','Prefer not to say'],
+            low:'Note: below $500K in revenue we cannot always offer the $15,000 loss guarantee. We will still review your application and state this clearly in the proposal.'},
+       note:{t:'Finally, could you describe the problem in one sentence?', h:'Optional. Writing it in your own words speeds up the analysis.', ph:'E.g. Orders have been late for 6 months.', go:'Continue →', skip:'Skip', skipEcho:'Skipping for now'} },
+  es:{ role:{t:'¿Cuál es su rol en la empresa?', o:['Dueño / Director general','Gerente de operaciones o producción','Gerente financiero','Otro']},
+       emp:{t:'¿Cuántas personas trabajan en su empresa?', o:['1–20','21–50','51–200','201–500','500+']},
+       rev:{t:'¿Cuál es su rango de facturación anual?', h:'Para evaluar el alcance y si aplica la garantía. Nunca se comparte.', o:['Menos de 500 mil $','0,5–2 millones $','2–10 millones $','Más de 10 millones $','Prefiero no decirlo'],
+            low:'Nota: con una facturación inferior a 500 mil $ no siempre podemos ofrecer la garantía de 15.000 $ de pérdida. Aun así revisaremos su solicitud y lo indicaremos claramente en la propuesta.'},
+       note:{t:'Por último, ¿puede describir el problema en una frase?', h:'Opcional. Escribirlo con sus propias palabras agiliza el análisis.', ph:'Ej. Los pedidos llevan 6 meses con retraso.', go:'Continuar →', skip:'Omitir', skipEcho:'Lo omito por ahora'} }
+};
+var apx = {};
+/* Form başlıkları */
+var APF = {
+  tr:{ title:'Detaylı teşhis başvurusu', sub:'Kapsam ve fiyat 24 saat içinde yazılı olarak gelir. Ödeme bundan önce alınmaz.', sCo:'Şirketiniz', sProb:'Sorun', sCon:'İletişim', role:'Rolünüz', emp:'Çalışan sayısı', rev:'Yıllık ciro', revH:'Kapsam ve garanti için; kimseyle paylaşılmaz.', note:'Sorunu bir cümleyle anlatın', opt:'isteğe bağlı' },
+  en:{ title:'Detailed diagnostic application', sub:'Scope and price arrive in writing within 24 hours. No payment before that.', sCo:'Your company', sProb:'The problem', sCon:'Contact', role:'Your role', emp:'Number of employees', rev:'Annual revenue', revH:'For scope and the guarantee; never shared.', note:'Describe the problem in one sentence', opt:'optional' },
+  es:{ title:'Solicitud de diagnóstico detallado', sub:'El alcance y el precio llegan por escrito en 24 horas. No se cobra antes.', sCo:'Su empresa', sProb:'El problema', sCon:'Contacto', role:'Su rol', emp:'Número de empleados', rev:'Facturación anual', revH:'Para el alcance y la garantía; nunca se comparte.', note:'Describa el problema en una frase', opt:'opcional' }
+};
+function chipSet(id, opts){ return '<div class="chipset" id="' + id + '" role="radiogroup">' + opts.map(function(o, i){ return '<button type="button" class="fchip" role="radio" aria-checked="false" data-i="' + i + '">' + o + '</button>'; }).join('') + '</div>'; }
+
 function showApplyForm(code){
-  say(L.applyIntro, {delay:650, then:function(){
+  var A = APQ[lang] || APQ.tr, F = APF[lang] || APF.tr;
+  apx = {};
+  typing(420, function(){
     var block = showForm(
       '<div class="opt-top"><span class="opt-hint">' + L.formHint + '</span></div>' +
-      '<div class="fform">' +
+      '<div class="fform apform">' +
+      '<div class="fhead"><b>' + F.title + '</b><span>' + F.sub + '</span></div>' +
+      '<div class="fsec">' + F.sCo + '</div>' +
+      '<div class="flabel">' + F.role + '</div>' + chipSet('cRole', A.role.o) +
+      '<div class="flabel">' + F.emp + '</div>' + chipSet('cEmp', A.emp.o) +
+      '<div class="flabel">' + F.rev + ' <small>' + F.revH + '</small></div>' + chipSet('cRev', A.rev.o) +
+      '<div class="fwarn" id="revLow">' + A.rev.low + '</div>' +
+      '<div class="fsec">' + F.sProb + '</div>' +
+      '<div class="flabel">' + F.note + ' <small>(' + F.opt + ')</small></div>' +
+      '<textarea id="apNote" rows="2" maxlength="240" placeholder="' + A.note.ph + '"></textarea>' +
+      '<div class="fsec">' + F.sCon + '</div>' +
       '<input type="text" id="fName" placeholder="' + L.phName + '" autocomplete="name">' +
       '<div class="ferr" id="nErr">' + L.nErr + '</div>' +
       '<input type="text" id="fCo" placeholder="' + L.phCo + '" autocomplete="organization">' +
@@ -1793,13 +1851,28 @@ function showApplyForm(code){
       c.classList.toggle('ok', c.value.trim().length >= 2);
       var mv = /.+@.+\..+/.test(m.value); m.classList.toggle('ok', mv);
       document.getElementById('fErr').classList.toggle('on', m.value.trim().length > 0 && !mv);
-      sb.disabled = !(nv && c.value.trim().length >= 2 && mv && ok.checked);
+      sb.disabled = !(nv && c.value.trim().length >= 2 && mv && ok.checked && apx.role && apx.emp && apx.rev);
     }
+    [['cRole','role'],['cEmp','emp'],['cRev','rev']].forEach(function(g){
+      var box = document.getElementById(g[0]);
+      box.addEventListener('click', function(e){
+        var bt = e.target.closest('.fchip'); if (!bt) return;
+        box.querySelectorAll('.fchip').forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-checked','false'); });
+        bt.classList.add('on'); bt.setAttribute('aria-checked','true');
+        var i = +bt.getAttribute('data-i');
+        apx[g[1]] = { i:i, label:A[g[1]].o[i], tr:APQ.tr[g[1]].o[i] };
+        if (g[1] === 'rev') document.getElementById('revLow').classList.toggle('on', i === 0);
+        box.classList.remove('miss');
+        chk();
+      });
+    });
     [n,c,m].forEach(function(x){ x.addEventListener('input', chk); }); ok.addEventListener('change', chk);
     sb.onclick = function(){
       sb.disabled = true; sb.textContent = L.sending;
+      apx.note = (document.getElementById('apNote').value || '').trim();
       var packet = JSON.parse(localStorage.getItem('gembax-prescan') || '{}');
-      packet.apply = { name:n.value.trim(), company:c.value.trim(), email:m.value.trim(), web:(document.getElementById('fWeb').value||'').trim(), tier:code };
+      packet.apply = { name:n.value.trim(), company:c.value.trim(), email:m.value.trim(), web:(document.getElementById('fWeb').value||'').trim(), tier:code,
+        role:(apx.role ? apx.role.tr : ''), employees:(apx.emp ? apx.emp.tr : ''), revenue:(apx.rev ? apx.rev.tr : ''), note:(apx.note || '') };
       try { localStorage.setItem('gembax-prescan', JSON.stringify(packet)); } catch(e){}
       submit(packet, function(ok){
         if (!ok){ sendFail(sb, L.sendApply); return; }
@@ -1813,7 +1886,7 @@ function showApplyForm(code){
         }});
       });
     };
-  }});
+  });
 }
 
 function showEmailForm(){
