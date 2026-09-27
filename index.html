@@ -674,9 +674,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 .dark-rail { z-index:3; }
 .dark-main {
   position:relative;z-index:2;width:100%;max-width:1780px;min-height:100vh;min-height:100svh;
-  margin-inline:auto;padding:130px clamp(30px,4.7vw,94px) 52px;
+  margin-inline:auto;padding:130px clamp(28px,3.4vw,64px) 52px clamp(24px,2.6vw,52px);
   display:flex;flex-direction:column;justify-content:center;
-  --text-w:54%;overflow-wrap:normal;pointer-events:none;
+  --text-w:49%;overflow-wrap:normal;pointer-events:none;
 }
 .dark-headline,.dark-para,.dark-list,.dark-actions { pointer-events:auto; }
 .binary-hero-head { display:block;width:var(--text-w); }
@@ -697,14 +697,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 .dark-para .tagline { font-size:.59rem;line-height:1.7;font-weight:500;letter-spacing:.12em;margin-top:.9rem; }
 .dark-list { margin-top:.9rem;font-size:.75rem;line-height:1.5;color:#aaa698; }
 .dark-list p { margin-bottom:.75rem;font-size:.77rem;line-height:1.55;color:#b8b5a8;max-width:78ch; }
-.dark-list ul { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:10px;counter-reset:diagnostic; }
+.dark-list ul { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:28px;counter-reset:diagnostic; }
 .dark-list li {
   --panel-accent:143,180,133;
-  --panel-inset:14px;
+  --panel-inset:0px;
   position:relative;display:flex;flex-direction:column;align-items:stretch;
   gap:12px;min-width:0;padding:15px var(--panel-inset);margin:0;
   counter-increment:diagnostic;border:0;border-radius:4px;
-  background:linear-gradient(180deg,rgba(var(--panel-accent),.045),transparent 68%),rgba(22,25,21,.93);
+  background:none;
+  border:0;
   box-shadow:none;
   color:#b0afa2;font-size:.74rem;line-height:1.48;font-weight:400;
   transition:border-color .2s ease;
@@ -745,7 +746,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 .dark-scroll::after { height:23px; }
 .dark-rail .rail-label { top:137px;font-size:.71rem; }
 .signal-field {
-  position:absolute;z-index:1;left:50%;right:-5%;top:70px;bottom:14px;
+  position:absolute;z-index:1;left:41%;right:-5%;top:70px;bottom:14px;
   margin:0;pointer-events:none;min-width:0;contain:layout paint;
 }
 #heroRadar {
@@ -781,19 +782,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 }
 .signal-motion:hover { border-color:#7e9d80;color:#c5d2b5;background-color:rgba(111,155,112,.055); }
 @media(hover:hover) {
-  .dark-list li:hover { background:linear-gradient(180deg,rgba(var(--panel-accent),.08),transparent 68%),rgba(22,25,21,.93); }
+  .dark-list li:hover { background:none; }
 }
 a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);outline-offset:4px; }
 @media(min-width:901px) and (max-height:800px) {
-  .dark-main { padding-top:112px;padding-bottom:30px;--text-w:56%; }
+  .dark-main { padding-top:112px;padding-bottom:30px;--text-w:51%; }
   .dark-title { font-size:clamp(1.85rem,2.5vw,2.6rem); }
   .dark-sub { font-size:clamp(1.03rem,1.32vw,1.3rem);line-height:1.35; }
   .dark-para { font-size:.82rem;line-height:1.56;margin-top:.9rem; }
   .dark-para .tagline { font-size:.57rem;margin-top:.7rem; }
   .dark-list { font-size:.73rem;line-height:1.5;margin-top:.65rem; }
   .dark-list p { font-size:.74rem;margin-bottom:.6rem; }
-  .dark-list ul { gap:8px; }
-  .dark-list li { --panel-inset:12px;padding:12px var(--panel-inset);gap:9px;font-size:.715rem;line-height:1.43; }
+  .dark-list ul { gap:22px; }
+  .dark-list li { --panel-inset:0px;padding:10px var(--panel-inset);gap:9px;font-size:.715rem;line-height:1.43; }
   .dark-list li::before { font-size:9px;margin:0; }
   .dark-list li::after { top:17px; }
   .dark-list .diagnostic-copy { grid-template-rows:42px 1fr; }
@@ -803,13 +804,14 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   .dark-actions { margin-top:.85rem;gap:1.1rem; }
   .dark-actions .tagline { font-size:.57rem; }
   .dark-actions .actions-note p { font-size:.74rem; }
-  .signal-field { left:52%;top:70px;bottom:0; }
+  .signal-field { left:43%;top:70px;bottom:0; }
 }
 @media(min-width:901px) and (max-width:1150px) {
-  .dark-main { padding-left:30px;padding-right:30px;--text-w:60%; }
+  .dark-main { padding-left:24px;padding-right:24px;--text-w:57%; }
   .dark-title { font-size:2rem; }
   .dark-sub { font-size:1.08rem; }
-  .signal-field { left:55%;right:-13%; }
+  .signal-field { left:46%;right:-4%; }
+  .dark-actions .actions-note { min-width:190px; }
   .signal-caption { right:26%;left:27%;font-size:8px; }
 }
 @media(max-width:900px) {
@@ -845,7 +847,7 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   .dark-para { font-size:.92rem; }
   .dark-list ul { grid-template-columns:1fr;gap:9px; }
   .dark-list p { margin-bottom:.75rem; }
-  .dark-list li { --panel-inset:14px;display:grid;grid-template-columns:24px minmax(0,1fr);gap:13px;padding:14px var(--panel-inset);font-size:.76rem; }
+  .dark-list li { --panel-inset:0px;display:grid;grid-template-columns:24px minmax(0,1fr);gap:13px;padding:14px var(--panel-inset);font-size:.76rem; }
   .dark-list li::before { grid-column:1;grid-row:1;align-self:start;position:static;font-size:9px;margin:2px 0 0; }
   .dark-list li::after { display:none; }
   .dark-list .diagnostic-copy { grid-column:2;grid-row:1;grid-template-rows:auto 1fr;gap:9px; }
@@ -986,7 +988,7 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
 </section>
 
 <div class="note-band fade-in">
-  <p><strong>Hangi analizle başlamalısınız?</strong> Kayıplarınızın nerede olduğunu henüz netleştirmediyseniz İsraf Röntgeni ile başlayabilirsiniz. Bulgular, darboğaz veya kök neden analizine ihtiyaç olup olmadığını değerlendirmeye yardımcı olur. Kararsızsanız <a href="on-tarama.html">3 dakikalık ücretsiz ön taramayı</a> tamamlayın. Sektörünüze ve yanıtlarınıza göre değişen 10 soru, hangi alana odaklanmanızın faydalı olabileceğini gösterir. Kayıpların parasal tutarı ayrıntılı analizde hesaplanır.</p>
+  <p><strong>Hangi analizle başlamalısınız?</strong> Kaybın nerede olduğunu henüz bilmiyorsanız İsraf Röntgeni ile başlayın; bulgular, darboğaz ya da kök neden analizine gerek olup olmadığını gösterir. Emin değilseniz <a href="on-tarama.html">3 dakikalık ücretsiz ön taramayı</a> yapın: sektörünüze göre değişen 11 soru, hangi alana odaklanmanız gerektiğini gösterir. Kaybın parasal tutarı ayrıntılı analizde hesaplanır.</p>
 </div>
 
 <!-- ===== 5b. GEMBA NEDİR ===== -->
@@ -1013,7 +1015,7 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   </div>
   <div class="steps fade-in">
     <div class="step"><div class="num">ADIM 1 · YAKLAŞIK 15 DK</div><h3>İşletmenizi ve sorununuzu anlatın</h3><p>İşleyişinizi, karşılaştığınız sorunu ve elinizdeki bilgileri paylaşın. Sorular yanıtlarınıza göre değişir; incelemenin hangi konulara odaklanacağını belirlememize yardımcı olur.</p></div>
-    <div class="step"><div class="num">ADIM 2 · UZMAN VE YAPAY ZEKÂ</div><h3>Bilgilerinizi inceleyelim</h3><p>Ödemeden sonra planlı ikinci bir yazılı oturumda (~30 dk) bilgileriniz derinleştirilir; toplantı gerekmez. Her vaka üç bakış açısından taranır · israf, kısıt, kök neden · ve seçtiğiniz analizde derinleşir. Yedi analiz merceği her bulguyu farklı bir soruyla test eder; skill kütüphanesi sektörünüze özgü israf kalıplarını arar. Ardından doktoralı uzman bulguları ve maliyet hesaplarını doğrular; gerektiğinde ekibinizden kısa bir teyit alır. Doğrulanmamış hiçbir rakam rapora girmez.</p></div>
+    <div class="step"><div class="num">ADIM 2 · UZMAN VE YAPAY ZEKÂ</div><h3>Bilgilerinizi inceleyelim</h3><p>Ödemeden sonra ikinci bir yazılı oturumda (~30 dk) bilgilerinizi birlikte derinleştiririz; toplantı gerekmez. Her vaka üç açıdan incelenir: israf, darboğaz ve asıl neden. Bulgular yedi farklı soruyla sınanır ve sektörünüzde sık görülen kayıp örnekleriyle karşılaştırılır. Ardından doktoralı uzman bulguları ve maliyet hesaplarını kontrol eder; gerekirse ekibinizden kısa bir teyit alır. Doğrulanmamış hiçbir rakam rapora girmez.</p></div>
     <div class="step"><div class="num">ADIM 3 · 7 İŞ GÜNÜ</div><h3>Raporunuzu ve önceliklerinizi görün</h3><p>Süre, ikinci oturum tamamlanıp verileriniz elimize geçince başlar. Kayıpların nerede oluştuğunu, tahmini maliyetini ve öncelik vermeniz önerilen adımları gösteren, uzmanımız tarafından değerlendirilip imzalanmış raporu alırsınız. Kullanılan veriler, hesaplama yöntemleri ve varsayımlar raporda açıklanır.</p></div>
   </div>
 </section>
@@ -1030,8 +1032,8 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   <div class="guarantee fade-in">
     <div>
       <div class="mono">Ücret Garantisi</div>
-      <h2 style="margin-top:0.5rem">Röntgen içeren üç kademede yıllık en az <mark>15.000 dolarlık</mark> kayıp gösteremezsek rapor ücretsiz.</h2>
-      <p>Raporda yıllık en az 15.000 dolarlık kaybı verilerle ortaya koyamazsak ücret iade edilir; tek koşul, yazılı kapsamda belirtilen asgari verinin paylaşılmasıdır. Hesaplamada kullanılan bilgileri, yöntemi ve varsayımları raporda açıklarız. Elde edilecek tasarruf ise uygulanacak adımlara ve bunların sonuçlarına bağlıdır.</p>
+      <h2 style="margin-top:0.5rem">Yılda en az <mark>15.000 dolarlık</mark> kayıp bulamazsak rapor ücretsiz.</h2>
+      <p>İsraf Röntgeni içeren tüm paketlerde geçerlidir: raporda yılda en az 15.000 dolarlık kaybı verilerle gösteremezsek ücretinizi iade ederiz. Tek koşul, başta birlikte belirlediğimiz temel verileri paylaşmanızdır. Hesapta kullanılan bilgileri, yöntemi ve varsayımları raporda açıkça yazarız. Ne kadar tasarruf edeceğiniz ise önerilen adımları uygulamanıza bağlıdır.</p>
     </div>
     <ul>
       <li>→ Çalışmanın kapsamı ve ödeme koşulları önceden yazılı olarak belirlenir.</li>
@@ -1564,13 +1566,13 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
     r3get: 'What you receive',
     r3li: ['The common root cause behind symptoms that look unrelated, with the evidence chain.', 'Whether your three highest-impact wastes trace to a single cause. If they do, which single intervention fixes all three.', 'A 90-day action plan: what, who, which week, measured by what.'],
     r3test: '<strong>Is this your problem?</strong>If you\'ve tried two different fixes for the same problem in the last two years, yes.', r3cta: 'Start with the free pre-scan →',
-    note: '<strong>Should you buy all three? No.</strong> Most businesses start with 01; the report tells you whether 02 or 03 is needed. Not sure where to start? The <a href="on-tarama.html">3-minute free pre-scan</a> tells you: ten questions, branched by your sector, no numbers, just routing.',
+    note: '<strong>Should you buy all three? No.</strong> Most businesses start with 01; the report tells you whether 02 or 03 is needed. Not sure where to start? The <a href="on-tarama.html">3-minute free pre-scan</a> tells you: 11 questions that adapt to your sector; no numbers, just direction.',
     gLabel: 'What Is Gemba', gTitle: 'Where the work <em>actually happens</em>',
     gP: ['<strong>Gemba</strong> is Japanese for "the real place": where the work is physically done. The production line, the loading dock, the order desk, the shipping gate.', 'Reports are written at desks; losses happen on the floor. However good a desk report is, if it was written without going to the floor, it\'s an assumption.', '<strong>GembaX</strong> takes its name from here: it grounds the diagnosis in floor reality, not management summaries. Questions go to you and your team; numbers are validated against answers from the floor.'],
     nLabel: 'How It Works', nTitle: 'Three steps from <em>diagnosis to action</em>', nDesc: 'All in writing. Not a single meeting lands on your calendar.',
     stepNum: ['STEP 1 · ~15 MIN', 'STEP 2 · EXPERT + AI', 'STEP 3 · 7 BUSINESS DAYS'],
     stepH: ['Written conversation', 'Validation and analysis', 'Signed report'],
-    stepP: ['You describe your operation in your own words. The questions branch with you; you never fill in meaningless fields.', 'After payment, a scheduled second written session (~30 min) deepens your inputs; no meeting needed. Every case is scanned from three perspectives · waste, constraint, root cause · and goes deep on the analysis you chose. Seven analytical lenses test each finding with a different question; the skill library searches for waste patterns specific to your sector. A PhD-level expert then validates the findings and cost calculations and, if needed, gets a short confirmation from your team. No unvalidated number enters the report.', 'The clock starts when the second session is complete and your data is in hand. Where, what it costs, what to touch first. The source and assumption behind every number, in writing. Signed by a human expert.'],
+    stepP: ['You describe your operation in your own words. The questions branch with you; you never fill in meaningless fields.', 'After payment, a scheduled second written session (~30 min) deepens your inputs; no meeting needed. Every case is examined from three angles: waste, bottleneck and root cause. Each finding is tested with seven different questions and compared with loss patterns common in your sector. A PhD-level expert then validates the findings and cost calculations and, if needed, gets a short confirmation from your team. No unvalidated number enters the report.', 'The clock starts when the second session is complete and your data is in hand. Where, what it costs, what to touch first. The source and assumption behind every number, in writing. Signed by a human expert.'],
     kLabel: 'Who It\'s For', kTitle: 'Any business <em>with a floor</em>',
     sectors: ['MANUFACTURING', 'LOGISTICS', 'DISTRIBUTION', 'SERVICES', 'RETAIL', 'SAAS / DIGITAL', 'SALES OPERATIONS'],
     gaLabel: 'Guarantee &amp; Honesty', gaTitle: 'If we can\'t demonstrate at least <mark>$15,000</mark> in annual leakage, the report is free.',
@@ -1609,13 +1611,13 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
     r3get: 'Lo que recibe',
     r3li: ['La causa raíz común detrás de síntomas que parecen no tener relación, con la cadena de evidencia.', 'Si sus tres desperdicios de mayor impacto se remontan a una sola causa. Si es así, qué única intervención resuelve los tres.', 'Un plan de acción de 90 días: qué, quién, qué semana, medido con qué.'],
     r3test: '<strong>¿Es este su problema?</strong>Si probó dos soluciones distintas para el mismo problema en los últimos dos años, sí.', r3cta: 'Empiece con el pre-escaneo gratuito →',
-    note: '<strong>¿Debe contratar los tres? No.</strong> La mayoría de las empresas empieza con 01; el informe dice si hace falta 02 o 03. ¿No sabe por dónde empezar? El <a href="on-tarama.html">pre-escaneo gratuito de 3 minutos</a> se lo dice: diez preguntas, ramificadas por sector, sin cifras, solo orientación.',
+    note: '<strong>¿Debe contratar los tres? No.</strong> La mayoría de las empresas empieza con 01; el informe dice si hace falta 02 o 03. ¿No sabe por dónde empezar? El <a href="on-tarama.html">pre-escaneo gratuito de 3 minutos</a> se lo dice: 11 preguntas que se adaptan a su sector; sin cifras, solo orientación.',
     gLabel: 'Qué es Gemba', gTitle: 'Donde el trabajo <em>realmente ocurre</em>',
     gP: ['<strong>Gemba</strong> es japonés para "el lugar real": donde el trabajo se hace físicamente. La línea de producción, el muelle de carga, la mesa de pedidos, la puerta de despacho.', 'Los informes se escriben en escritorios; las pérdidas ocurren en el piso. Por bueno que sea un informe de escritorio, si se escribió sin ir al piso, es una suposición.', '<strong>GembaX</strong> toma su nombre de ahí: basa el diagnóstico en la realidad del piso, no en resúmenes gerenciales. Las preguntas van a usted y a su equipo; las cifras se validan con las respuestas del piso.'],
     nLabel: 'Cómo Funciona', nTitle: 'Tres pasos del <em>diagnóstico a la acción</em>', nDesc: 'Todo por escrito. Ni una sola reunión cae en su calendario.',
     stepNum: ['PASO 1 · ~15 MIN', 'PASO 2 · EXPERTO + IA', 'PASO 3 · 7 DÍAS HÁBILES'],
     stepH: ['Conversación escrita', 'Validación y análisis', 'Informe firmado'],
-    stepP: ['Describe su operación con sus propias palabras. Las preguntas se ramifican con usted; nunca rellena campos sin sentido.', 'Tras el pago, una segunda sesión escrita programada (~30 min) profundiza en sus datos; sin reuniones. Cada caso se escanea desde tres perspectivas · desperdicio, restricción, causa raíz · y profundiza en el análisis que usted eligió. Siete lentes analíticas ponen a prueba cada hallazgo con una pregunta distinta; la biblioteca de skills busca patrones de desperdicio propios de su sector. Después, un experto con doctorado valida los hallazgos y los cálculos de coste y, si hace falta, obtiene una breve confirmación de su equipo. Ninguna cifra sin validar entra al informe.', 'El plazo empieza cuando se completa la segunda sesión y tenemos sus datos. Dónde, cuánto cuesta, qué tocar primero. La fuente y el supuesto de cada cifra, por escrito. Firmado por un experto humano.'],
+    stepP: ['Describe su operación con sus propias palabras. Las preguntas se ramifican con usted; nunca rellena campos sin sentido.', 'Tras el pago, una segunda sesión escrita programada (~30 min) profundiza en sus datos; sin reuniones. Cada caso se examina desde tres ángulos: desperdicio, cuello de botella y causa raíz. Cada hallazgo se pone a prueba con siete preguntas distintas y se compara con los patrones de pérdida habituales en su sector. Después, un experto con doctorado valida los hallazgos y los cálculos de coste y, si hace falta, obtiene una breve confirmación de su equipo. Ninguna cifra sin validar entra al informe.', 'El plazo empieza cuando se completa la segunda sesión y tenemos sus datos. Dónde, cuánto cuesta, qué tocar primero. La fuente y el supuesto de cada cifra, por escrito. Firmado por un experto humano.'],
     kLabel: 'Para Quién', kTitle: 'Cualquier empresa <em>con piso de operación</em>',
     sectors: ['MANUFACTURA', 'LOGÍSTICA', 'DISTRIBUCIÓN', 'SERVICIOS', 'RETAIL', 'SAAS / DIGITAL', 'OPERACIÓN COMERCIAL'],
     gaLabel: 'Garantía y Honestidad', gaTitle: 'Si no podemos demostrar al menos <mark>$15.000</mark> de fuga anual, el informe es gratis.',
