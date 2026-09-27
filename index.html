@@ -731,7 +731,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 .dark-list .diagnostic-meta { display:block;margin-top:4px;color:#8f9988;font-size:.64rem;line-height:1.3;font-weight:400;letter-spacing:.005em; }
 .dark-list li:nth-child(2) .diagnostic-meta { color:#aa9985; }
 .dark-list .diagnostic-detail { display:block;padding-top:10px;border-top:1px solid rgba(var(--panel-accent),.16);color:#aaa99e;font-size:.74rem;line-height:1.48;font-weight:400; }
-.dark-actions { width:var(--text-w);margin-top:1rem; }
+.dark-actions { width:var(--text-w);margin-top:1rem;display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap; }
+.dark-actions .dark-btn { flex:none; }
+.dark-actions .actions-note { flex:1;min-width:240px; }
+.dark-actions .tagline { display:block;font-family:var(--font-mono);font-size:.59rem;line-height:1.6;font-weight:500;letter-spacing:.12em;color:var(--mit-red);margin-bottom:.3rem; }
+.dark-actions .actions-note p { margin:0;font-family:var(--font-inter);font-size:.77rem;line-height:1.5;color:#b8b5a8;font-weight:400; }
 .dark-btn {
   padding:.84rem 1.35rem;font-size:.86rem;line-height:1.5;min-height:46px;
   border-radius:5px;letter-spacing:-.01em;
@@ -796,7 +800,9 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   .dark-list li strong { font-size:.77rem;line-height:1.28;margin:0; }
   .dark-list .diagnostic-meta { font-size:.625rem;line-height:1.28;margin-top:3px; }
   .dark-list .diagnostic-detail { padding-top:8px;font-size:.715rem;line-height:1.43; }
-  .dark-actions { margin-top:.85rem; }
+  .dark-actions { margin-top:.85rem;gap:1.1rem; }
+  .dark-actions .tagline { font-size:.57rem; }
+  .dark-actions .actions-note p { font-size:.74rem; }
   .signal-field { left:52%;top:70px;bottom:0; }
 }
 @media(min-width:901px) and (max-width:1150px) {
@@ -821,7 +827,8 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   .dark-list li { font-size:.76rem;line-height:1.5;margin:0; }
   .dark-list li strong { font-size:.82rem; }
   .dark-list .diagnostic-detail { font-size:.76rem;line-height:1.5; }
-  .dark-para .tagline { font-size:.6rem;letter-spacing:.065em; }
+  .dark-actions .tagline { font-size:.6rem;letter-spacing:.065em; }
+  .dark-actions .actions-note p { font-size:.8rem; }
 }
 @media(max-width:600px) {
   .dark-main { padding:112px 1.35rem 36px; }
@@ -895,21 +902,21 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
     <div class="binary-hero-head">
 <div class="dark-headline">
       <h1 class="dark-title">Operasyonel İsrafın Röntgeni</h1>
-      <h2 class="dark-sub">Değer üretmeyen her şey israf. Görünmeyen kayıpların size kaça mal olduğunu keşfedin.</h2>
+      <h2 class="dark-sub">Değer üretmeyen her şey israf. Görünmeyen kayıpların yılda kaç dolara mal olduğunu görün.</h2>
     </div>
 
 </div>
-    <p class="dark-para"><strong>Gemba<span>X</span></strong>, kuruluşunuzda değer yaratan süreçleri inceler, israf sinyallerini yakalar ve sorunların kök nedenlerini analiz eder. GembaX genel bir sohbet botu değildir. Uzman bilgisi ve saha deneyimiyle kurulan yapay zekâ destekli özgün teşhis iş akışı, her vakayı üç bakış açısı, yedi analiz merceği ve geniş bir skill kütüphanesiyle inceler; her bulguyu doktoralı uzman doğrular ve imzalar. Sonuç: danışmanlık kalitesinde bir analiz, haftalar değil günler içinde teslim edilir.<span class="tagline">DAHA ERİŞİLEBİLİR · DAHA ETKİN · DAHA HIZLI</span></p>
+    <p class="dark-para"><strong>Gemba<span>X</span></strong>, kuruluşunuzda değer yaratan süreçleri inceler, israf sinyallerini yakalar ve sorunların arkasındaki kök nedenleri analiz eder. Yapay zekâ destekli özgün teşhis iş akışı, büyük danışmanlık firmalarının kullandığı hipotez odaklı, MECE yapılı problem çözme yöntemiyle çalışır; üç bakış açısı, yedi analiz merceği ve geniş bir skill kütüphanesinden seçtiğiniz analize uygun olanları uygular. Her bulguyu doktoralı uzman doğrular ve imzalar. Kurumsal danışmanlık disiplininde bir analiz, o bütçenin küçük bir kesriyle, haftalar değil günler içinde.</p>
     <div class="dark-list">
-      <p>Operasyonunuza müşterinizin gözünden bakıyor, hangi işlerin gerçekten değer yarattığını belirliyoruz.</p>
       <ul>
-        <li><strong>İsraf Röntgeni:</strong> Zaman ve kaynak kaybettiren işleri ortaya çıkarıyor, bu kayıpların size kaç dolara mal olduğunu hesaplıyoruz.</li>
+        <li><strong>İsraf Röntgeni:</strong> Değer üretmeyen, zaman ve kaynak kaybettiren işlerin sinyallerini yakalıyoruz. Bu israfın size kaç dolara mal olduğunu gösteriyoruz.</li>
         <li><strong>Darboğaz tespiti (Kısıtlar Teorisi):</strong> İş akışınızı yavaşlatan ve operasyonunuzun toplam kapasitesini sınırlayan kritik noktayı buluyoruz.</li>
         <li><strong>Kök neden analizi ve 90 günlük aksiyon planı:</strong> Sorunların neden tekrarlandığını belirliyor, çözüm için hangi adımları hangi sırayla atmanız gerektiğini gösteriyoruz.</li>
       </ul>
     </div>
     <div class="dark-actions">
       <a href="on-tarama.html" class="dark-btn green">Ücretsiz Ön Taramayı Başlat · 3 dk →</a>
+      <div class="actions-note"><span class="tagline">DAHA ERİŞİLEBİLİR · DAHA ETKİN · DAHA HIZLI</span><p>Operasyonunuza müşterinizin gözünden bakıyor, hangi işlerin gerçekten değer yarattığını belirliyoruz.</p></div>
     </div>
   </div>
   <div class="dark-scroll">KAYDIR</div>
@@ -1491,7 +1498,7 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   var K = [
     ['navGemba', '.nav-links > a:nth-of-type(1)'], ['navMeth', '.nav-links > a:nth-of-type(2)'], ['navPrice', '.nav-links > a:nth-of-type(3)'], ['navCta', '.nav-cta'],
     ['rail', '.rail-label'], ['crumb', '.dark-crumb'], ['title', '.dark-title'], ['sub', '.dark-sub'], ['para', '.dark-para'],
-    ['listIntro', '.dark-list p'], ['listItems', '.dark-list li', 1], ['btn', '.dark-btn:not(.green)'], ['link', '.dark-btn.green'], ['scroll', '.dark-scroll'],
+    ['listIntro', '.dark-actions .actions-note p'], ['tagline', '.dark-actions .tagline'], ['listItems', '.dark-list li', 1], ['btn', '.dark-btn:not(.green)'], ['link', '.dark-btn.green'], ['scroll', '.dark-scroll'],
     ['introLabel', '#teshis .mono'], ['introTitle', '#teshis h2'], ['introDesc', '#teshis p'],
     ['r1num', '#teshis-01 .num'], ['r1h', '#teshis-01 h2'], ['r1body', '#teshis-01 .body'], ['r1get', '#teshis-01 .get-label'], ['r1li', '#teshis-01 li', 1], ['r1test', '#teshis-01 .test'], ['r1cta', '#teshis-01 .cta'],
     ['r2num', '#teshis-02 .num'], ['r2h', '#teshis-02 h2'], ['r2body', '#teshis-02 .body'], ['r2get', '#teshis-02 .get-label'], ['r2li', '#teshis-02 li', 1], ['r2test', '#teshis-02 .test'], ['r2cta', '#teshis-02 .cta'],
@@ -1511,7 +1518,7 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
       else { var el = document.querySelector(k[1]); if (el) o[k[0]] = el.innerHTML; }
     });
     o.viz = window.__VIZ; o.htmlLang = 'tr';
-    o.sub = 'Değer üretmeyen her şey israf. Görünmeyen kayıpların size kaça mal olduğunu keşfedin.';
+    o.sub = 'Değer üretmeyen her şey israf. Görünmeyen kayıpların yılda kaç dolara mal olduğunu görün.';
     return o;
   }
   var VIZ_EN = { rep: "REPRESENTATIVE VISUALIZATION",
@@ -1532,11 +1539,11 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
     navGemba: 'What Is Gemba', navMeth: 'Methodology', navPrice: 'Pricing', navCta: 'Free Pre-Scan',
     rail: 'Operational Diagnostics', crumb: '<span>GembaX</span><i>/</i>Operational Diagnostics',
     title: 'The X-Ray of Operational Waste',
-    sub: 'Everything that doesn\'t create value is waste. Discover what the losses you can\'t see are costing you.',
-    para: '<strong>Gemba<span>X</span></strong> examines the processes that create value in your organization, captures waste signals and analyzes the root causes behind its problems. GembaX is not a generic chatbot. An AI-assisted proprietary diagnostic workflow built on expert knowledge and field experience examines every case through three perspectives, seven analytical lenses and an extensive skill library; every finding is verified and signed by a PhD-level expert. The result: a consulting-grade analysis delivered in days, not weeks.<span class="tagline">MORE ACCESSIBLE · MORE EFFECTIVE · FASTER</span>',
+    sub: 'Everything that doesn\'t create value is waste. See what the losses you can\'t see cost you each year, in dollars.',
+    para: '<strong>Gemba<span>X</span></strong> examines the processes that create value in your organization, captures waste signals and analyzes the root causes behind its problems. Its AI-assisted proprietary diagnostic workflow applies the hypothesis-driven, MECE-structured problem-solving method used by the major consulting firms, drawing on three perspectives, seven analytical lenses and an extensive skill library as the analysis you choose requires. Every finding is verified and signed by a PhD-level expert. An analysis with the discipline of corporate consulting, at a small fraction of that budget, in days, not weeks.', tagline: 'MORE ACCESSIBLE · MORE EFFECTIVE · FASTER',
     listIntro: 'We look at your operation through your customer\'s eyes and identify which work truly creates value.',
     listItems: [
-      '<strong>Waste X-Ray:</strong> We surface the work that burns time and resources, and calculate what those losses cost you in dollars.',
+      '<strong>Waste X-Ray:</strong> We capture the signals of work that creates no value and burns time and resources, and show what that waste costs you in dollars.',
       '<strong>Bottleneck detection (Theory of Constraints):</strong> We find the critical point that slows your flow and caps your operation\'s total capacity.',
       '<strong>Root cause analysis and a 90-day action plan:</strong> We determine why problems keep recurring and show which steps to take, in what order.'],
     btn: 'Start Analysis →', link: 'Start the Free Pre-Scan · 3 min →', scroll: 'SCROLL',
@@ -1577,11 +1584,11 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
     navGemba: 'Qué es Gemba', navMeth: 'Metodología', navPrice: 'Precios', navCta: 'Pre-Escaneo Gratis',
     rail: 'Diagnóstico Operacional', crumb: '<span>GembaX</span><i>/</i>Diagnóstico Operacional',
     title: 'La Radiografía del Desperdicio Operacional',
-    sub: 'Todo lo que no crea valor es desperdicio. Descubra cuánto le cuestan las pérdidas que no ve.',
-    para: '<strong>Gemba<span>X</span></strong> examina los procesos que crean valor en su organización, capta las señales de desperdicio y analiza las causas raíz de sus problemas. GembaX no es un chatbot genérico. Un flujo de diagnóstico propio asistido por IA, construido sobre conocimiento experto y experiencia de campo, examina cada caso con tres perspectivas, siete lentes analíticas y una amplia biblioteca de skills; cada hallazgo es verificado y firmado por un experto con doctorado. El resultado: un análisis de calidad consultora entregado en días, no en semanas.<span class="tagline">MÁS ACCESIBLE · MÁS EFICAZ · MÁS RÁPIDO</span>',
+    sub: 'Todo lo que no crea valor es desperdicio. Vea cuánto le cuestan al año, en dólares, las pérdidas que no ve.',
+    para: '<strong>Gemba<span>X</span></strong> examina los procesos que crean valor en su organización, capta las señales de desperdicio y analiza las causas raíz detrás de sus problemas. Su flujo de diagnóstico propio asistido por IA aplica el método de resolución de problemas basado en hipótesis y estructurado en MECE que usan las grandes consultoras, recurriendo a tres perspectivas, siete lentes analíticas y una amplia biblioteca de habilidades según lo requiera el análisis que elija. Cada hallazgo es verificado y firmado por un experto con doctorado. Un análisis con la disciplina de la consultoría corporativa, por una pequeña fracción de ese presupuesto, en días, no semanas.', tagline: 'MÁS ACCESIBLE · MÁS EFICAZ · MÁS RÁPIDO',
     listIntro: 'Miramos su operación con los ojos de su cliente e identificamos qué trabajo crea valor de verdad.',
     listItems: [
-      '<strong>Radiografía del Desperdicio:</strong> Sacamos a la luz el trabajo que consume tiempo y recursos, y calculamos cuánto le cuestan esas pérdidas en dólares.',
+      '<strong>Radiografía del Desperdicio:</strong> Captamos las señales del trabajo que no crea valor y consume tiempo y recursos, y mostramos cuánto le cuesta ese desperdicio en dólares.',
       '<strong>Detección de cuellos de botella (Teoría de Restricciones):</strong> Encontramos el punto crítico que frena su flujo y limita la capacidad total de su operación.',
       '<strong>Análisis de causa raíz y plan de acción de 90 días:</strong> Determinamos por qué los problemas se repiten y mostramos qué pasos dar y en qué orden.'],
     btn: 'Iniciar Análisis →', link: 'Inicie el Pre-Escaneo Gratuito · 3 min →', scroll: 'DESPLACE',
@@ -1884,6 +1891,7 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   function buildRadar(dpr) {
     radarRatio=Math.min(dpr,1.5);
     radarNodes=[];radarLayers=[];
+    if(!(heroWidth>1&&heroHeight>1)){radarAmbient=null;radarComposite=null;radarCompositeCtx=null;return;}
     var count=Math.max(1500,Math.min(6200,Math.round(heroWidth*heroHeight/220)));
     for(var i=0;i<count;i++) {
       var rx=hash(i,12,5)*heroWidth,ry=hash(i,8,6)*heroHeight;
@@ -1937,7 +1945,7 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--green-bright);out
   }
   function drawRadar(t) {
     radarPasses=[];
-    if(!radarCtx||!radarLayers.length)return null;
+    if(!radarCtx||!radarLayers.length||!radarAmbient||!radarAmbient.width||!radarAmbient.height)return null;
     radarCtx.clearRect(0,0,heroWidth,heroHeight);radarCtx.globalAlpha=1;
     radarCtx.drawImage(radarAmbient,0,0,radarAmbient.width,radarAmbient.height,0,0,heroWidth,heroHeight);
     var sinceStart=t*1000-DELAY;
